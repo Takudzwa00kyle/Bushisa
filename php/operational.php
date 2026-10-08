@@ -199,6 +199,27 @@ function ensure_operational_schema(PDO $pdo): void
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
 
+    if (operational_table_exists($pdo, 'find_match_answers')) {
+        if (!operational_column_exists($pdo, 'find_match_answers', 'catalog_version')) {
+            $pdo->exec('ALTER TABLE find_match_answers ADD COLUMN catalog_version VARCHAR(40) NOT NULL DEFAULT "legacy_v0" AFTER question_key');
+        }
+        if (!operational_column_exists($pdo, 'find_match_answers', 'answer_json')) {
+            $pdo->exec('ALTER TABLE find_match_answers ADD COLUMN answer_json JSON NULL AFTER answer_value');
+        }
+        if (!operational_column_exists($pdo, 'find_match_answers', 'importance')) {
+            $pdo->exec('ALTER TABLE find_match_answers ADD COLUMN importance TINYINT UNSIGNED NOT NULL DEFAULT 2 AFTER answer_json');
+        }
+        if (!operational_column_exists($pdo, 'find_match_answers', 'fit_mode')) {
+            $pdo->exec('ALTER TABLE find_match_answers ADD COLUMN fit_mode VARCHAR(30) NOT NULL DEFAULT "similar" AFTER importance');
+        }
+        if (!operational_column_exists($pdo, 'find_match_answers', 'accepted_options_json')) {
+            $pdo->exec('ALTER TABLE find_match_answers ADD COLUMN accepted_options_json JSON NULL AFTER fit_mode');
+        }
+        if (!operational_column_exists($pdo, 'find_match_answers', 'needs_review')) {
+            $pdo->exec('ALTER TABLE find_match_answers ADD COLUMN needs_review TINYINT(1) NOT NULL DEFAULT 0 AFTER accepted_options_json');
+        }
+    }
+
     if (operational_table_exists($pdo, 'messages')) {
         if (!operational_column_exists($pdo, 'messages', 'unsent_at')) {
             $pdo->exec('ALTER TABLE messages ADD COLUMN unsent_at TIMESTAMP NULL');

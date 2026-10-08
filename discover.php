@@ -5,10 +5,11 @@ declare(strict_types=1);
 require_once __DIR__ . '/php/security_headers.php';
 require_once __DIR__ . '/php/session_manager.php';
 require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/php/csrf.php';
 require_once __DIR__ . '/php/db.php';
 require_once __DIR__ . '/php/function.php';
-require_once __DIR__ . '/php/block_handler.php';
 require_once __DIR__ . '/php/frontend.php';
+require_once __DIR__ . '/php/matching/service.php';
 
 require_login();
 
@@ -16,6 +17,7 @@ $currentUserId = (int) $_SESSION['user_id'];
 $preferences = get_preferences($pdo, $currentUserId);
 $candidates = [];
 $establishedMatches = [];
+$csrfToken = generate_csrf_token();
 
 $matchColumnsStatement = $pdo->query('SHOW COLUMNS FROM matches');
 $matchColumns = $matchColumnsStatement !== false ? $matchColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
@@ -50,77 +52,12 @@ $matchesStatement->execute([
 ]);
 $establishedMatches = $matchesStatement->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
-if ($preferences !== null && isset($preferences['preferred_gender'])) {
-    $preferredGender = (string) $preferences['preferred_gender'];
-    $ageRangeMin = isset($preferences['age_range_min']) ? (int) $preferences['age_range_min'] : 18;
-    $ageRangeMax = isset($preferences['age_range_max']) ? (int) $preferences['age_range_max'] : 30;
-    $preferredFaculty = isset($preferences['preferred_faculty']) ? (string) $preferences['preferred_faculty'] : 'Any';
-    $blockedUserIds = get_blocked_user_ids($pdo, $currentUserId);
-
-    $sql = <<<SQL
-SELECT
-    p.user_id,
-    p.display_name,
-    p.bio,
-    p.gender,
-    p.date_of_birth,
-    p.faculty,
-    p.year_of_study,
-    p.profile_photo_path,
-    TIMESTAMPDIFF(YEAR, p.date_of_birth, CURDATE()) AS age
-FROM profiles p
-INNER JOIN users u ON u.id = p.user_id
-WHERE p.user_id <> :exclude_user
-  AND u.is_suspended = 0
-  AND p.gender = :preferred_gender
-  AND p.date_of_birth IS NOT NULL
-  AND TIMESTAMPDIFF(YEAR, p.date_of_birth, CURDATE()) BETWEEN :age_min AND :age_max
-  AND NOT EXISTS (
-      SELECT 1
-      FROM swipes s
-      WHERE s.swiper_id = :swiper_user
-        AND s.swiped_id = p.user_id
-  )
-  AND NOT EXISTS (
-      SELECT 1
-      FROM matches m
-      WHERE (m.{$matchUserAColumn} = :match_user_a AND m.{$matchUserBColumn} = p.user_id)
-         OR (m.{$matchUserBColumn} = :match_user_b AND m.{$matchUserAColumn} = p.user_id)
-  )
-SQL;
-
-    $params = [
-        ':exclude_user' => $currentUserId,
-        ':swiper_user' => $currentUserId,
-        ':match_user_a' => $currentUserId,
-        ':match_user_b' => $currentUserId,
-        ':preferred_gender' => $preferredGender,
-        ':age_min' => $ageRangeMin,
-        ':age_max' => $ageRangeMax,
-    ];
-
-    if ($preferredFaculty !== 'Any' && $preferredFaculty !== '') {
-        $sql .= "\n  AND p.faculty = :preferred_faculty";
-        $params[':preferred_faculty'] = $preferredFaculty;
-    }
-
-    if ($blockedUserIds !== []) {
-        $blockedPlaceholders = [];
-        foreach (array_values($blockedUserIds) as $index => $blockedUserId) {
-            $placeholder = ':blocked_' . $index;
-            $blockedPlaceholders[] = $placeholder;
-            $params[$placeholder] = (int) $blockedUserId;
-        }
-        $sql .= "\n  AND p.user_id NOT IN (" . implode(', ', $blockedPlaceholders) . ')';
-    }
-
-    $sql .= "\nORDER BY RAND()\nLIMIT 10";
-    $statement = $pdo->prepare($sql);
-    $statement->execute($params);
-    $candidates = $statement->fetchAll(PDO::FETCH_ASSOC) ?: [];
+$candidateResult = matching_get_ranked_candidates($pdo, $currentUserId, ['limit' => 10]);
+if (($candidateResult['success'] ?? false) === true) {
+    $candidates = $candidateResult['data']['results'] ?? [];
 }
 
-render_page_shell_start('home', 'Bushisa', null, $currentUserId, true);
+render_page_shell_start('home', 'Bushisa', $csrfToken, $currentUserId, true);
 ?>
 <section class="matches-strip" aria-labelledby="matches-title">
     <h2 class="sr-only" id="matches-title">Established matches</h2>
@@ -181,6 +118,7 @@ render_page_shell_start('home', 'Bushisa', null, $currentUserId, true);
                             <p class="profile-card__meta"><?= e(implode(' · ', $meta)) ?></p>
                         <?php endif; ?>
                         <p class="profile-card__bio"><?= e($candidate['bio'] !== '' ? $candidate['bio'] : 'No bio added yet.') ?></p>
+                        <p class="field-help"><?= e($candidate['score_label'] ?? 'Limited questionnaire information') ?><?= isset($candidate['questionnaire_fit']) && $candidate['questionnaire_fit'] !== null ? ': ' . e($candidate['questionnaire_fit']) . '%' : '' ?></p>
                         <div class="card-actions">
                             <button class="discover-card__action discover-card__action--like" type="button" data-swipe-target="<?= e($candidate['user_id'] ?? '') ?>" data-swipe-direction="like">Like</button>
                             <button class="discover-card__action" type="button" data-swipe-target="<?= e($candidate['user_id'] ?? '') ?>" data-swipe-direction="pass">Pass</button>

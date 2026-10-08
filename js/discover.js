@@ -349,6 +349,9 @@
       if (typeof data.matched === 'boolean') {
         return data.matched;
       }
+      if (typeof data.match === 'boolean') {
+        return data.match;
+      }
     }
 
     return false;
@@ -615,7 +618,7 @@
     const response = await apiFetch(SWIPE_ENDPOINT, {
       method: 'POST',
       body: {
-        swiped_id: candidate.id,
+        target_id: candidate.id,
         direction
       }
     });

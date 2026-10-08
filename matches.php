@@ -5,14 +5,70 @@ declare(strict_types=1);
 require_once __DIR__ . '/php/security_headers.php';
 require_once __DIR__ . '/php/session_manager.php';
 require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/php/csrf.php';
 require_once __DIR__ . '/php/db.php';
 require_once __DIR__ . '/php/function.php';
+require_once __DIR__ . '/php/operational.php';
 require_once __DIR__ . '/php/frontend.php';
+require_once __DIR__ . '/php/matching/service.php';
 
 require_login();
+ensure_operational_schema($pdo);
 
 $currentUserId = (int) $_SESSION['user_id'];
 $matches = [];
+$recommendations = [];
+$formError = null;
+$formSuccess = null;
+$csrfToken = generate_csrf_token();
+$catalog = matching_questionnaire_catalog();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $submittedToken = isset($_POST['csrf_token']) && is_string($_POST['csrf_token']) ? $_POST['csrf_token'] : '';
+    if ($submittedToken === '' || !validate_csrf_token($submittedToken)) {
+        $formError = 'Invalid form token. Please refresh and try again.';
+    } else {
+        $answers = [];
+        foreach ($catalog as $key => $question) {
+            $answerKey = 'answer_' . $key;
+            $acceptedKey = 'accepted_' . $key;
+            $answers[$key] = [
+                'selected' => $_POST[$answerKey] ?? [],
+                'importance' => $_POST['importance_' . $key] ?? 2,
+                'fit_mode' => $_POST['fit_mode_' . $key] ?? 'similar',
+                'accepted_options' => $_POST[$acceptedKey] ?? [],
+            ];
+        }
+
+        $validation = matching_validate_answers_payload([
+            'catalog_version' => BUSHISA_QUESTIONNAIRE_VERSION,
+            'answers' => $answers,
+        ]);
+
+        if (!$validation['valid']) {
+            $formError = 'Some questionnaire answers need correction.';
+        } else {
+            $pdo->beginTransaction();
+            try {
+                matching_replace_answers($pdo, $currentUserId, $validation['answers']);
+                $pdo->commit();
+                $formSuccess = 'Questionnaire saved.';
+            } catch (Throwable $throwable) {
+                if ($pdo->inTransaction()) {
+                    $pdo->rollBack();
+                }
+                $formError = 'Unable to save questionnaire answers.';
+            }
+        }
+    }
+}
+
+$answersByUser = matching_load_answers($pdo, [$currentUserId]);
+$savedAnswers = $answersByUser[$currentUserId] ?? [];
+$recommendationResult = matching_get_ranked_candidates($pdo, $currentUserId, ['limit' => 12]);
+if (($recommendationResult['success'] ?? false) === true) {
+    $recommendations = $recommendationResult['data']['results'] ?? [];
+}
 
 $matchColumnsStatement = $pdo->query('SHOW COLUMNS FROM matches');
 $matchColumns = $matchColumnsStatement !== false ? $matchColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
@@ -65,34 +121,116 @@ $statement->execute([
 ]);
 $matches = $statement->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
-render_page_shell_start('find', 'Find Match', null, $currentUserId, false, 'Questionnaire compatibility and consent-aware match actions');
+render_page_shell_start('find', 'Find Match', $csrfToken, $currentUserId, false, 'Questionnaire fit and consent-aware match actions');
 ?>
 <section class="find-flow" aria-labelledby="find-title">
     <article class="find-card">
         <div class="find-progress" aria-label="Questionnaire progress">
-            <span class="is-active"></span>
-            <span class="is-active"></span>
-            <span></span>
-            <span></span>
+            <?php $progress = count($savedAnswers) / max(1, count($catalog)); ?>
+            <span class="<?= $progress > 0 ? 'is-active' : '' ?>"></span>
+            <span class="<?= $progress >= 0.25 ? 'is-active' : '' ?>"></span>
+            <span class="<?= $progress >= 0.50 ? 'is-active' : '' ?>"></span>
+            <span class="<?= $progress >= 0.75 ? 'is-active' : '' ?>"></span>
         </div>
         <h2 id="find-title">Search with intention</h2>
-        <p>Bushisa now has a baseline server-owned compatibility endpoint. Scores are deterministic profile/preference scores until the final questionnaire weights are approved.</p>
-        <div class="answer-grid" role="group" aria-label="Sample matching preferences">
-            <label class="answer-option">
-                <input type="checkbox" disabled>
-                <span>Relationship intent and preferred pace</span>
-            </label>
-            <label class="answer-option">
-                <input type="checkbox" disabled>
-                <span>Interests, social activity and communication style</span>
-            </label>
-            <label class="answer-option">
-                <input type="checkbox" disabled>
-                <span>Availability and faculty preferences</span>
-            </label>
-        </div>
-        <p class="field-help">Operational note: `api/find_match.php` exposes the first scored-results contract; this page still needs a richer interactive results view.</p>
+        <p>Answer the same versioned questionnaire as other students. Scores appear only when enough shared answers exist; otherwise Bushisa labels the result as limited information.</p>
+        <?php render_flash($formError, $formSuccess); ?>
+        <form method="post" class="questionnaire-form">
+            <?= csrf_input_field() ?>
+            <input type="hidden" name="catalog_version" value="<?= e(BUSHISA_QUESTIONNAIRE_VERSION) ?>">
+            <div class="answer-grid">
+                <?php foreach ($catalog as $key => $question): ?>
+                    <?php
+                    $saved = $savedAnswers[$key] ?? [];
+                    $selected = array_values(array_filter($saved['selected'] ?? [], 'is_string'));
+                    $accepted = array_values(array_filter($saved['accepted_options'] ?? [], 'is_string'));
+                    $isMulti = ($question['type'] ?? 'single') === 'multi';
+                    ?>
+                    <fieldset class="answer-option">
+                        <legend><?= e($question['label'] ?? $key) ?></legend>
+                        <div class="answer-option__choices">
+                            <?php foreach (($question['options'] ?? []) as $optionId): ?>
+                                <label>
+                                    <input
+                                        type="<?= $isMulti ? 'checkbox' : 'radio' ?>"
+                                        name="answer_<?= e($key) ?><?= $isMulti ? '[]' : '' ?>"
+                                        value="<?= e($optionId) ?>"
+                                        <?= in_array($optionId, $selected, true) ? 'checked' : '' ?>
+                                    >
+                                    <span><?= e(matching_option_label((string) $optionId)) ?></span>
+                                </label>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="questionnaire-controls">
+                            <label>
+                                Fit
+                                <select name="fit_mode_<?= e($key) ?>">
+                                    <?php foreach (($question['supported_fit_modes'] ?? ['similar']) as $mode): ?>
+                                        <option value="<?= e($mode) ?>" <?= (($saved['fit_mode'] ?? 'similar') === $mode) ? 'selected' : '' ?>><?= e(matching_option_label((string) $mode)) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </label>
+                            <label>
+                                Importance
+                                <select name="importance_<?= e($key) ?>">
+                                    <?php foreach ([1 => 'Low', 2 => 'Normal', 3 => 'Requirement'] as $value => $label): ?>
+                                        <option value="<?= e($value) ?>" <?= ((int) ($saved['importance'] ?? 2) === $value) ? 'selected' : '' ?>><?= e($label) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </label>
+                        </div>
+                        <details>
+                            <summary>Accepted partner answers</summary>
+                            <div class="answer-option__choices">
+                                <?php foreach (($question['options'] ?? []) as $optionId): ?>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            name="accepted_<?= e($key) ?>[]"
+                                            value="<?= e($optionId) ?>"
+                                            <?= in_array($optionId, $accepted, true) ? 'checked' : '' ?>
+                                        >
+                                        <span><?= e(matching_option_label((string) $optionId)) ?></span>
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
+                        </details>
+                    </fieldset>
+                <?php endforeach; ?>
+            </div>
+            <button class="button" type="submit">Save questionnaire</button>
+        </form>
     </article>
+
+    <section aria-labelledby="recommended-title">
+        <h2 class="section-title" id="recommended-title">Recommended students</h2>
+        <?php if ($recommendations === []): ?>
+            <div class="empty-state">
+                <h2>No recommendations right now</h2>
+                <p>Complete your profile, date of birth and preferences, or broaden your filters later.</p>
+            </div>
+        <?php else: ?>
+            <div class="profile-grid">
+                <?php foreach ($recommendations as $candidate): ?>
+                    <article class="profile-card" data-candidate-id="<?= e($candidate['user_id'] ?? '') ?>">
+                        <div class="profile-card__image">
+                            <?= render_avatar($candidate['profile_photo_path'] ?? null, (string) ($candidate['display_name'] ?? 'Student')) ?>
+                        </div>
+                        <div class="profile-card__body">
+                            <h3 class="profile-card__name"><?= e($candidate['display_name'] ?? 'Student') ?></h3>
+                            <p class="profile-card__meta"><?= e(implode(' - ', array_filter([isset($candidate['age']) && $candidate['age'] !== null ? $candidate['age'] . ' years old' : null, $candidate['faculty'] ?? null, $candidate['year_of_study'] ?? null]))) ?></p>
+                            <p class="profile-card__bio"><?= e(($candidate['bio'] ?? '') !== '' ? $candidate['bio'] : 'No bio added yet.') ?></p>
+                            <p class="field-help"><?= e($candidate['score_label'] ?? 'Limited questionnaire information') ?><?= isset($candidate['questionnaire_fit']) && $candidate['questionnaire_fit'] !== null ? ': ' . e($candidate['questionnaire_fit']) . '%' : '' ?></p>
+                            <div class="card-actions">
+                                <button class="discover-card__action discover-card__action--like" type="button" data-swipe-target="<?= e($candidate['user_id'] ?? '') ?>" data-swipe-direction="like">Like</button>
+                                <button class="discover-card__action" type="button" data-swipe-target="<?= e($candidate['user_id'] ?? '') ?>" data-swipe-direction="pass">Pass</button>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </section>
 
     <section aria-labelledby="match-results-title">
         <h2 class="section-title" id="match-results-title">Established matches</h2>

@@ -12,6 +12,7 @@ require_once __DIR__ . '/../php/rate_limit.php';
 require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
+require_once __DIR__ . '/../php/matching/service.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -40,7 +41,7 @@ if ($submittedToken === '' || !validate_csrf_token($submittedToken)) {
 
 ensure_operational_schema($pdo);
 
-$targetId = clean_int($payload['target_id'] ?? null);
+$targetId = clean_int($payload['target_id'] ?? ($payload['swiped_id'] ?? null));
 $direction = isset($payload['direction']) && is_string($payload['direction']) ? clean_enum($payload['direction'], ['like', 'pass']) : null;
 
 if ($targetId === null || $targetId <= 0 || $direction === null) {
@@ -60,12 +61,46 @@ if (operational_is_blocked($pdo, $currentUserId, $targetId)) {
     json_response(['error' => 'This profile is unavailable'], 403);
 }
 
-$targetStatement = $pdo->prepare('SELECT id, is_suspended FROM users WHERE id = :id LIMIT 1');
+$suspendedSelect = operational_column_exists($pdo, 'users', 'is_suspended') ? 'COALESCE(is_suspended, 0) AS is_suspended' : '0 AS is_suspended';
+$activeSelect = operational_column_exists($pdo, 'users', 'is_active') ? 'COALESCE(is_active, 1) AS is_active' : '1 AS is_active';
+$verifiedSelect = operational_column_exists($pdo, 'users', 'is_verified') ? 'COALESCE(is_verified, 0) AS is_verified' : '1 AS is_verified';
+$targetStatement = $pdo->prepare(
+    sprintf(
+        'SELECT id, %1$s, %2$s, %3$s FROM users WHERE id = :id LIMIT 1',
+        $suspendedSelect,
+        $activeSelect,
+        $verifiedSelect
+    )
+);
 $targetStatement->execute([':id' => $targetId]);
 $targetUser = $targetStatement->fetch(PDO::FETCH_ASSOC);
 
-if ($targetUser === false || ((int) ($targetUser['is_suspended'] ?? 0)) === 1) {
+if ($targetUser === false
+    || ((int) ($targetUser['is_suspended'] ?? 0)) === 1
+    || ((int) ($targetUser['is_active'] ?? 1)) !== 1
+    || ((int) ($targetUser['is_verified'] ?? 1)) !== 1
+) {
     json_response(['error' => 'Target user is unavailable'], 404);
+}
+
+$viewerProfile = get_profile($pdo, $currentUserId);
+$viewerPreferences = get_preferences($pdo, $currentUserId);
+$targetProfile = get_profile($pdo, $targetId);
+$targetPreferences = get_preferences($pdo, $targetId);
+if ($viewerProfile === null || $viewerPreferences === null || $targetProfile === null || $targetPreferences === null) {
+    json_response(['error' => 'Both users need complete profiles and preferences before matching'], 403);
+}
+
+$answersByUser = matching_load_answers($pdo, [$currentUserId, $targetId]);
+if (!matching_pair_is_eligible(
+    $viewerProfile,
+    $viewerPreferences,
+    $targetProfile,
+    $targetPreferences,
+    $answersByUser[$currentUserId] ?? [],
+    $answersByUser[$targetId] ?? []
+)) {
+    json_response(['error' => 'This profile is no longer eligible for your matching preferences'], 403);
 }
 
 $swipeColumns = operational_swipe_columns($pdo);
@@ -86,7 +121,7 @@ if ($existingSwipe->fetchColumn() !== false) {
     json_response(['error' => 'You have already swiped on this user'], 409);
 }
 
-$response = ['match' => false];
+$response = ['match' => false, 'matched' => false];
 
 try {
     $pdo->beginTransaction();
@@ -184,6 +219,7 @@ try {
 
             $response = [
                 'match' => true,
+                'matched' => true,
                 'match_id' => $matchId,
             ];
         }
