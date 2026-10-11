@@ -43,8 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $action = isset($_POST['action']) && is_string($_POST['action']) ? clean_enum($_POST['action'], ['verify', 'resend']) : 'verify';
         if ($action === 'resend') {
-            bushisa_issue_signup_code($pdo, (int) $user['id'], (string) $user['email']);
-            $success = 'A new approval code was sent to your student email.';
+            try {
+                bushisa_issue_signup_code($pdo, (int) $user['id'], (string) $user['email']);
+                $success = 'Your new approval email is on its way. Check your student mailbox shortly.';
+            } catch (Throwable $exception) {
+                log_to_file('Approval-code resend failed; check database and mail configuration.', 'ERROR');
+                $error = 'We could not request a new approval code. Please try again.';
+            }
         } else {
             $code = isset($_POST['approval_code']) && is_string($_POST['approval_code']) ? $_POST['approval_code'] : '';
             $result = bushisa_verify_signup_code($pdo, (int) $user['id'], $code);

@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/operational.php';
 
@@ -66,6 +71,19 @@ foreach ($files as $file) {
     if ($name === '002_policy_safeguards.sql') {
         fwrite(STDOUT, "Applying {$name}\n");
         apply_operational_contract_migration($pdo);
+        mark_migration_applied($pdo, $version);
+        continue;
+    }
+
+    // The runtime schema helper supports both a fresh install and upgrades.
+    // Earlier migrations can already have added these columns during bootstrap.
+    if ($name === '004_smtp_outbox.sql') {
+        fwrite(STDOUT, "Applying {$name}\n");
+        apply_operational_contract_migration($pdo);
+        $index = $pdo->query("SHOW INDEX FROM mail_outbox WHERE Key_name = 'idx_mail_outbox_dispatch'");
+        if ($index->fetch() === false) {
+            $pdo->exec('CREATE INDEX idx_mail_outbox_dispatch ON mail_outbox (provider, status, next_attempt_at, expires_at)');
+        }
         mark_migration_applied($pdo, $version);
         continue;
     }

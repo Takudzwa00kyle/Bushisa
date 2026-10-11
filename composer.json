@@ -1,0 +1,15 @@
+{
+    "name": "bushisa/bushisa",
+    "description": "Bushisa student application",
+    "type": "project",
+    "require": {
+        "php": "^8.2",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "phpmailer/phpmailer": "^7.0"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

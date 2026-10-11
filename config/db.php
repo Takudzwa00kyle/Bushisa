@@ -1,37 +1,40 @@
 <?php
-// config/db.php
 
-$host = getenv('DB_HOST') ?: '127.0.0.1';
-$db   = getenv('DB_NAME') ?: 'bushisa_db';
-$user = getenv('DB_USER') ?: 'root';
-$pass = getenv('DB_PASSWORD');
-if ($pass === false || $pass === '') {
-    $pass = getenv('DB_PASS') ?: '';
-}
-$port = getenv('DB_PORT') ?: '3306';
-$charset = 'utf8mb4';
+declare(strict_types=1);
+
+require_once __DIR__ . '/database_settings.php';
+
 $appEnv = strtolower((string) (getenv('APP_ENV') ?: 'development'));
 $appDebug = filter_var(getenv('APP_DEBUG') ?: ($appEnv === 'production' ? 'false' : 'true'), FILTER_VALIDATE_BOOL);
 
-if ($appEnv === 'production' && ($user === 'root' || $pass === '')) {
-    http_response_code(500);
-    die('Database configuration is incomplete.');
-}
-
-$dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    http_response_code(500);
-    if ($appDebug) {
-        die("Database connection failed: " . $e->getMessage());
+    $settings = bushisa_database_settings();
+    $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $settings['host'], $settings['port'], $settings['name']);
+    $options = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ];
+    if ($settings['require_tls']) {
+        $options[PDO::MYSQL_ATTR_SSL_CA] = $settings['ssl_ca'];
+        $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
     }
 
-    die('Database connection failed.');
+    $pdo = new PDO($dsn, $settings['user'], $settings['password'], $options);
+    $pdo->exec("SET time_zone = '+00:00'");
+    if ($settings['require_tls']) {
+        $tls = $pdo->query("SHOW SESSION STATUS LIKE 'Ssl_cipher'")->fetch(PDO::FETCH_NUM);
+        if (!is_array($tls) || empty($tls[1])) {
+            throw new RuntimeException('An encrypted database connection is required.');
+        }
+    }
+} catch (Throwable $exception) {
+    if (PHP_SAPI === 'cli') {
+        throw new RuntimeException('Database connection failed; check configuration and connectivity.');
+    }
+    http_response_code(500);
+    if ($appDebug && $appEnv !== 'production') {
+        die('Database connection failed: ' . $exception->getMessage());
+    }
+    die('Database connection failed. Please try again later.');
 }
