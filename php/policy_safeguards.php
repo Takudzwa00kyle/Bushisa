@@ -441,7 +441,7 @@ function bushisa_soft_delete_owned_confessions(PDO $pdo, int $userId, int $initi
     $bodyColumn = $columns['body'];
 
     $select = $pdo->prepare(
-        sprintf('SELECT id, %1$s AS body FROM confessions WHERE %2$s = :user_id AND (deleted_at IS NULL OR deleted_at = "")', $bodyColumn, $ownerColumn)
+        sprintf('SELECT id, %1$s AS body FROM confessions WHERE %2$s = :user_id AND (deleted_at IS NULL OR CAST(deleted_at AS CHAR) = "")', $bodyColumn, $ownerColumn)
     );
     $select->execute([':user_id' => $userId]);
 
@@ -508,11 +508,18 @@ function bushisa_erase_terminal_signup_material(PDO $pdo, int $userId, string $e
     $outbox = $pdo->prepare(
         'UPDATE mail_outbox
          SET body = NULL,
+             status = CASE WHEN status = "pending" THEN "failed" ELSE status END,
+             next_attempt_at = NULL,
              payload_erased_at = COALESCE(payload_erased_at, UTC_TIMESTAMP()),
              metadata_json = JSON_OBJECT("policy_status", "proposed", "erased_reason", "terminal_signup_code")
          WHERE recipient_email = :email
            AND code_bearing = 1
-           AND payload_erased_at IS NULL'
+           AND payload_erased_at IS NULL
+           AND (approval_code_id IS NULL OR EXISTS (
+               SELECT 1 FROM student_email_approval_codes c
+               WHERE c.id = mail_outbox.approval_code_id
+                 AND (c.consumed_at IS NOT NULL OR c.terminal_at IS NOT NULL OR c.expires_at <= UTC_TIMESTAMP())
+           ))'
     );
     $outbox->execute([':email' => strtolower($email)]);
 

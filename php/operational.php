@@ -208,6 +208,11 @@ function ensure_operational_schema(PDO $pdo): void
                 throw new RuntimeException('Operational schema is not migrated: missing table ' . $requiredTable);
             }
         }
+        foreach (['approval_code_id', 'attempts', 'next_attempt_at'] as $mailColumn) {
+            if (!operational_column_exists($pdo, 'mail_outbox', $mailColumn)) {
+                throw new RuntimeException('Operational schema requires migration 004_smtp_outbox.');
+            }
+        }
 
         $ensured = true;
         return;
@@ -381,7 +386,7 @@ function ensure_operational_schema(PDO $pdo): void
             id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             user_id INT UNSIGNED NOT NULL,
             email VARCHAR(190) NOT NULL,
-            code_hash CHAR(64) NOT NULL,
+            code_hash CHAR(64) NULL,
             code_version VARCHAR(40) NOT NULL DEFAULT "v1",
             expires_at TIMESTAMP NOT NULL,
             attempts TINYINT UNSIGNED NOT NULL DEFAULT 0,
@@ -406,6 +411,9 @@ function ensure_operational_schema(PDO $pdo): void
             payload_erased_at TIMESTAMP NULL,
             code_bearing TINYINT(1) NOT NULL DEFAULT 0,
             metadata_json JSON NULL,
+            approval_code_id BIGINT UNSIGNED NULL,
+            attempts SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+            next_attempt_at TIMESTAMP NULL,
             INDEX idx_mail_outbox_status (status, created_at)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
@@ -476,6 +484,9 @@ function ensure_operational_schema(PDO $pdo): void
     }
 
     if (operational_table_exists($pdo, 'student_email_approval_codes')) {
+        if (!operational_column_nullable($pdo, 'student_email_approval_codes', 'code_hash')) {
+            $pdo->exec('ALTER TABLE student_email_approval_codes MODIFY code_hash CHAR(64) NULL');
+        }
         if (!operational_column_exists($pdo, 'student_email_approval_codes', 'terminal_at')) {
             $pdo->exec('ALTER TABLE student_email_approval_codes ADD COLUMN terminal_at TIMESTAMP NULL');
         }
@@ -493,6 +504,9 @@ function ensure_operational_schema(PDO $pdo): void
             'payload_erased_at' => 'TIMESTAMP NULL',
             'code_bearing' => 'TINYINT(1) NOT NULL DEFAULT 0',
             'metadata_json' => 'JSON NULL',
+            'approval_code_id' => 'BIGINT UNSIGNED NULL',
+            'attempts' => 'SMALLINT UNSIGNED NOT NULL DEFAULT 0',
+            'next_attempt_at' => 'TIMESTAMP NULL',
         ] as $column => $definition) {
             if (!operational_column_exists($pdo, 'mail_outbox', $column)) {
                 $pdo->exec('ALTER TABLE mail_outbox ADD COLUMN ' . $column . ' ' . $definition);

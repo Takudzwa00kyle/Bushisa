@@ -12,13 +12,63 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: pdo_mysql, mbstring, fileinfo
+          extensions: pdo_mysql, mbstring, fileinfo, openssl
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: PHP syntax
-        run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l
+        run: find . -name '*.php' -not -path './.git/*' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
       - name: JavaScript syntax
         run: find js -name '*.js' -print0 | xargs -0 -n1 node --check
       - name: Unit checks
-        run: php tests/unit_signup_verification.php
+        run: |
+          php tests/unit_signup_verification.php
+          php tests/unit_mail_configuration.php
+          python3 tests/smtp_transport_test.py
+
+  smtp-outbox-integration:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+          MYSQL_DATABASE: bushisa_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_db
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+      - name: Bootstrap isolated test database
+        run: |
+          php -r '$pdo = new PDO("mysql:host=127.0.0.1;dbname=bushisa_db", "root", getenv("DB_PASSWORD")); $pdo->exec(file_get_contents("database/bushisa.sql"));'
+          php bin/migrate.php
+          php bin/migrate.php
+      - name: Signup and outbox regressions
+        run: |
+          php tests/integration_p0_flows.php
+          php tests/policy_safeguards_p0_flows.php
+          php tests/integration_smtp_outbox.php

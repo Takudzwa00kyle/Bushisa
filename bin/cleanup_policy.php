@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
+
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/signup_verification.php';
@@ -13,6 +18,8 @@ $expiredCodes = bushisa_cleanup_expired_signup_codes($pdo);
 $mail = $pdo->prepare(
     'UPDATE mail_outbox
      SET body = NULL,
+         status = CASE WHEN status = "pending" THEN "failed" ELSE status END,
+         next_attempt_at = NULL,
          payload_erased_at = COALESCE(payload_erased_at, UTC_TIMESTAMP()),
          metadata_json = JSON_OBJECT("policy_status", "proposed", "erased_reason", "expired_code_bearing_payload")
      WHERE code_bearing = 1

@@ -298,15 +298,15 @@ function register_user(PDO $pdo, array $data): array
         return [
             'success' => true,
             'error' => null,
-            'message' => 'Account created. Enter the approval code sent to your student email.',
+            'message' => 'Account created. Your approval email is on its way. Enter the code from your student mailbox.',
             'redirect' => 'verify_email.php?email=' . rawurlencode($email),
         ];
-    } catch (PDOException $exception) {
+    } catch (Throwable $exception) {
         if ($pdo->inTransaction()) {
             $pdo->rollBack();
         }
 
-        log_to_file('Registration failed: ' . $exception->getMessage(), 'ERROR');
+        log_to_file('Registration failed; check database and mail configuration.', 'ERROR');
 
         return [
             'success' => false,
