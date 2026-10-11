@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/signup_verification.php';
+
 /**
  * Attempt to authenticate a user by email and password.
  *
@@ -56,6 +58,19 @@ function attempt_login(PDO $pdo, string $email, string $password, ?string $ident
         ];
     }
 
+    if ((array_key_exists('is_active', $user) && (int) $user['is_active'] !== 1)
+        || (array_key_exists('deleted_at', $user) && $user['deleted_at'] !== null && (string) $user['deleted_at'] !== '')
+        || (array_key_exists('account_status', $user) && in_array((string) $user['account_status'], ['underage_blocked', 'suspended', 'deleted'], true))
+    ) {
+        log_to_file('Inactive user login denied for user_id ' . (int) $user['id'], 'WARN');
+
+        return [
+            'success' => false,
+            'error' => 'Your account is not available.',
+            'redirect' => null,
+        ];
+    }
+
     $passwordHash = isset($user['password_hash']) && is_string($user['password_hash']) ? $user['password_hash'] : '';
     if ($passwordHash === '' || !verify_password($password, $passwordHash)) {
         record_attempt($pdo, 'login', $rateLimitKey);
@@ -72,6 +87,7 @@ function attempt_login(PDO $pdo, string $email, string $password, ?string $ident
     $_SESSION['user_id'] = (int) $user['id'];
     $_SESSION['role'] = isset($user['role']) && is_string($user['role']) && $user['role'] !== '' ? $user['role'] : 'user';
     $_SESSION['email'] = $user['email'] ?? $email;
+    $_SESSION['session_version'] = isset($user['session_version']) ? (int) $user['session_version'] : 0;
 
     log_action($pdo, (int) $user['id'], 'login', $rateLimitKey);
     log_to_file('User ' . (int) $user['id'] . ' logged in', 'INFO');
@@ -79,8 +95,25 @@ function attempt_login(PDO $pdo, string $email, string $password, ?string $ident
     return [
         'success' => true,
         'error' => null,
-        'redirect' => 'discover.php',
+        'redirect' => bushisa_post_login_redirect($user),
     ];
+}
+
+/**
+ * @param array<string, mixed> $user
+ */
+function bushisa_post_login_redirect(array $user): string
+{
+    $status = (string) ($user['account_status'] ?? 'active');
+    if ($status === 'pending_email' || (array_key_exists('is_verified', $user) && (int) $user['is_verified'] !== 1)) {
+        return 'verify_email.php';
+    }
+
+    if ($status === 'pending_onboarding') {
+        return 'onboarding.php';
+    }
+
+    return 'discover.php';
 }
 
 /**
@@ -101,19 +134,19 @@ function register_user(PDO $pdo, array $data): array
     $faculty = trim(str_replace("\0", '', (string) ($data['faculty'] ?? '')));
     $yearOfStudy = trim(str_replace("\0", '', (string) ($data['year_of_study'] ?? '')));
 
-    if ($studentId === '' || !preg_match('/^[a-z0-9]{4,20}$/', $studentId)) {
+    if ($studentId === '' || !bushisa_student_id_is_valid($studentId)) {
         return [
             'success' => false,
-            'error' => 'Please enter a valid NUST student ID.',
+            'error' => 'Please enter a valid NUST student number such as n02531234f.',
             'message' => null,
             'redirect' => null,
         ];
     }
 
-    if ($email === '' || !validate_nust_email($email)) {
+    if ($email === '' || !bushisa_student_email_is_valid($email, $studentId)) {
         return [
             'success' => false,
-            'error' => 'You must use a valid @students.nust.ac.zw email address.',
+            'error' => 'Use the student email that matches your NUST student number.',
             'message' => null,
             'redirect' => null,
         ];
@@ -223,7 +256,7 @@ function register_user(PDO $pdo, array $data): array
         $pdo->beginTransaction();
 
         $userStatement = $pdo->prepare(
-            'INSERT INTO users (nust_student_id, email, password_hash, is_verified, is_suspended) VALUES (:student_id, :email, :password_hash, 1, 0)'
+            'INSERT INTO users (nust_student_id, email, password_hash, is_verified, is_suspended, is_active, account_status, session_version) VALUES (:student_id, :email, :password_hash, 0, 0, 1, "pending_email", 0)'
         );
         $userStatement->execute([
             ':student_id' => $studentId,
@@ -255,6 +288,8 @@ function register_user(PDO $pdo, array $data): array
             ':preferred_faculty' => 'Any',
         ]);
 
+        bushisa_issue_signup_code($pdo, $userId, $email);
+
         $pdo->commit();
 
         log_action($pdo, $userId, 'register', $_SERVER['REMOTE_ADDR'] ?? null);
@@ -263,8 +298,8 @@ function register_user(PDO $pdo, array $data): array
         return [
             'success' => true,
             'error' => null,
-            'message' => 'Account created successfully. You can now log in.',
-            'redirect' => 'login.php',
+            'message' => 'Account created. Enter the approval code sent to your student email.',
+            'redirect' => 'verify_email.php?email=' . rawurlencode($email),
         ];
     } catch (PDOException $exception) {
         if ($pdo->inTransaction()) {

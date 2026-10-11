@@ -89,8 +89,18 @@ function dashboard_column_exists(PDO $pdo, string $table, string $column): bool
         return false;
     }
 
-    $statement = $pdo->prepare('SHOW COLUMNS FROM ' . $table . ' LIKE :column_name');
-    $statement->execute([':column_name' => $column]);
+    $statement = $pdo->prepare(
+        'SELECT 1
+         FROM information_schema.columns
+         WHERE table_schema = DATABASE()
+           AND table_name = :table_name
+           AND column_name = :column_name
+         LIMIT 1'
+    );
+    $statement->execute([
+        ':table_name' => $table,
+        ':column_name' => $column,
+    ]);
 
     return $statement->fetch(PDO::FETCH_ASSOC) !== false;
 }

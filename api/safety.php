@@ -11,6 +11,7 @@ require_once __DIR__ . '/../php/db.php';
 require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
+require_once __DIR__ . '/../php/policy_safeguards.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -46,31 +47,29 @@ if ($action === 'block' || $action === 'unblock') {
     }
 
     if ($action === 'block') {
-        $statement = $pdo->prepare(
-            'INSERT IGNORE INTO blocks (blocker_id, blocked_id, created_at)
-             VALUES (:blocker_id, :blocked_id, NOW())'
-        );
-        $statement->execute([
-            ':blocker_id' => $currentUserId,
-            ':blocked_id' => $targetUserId,
-        ]);
+        try {
+            $pdo->beginTransaction();
+            $statement = $pdo->prepare(
+                'INSERT IGNORE INTO blocks (blocker_id, blocked_id, created_at)
+                 VALUES (:blocker_id, :blocked_id, NOW())'
+            );
+            $statement->execute([
+                ':blocker_id' => $currentUserId,
+                ':blocked_id' => $targetUserId,
+            ]);
 
-        $matchColumns = operational_match_columns($pdo);
-        $deleteMatch = $pdo->prepare(
-            sprintf(
-                'DELETE FROM matches
-                 WHERE (%1$s = :current_user_id AND %2$s = :target_user_id)
-                    OR (%1$s = :target_user_id AND %2$s = :current_user_id)',
-                $matchColumns['user_a'],
-                $matchColumns['user_b']
-            )
-        );
-        $deleteMatch->execute([
-            ':current_user_id' => $currentUserId,
-            ':target_user_id' => $targetUserId,
-        ]);
+            bushisa_close_match_between($pdo, $currentUserId, $targetUserId, 'blocked');
 
-        log_action($pdo, $currentUserId, 'block_user:' . $targetUserId, $_SERVER['REMOTE_ADDR'] ?? null);
+            log_action($pdo, $currentUserId, 'block_user:' . $targetUserId, $_SERVER['REMOTE_ADDR'] ?? null);
+            $pdo->commit();
+        } catch (Throwable $throwable) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+
+            log_to_file('Block failed for user ' . $currentUserId . ': ' . $throwable->getMessage(), 'ERROR');
+            json_response(['error' => 'Unable to block user'], 500);
+        }
     } else {
         $statement = $pdo->prepare(
             'DELETE FROM blocks
@@ -89,7 +88,7 @@ if ($action === 'block' || $action === 'unblock') {
 
 if ($action === 'report') {
     $targetType = isset($payload['target_type']) && is_string($payload['target_type'])
-        ? clean_enum($payload['target_type'], ['user', 'photo', 'confession', 'conversation'])
+        ? clean_enum($payload['target_type'], ['user', 'photo', 'message', 'match', 'confession', 'confession_reference', 'conversation'])
         : null;
     $targetId = clean_int($payload['target_id'] ?? null);
     $reportedUserId = clean_int($payload['reported_user_id'] ?? null);
@@ -108,38 +107,86 @@ if ($action === 'report') {
         $reportedUserId = $targetId;
     }
 
+    if ($targetType === 'confession') {
+        $confessionColumns = operational_confession_columns($pdo);
+        $ownerStatement = $pdo->prepare(
+            sprintf(
+                'SELECT %1$s AS author_id FROM confessions WHERE id = :target_id LIMIT 1',
+                $confessionColumns['author']
+            )
+        );
+        $ownerStatement->execute([':target_id' => $targetId]);
+        $ownerId = $ownerStatement->fetchColumn();
+        $reportedUserId = $ownerId !== false && (int) $ownerId > 0 ? (int) $ownerId : null;
+        if ($reportedUserId === null) {
+            json_response(['error' => 'Invalid report target'], 403);
+        }
+    }
+
+    if ($targetType === 'message') {
+        $matchColumns = operational_match_columns($pdo);
+        $ownerStatement = $pdo->prepare(
+            sprintf(
+                'SELECT msg.sender_id
+                 FROM messages msg
+                 JOIN matches m ON m.id = msg.match_id
+                 WHERE msg.id = :target_id
+                   AND (%1$s = :current_user_a_id OR %2$s = :current_user_b_id)
+                 LIMIT 1',
+                $matchColumns['user_a'],
+                $matchColumns['user_b']
+            )
+        );
+        $ownerStatement->execute([
+            ':target_id' => $targetId,
+            ':current_user_a_id' => $currentUserId,
+            ':current_user_b_id' => $currentUserId,
+        ]);
+        $ownerId = $ownerStatement->fetchColumn();
+        $reportedUserId = $ownerId !== false && (int) $ownerId > 0 ? (int) $ownerId : null;
+        if ($reportedUserId === null) {
+            json_response(['error' => 'Invalid report target'], 403);
+        }
+    }
+
     if ($reportedUserId === $currentUserId) {
         json_response(['error' => 'You cannot report yourself'], 400);
     }
 
-    $reportsColumns = $pdo->query('SHOW COLUMNS FROM reports')->fetchAll(PDO::FETCH_ASSOC) ?: [];
-    $reportedUserNullable = false;
-    foreach ($reportsColumns as $column) {
-        if (($column['Field'] ?? '') === 'reported_user_id') {
-            $reportedUserNullable = strtoupper((string) ($column['Null'] ?? 'NO')) === 'YES';
-            break;
-        }
-    }
+    $reportedUserNullable = operational_column_nullable($pdo, 'reports', 'reported_user_id');
 
     if ($reportedUserId === null && !$reportedUserNullable) {
         json_response(['error' => 'This report target needs a user-based report contract first'], 501);
     }
 
-    $statement = $pdo->prepare(
-        'INSERT INTO reports (reporter_id, reported_user_id, confession_id, target_type, target_id, reason, status, created_at)
-         VALUES (:reporter_id, :reported_user_id, :confession_id, :target_type, :target_id, :reason, "pending", NOW())'
-    );
-    $statement->execute([
-        ':reporter_id' => $currentUserId,
-        ':reported_user_id' => $reportedUserId,
-        ':confession_id' => $targetType === 'confession' ? $targetId : null,
-        ':target_type' => $targetType,
-        ':target_id' => $targetId,
-        ':reason' => $reason,
-    ]);
+    $pdo->beginTransaction();
+    try {
+        $statement = $pdo->prepare(
+            'INSERT INTO reports (reporter_id, reported_user_id, confession_id, target_type, target_id, reason, status, created_at)
+             VALUES (:reporter_id, :reported_user_id, :confession_id, :target_type, :target_id, :reason, "pending", UTC_TIMESTAMP())'
+        );
+        $statement->execute([
+            ':reporter_id' => $currentUserId,
+            ':reported_user_id' => $reportedUserId,
+            ':confession_id' => $targetType === 'confession' ? $targetId : null,
+            ':target_type' => $targetType,
+            ':target_id' => $targetId,
+            ':reason' => $reason,
+        ]);
+
+        $caseId = bushisa_create_moderation_case($pdo, $currentUserId, $targetType, $targetId, $reportedUserId, $reason);
+        $pdo->commit();
+    } catch (Throwable $throwable) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+
+        log_to_file('Safety report failed for user ' . $currentUserId . ': ' . $throwable->getMessage(), 'ERROR');
+        json_response(['error' => 'Unable to submit report'], 500);
+    }
 
     log_action($pdo, $currentUserId, 'report_' . $targetType . ':' . $targetId, $_SERVER['REMOTE_ADDR'] ?? null);
-    json_response(['success' => true, 'data' => ['status' => 'pending']]);
+    json_response(['success' => true, 'data' => ['status' => 'pending', 'case_id' => $caseId]]);
 }
 
 json_response(['error' => 'Invalid safety action'], 400);

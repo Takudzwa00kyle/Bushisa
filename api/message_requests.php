@@ -12,6 +12,7 @@ require_once __DIR__ . '/../php/rate_limit.php';
 require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
+require_once __DIR__ . '/../php/policy_safeguards.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -35,15 +36,11 @@ if ($matchId === null || $matchId <= 0) {
     json_response(['error' => 'Invalid match ID'], 400);
 }
 
-$match = operational_get_match($pdo, $matchId, $currentUserId);
-if ($match === null) {
-    json_response(['error' => 'Match not found'], 403);
+$authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, false);
+if (!$authorization['ok']) {
+    json_response(['error' => $authorization['error'] ?? 'This match is unavailable'], $authorization['status']);
 }
-
-$otherUserId = operational_other_user_id($match, $currentUserId);
-if (operational_is_blocked($pdo, $currentUserId, $otherUserId)) {
-    json_response(['error' => 'This match is unavailable'], 403);
-}
+$otherUserId = (int) $authorization['other_user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     json_response([
@@ -64,7 +61,7 @@ if ($submittedToken === '' || !validate_csrf_token($submittedToken)) {
 }
 
 $action = isset($payload['action']) && is_string($payload['action'])
-    ? clean_enum($payload['action'], ['request', 'approve', 'decline', 'revoke'])
+    ? clean_enum($payload['action'], ['request', 'approve', 'decline', 'cancel', 'revoke'])
     : null;
 
 if ($action === null) {
@@ -75,6 +72,18 @@ if (!check_rate_limit($pdo, 'message_request', (string) $currentUserId, 20, 3600
     json_response(['error' => 'Rate limit exceeded'], 429);
 }
 
+$expirePending = $pdo->prepare(
+    'UPDATE message_requests
+     SET status = "expired",
+         closed_at = COALESCE(closed_at, expires_at),
+         purge_due_at = COALESCE(purge_due_at, ' . bushisa_policy_proposed_purge_due_sql('message_request') . ')
+     WHERE match_id = :match_id
+       AND status = "pending"
+       AND expires_at IS NOT NULL
+       AND expires_at <= UTC_TIMESTAMP()'
+);
+$expirePending->execute([':match_id' => $matchId]);
+
 $state = operational_message_request_status($pdo, $matchId, $currentUserId, $otherUserId);
 
 try {
@@ -84,20 +93,41 @@ try {
         if ($state['status'] === 'approved') {
             json_response(['success' => true, 'data' => $state]);
         }
+        if ($state['status'] === 'pending') {
+            json_response(['error' => 'A pending request already exists for this match'], 409);
+        }
+        if (is_array($state['row']) && in_array($state['status'], ['declined', 'cancelled', 'expired'], true)) {
+            $minimumColumn = $state['status'] === 'declined'
+                ? 'DATE_ADD(COALESCE(responded_at, requested_at), INTERVAL 30 DAY)'
+                : 'DATE_ADD(COALESCE(closed_at, requested_at), INTERVAL 24 HOUR)';
+            $cooldown = $pdo->prepare(
+                'SELECT CASE WHEN UTC_TIMESTAMP() < ' . $minimumColumn . ' THEN 1 ELSE 0 END
+                 FROM message_requests
+                 WHERE id = :id'
+            );
+            $cooldown->execute([':id' => (int) $state['row']['id']]);
+            if ((int) $cooldown->fetchColumn() === 1) {
+                json_response(['error' => 'Re-request cooldown is still active under the proposed D04 rules'], 409);
+            }
+        }
 
         $statement = $pdo->prepare(
-            'INSERT INTO message_requests (match_id, requester_id, recipient_id, status, requested_at)
-             VALUES (:match_id, :requester_id, :recipient_id, "pending", NOW())
+            'INSERT INTO message_requests (match_id, requester_id, recipient_id, status, requested_at, expires_at, generation_key)
+             VALUES (:match_id, :requester_id, :recipient_id, "pending", UTC_TIMESTAMP(), DATE_ADD(UTC_TIMESTAMP(), INTERVAL 7 DAY), :generation_key)
              ON DUPLICATE KEY UPDATE
-                status = CASE WHEN status = "revoked" THEN "pending" ELSE status END,
-                requested_at = CASE WHEN status = "revoked" THEN NOW() ELSE requested_at END,
-                responded_at = CASE WHEN status = "revoked" THEN NULL ELSE responded_at END,
-                revoked_at = CASE WHEN status = "revoked" THEN NULL ELSE revoked_at END'
+                status = CASE WHEN status IN ("revoked", "declined", "cancelled", "expired") THEN "pending" ELSE status END,
+                requested_at = CASE WHEN status IN ("revoked", "declined", "cancelled", "expired") THEN UTC_TIMESTAMP() ELSE requested_at END,
+                responded_at = CASE WHEN status IN ("revoked", "declined", "cancelled", "expired") THEN NULL ELSE responded_at END,
+                revoked_at = CASE WHEN status IN ("revoked", "declined", "cancelled", "expired") THEN NULL ELSE revoked_at END,
+                closed_at = CASE WHEN status IN ("revoked", "declined", "cancelled", "expired") THEN NULL ELSE closed_at END,
+                expires_at = CASE WHEN status IN ("revoked", "declined", "cancelled", "expired") THEN DATE_ADD(UTC_TIMESTAMP(), INTERVAL 7 DAY) ELSE expires_at END,
+                generation_key = VALUES(generation_key)'
         );
         $statement->execute([
             ':match_id' => $matchId,
             ':requester_id' => $currentUserId,
             ':recipient_id' => $otherUserId,
+            ':generation_key' => 'match:' . $matchId,
         ]);
 
         operational_write_notification(
@@ -117,7 +147,11 @@ try {
         $nextStatus = $action === 'approve' ? 'approved' : 'declined';
         $statement = $pdo->prepare(
             'UPDATE message_requests
-             SET status = :status, responded_at = NOW(), revoked_at = NULL
+             SET status = :status,
+                 responded_at = UTC_TIMESTAMP(),
+                 closed_at = CASE WHEN :status_for_close = "declined" THEN UTC_TIMESTAMP() ELSE closed_at END,
+                 purge_due_at = CASE WHEN :status_for_purge = "declined" THEN ' . bushisa_policy_proposed_purge_due_sql('message_request') . ' ELSE purge_due_at END,
+                 revoked_at = NULL
              WHERE match_id = :match_id
                AND recipient_id = :current_user_id
                AND requester_id = :other_user_id
@@ -125,6 +159,8 @@ try {
         );
         $statement->execute([
             ':status' => $nextStatus,
+            ':status_for_close' => $nextStatus,
+            ':status_for_purge' => $nextStatus,
             ':match_id' => $matchId,
             ':current_user_id' => $currentUserId,
             ':other_user_id' => $otherUserId,
@@ -141,6 +177,26 @@ try {
             'chat.php?match_id=' . $matchId,
             'message_request_response:' . $matchId . ':' . $otherUserId
         );
+    } elseif ($action === 'cancel') {
+        if (!$state['is_requester'] || $state['status'] !== 'pending') {
+            json_response(['error' => 'No pending request to cancel'], 409);
+        }
+
+        $statement = $pdo->prepare(
+            'UPDATE message_requests
+             SET status = "cancelled",
+                 closed_at = UTC_TIMESTAMP(),
+                 purge_due_at = COALESCE(purge_due_at, ' . bushisa_policy_proposed_purge_due_sql('message_request') . ')
+             WHERE match_id = :match_id
+               AND requester_id = :current_user_id
+               AND recipient_id = :other_user_id
+               AND status = "pending"'
+        );
+        $statement->execute([
+            ':match_id' => $matchId,
+            ':current_user_id' => $currentUserId,
+            ':other_user_id' => $otherUserId,
+        ]);
     } elseif ($action === 'revoke') {
         if ($state['status'] === 'none') {
             json_response(['error' => 'No message permission exists'], 409);
@@ -148,16 +204,21 @@ try {
 
         $statement = $pdo->prepare(
             'UPDATE message_requests
-             SET status = "revoked", revoked_at = NOW()
+             SET status = "revoked",
+                 revoked_at = UTC_TIMESTAMP(),
+                 closed_at = COALESCE(closed_at, UTC_TIMESTAMP()),
+                 purge_due_at = COALESCE(purge_due_at, ' . bushisa_policy_proposed_purge_due_sql('message_request') . ')
              WHERE match_id = :match_id
-               AND ((requester_id = :current_user_id AND recipient_id = :other_user_id)
-                 OR (requester_id = :other_user_id AND recipient_id = :current_user_id))
+               AND ((requester_id = :current_requester_user_id AND recipient_id = :current_recipient_user_id)
+                 OR (requester_id = :reverse_requester_user_id AND recipient_id = :reverse_recipient_user_id))
                AND status IN ("pending", "approved")'
         );
         $statement->execute([
             ':match_id' => $matchId,
-            ':current_user_id' => $currentUserId,
-            ':other_user_id' => $otherUserId,
+            ':current_requester_user_id' => $currentUserId,
+            ':current_recipient_user_id' => $otherUserId,
+            ':reverse_requester_user_id' => $otherUserId,
+            ':reverse_recipient_user_id' => $currentUserId,
         ]);
     }
 

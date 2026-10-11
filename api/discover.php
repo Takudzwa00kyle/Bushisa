@@ -20,12 +20,11 @@ ensure_operational_schema($pdo);
 
 $currentUserId = (int) $_SESSION['user_id'];
 $limit = clean_int($_GET['limit'] ?? null) ?? 10;
-$offset = clean_int($_GET['offset'] ?? null) ?? 0;
+$offset = array_key_exists('offset', $_GET) ? (clean_int($_GET['offset'] ?? null) ?? 0) : null;
 $cursor = isset($_GET['cursor']) && is_string($_GET['cursor']) ? $_GET['cursor'] : '';
 
-$result = matching_get_ranked_candidates($pdo, $currentUserId, [
+$options = [
     'limit' => $limit,
-    'offset' => $offset,
     'cursor' => $cursor,
     'filters' => [
         'gender' => $_GET['gender'] ?? [],
@@ -33,7 +32,12 @@ $result = matching_get_ranked_candidates($pdo, $currentUserId, [
         'age_min' => $_GET['age_min'] ?? null,
         'age_max' => $_GET['age_max'] ?? null,
     ],
-]);
+];
+if ($offset !== null) {
+    $options['offset'] = $offset;
+}
+
+$result = matching_get_ranked_candidates($pdo, $currentUserId, $options);
 
 if (($result['success'] ?? false) !== true) {
     json_response(['error' => (string) ($result['error'] ?? 'Unable to load discovery profiles')], (int) ($result['status'] ?? 500));

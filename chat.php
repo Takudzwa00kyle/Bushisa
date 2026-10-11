@@ -41,11 +41,11 @@ $matchStatement = $pdo->prepare(
      FROM matches m
      INNER JOIN profiles p
          ON p.user_id = CASE
-             WHEN m.%1$s = :current_user_id THEN m.%2$s
+             WHEN m.%1$s = :join_current_user_id THEN m.%2$s
              ELSE m.%1$s
          END
      WHERE m.id = :match_id
-       AND (m.%1$s = :current_user_id OR m.%2$s = :current_user_id)
+       AND (m.%1$s = :where_current_user_a_id OR m.%2$s = :where_current_user_b_id)
      LIMIT 1',
     $matchUserAColumn,
     $matchUserBColumn
@@ -53,7 +53,9 @@ $matchStatement = $pdo->prepare(
 );
 $matchStatement->execute([
     ':match_id' => $matchId,
-    ':current_user_id' => $currentUserId,
+    ':join_current_user_id' => $currentUserId,
+    ':where_current_user_a_id' => $currentUserId,
+    ':where_current_user_b_id' => $currentUserId,
 ]);
 $matchRow = $matchStatement->fetch(PDO::FETCH_ASSOC);
 

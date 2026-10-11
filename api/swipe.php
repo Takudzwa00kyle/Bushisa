@@ -130,7 +130,7 @@ try {
 
     $insertSwipe = $pdo->prepare(
         sprintf(
-            'INSERT INTO swipes (swiper_id, %1$s, %2$s, created_at)
+            'INSERT IGNORE INTO swipes (swiper_id, %1$s, %2$s, created_at)
              VALUES (:swiper_id, :target_id, :direction, NOW())',
             $swipeColumns['target'],
             $swipeColumns['direction']
@@ -141,6 +141,10 @@ try {
         ':target_id' => $targetId,
         ':direction' => $direction,
     ]);
+    if ($insertSwipe->rowCount() !== 1) {
+        $pdo->rollBack();
+        json_response(['error' => 'You have already swiped on this user'], 409);
+    }
 
     if ($direction === 'like') {
         $reverseSwipe = $pdo->prepare(
@@ -166,16 +170,18 @@ try {
             $existingMatch = $pdo->prepare(
                 sprintf(
                     'SELECT id FROM matches
-                     WHERE (%1$s = :user_a AND %2$s = :user_b)
-                        OR (%1$s = :user_b AND %2$s = :user_a)
+                     WHERE (%1$s = :forward_user_a AND %2$s = :forward_user_b)
+                        OR (%1$s = :reverse_user_b AND %2$s = :reverse_user_a)
                      LIMIT 1',
                     $matchColumns['user_a'],
                     $matchColumns['user_b']
                 )
             );
             $existingMatch->execute([
-                ':user_a' => $userA,
-                ':user_b' => $userB,
+                ':forward_user_a' => $userA,
+                ':forward_user_b' => $userB,
+                ':reverse_user_b' => $userB,
+                ':reverse_user_a' => $userA,
             ]);
             $matchId = $existingMatch->fetchColumn();
 
@@ -183,7 +189,8 @@ try {
                 $insertMatch = $pdo->prepare(
                     sprintf(
                         'INSERT INTO matches (%1$s, %2$s, %3$s)
-                         VALUES (:user_a_id, :user_b_id, NOW())',
+                         VALUES (:user_a_id, :user_b_id, NOW())
+                         ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)',
                         $matchColumns['user_a'],
                         $matchColumns['user_b'],
                         $matchColumns['created_at']

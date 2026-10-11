@@ -17,3 +17,9 @@ public/uploads/*
 
 # Vendor files (if Composer or packages are used later)
 /vendor/
+
+# Node/Playwright test dependencies and output
+/node_modules/
+/test-results/
+/playwright-report/
+/.tmp/

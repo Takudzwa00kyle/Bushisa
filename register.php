@@ -77,7 +77,7 @@ render_auth_start('Create account', $csrfToken);
     <?php render_flash($error, $success); ?>
 
     <?php if ($successRedirect !== null): ?>
-        <p><a class="button" href="<?= e($successRedirect) ?>">Continue to sign in</a></p>
+        <p><a class="button" href="<?= e($successRedirect) ?>">Enter approval code</a></p>
     <?php else: ?>
         <form class="form-grid" method="post" action="register.php" data-server-form>
             <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
@@ -85,7 +85,7 @@ render_auth_start('Create account', $csrfToken);
             <label class="field">
                 <span>NUST student number</span>
                 <input type="text" name="nust_student_id" value="<?= e(strtolower($posted('nust_student_id'))) ?>" autocomplete="off" autocapitalize="none" spellcheck="false" required placeholder="n02531234f">
-                <p class="field-help">Use lowercase letters. The example format is inferred from the product brief and still needs backend confirmation.</p>
+                <p class="field-help">Use your assigned format, for example n02531234f.</p>
             </label>
 
             <label class="field">

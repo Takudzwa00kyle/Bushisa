@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/operational.php';
+require_once __DIR__ . '/policy_safeguards.php';
 
 /*
 CREATE TABLE IF NOT EXISTS blocks (
@@ -36,26 +37,7 @@ function block_user(PDO $pdo, int $blocker_id, int $blocked_id): bool
             ':blocked_id' => $blocked_id,
         ]);
 
-        $matchColumnsStatement = $pdo->query('SHOW COLUMNS FROM matches');
-        $matchColumns = $matchColumnsStatement !== false ? $matchColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
-        $matchUserAColumn = in_array('user_a_id', $matchColumns, true) ? 'user_a_id' : 'user_one_id';
-        $matchUserBColumn = in_array('user_b_id', $matchColumns, true) ? 'user_b_id' : 'user_two_id';
-
-        $deleteMatch = $pdo->prepare(
-            sprintf(
-                'DELETE FROM matches
-                 WHERE (%1$s = :blocker_id AND %2$s = :blocked_id)
-                    OR (%1$s = :reverse_blocked_id AND %2$s = :reverse_blocker_id)',
-                $matchUserAColumn,
-                $matchUserBColumn
-            )
-        );
-        $deleteMatch->execute([
-            ':blocker_id' => $blocker_id,
-            ':blocked_id' => $blocked_id,
-            ':reverse_blocked_id' => $blocked_id,
-            ':reverse_blocker_id' => $blocker_id,
-        ]);
+        bushisa_close_match_between($pdo, $blocker_id, $blocked_id, 'blocked');
 
         $pdo->commit();
         return true;

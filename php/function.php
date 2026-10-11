@@ -81,12 +81,18 @@ function is_moderator(): bool
  */
 function format_time_ago(string $datetime): string
 {
-    $time = strtotime($datetime);
-    if ($time === false) {
+    try {
+        $date = new DateTimeImmutable($datetime, new DateTimeZone('UTC'));
+    } catch (Throwable) {
         return '';
     }
 
-    $diff = time() - $time;
+    $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+    $diff = $now->getTimestamp() - $date->getTimestamp();
+    if ($diff < 0) {
+        return 'Just now';
+    }
+
     if ($diff < 60) {
         return 'Just now';
     }
@@ -103,6 +109,21 @@ function format_time_ago(string $datetime): string
 
     $days = (int) floor($diff / 86400);
     return $days . ' day' . ($days === 1 ? '' : 's') . ' ago';
+}
+
+function bushisa_utc_iso(?string $datetime): string
+{
+    if ($datetime === null || trim($datetime) === '') {
+        return '';
+    }
+
+    try {
+        $date = new DateTimeImmutable($datetime, new DateTimeZone('UTC'));
+    } catch (Throwable) {
+        return '';
+    }
+
+    return $date->setTimezone(new DateTimeZone('UTC'))->format(DATE_ATOM);
 }
 
 /**

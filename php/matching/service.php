@@ -68,7 +68,6 @@ function matching_get_ranked_candidates(PDO $pdo, int $viewerId, array $options 
             'faculty' => (string) ($row['faculty'] ?? ''),
             'year_of_study' => (string) ($row['year_of_study'] ?? ''),
             'profile_photo_path' => (string) ($row['profile_photo_path'] ?? ''),
-            'date_of_birth' => (string) ($row['date_of_birth'] ?? ''),
             'age' => isset($row['age']) ? (int) $row['age'] : null,
             'questionnaire_fit' => $score['questionnaire_fit'],
             'coverage' => $score['coverage'],
@@ -355,8 +354,21 @@ function matching_age_from_profile(array $profile): ?int
     }
 
     try {
-        $birthDate = new DateTimeImmutable($dob);
-        return (int) $birthDate->diff(new DateTimeImmutable('today'))->y;
+        $birthDate = DateTimeImmutable::createFromFormat('!Y-m-d', $dob);
+        $errors = DateTimeImmutable::getLastErrors();
+        if ($birthDate === false
+            || ($errors !== false && ((int) $errors['warning_count'] > 0 || (int) $errors['error_count'] > 0))
+            || $birthDate->format('Y-m-d') !== $dob
+        ) {
+            return null;
+        }
+
+        $today = new DateTimeImmutable('today');
+        if ($birthDate > $today) {
+            return null;
+        }
+
+        return (int) $birthDate->diff($today)->y;
     } catch (Throwable) {
         return null;
     }

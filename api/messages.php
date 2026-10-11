@@ -12,6 +12,7 @@ require_once __DIR__ . '/../php/rate_limit.php';
 require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
+require_once __DIR__ . '/../php/policy_safeguards.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -35,37 +36,12 @@ if ($matchId === null || $matchId <= 0) {
     json_response(['error' => 'Invalid match ID'], 400);
 }
 
-$matchColumnsStatement = $pdo->query('SHOW COLUMNS FROM matches');
-$matchColumns = $matchColumnsStatement !== false ? $matchColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
-$matchUserAColumn = in_array('user_a_id', $matchColumns, true) ? 'user_a_id' : 'user_one_id';
-$matchUserBColumn = in_array('user_b_id', $matchColumns, true) ? 'user_b_id' : 'user_two_id';
-
-$matchStatement = $pdo->prepare(
-    sprintf(
-        'SELECT id, %1$s AS user_a_id, %2$s AS user_b_id
-         FROM matches
-         WHERE id = :match_id
-           AND (%1$s = :current_user_id OR %2$s = :current_user_id)
-         LIMIT 1',
-        $matchUserAColumn,
-        $matchUserBColumn
-    )
-);
-$matchStatement->execute([
-    ':match_id' => $matchId,
-    ':current_user_id' => $currentUserId,
-]);
-$match = $matchStatement->fetch(PDO::FETCH_ASSOC);
-
-if ($match === false) {
-    json_response(['error' => 'Match not found'], 403);
+$authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, true);
+if (!$authorization['ok']) {
+    json_response(['error' => $authorization['error'] ?? 'This conversation is unavailable'], $authorization['status']);
 }
 
-$otherUserId = (int) ((int) $match['user_a_id'] === $currentUserId ? $match['user_b_id'] : $match['user_a_id']);
-
-if (operational_is_blocked($pdo, $currentUserId, $otherUserId)) {
-    json_response(['error' => 'This conversation is unavailable'], 403);
-}
+$otherUserId = (int) $authorization['other_user_id'];
 
 $messageColumnsStatement = $pdo->query('SHOW COLUMNS FROM messages');
 $messageColumns = $messageColumnsStatement !== false ? $messageColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
@@ -79,10 +55,6 @@ $selectUnsentAt = $hasUnsentAt ? 'unsent_at' : 'NULL AS unsent_at';
 $selectUnsentBy = $hasUnsentBy ? 'unsent_by' : 'NULL AS unsent_by';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (!operational_has_message_approval($pdo, $matchId)) {
-        json_response(['error' => 'Chat permission has not been approved'], 403);
-    }
-
     $afterId = clean_int($_GET['after_id'] ?? null);
     if ($afterId === null || $afterId < 0) {
         $afterId = 0;
@@ -172,15 +144,20 @@ if ($action === 'unsend') {
         $statement = $pdo->prepare(
             sprintf(
                 'UPDATE messages
-                 SET moderation_body = CASE WHEN moderation_body IS NULL THEN %1$s ELSE moderation_body END,
+                 SET moderation_body = NULL,
                      %1$s = "",
                      unsent_at = NOW(),
-                     unsent_by = :current_user_id
+                     unsent_by = :current_user_id,
+                     unsent_reason = "sender_unsend",
+                     ordinary_body_purged_at = UTC_TIMESTAMP()
                  WHERE id = :message_id
                    AND match_id = :match_id
                    AND sender_id = :current_user_id
-                   AND unsent_at IS NULL',
+                   AND unsent_at IS NULL
+                   AND %2$s >= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 15 MINUTE)',
                 $messageBodyColumn
+                ,
+                $messageTimeColumn
             )
         );
         $statement->execute([
@@ -190,7 +167,22 @@ if ($action === 'unsend') {
         ]);
 
         if ($statement->rowCount() < 1) {
-            json_response(['error' => 'Message cannot be unsent'], 403);
+            $already = $pdo->prepare(
+                'SELECT id FROM messages
+                 WHERE id = :message_id
+                   AND match_id = :match_id
+                   AND sender_id = :current_user_id
+                   AND unsent_at IS NOT NULL
+                 LIMIT 1'
+            );
+            $already->execute([
+                ':message_id' => $messageId,
+                ':match_id' => $matchId,
+                ':current_user_id' => $currentUserId,
+            ]);
+            if ($already->fetchColumn() === false) {
+                json_response(['error' => 'Message cannot be unsent'], 403);
+            }
         }
 
         log_action($pdo, $currentUserId, 'message_unsent:' . $messageId, $_SERVER['REMOTE_ADDR'] ?? null);
@@ -199,10 +191,6 @@ if ($action === 'unsend') {
         log_to_file('Message unsend failed for user ' . $currentUserId . ': ' . $throwable->getMessage(), 'ERROR');
         json_response(['error' => 'Unable to unsend message'], 500);
     }
-}
-
-if (!operational_has_message_approval($pdo, $matchId)) {
-    json_response(['error' => 'Chat permission has not been approved'], 403);
 }
 
 $rateLimitKey = (string) $currentUserId;
@@ -219,6 +207,12 @@ $body = function_exists('mb_substr') ? mb_substr($body, 0, 1000) : substr($body,
 
 try {
     $pdo->beginTransaction();
+    $authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, true, true);
+    if (!$authorization['ok']) {
+        $pdo->rollBack();
+        json_response(['error' => $authorization['error'] ?? 'This conversation is unavailable'], $authorization['status']);
+    }
+
     record_attempt($pdo, 'message', $rateLimitKey);
 
     $insertStatement = $pdo->prepare(

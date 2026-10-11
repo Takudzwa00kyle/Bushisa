@@ -52,15 +52,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 p.anon_handle,
                 COUNT(cv.id) AS view_count,
                 rc.referenced_confession_id,
-                ref.%1$s AS reference_body,
+                CASE WHEN ref.id IS NOT NULL AND COALESCE(ref.is_flagged, 0) = 0 THEN ref.%1$s ELSE NULL END AS reference_body,
                 rp.anon_handle AS reference_handle
              FROM confessions c
              LEFT JOIN profiles p ON p.user_id = c.%2$s
              LEFT JOIN confession_views cv ON cv.confession_id = c.id
              LEFT JOIN confession_references rc ON rc.confession_id = c.id
-             LEFT JOIN confessions ref ON ref.id = rc.referenced_confession_id
-             LEFT JOIN profiles rp ON rp.user_id = ref.%2$s
+             LEFT JOIN confessions ref ON ref.id = rc.referenced_confession_id AND (ref.deleted_at IS NULL OR ref.deleted_at = "")
+             LEFT JOIN profiles rp ON rp.user_id = ref.%2$s AND COALESCE(ref.is_flagged, 0) = 0
              WHERE c.is_flagged = 0
+               AND (c.deleted_at IS NULL OR c.deleted_at = "")
              GROUP BY c.id, c.%1$s, c.created_at, c.is_flagged, p.anon_handle, rc.referenced_confession_id, ref.%1$s, rp.anon_handle
              ORDER BY view_count DESC, c.created_at DESC, c.id DESC
              LIMIT :limit OFFSET :offset',
@@ -82,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'id' => (int) $row['id'],
             'body' => (string) ($row['body'] ?? ''),
             'anon_handle' => (string) ($row['anon_handle'] ?? 'anonymous'),
-            'created_at' => (string) ($row['created_at'] ?? ''),
+            'created_at' => bushisa_utc_iso(isset($row['created_at']) ? (string) $row['created_at'] : null),
             'view_count' => (int) ($row['view_count'] ?? 0),
             'reference' => !empty($row['referenced_confession_id']) ? [
                 'id' => (int) $row['referenced_confession_id'],
@@ -190,7 +191,7 @@ try {
 
         $ownerStatement = $pdo->prepare(
             sprintf(
-                'SELECT %1$s AS author_id FROM confessions WHERE id = :id LIMIT 1',
+                'SELECT %1$s AS author_id FROM confessions WHERE id = :id AND (deleted_at IS NULL OR deleted_at = "") LIMIT 1',
                 $confessionColumns['author']
             )
         );
@@ -211,6 +212,10 @@ try {
 
     $pdo->commit();
 
+    $createdStatement = $pdo->prepare('SELECT created_at FROM confessions WHERE id = :id LIMIT 1');
+    $createdStatement->execute([':id' => $confessionId]);
+    $createdAt = bushisa_utc_iso(($createdStatement->fetchColumn() ?: null));
+
     log_action($pdo, $currentUserId, 'confession_posted', $_SERVER['REMOTE_ADDR'] ?? null);
     json_response([
         'success' => true,
@@ -219,7 +224,7 @@ try {
                 'id' => $confessionId,
                 'body' => $body,
                 'anon_handle' => $anonHandle,
-                'created_at' => date('c'),
+                'created_at' => $createdAt,
                 'view_count' => 0,
                 'reference' => null,
             ]],

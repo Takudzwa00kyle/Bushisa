@@ -169,12 +169,13 @@ render_page_shell_start('confessions', 'Confessions', $csrfToken, $currentUserId
             <?php
             $handle = (string) ($confession['anon_handle'] ?? 'anonymous');
             $body = (string) ($confession['body'] ?? '');
+            $createdAt = bushisa_utc_iso(isset($confession['created_at']) ? (string) $confession['created_at'] : null);
             ?>
             <article class="confession-card">
                 <div class="confession-card__meta">
                     <strong>@<?= e($handle) ?></strong>
                     <span><?= e((int) ($confession['view_count'] ?? 0)) ?> views</span>
-                    <time datetime="<?= e($confession['created_at'] ?? '') ?>"><?= e(format_time_ago((string) ($confession['created_at'] ?? ''))) ?></time>
+                    <time datetime="<?= e($createdAt) ?>" title="<?= e($createdAt) ?>"><?= e(format_time_ago($createdAt)) ?></time>
                 </div>
                 <p class="confession-card__body"><?= e($body) ?></p>
                 <div class="card-actions">

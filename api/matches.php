@@ -31,7 +31,7 @@ $sql = sprintf(
     'SELECT
         m.id AS match_id,
         CASE
-            WHEN m.%1$s = :current_user_id THEN m.%2$s
+            WHEN m.%1$s = :select_current_user_id THEN m.%2$s
             ELSE m.%1$s
         END AS other_user_id,
         p.display_name,
@@ -44,14 +44,14 @@ $sql = sprintf(
      FROM matches m
      INNER JOIN profiles p
         ON p.user_id = CASE
-            WHEN m.%1$s = :current_user_id THEN m.%2$s
+            WHEN m.%1$s = :join_current_user_id THEN m.%2$s
             ELSE m.%1$s
         END
      LEFT JOIN (
          SELECT
              msg.match_id,
              MAX(msg.id) AS last_message_id,
-             COUNT(CASE WHEN msg.is_read = 0 AND msg.sender_id <> :current_user_id THEN 1 END) AS unread_count,
+             COUNT(CASE WHEN msg.is_read = 0 AND msg.sender_id <> :unread_current_user_id THEN 1 END) AS unread_count,
              MAX(CASE WHEN msg.id = latest_msg.last_message_id THEN msg.%4$s END) AS body,
              MAX(CASE WHEN msg.id = latest_msg.last_message_id THEN msg.%5$s END) AS sent_at,
              MAX(msg.%5$s) AS last_activity
@@ -63,7 +63,7 @@ $sql = sprintf(
          ) latest_msg ON latest_msg.match_id = msg.match_id
          GROUP BY msg.match_id
      ) lm ON lm.match_id = m.id
-     WHERE m.%1$s = :current_user_id OR m.%2$s = :current_user_id
+     WHERE m.%1$s = :where_current_user_a_id OR m.%2$s = :where_current_user_b_id
      ORDER BY COALESCE(lm.last_activity, m.%3$s) DESC, m.id DESC',
     $matchUserAColumn,
     $matchUserBColumn,
@@ -73,7 +73,13 @@ $sql = sprintf(
 );
 
 $statement = $pdo->prepare($sql);
-$statement->execute([':current_user_id' => $currentUserId]);
+$statement->execute([
+    ':select_current_user_id' => $currentUserId,
+    ':join_current_user_id' => $currentUserId,
+    ':unread_current_user_id' => $currentUserId,
+    ':where_current_user_a_id' => $currentUserId,
+    ':where_current_user_b_id' => $currentUserId,
+]);
 $matches = $statement->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
 json_response([

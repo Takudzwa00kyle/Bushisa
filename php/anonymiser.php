@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/logger.php';
+require_once __DIR__ . '/policy_safeguards.php';
 
 /**
  * Anonymise a user while preserving rows needed for referential integrity.
@@ -14,6 +15,7 @@ function anonymise_user(PDO $pdo, int $user_id, int $initiator_id): bool
 
         $profilePhotoPath = anonymiser_get_profile_photo_path($pdo, $user_id);
         anonymiser_delete_file($profilePhotoPath);
+        bushisa_prepare_account_deletion($pdo, $user_id, $initiator_id);
 
         if (anonymiser_table_exists($pdo, 'preferences')) {
             $deletePreferences = $pdo->prepare('DELETE FROM preferences WHERE user_id = :user_id');
@@ -29,16 +31,32 @@ function anonymise_user(PDO $pdo, int $user_id, int $initiator_id): bool
         if (anonymiser_column_exists($pdo, 'profiles', 'profile_photo_path')) {
             $profileSets[] = 'profile_photo_path = NULL';
         }
+        if (anonymiser_column_exists($pdo, 'profiles', 'date_of_birth')) {
+            $profileSets[] = 'date_of_birth = NULL';
+        }
+        if (anonymiser_column_exists($pdo, 'profiles', 'faculty')) {
+            $profileSets[] = 'faculty = :faculty';
+        }
+        if (anonymiser_column_exists($pdo, 'profiles', 'year_of_study')) {
+            $profileSets[] = 'year_of_study = :year_of_study';
+        }
 
         $updateProfile = $pdo->prepare(
             'UPDATE profiles SET ' . implode(', ', $profileSets) . ' WHERE user_id = :user_id'
         );
-        $updateProfile->execute([
+        $profileParams = [
             ':display_name' => 'Deleted User',
             ':bio' => '',
             ':anon_handle' => $anonHandle,
             ':user_id' => $user_id,
-        ]);
+        ];
+        if (in_array('faculty = :faculty', $profileSets, true)) {
+            $profileParams[':faculty'] = 'Deleted';
+        }
+        if (in_array('year_of_study = :year_of_study', $profileSets, true)) {
+            $profileParams[':year_of_study'] = 'Part 1';
+        }
+        $updateProfile->execute($profileParams);
 
         if (anonymiser_table_exists($pdo, 'consent_records')) {
             $revokeConsents = $pdo->prepare(
@@ -157,6 +175,27 @@ function anonymiser_soft_delete_user(PDO $pdo, int $user_id): void
         $sets[] = 'is_active = 0';
     }
 
+    if (anonymiser_column_exists($pdo, 'users', 'is_verified')) {
+        $sets[] = 'is_verified = 0';
+    }
+
+    if (anonymiser_column_exists($pdo, 'users', 'is_suspended')) {
+        $sets[] = 'is_suspended = 1';
+    }
+
+    if (anonymiser_column_exists($pdo, 'users', 'session_version')) {
+        $sets[] = 'session_version = session_version + 1';
+    }
+
+    if (anonymiser_column_exists($pdo, 'users', 'deleted_at')) {
+        $sets[] = 'deleted_at = NOW()';
+    }
+
+    if (anonymiser_column_exists($pdo, 'users', 'account_status')) {
+        $sets[] = 'account_status = :account_status';
+        $params[':account_status'] = 'deleted';
+    }
+
     if (anonymiser_column_exists($pdo, 'users', 'email')) {
         $sets[] = 'email = :email';
         $params[':email'] = anonymiser_deleted_email($user_id);
@@ -184,8 +223,18 @@ function anonymiser_column_exists(PDO $pdo, string $table, string $column): bool
         return false;
     }
 
-    $statement = $pdo->prepare('SHOW COLUMNS FROM ' . $table . ' LIKE :column_name');
-    $statement->execute([':column_name' => $column]);
+    $statement = $pdo->prepare(
+        'SELECT 1
+         FROM information_schema.columns
+         WHERE table_schema = DATABASE()
+           AND table_name = :table_name
+           AND column_name = :column_name
+         LIMIT 1'
+    );
+    $statement->execute([
+        ':table_name' => $table,
+        ':column_name' => $column,
+    ]);
 
     return $statement->fetch(PDO::FETCH_ASSOC) !== false;
 }
@@ -197,7 +246,13 @@ function anonymiser_table_exists(PDO $pdo, string $table): bool
         return false;
     }
 
-    $statement = $pdo->prepare('SHOW TABLES LIKE :table_name');
+    $statement = $pdo->prepare(
+        'SELECT 1
+         FROM information_schema.tables
+         WHERE table_schema = DATABASE()
+           AND table_name = :table_name
+         LIMIT 1'
+    );
     $statement->execute([':table_name' => $table]);
 
     return $statement->fetchColumn() !== false;
@@ -210,8 +265,18 @@ function anonymiser_column_nullable(PDO $pdo, string $table, string $column): bo
         return false;
     }
 
-    $statement = $pdo->prepare('SHOW COLUMNS FROM ' . $table . ' LIKE :column_name');
-    $statement->execute([':column_name' => $column]);
+    $statement = $pdo->prepare(
+        'SELECT is_nullable AS `Null`
+         FROM information_schema.columns
+         WHERE table_schema = DATABASE()
+           AND table_name = :table_name
+           AND column_name = :column_name
+         LIMIT 1'
+    );
+    $statement->execute([
+        ':table_name' => $table,
+        ':column_name' => $column,
+    ]);
 
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     return is_array($row) && isset($row['Null']) && strtoupper((string) $row['Null']) === 'YES';
