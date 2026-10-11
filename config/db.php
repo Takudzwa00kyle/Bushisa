@@ -16,8 +16,13 @@ try {
         PDO::ATTR_EMULATE_PREPARES => false,
     ];
     if ($settings['require_tls']) {
-        $options[PDO::MYSQL_ATTR_SSL_CA] = $settings['ssl_ca'];
-        $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+        if (class_exists(\Pdo\Mysql::class)) {
+            $options[\Pdo\Mysql::ATTR_SSL_CA] = $settings['ssl_ca'];
+            $options[\Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT] = true;
+        } else {
+            $options[PDO::MYSQL_ATTR_SSL_CA] = $settings['ssl_ca'];
+            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+        }
     }
 
     $pdo = new PDO($dsn, $settings['user'], $settings['password'], $options);
