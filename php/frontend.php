@@ -164,6 +164,7 @@ function render_notification_panel(): void
                 <span class="ui-icon ui-icon--close" aria-hidden="true"></span>
             </button>
         </div>
+        <?php render_service_under_development('Notifications', 'Service under development. Delivery and preference behavior will be revoked once this service is up to date on the next push.'); ?>
         <div class="notification-list">
             <?php if ($notifications === []): ?>
                 <article class="notification-item">
@@ -257,4 +258,14 @@ function render_flash(?string $error, ?string $success): void
     if ($success !== null && $success !== '') {
         echo '<div class="status-banner status-banner--success" role="status">' . e($success) . '</div>';
     }
+}
+
+function render_service_under_development(string $serviceName, ?string $detail = null): void
+{
+    ?>
+    <aside class="service-dev-banner" role="status" aria-label="<?= e($serviceName) ?> service status">
+        <strong><?= e($serviceName) ?>: service under development</strong>
+        <p><?= e($detail ?: 'This message will be revoked once this service is up to date on the next push.') ?></p>
+    </aside>
+<?php
 }

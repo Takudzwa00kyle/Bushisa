@@ -155,6 +155,7 @@ $quotaPercent = $photoBytes > 0 ? min(100, (int) round(($photoBytes / $quotaByte
 render_page_shell_start('you', 'You', $csrfToken, $userId, false, 'Profile, privacy and account settings');
 ?>
 <?php render_flash($error, $success); ?>
+<?php render_service_under_development('Profile services', 'Service under development. Media slots, matching preferences, notifications, safety controls and deletion wording still need final checks. This message will be revoked once these services are up to date on the next push.'); ?>
 
 <section class="settings-grid">
     <article class="section-card">
@@ -179,6 +180,7 @@ render_page_shell_start('you', 'You', $csrfToken, $userId, false, 'Profile, priv
 
 <section class="section-card" aria-labelledby="media-title">
     <h2 id="media-title">Images</h2>
+    <?php render_service_under_development('Profile media', 'Service under development. Multi-photo storage, quota and cleanup are not launch-ready yet.'); ?>
     <div class="card-grid">
         <div class="image-slot">
             <div>
@@ -247,7 +249,7 @@ render_page_shell_start('you', 'You', $csrfToken, $userId, false, 'Profile, priv
 
         <label class="field">
             <span>Replace profile photo</span>
-            <input type="file" name="profile_photo" accept="image/jpeg,image/png,image/webp">
+            <input type="file" name="profile_photo" accept="image/jpeg,image/png,image/webp" disabled>
             <p class="field-help">The existing image remains until the server accepts the replacement.</p>
         </label>
 
@@ -257,6 +259,7 @@ render_page_shell_start('you', 'You', $csrfToken, $userId, false, 'Profile, priv
 
 <section class="section-card" id="preferences" aria-labelledby="preferences-title">
     <h2 id="preferences-title">Discovery preferences</h2>
+    <?php render_service_under_development('Discovery preferences', 'Service under development. Preference changes are paused until matching and D12 decisions are up to date.'); ?>
     <form class="form-grid" method="post" action="profile.php">
         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
         <input type="hidden" name="display_name" value="<?= e($profile['display_name'] ?? '') ?>">
@@ -294,13 +297,14 @@ render_page_shell_start('you', 'You', $csrfToken, $userId, false, 'Profile, priv
             </select>
         </label>
 
-        <button class="button" type="submit">Save preferences</button>
+        <button class="button" type="submit" disabled title="Service under development">Save preferences</button>
     </form>
 </section>
 
 <section class="settings-grid">
     <article class="section-card" id="notifications">
         <h2>Notification preferences</h2>
+        <?php render_service_under_development('Notifications', 'Service under development. Notification preferences and delivery behavior are not final.'); ?>
         <div class="preferences-panel">
             <label class="switch-row"><span>Matches and milestones</span><input type="checkbox" checked disabled></label>
             <label class="switch-row"><span>Confession references</span><input type="checkbox" disabled></label>
@@ -311,6 +315,7 @@ render_page_shell_start('you', 'You', $csrfToken, $userId, false, 'Profile, priv
 
     <article class="section-card">
         <h2>Privacy and safety</h2>
+        <?php render_service_under_development('Safety controls', 'Service under development. Reporting, blocking, unmatching and evidence access still need final route evidence.'); ?>
         <p class="muted">Screenshot alerts are not supported in standard web browsers. Reporting, blocking, unmatching and account deletion need final server contracts before production UI can claim success.</p>
         <div class="card-actions">
             <a class="button-secondary" href="privacy_policy.php">Privacy policy</a>
@@ -320,9 +325,10 @@ render_page_shell_start('you', 'You', $csrfToken, $userId, false, 'Profile, priv
 
     <article class="section-card">
         <h2>Account</h2>
+        <?php render_service_under_development('Account deletion', 'Service under development. Deletion remains password-protected, but final retention wording and restore evidence are pending.'); ?>
         <div class="card-actions">
             <a class="button-secondary" href="logout.php">Log out</a>
-            <a class="button-danger" href="account_delete.php">Delete account</a>
+            <span class="button-danger" aria-disabled="true" title="Service under development">Delete account</span>
         </div>
         <p class="field-help">Deletion requires password confirmation and then anonymises the account using the retention policy.</p>
     </article>

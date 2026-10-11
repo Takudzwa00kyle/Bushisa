@@ -25,6 +25,7 @@ render_auth_start('Terms of Service');
     <span class="brand-mark" aria-hidden="true">B</span>
     <h1 id="terms-title">Terms of Service</h1>
     <p class="auth-card__lead">Last updated <?= e($last_updated) ?>. Use Bushisa only if you can follow the consent and safety rules.</p>
+    <?php render_service_under_development('Terms and launch scope', 'Service under development. Product scope and safety commitments are pending final review and will be revoked once the service is up to date on the next push.'); ?>
     <div class="form-grid">
         <?php foreach ($tos_content as $heading => $content): ?>
             <article class="section-card">

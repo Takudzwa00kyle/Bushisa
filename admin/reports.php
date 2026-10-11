@@ -140,6 +140,7 @@ render_auth_start('Reports', $csrfToken);
     <h1 id="reports-title">Reports</h1>
     <p class="auth-card__lead">Review private safety reports. Catfish and impersonation reports stay confidential.</p>
     <?php render_flash($error, $success); ?>
+    <?php render_service_under_development('Reports moderation', 'Service under development. Report actions are visible for testing only until case assignment, evidence access and audit checks are up to date on the next push.'); ?>
 
     <div class="card-actions">
         <?php foreach ($allowedStatusFilters as $filter): ?>
@@ -165,19 +166,19 @@ render_auth_start('Reports', $csrfToken);
                             <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                             <input type="hidden" name="report_id" value="<?= e($report['id'] ?? '') ?>">
                             <input type="hidden" name="action" value="reviewed">
-                            <button class="button-secondary" type="submit">Mark reviewed</button>
+                            <button class="button-secondary" type="submit" disabled title="Service under development">Mark reviewed</button>
                         </form>
                         <form method="post" action="reports.php?status=<?= e($status_filter) ?>">
                             <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                             <input type="hidden" name="report_id" value="<?= e($report['id'] ?? '') ?>">
                             <input type="hidden" name="action" value="dismiss">
-                            <button class="button-secondary" type="submit">Dismiss</button>
+                            <button class="button-secondary" type="submit" disabled title="Service under development">Dismiss</button>
                         </form>
                         <form method="post" action="reports.php?status=<?= e($status_filter) ?>">
                             <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                             <input type="hidden" name="report_id" value="<?= e($report['id'] ?? '') ?>">
                             <input type="hidden" name="action" value="suspend_user">
-                            <button class="button-danger" type="submit">Suspend user</button>
+                            <button class="button-danger" type="submit" disabled title="Service under development">Suspend user</button>
                         </form>
                     </div>
                 </article>

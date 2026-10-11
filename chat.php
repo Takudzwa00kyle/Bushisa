@@ -234,6 +234,7 @@ $csrfToken = generate_csrf_token();
 render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conversation'), $csrfToken, $currentUserId, false, 'Approved conversation state');
 ?>
 <?php render_flash($error, $success); ?>
+<?php render_service_under_development('Chat', 'Service under development. Request, approval, revoke and message-send controls are paused in the UI until the safety and overlap checks are up to date. This message will be revoked once this service is up to date on the next push.'); ?>
 
 <section class="message-card">
     <div class="chat-header">
@@ -260,7 +261,7 @@ render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conver
                 <form method="post" action="chat.php?match_id=<?= e($matchId) ?>">
                     <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                     <input type="hidden" name="action" value="request_chat">
-                    <button class="button" type="submit">Request message permission</button>
+                    <button class="button" type="submit" disabled title="Service under development">Request message permission</button>
                 </form>
             <?php elseif ($permissionState['status'] === 'pending' && $permissionState['is_requester']): ?>
                 <h2>Request pending</h2>
@@ -268,7 +269,7 @@ render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conver
                 <form method="post" action="chat.php?match_id=<?= e($matchId) ?>">
                     <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                     <input type="hidden" name="action" value="revoke_chat">
-                    <button class="button-secondary" type="submit">Cancel request</button>
+                    <button class="button-secondary" type="submit" disabled title="Service under development">Cancel request</button>
                 </form>
             <?php elseif ($permissionState['status'] === 'pending' && $permissionState['is_recipient']): ?>
                 <h2>Message request</h2>
@@ -277,12 +278,12 @@ render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conver
                     <form method="post" action="chat.php?match_id=<?= e($matchId) ?>">
                         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                         <input type="hidden" name="action" value="approve_chat">
-                        <button class="button" type="submit">Approve</button>
+                        <button class="button" type="submit" disabled title="Service under development">Approve</button>
                     </form>
                     <form method="post" action="chat.php?match_id=<?= e($matchId) ?>">
                         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                         <input type="hidden" name="action" value="decline_chat">
-                        <button class="button-secondary" type="submit">Decline</button>
+                        <button class="button-secondary" type="submit" disabled title="Service under development">Decline</button>
                     </form>
                 </div>
             <?php endif; ?>
@@ -309,8 +310,8 @@ render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conver
         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
         <input type="hidden" name="action" value="send_message">
         <label class="sr-only" for="message-body">Message</label>
-        <textarea id="message-body" name="body" rows="2" maxlength="1000" required placeholder="Write a respectful message..."></textarea>
-        <button class="chat-composer__send" type="submit">Send</button>
+        <textarea id="message-body" name="body" rows="2" maxlength="1000" required placeholder="Service under development..." disabled></textarea>
+        <button class="chat-composer__send" type="submit" disabled title="Service under development">Send</button>
     </form>
     <?php endif; ?>
 </section>

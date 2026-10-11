@@ -25,6 +25,7 @@ render_auth_start('Privacy Policy');
     <span class="brand-mark" aria-hidden="true">B</span>
     <h1 id="privacy-title">Privacy Policy</h1>
     <p class="auth-card__lead">Last updated <?= e($last_updated) ?>. Anonymous features must not reveal real student identities to other users.</p>
+    <?php render_service_under_development('Privacy and retention policy', 'Service under development. D04/D05 retention and evidence wording is pending owner review and will be revoked once the service is up to date on the next push.'); ?>
     <div class="form-grid">
         <?php foreach ($privacy_content as $heading => $content): ?>
             <article class="section-card">

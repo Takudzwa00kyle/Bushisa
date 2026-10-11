@@ -120,6 +120,7 @@ render_auth_start('Moderation', $csrfToken);
     <h1 id="moderation-title">Moderation</h1>
     <p class="auth-card__lead">Manage flagged confessions and suspended accounts.</p>
     <?php render_flash($error, $success); ?>
+    <?php render_service_under_development('Moderation actions', 'Service under development. Queue actions are paused in the UI until evidence access, assignment and operations checks are up to date on the next push.'); ?>
 
     <section class="form-grid" aria-labelledby="flagged-title">
         <h2 id="flagged-title">Flagged confessions</h2>
@@ -139,13 +140,13 @@ render_auth_start('Moderation', $csrfToken);
                             <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                             <input type="hidden" name="confession_id" value="<?= e($confession['id'] ?? '') ?>">
                             <input type="hidden" name="action" value="unflag_confession">
-                            <button class="button-secondary" type="submit">Unflag</button>
+                            <button class="button-secondary" type="submit" disabled title="Service under development">Unflag</button>
                         </form>
                         <form method="post" action="moderation.php">
                             <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                             <input type="hidden" name="confession_id" value="<?= e($confession['id'] ?? '') ?>">
                             <input type="hidden" name="action" value="delete_confession">
-                            <button class="button-danger" type="submit">Delete</button>
+                            <button class="button-danger" type="submit" disabled title="Service under development">Delete</button>
                         </form>
                     </div>
                 </article>
@@ -169,7 +170,7 @@ render_auth_start('Moderation', $csrfToken);
                         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
                         <input type="hidden" name="user_id" value="<?= e($user['id'] ?? '') ?>">
                         <input type="hidden" name="action" value="unsuspend_user">
-                        <button class="button-secondary" type="submit">Unsuspend</button>
+                        <button class="button-secondary" type="submit" disabled title="Service under development">Unsuspend</button>
                     </form>
                 </article>
             <?php endforeach; ?>

@@ -151,6 +151,7 @@ $csrfToken = generate_csrf_token();
 render_page_shell_start('confessions', 'Confessions', $csrfToken, $currentUserId, false, 'Anonymous posts from the Bushisa community');
 ?>
 <?php render_flash($error, $success); ?>
+<?php render_service_under_development('Confessions', 'Service under development. Posting, references, reporting and timestamp acceptance still need final checks. This message will be revoked once this service is up to date on the next push.'); ?>
 
 <section class="empty-state">
     <h2>Trending confessions</h2>
@@ -199,7 +200,7 @@ render_page_shell_start('confessions', 'Confessions', $csrfToken, $currentUserId
     </nav>
 <?php endif; ?>
 
-<button class="confession-fab" type="button" aria-label="Write confession" data-confession-open>+</button>
+<button class="confession-fab" type="button" aria-label="Write confession" disabled title="Service under development">+</button>
 
 <section class="confession-modal" id="write-confession" role="dialog" aria-modal="true" aria-labelledby="write-confession-title" data-confession-modal hidden>
     <h2 id="write-confession-title">Write confession</h2>
@@ -208,10 +209,10 @@ render_page_shell_start('confessions', 'Confessions', $csrfToken, $currentUserId
         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
         <label class="field">
             <span>Confession</span>
-            <textarea name="body" maxlength="500" required placeholder="Share what is on your mind..."></textarea>
+            <textarea name="body" maxlength="500" required placeholder="Service under development..." disabled></textarea>
         </label>
         <div class="card-actions">
-            <button class="confession-modal__submit" type="submit">Post anonymously</button>
+            <button class="confession-modal__submit" type="submit" disabled title="Service under development">Post anonymously</button>
             <button class="button-secondary" type="button" data-confession-close>Cancel</button>
         </div>
     </form>

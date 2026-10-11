@@ -111,6 +111,7 @@ render_auth_start('Admin Dashboard');
     <span class="brand-mark" aria-hidden="true">B</span>
     <h1 id="admin-title">Admin Dashboard</h1>
     <p class="auth-card__lead">Operational overview for Bushisa moderation.</p>
+    <?php render_service_under_development('Moderation dashboard', 'Service under development. Counts and queues are visible for testing only until case-scoped evidence, assignment and operations checks are up to date on the next push.'); ?>
     <div class="card-grid">
         <?php foreach ($stats as $label => $value): ?>
             <article class="section-card">

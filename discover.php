@@ -59,6 +59,8 @@ if (($candidateResult['success'] ?? false) === true) {
 
 render_page_shell_start('home', 'Bushisa', $csrfToken, $currentUserId, true);
 ?>
+<?php render_service_under_development('Discovery, matching and chat', 'Service under development. Matching actions, chat entry and notifications are visible for testing only. This message will be revoked once these services are up to date on the next push.'); ?>
+
 <section class="matches-strip" aria-labelledby="matches-title">
     <h2 class="sr-only" id="matches-title">Established matches</h2>
     <?php if ($establishedMatches === []): ?>
@@ -71,7 +73,7 @@ render_page_shell_start('home', 'Bushisa', $csrfToken, $currentUserId, true);
         <ul class="matches-strip__list" aria-label="Established matches">
             <?php foreach ($establishedMatches as $match): ?>
                 <li>
-                    <a class="match-avatar-link" href="chat.php?match_id=<?= e($match['match_id'] ?? '') ?>" aria-label="Open consent-aware chat with <?= e($match['display_name'] ?? 'match') ?>">
+                    <a class="match-avatar-link" href="chat.php?match_id=<?= e($match['match_id'] ?? '') ?>" aria-label="Open development-status chat with <?= e($match['display_name'] ?? 'match') ?>">
                         <?= render_avatar($match['profile_photo_path'] ?? null, (string) ($match['display_name'] ?? 'Match')) ?>
                         <span><?= e($match['display_name'] ?? 'Match') ?></span>
                     </a>
@@ -120,8 +122,8 @@ render_page_shell_start('home', 'Bushisa', $csrfToken, $currentUserId, true);
                         <p class="profile-card__bio"><?= e($candidate['bio'] !== '' ? $candidate['bio'] : 'No bio added yet.') ?></p>
                         <p class="field-help"><?= e($candidate['score_label'] ?? 'Limited questionnaire information') ?><?= isset($candidate['questionnaire_fit']) && $candidate['questionnaire_fit'] !== null ? ': ' . e($candidate['questionnaire_fit']) . '%' : '' ?></p>
                         <div class="card-actions">
-                            <button class="discover-card__action discover-card__action--like" type="button" data-swipe-target="<?= e($candidate['user_id'] ?? '') ?>" data-swipe-direction="like">Like</button>
-                            <button class="discover-card__action" type="button" data-swipe-target="<?= e($candidate['user_id'] ?? '') ?>" data-swipe-direction="pass">Pass</button>
+                            <button class="discover-card__action discover-card__action--like" type="button" disabled title="Service under development">Like</button>
+                            <button class="discover-card__action" type="button" disabled title="Service under development">Pass</button>
                             <a class="button-secondary" href="community_guidelines.php">Report</a>
                         </div>
                     </div>

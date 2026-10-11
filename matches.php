@@ -123,6 +123,8 @@ $matches = $statement->fetchAll(PDO::FETCH_ASSOC) ?: [];
 
 render_page_shell_start('find', 'Find Match', $csrfToken, $currentUserId, false, 'Questionnaire fit and consent-aware match actions');
 ?>
+<?php render_service_under_development('Find Match', 'Service under development. Questionnaire, recommendation, matching and conversation controls are visible for testing only. This message will be revoked once this service is up to date on the next push.'); ?>
+
 <section class="find-flow" aria-labelledby="find-title">
     <article class="find-card">
         <div class="find-progress" aria-label="Questionnaire progress">
@@ -198,7 +200,7 @@ render_page_shell_start('find', 'Find Match', $csrfToken, $currentUserId, false,
                     </fieldset>
                 <?php endforeach; ?>
             </div>
-            <button class="button" type="submit">Save questionnaire</button>
+            <button class="button" type="submit" disabled title="Service under development">Save questionnaire</button>
         </form>
     </article>
 
@@ -222,8 +224,8 @@ render_page_shell_start('find', 'Find Match', $csrfToken, $currentUserId, false,
                             <p class="profile-card__bio"><?= e(($candidate['bio'] ?? '') !== '' ? $candidate['bio'] : 'No bio added yet.') ?></p>
                             <p class="field-help"><?= e($candidate['score_label'] ?? 'Limited questionnaire information') ?><?= isset($candidate['questionnaire_fit']) && $candidate['questionnaire_fit'] !== null ? ': ' . e($candidate['questionnaire_fit']) . '%' : '' ?></p>
                             <div class="card-actions">
-                                <button class="discover-card__action discover-card__action--like" type="button" data-swipe-target="<?= e($candidate['user_id'] ?? '') ?>" data-swipe-direction="like">Like</button>
-                                <button class="discover-card__action" type="button" data-swipe-target="<?= e($candidate['user_id'] ?? '') ?>" data-swipe-direction="pass">Pass</button>
+                                <button class="discover-card__action discover-card__action--like" type="button" disabled title="Service under development">Like</button>
+                                <button class="discover-card__action" type="button" disabled title="Service under development">Pass</button>
                             </div>
                         </div>
                     </article>
@@ -255,7 +257,7 @@ render_page_shell_start('find', 'Find Match', $csrfToken, $currentUserId, false,
                             </div>
                         </div>
                         <div class="card-actions">
-                            <a class="button-secondary" href="chat.php?match_id=<?= e($match['match_id'] ?? '') ?>">Open conversation</a>
+                            <a class="button-secondary" href="chat.php?match_id=<?= e($match['match_id'] ?? '') ?>">View development-status conversation</a>
                         </div>
                     </article>
                 <?php endforeach; ?>

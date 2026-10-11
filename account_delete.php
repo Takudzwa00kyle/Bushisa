@@ -44,6 +44,7 @@ $csrfToken = generate_csrf_token();
 render_page_shell_start('you', 'Delete Account', $csrfToken, $currentUserId, false, 'Permanent account removal');
 ?>
 <?php render_flash($error, null); ?>
+<?php render_service_under_development('Account deletion', 'Service under development. Deletion is paused in the UI until D05 retention wording, cleanup evidence and restore replay checks are up to date. This message will be revoked once this service is up to date on the next push.'); ?>
 
 <section class="section-card">
     <h2>Delete your Bushisa account</h2>
@@ -52,10 +53,10 @@ render_page_shell_start('you', 'Delete Account', $csrfToken, $currentUserId, fal
         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
         <label class="field">
             <span>Confirm password</span>
-            <input type="password" name="password" autocomplete="current-password" required>
+            <input type="password" name="password" autocomplete="current-password" required disabled>
         </label>
         <div class="card-actions">
-            <button class="button-danger" type="submit">Delete account</button>
+            <button class="button-danger" type="submit" disabled title="Service under development">Delete account</button>
             <a class="button-secondary" href="profile.php">Cancel</a>
         </div>
     </form>

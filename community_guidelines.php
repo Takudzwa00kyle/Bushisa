@@ -24,6 +24,7 @@ render_auth_start('Community Guidelines');
     <span class="brand-mark" aria-hidden="true">B</span>
     <h1 id="guidelines-title">Community Guidelines</h1>
     <p class="auth-card__lead">Bushisa is built around privacy, consent and respectful student discovery.</p>
+    <?php render_service_under_development('Safety policy', 'Service under development. Reporting, moderation and enforcement wording will be revoked once the service is up to date on the next push.'); ?>
     <div class="form-grid">
         <?php foreach ($guidelines as $heading => $content): ?>
             <article class="section-card">
