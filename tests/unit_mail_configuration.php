@@ -68,6 +68,9 @@ foreach (['DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_PASS', 
     'AZURE_MYSQL_HOST', 'AZURE_MYSQL_PORT', 'AZURE_MYSQL_DBNAME', 'AZURE_MYSQL_USERNAME', 'AZURE_MYSQL_PASSWORD'] as $name) {
     putenv($name);
 }
+// This settings-only test never opens a database connection. Use a public test
+// CA fixture so the checks do not depend on the host's system CA bundle path.
+putenv('DB_SSL_CA=' . __DIR__ . '/fixtures/mail_configuration_ca.pem');
 putenv('AZURE_MYSQL_HOST=synthetic.mysql.database.azure.com');
 putenv('AZURE_MYSQL_DBNAME=synthetic_db');
 putenv('AZURE_MYSQL_USERNAME=synthetic_runtime');
