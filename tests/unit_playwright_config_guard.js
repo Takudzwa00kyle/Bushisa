@@ -82,6 +82,12 @@ expectFailure('external server without opt-in', {
   BUSHISA_EXTERNAL_TEST_SERVER: 'true',
   PLAYWRIGHT_BASE_URL: 'http://192.0.2.10:8097',
 }, 'BUSHISA_ALLOW_EXTERNAL_TEST_SERVER=true');
+if (process.platform === 'win32') {
+  expectFailure('windows overlap without external server', {
+    ...valid,
+    BUSHISA_TEST_HTTP_OVERLAP: 'true',
+  }, 'BUSHISA_TEST_HTTP_OVERLAP requires an isolated multi-worker Linux server');
+}
 expectPass('valid loopback browser harness', valid);
 
 console.log('unit_playwright_config_guard PASS');

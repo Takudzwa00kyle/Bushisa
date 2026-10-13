@@ -87,7 +87,7 @@ async function registerStudent(page, student) {
   await page.getByLabel('Faculty').selectOption('Applied Sciences');
   await page.getByLabel('Year of study').selectOption('Part 2');
   await page.getByRole('button', { name: 'Create account' }).click();
-  await expect(page.getByText('Account created. Enter the approval code sent to your student email.')).toBeVisible();
+  await expect(page.getByRole('status')).toContainText('Account created. Your approval email is on its way.');
 }
 
 function approvalCodeFor(email) {

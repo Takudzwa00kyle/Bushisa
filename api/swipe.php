@@ -13,6 +13,7 @@ require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/matching/service.php';
+require_once __DIR__ . '/../php/http_test_barrier.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -122,9 +123,43 @@ if ($existingSwipe->fetchColumn() !== false) {
 }
 
 $response = ['match' => false, 'matched' => false];
+$matchLockName = null;
+
+function bushisa_swipe_match_lock_name(int $currentUserId, int $targetId): string
+{
+    $userA = min($currentUserId, $targetId);
+    $userB = max($currentUserId, $targetId);
+
+    return 'bushisa_match:' . $userA . ':' . $userB;
+}
+
+function bushisa_acquire_swipe_match_lock(PDO $pdo, string $lockName): void
+{
+    $statement = $pdo->prepare('SELECT GET_LOCK(:lock_name, 5)');
+    $statement->execute([':lock_name' => $lockName]);
+    if ((int) $statement->fetchColumn() !== 1) {
+        throw new RuntimeException('Unable to acquire reciprocal match lock.');
+    }
+}
+
+function bushisa_release_swipe_match_lock(PDO $pdo, ?string $lockName): void
+{
+    if ($lockName === null) {
+        return;
+    }
+
+    $statement = $pdo->prepare('SELECT RELEASE_LOCK(:lock_name)');
+    $statement->execute([':lock_name' => $lockName]);
+}
 
 try {
     $pdo->beginTransaction();
+    bushisa_http_test_barrier('swipe_after_transaction_begin');
+
+    if ($direction === 'like') {
+        $matchLockName = bushisa_swipe_match_lock_name($currentUserId, $targetId);
+        bushisa_acquire_swipe_match_lock($pdo, $matchLockName);
+    }
 
     record_attempt($pdo, 'swipe', $rateLimitKey);
 
@@ -233,12 +268,15 @@ try {
     }
 
     $pdo->commit();
+    bushisa_release_swipe_match_lock($pdo, $matchLockName);
+    $matchLockName = null;
     log_action($pdo, $currentUserId, 'swipe_' . $direction, $_SERVER['REMOTE_ADDR'] ?? null);
     log_to_file('User ' . $currentUserId . ' swiped ' . $direction . ' on ' . $targetId, 'INFO');
 } catch (Throwable $throwable) {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
+    bushisa_release_swipe_match_lock($pdo, $matchLockName);
 
     log_to_file('Swipe failed for user ' . $currentUserId . ': ' . $throwable->getMessage(), 'ERROR');
     json_response(['error' => 'Unable to process swipe'], 500);

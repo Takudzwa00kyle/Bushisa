@@ -30,6 +30,7 @@ jobs:
           node --check tests/unit_playwright_config_guard.js
           node --check tests/browser/p0-rendered-flows.spec.js
           node --check tests/browser/prompt02-session-routes.spec.js
+          node --check tests/browser/prompt02-http-overlap.spec.js
       - name: Unit checks
         run: |
           php tests/unit_signup_verification.php
@@ -84,3 +85,49 @@ jobs:
           php tests/policy_safeguards_p0_flows.php
           php tests/integration_smtp_outbox.php
           php tests/overlap_db_p0_flows.php
+
+  browser-route-session-overlap:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+          MYSQL_DATABASE: bushisa_test_ci_browser
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_test_ci_browser
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+      BUSHISA_TEST_HTTP_OVERLAP: "true"
+      PHP_CLI_SERVER_WORKERS: "4"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+      - name: Install Node dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser, session and HTTP overlap regressions
+        run: npx playwright test tests/browser/p0-rendered-flows.spec.js tests/browser/prompt02-session-routes.spec.js tests/browser/prompt02-http-overlap.spec.js

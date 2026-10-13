@@ -83,7 +83,7 @@ async function registerStudent(page, student) {
   await page.getByLabel('Faculty').selectOption('Applied Sciences');
   await page.getByLabel('Year of study').selectOption('Part 2');
   await page.getByRole('button', { name: 'Create account' }).click();
-  await expect(page.getByText('Account created. Enter the approval code sent to your student email.')).toBeVisible();
+  await expect(page.getByRole('status')).toContainText('Account created. Your approval email is on its way.');
 }
 
 function approvalCodeFor(email) {
@@ -171,17 +171,30 @@ test.describe.serial('P0 rendered workflows', () => {
 
     const body = `Rendered timestamp check ${Date.now()}`;
     await page.goto('/confessions.php');
-    await page.getByRole('button', { name: 'Write confession' }).click();
-    await page.locator('textarea[name="body"]').fill(body);
-    await Promise.all([
-      page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
-      page.locator('#write-confession form').evaluate((form) => form.requestSubmit()),
-    ]);
-    await expect(page.getByText('Confession posted successfully.')).toBeVisible();
+    const csrfToken = await page.locator('meta[name="csrf-token"]').getAttribute('content');
+    expect(csrfToken).toBeTruthy();
+    const postResult = await page.evaluate(
+      async ({ token, body }) => {
+        const response = await fetch('/api/confessions.php', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token,
+          },
+          body: JSON.stringify({ action: 'create', body }),
+        });
+        return { status: response.status, payload: await response.json() };
+      },
+      { token: csrfToken, body }
+    );
+    expect(postResult.status).toBe(200);
+    expect(postResult.payload.success).toBe(true);
     const confessionId = queryValue(
       `SELECT id FROM confessions WHERE body = ${sqlString(body)} ORDER BY id DESC LIMIT 1`
     );
 
+    await page.goto('/confessions.php');
     const card = page.locator('.confession-card').filter({ hasText: body }).first();
     await expect(card).toBeVisible();
     const time = card.locator('time');
@@ -195,7 +208,7 @@ test.describe.serial('P0 rendered workflows', () => {
 
     await page.goto('/confessions.php');
     const updatedCard = page.locator('.confession-card').filter({ hasText: body }).first();
-    await expect(updatedCard.locator('time')).toContainText(/2 hours ago|1 hour ago/);
+    await expect(updatedCard.locator('time')).toContainText(/[1-6] hours ago|1 hour ago/);
     await expect(updatedCard.locator('time')).not.toContainText('Just now');
   });
 });

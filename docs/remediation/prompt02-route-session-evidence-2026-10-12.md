@@ -1,8 +1,8 @@
 # Prompt 02 route/session evidence checkpoint
 
-Evidence through **12 October 2026, 13:00 Harare (UTC+02:00)**.
+Evidence through **13 October 2026, 22:22 Harare (UTC+02:00)**.
 
-Status: Prompt 02 startup safety repair is implemented and locally unit-verified. Actual rendered browser execution, two-session route revocation evidence and genuine multi-worker HTTP overlap are still **BLOCKED/NOT RUN** in this shell because the authorized disposable DB environment is not loaded and no multi-worker PHP runtime is available here.
+Status: Prompt 02 startup safety repair is implemented. On 13 October 2026 the rendered browser suite, two-session revocation browser route check and Linux multi-worker HTTP reciprocal-swipe overlap check passed against guarded disposable MySQL targets. Native Windows overlap remains blocked by PHP worker limits, but the overlap proof was executed in a Linux Playwright container using `PHP_CLI_SERVER_WORKERS=4` and the local disposable MySQL listener.
 
 This is not P0 clearance, production approval, CI evidence or live deployment evidence.
 
@@ -101,3 +101,86 @@ Continue Prompt 02 with the now-guarded browser harness:
 4. Extend focused Prompt 02 browser/API tests for the remaining current-authorization states and forged ownership/CSRF cases.
 5. Prepare or run an isolated multi-worker HTTP server for overlap proof. If unavailable, keep overlap BLOCKED with the exact runtime prerequisite.
 6. Update this evidence file with executed route/session/overlap cases, sanitized evidence paths, and R01-R12 mapping.
+
+## 2026-10-13 execution entry
+
+This entry continues the same Prompt 02 checkpoint after reconciling the committed Prompt 01 artifact `c27ea640c382c32792989611cfe682cf2a414520` and the main README-only update on branch `codex/prompt02-completion-20261013`.
+
+### Runtime and guarded target
+
+| Item | Value |
+|---|---|
+| Local branch | `codex/prompt02-completion-20261013` |
+| Starting HEAD for this slice | `f060901` (`Merge Prompt 01 validation artifact`) |
+| PHP CLI | `PHP 8.5.11 (cli)` |
+| Node/npm | Node `v20.19.6`, npm `10.8.2` |
+| MySQL client/server | Local disposable MySQL `9.6.0` on `127.0.0.1:3318` |
+| Disposable DB | `bushisa_test_prompt02_local` |
+| DB principal | `root@localhost` on a freshly initialized local insecure disposable datadir under `.tmp/mysql-prompt02-local-20261013`; no production or Azure target used |
+| Browser server | Windows `php -S 127.0.0.1:8097 -t .`, single worker, for serial rendered/session checks only |
+| HTTP-overlap runtime | Docker Linux `mcr.microsoft.com/playwright:v1.64.0-noble`; PHP `8.3.6`; MySQL client `8.0.46`; `PHP_CLI_SERVER_WORKERS=4`; `PLAYWRIGHT_BASE_URL=http://127.0.0.1:8097` |
+| HTTP-overlap DB | `host.docker.internal:3318/bushisa_test_prompt02_docker_overlap`, `root@localhost`, guarded with `BUSHISA_ALLOW_REMOTE_TEST_DATABASE=true` because the Linux container reached the host-owned disposable MySQL listener |
+| Mail | `MAIL_PROVIDER=fake` |
+| Guard settings | `APP_ENV=development`, `APP_DEBUG=false`, `BUSHISA_ALLOW_RUNTIME_DDL=false`, `BUSHISA_TEST_DATABASE=true` |
+
+### Implemented repairs after the 12 October entry
+
+- Changed Playwright readiness from `/login.php` to `/css/style.css` so server startup does not query an empty DB before the guarded test reset/migration runs.
+- Updated rendered browser assertions to match current registration copy.
+- Kept confession timestamp coverage despite the disabled UI composer by posting through the implemented `/api/confessions.php` JSON route, then reloading and checking rendered UTC `<time>` output.
+- Added `php/http_test_barrier.php`, enabled only for guarded development overlap runs with `BUSHISA_TEST_HTTP_OVERLAP=true`.
+- Added reciprocal-match user-level locking in `api/swipe.php` with `GET_LOCK`/`RELEASE_LOCK` around unordered match pairs to serialize overlapping reciprocal likes.
+- Added `tests/browser/prompt02-http-overlap.spec.js`, which uses two independent browser contexts, two logged-in sessions, real CSRF tokens and overlapping HTTP `POST /api/swipe.php` calls.
+- Added a Linux CI job, `browser-route-session-overlap`, with MySQL 8.0, Chromium, guarded Playwright execution and `PHP_CLI_SERVER_WORKERS=4`.
+- Tightened `playwright.config.js` so `BUSHISA_TEST_HTTP_OVERLAP=true` fails before server launch on native Windows unless an explicit external multi-worker test server is selected.
+
+### Commands and results
+
+| Command | Result | Notes |
+|---|---|---|
+| `php -l php/http_test_barrier.php; php -l api/swipe.php` | PASS | Syntax only for changed PHP. |
+| `node --check playwright.config.js; node --check tests/unit_playwright_config_guard.js; node --check tests/browser/prompt02-http-overlap.spec.js; node --check tests/browser/p0-rendered-flows.spec.js; node --check tests/browser/prompt02-session-routes.spec.js` | PASS | Syntax only for changed JS/browser specs. |
+| `node tests/unit_playwright_config_guard.js` | PASS | Proves fail-closed config for missing opt-in, production, unsafe DB, debug/runtime-DDL, real mail, unapproved external server and native Windows overlap. |
+| `php tests/bootstrap_database.php; php bin/migrate.php; php bin/migrate.php; php tests/integration_core_p0_flows.php; php tests/overlap_db_p0_flows.php; php tests/policy_safeguards_p0_flows.php` | PASS | Same guarded disposable DB target. |
+| `php tests/bootstrap_database.php; php bin/migrate.php; php tests/unit_signup_verification.php; php tests/unit_mail_configuration.php; php tests/unit_disposable_database_guard.php; php tests/integration_p0_flows.php; php tests/integration_smtp_outbox.php` | PASS | The same PowerShell line attempted `python tests/smtp_transport_test.py`, but Windows had no file association for `python`; the PHP commands before and after it passed. |
+| `py -3 tests/smtp_transport_test.py` | PASS | Python SMTP fixture rerun with the available launcher. |
+| `npx playwright test tests/browser/p0-rendered-flows.spec.js tests/browser/prompt02-session-routes.spec.js` | PASS | 4 tests passed: registration/code/DOB/logout rendering, pending-email/onboarding route restriction, confession persisted UTC timestamp after reload, and two independent sessions losing page/API access after account revocation. |
+| `npx playwright test tests/browser/prompt02-http-overlap.spec.js` with `BUSHISA_TEST_HTTP_OVERLAP=true` on native Windows | BLOCKED as expected | Fails before fixture writes with: `Prompt 02 HTTP overlap checks require an isolated multi-worker Linux server, not native Windows php -S.` PHP also prints `forking is not supported on this platform`. |
+| Docker Linux attempt using MySQL 8.0 plus `mcr.microsoft.com/playwright:v1.64.0-noble` | BLOCKED | First retry using a disposable MySQL container exceeded the tool timeout before producing test output; leftover disposable containers/network were removed. No PASS claimed from that run. |
+| `docker run --rm -v <repo>:/work -w /work ... mcr.microsoft.com/playwright:v1.64.0-noble bash -lc "if ! command -v php >/dev/null; then apt-get update >/tmp/apt-update.log && DEBIAN_FRONTEND=noninteractive apt-get install -y php-cli php-mysql default-mysql-client >/tmp/apt-install.log; fi; php -v; mysql --version; npx playwright test tests/browser/prompt02-http-overlap.spec.js"` | PASS | Linux container reached `host.docker.internal:3318`, started five PHP CLI server processes with `PHP_CLI_SERVER_WORKERS=4`, and ran the overlap spec against `bushisa_test_prompt02_docker_overlap`. Output included `HTTP overlap barrier swipe-1791922917616-91410 participants=5019,5020`; one test passed in 1.1m. |
+
+### Executed browser cases
+
+| Case | Route/caller | Sessions | Result | Invariant |
+|---|---|---:|---|---|
+| Rendered signup/account journey | `/register.php`, `/verify_email.php`, `/login.php`, `/onboarding.php`, `/discover.php`, `/logout.php` | 1 | PASS | Synthetic user can register, receive fake approval mail, approve email, complete adult onboarding, reach discover and log out. |
+| Pending account gates | `/discover.php`, `/confessions.php` redirects for pending states | 1 | PASS | Pending-email user is restricted to approval; approved but pending-DOB user is restricted to onboarding. |
+| Confession timestamp rendering | `/api/confessions.php` create, `/confessions.php` rendered reload | 1 | PASS | Rendered `<time datetime>` uses stored UTC value and does not collapse an older DB timestamp to `Just now`. |
+| Two-session revocation | `/discover.php`, `/api/discover.php` | 2 independent browser contexts | PASS | After DB revocation increments `session_version` and marks account suspended/inactive, both sessions lose access; JSON API returns `401`; no swipe writes exist for the revoked account. |
+| HTTP reciprocal swipe overlap | `/api/swipe.php` | 2 independent browser contexts | PASS in Linux Docker; BLOCKED on native Windows | Barrier evidence proved two distinct PHP worker PIDs (`5019`, `5020`) reached `swipe_after_transaction_begin` before completion. Test asserted two reciprocal HTTP likes produced exactly two swipes, one active match and zero approved chat requests. |
+
+### R01-R12 matrix after this entry
+
+| Rule | Prompt 02 evidence status | Boundary |
+|---|---|---|
+| R01 | PARTIAL PASS | Actual route coverage now includes rendered signup/approval/onboarding and real HTTP reciprocal swipe overlap with two PHP workers. Explicit recipient chat approval through real callers remains inherited/prepared but not fully browser-executed here. |
+| R02 | PARTIAL | Existing DB/service policy suites pass locally. Real route request/cancel/decline/approve/revoke/browser overlap matrix remains incomplete. |
+| R03 | PARTIAL | Policy DB suite passes locally; genuine HTTP block/delete overlap remains not executed. |
+| R04 | PARTIAL | DB/service and API syntax remain covered; sender-only unsend route browser evidence remains not executed. |
+| R05 | PARTIAL PASS | Signup fake-mail browser route and unit/outbox regressions pass. Terminal verifier/payload erasure and delivery-failure handling remain broader Prompt 07/15 evidence. |
+| R06 | PARTIAL | Existing DB/service cleanup regressions pass; actual account deletion route/browser overlap not executed. |
+| R07 | PARTIAL | Existing DB/service confession erasure safeguards pass; rendered timestamp route passes; deletion/suppressed-reference browser route evidence remains incomplete. |
+| R08 | NOT RUN | Environment-specific personal-data inventory and actual purge/access effects are still later D05/D06/D12 work. |
+| R09 | PARTIAL | Existing DB/service evidence remains; independent replay horizon and all recoverable copies still not executed. |
+| R10 | PARTIAL | UTC rendered timestamp evidence passes; full retention worker execution remains not run. |
+| R11 | PARTIAL | Existing DB/service case-scoped evidence checks pass; route/role assignment/access browser evidence remains not executed. |
+| R12 | NOT RUN | No isolated Azure restore or independent protective replay rehearsal was performed. |
+
+### Remaining gates
+
+Prompt 02 now has local Linux-container HTTP overlap execution evidence for reciprocal swipe/match creation, but it still is not P0/P1 clearance. Remaining gates are:
+
+1. Push this feature branch or open/update a draft PR only when remote review/CI evidence is desired; do not merge to `main`.
+2. Let the new `browser-route-session-overlap` GitHub Actions job run on `ubuntu-latest` as an independent CI confirmation of the local Linux-container result.
+3. Execute the broader route matrix that remains outside this Prompt 02 slice: request cancel/decline/approve/revoke route coverage, block/delete/message races, role removal/moderation access, account deletion routes, full retention worker and isolated restore/replay.
+4. Keep D04/D05 policy decisions, production runtime matrix, restricted runtime role, real sender/delivery, telemetry and password reset as separate gates.

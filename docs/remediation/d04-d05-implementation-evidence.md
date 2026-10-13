@@ -69,7 +69,15 @@ The browser harness startup guard was tightened so `playwright.config.js` no lon
 
 Local checks for this slice passed: changed PHP/JS syntax, `php tests/unit_disposable_database_guard.php`, `node tests/unit_playwright_config_guard.js`, `php tests/unit_signup_verification.php`, `php tests/unit_mail_configuration.php` and `py -3 tests/smtp_transport_test.py`.
 
-[Prompt 02 evidence checkpoint](prompt02-route-session-evidence-2026-10-12.md) records the exact boundaries. Rendered browser execution, two-session route revocation and genuine multi-worker HTTP overlap remain **NOT RUN/BLOCKED** until the authorized disposable DB environment and suitable multi-worker runtime are available.
+[Prompt 02 evidence checkpoint](prompt02-route-session-evidence-2026-10-12.md) records the exact boundaries as of 12 October. At that point, rendered browser execution, two-session route revocation and genuine multi-worker HTTP overlap remained **NOT RUN/BLOCKED** until the authorized disposable DB environment and suitable multi-worker runtime were available.
+
+## Prompt 02 route/session/overlap execution - 2026-10-13
+
+The guarded Prompt 02 browser work advanced on branch `codex/prompt02-completion-20261013`. Local Windows execution against `127.0.0.1:3318/bushisa_test_prompt02_local` passed the rendered signup/onboarding/pending-gate/timestamp suite and the two-independent-session revocation route/API check. A Linux Playwright container then executed `tests/browser/prompt02-http-overlap.spec.js` with `PHP_CLI_SERVER_WORKERS=4`, PHP `8.3.6`, MySQL client `8.0.46`, fake mail and the host-owned disposable MySQL listener via `host.docker.internal:3318/bushisa_test_prompt02_docker_overlap`.
+
+The reciprocal swipe overlap test passed with two distinct PHP worker PIDs at the guarded `swipe_after_transaction_begin` barrier and asserted exactly two swipe rows, one active match and zero approved message-request rows. This establishes the focused R01/F02 HTTP overlap case for reciprocal swipes; broader request/revoke/block/delete/message races, role-removal routes, full retention worker execution, production-version acceptance and R12 isolated restore remain open.
+
+[Prompt 02 route/session evidence](prompt02-route-session-evidence-2026-10-12.md) contains the exact commands, runtimes, barrier output and R01-R12 matrix.
 
 ## Explicit Non-Claims
 

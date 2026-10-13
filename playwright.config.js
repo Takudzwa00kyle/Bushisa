@@ -43,6 +43,13 @@ const serverEnv = {
   DB_PASSWORD: settings.password,
   DB_PASS: '',
 };
+if (process.env.BUSHISA_TEST_HTTP_OVERLAP === 'true') {
+  if (process.platform === 'win32' && !externalServer) {
+    throw new Error('BUSHISA_TEST_HTTP_OVERLAP requires an isolated multi-worker Linux server or BUSHISA_EXTERNAL_TEST_SERVER=true.');
+  }
+  serverEnv.BUSHISA_TEST_HTTP_OVERLAP = 'true';
+  serverEnv.PHP_CLI_SERVER_WORKERS = process.env.PHP_CLI_SERVER_WORKERS || '4';
+}
 
 const config = {
   testDir: './tests/browser',
@@ -58,7 +65,7 @@ const config = {
 if (!externalServer) {
   config.webServer = {
     command: `php -S ${parsedBaseURL.hostname}:${parsedBaseURL.port || '80'} -t .`,
-    url: new URL('/login.php', baseURL).toString(),
+    url: new URL('/css/style.css', baseURL).toString(),
     reuseExistingServer: false,
     timeout: 120_000,
     env: serverEnv,
