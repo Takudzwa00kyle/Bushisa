@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/support/disposable_database.php';
+
+bushisa_require_disposable_test_database('overlap_db_p0_flows');
+
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/password_policy.php';
@@ -182,4 +186,3 @@ $swipeCount->execute([
 assert_overlap_db((int) $swipeCount->fetchColumn() === 1, 'overlapping duplicate swipes should leave exactly one swipe row');
 
 fwrite(STDOUT, "overlap_db_p0_flows PASS\n");
-

@@ -1,6 +1,6 @@
 # D04/D05 Implementation Evidence
 
-Updated: 2026-10-10, Africa/Harare.
+Updated: 2026-10-12, Africa/Harare.
 
 Status: technical implementation evidence for pending D04/D05 proposals. This is not P0 clearance and not production approval.
 
@@ -8,7 +8,7 @@ Status: technical implementation evidence for pending D04/D05 proposals. This is
 
 - PHP CLI: `PHP 8.5.11 (cli)` from `php -v`.
 - MySQL client: `MySQL Community Server 9.6.0` client from `mysql --version`.
-- MySQL server: **NOT RUN/BLOCKED**; local application connection rejected `root@localhost` without password on port 3306 and no alternate test DB was reachable on port 3317.
+- MySQL server: **NOT RUN/BLOCKED**; local MySQL processes were present, but guarded disposable bootstrap to `bushisa_test_local` on port 3306 rejected `root@localhost` without password. No alternate authorized test DB credentials were available.
 - Node/npm: Node `v20.19.6`, npm `10.8.2`.
 
 ## Migration Ordering
@@ -37,14 +37,39 @@ Status: technical implementation evidence for pending D04/D05 proposals. This is
 
 | Command | Result |
 |---|---|
-| `php -l` on all PHP files | PASS |
+| `php -l` on changed PHP files | PASS |
 | `php tests/unit_signup_verification.php` | PASS |
+| `php tests/unit_disposable_database_guard.php` | PASS |
+| `node --check tests/support/disposable-database.js` | PASS |
+| `node --check tests/browser/p0-rendered-flows.spec.js` | PASS |
 | `php bin/migrate.php` | NOT RUN/BLOCKED: database connection rejected for default local root credentials |
 | `php tests/integration_p0_flows.php` | NOT RUN/BLOCKED: database connection rejected |
 | `php tests/integration_core_p0_flows.php` | NOT RUN/BLOCKED: database connection rejected |
 | `php tests/policy_safeguards_p0_flows.php` | NOT RUN/BLOCKED: database connection rejected |
 | `php tests/overlap_db_p0_flows.php` | NOT RUN/BLOCKED: database connection rejected |
 | `mysql --protocol=TCP --host=127.0.0.1 --port=3317 --user=root --execute="SELECT VERSION();"` | NOT RUN/BLOCKED: no MySQL listener on port 3317 |
+| `php tests/bootstrap_database.php` with `APP_ENV=development`, `BUSHISA_TEST_DATABASE=true`, `DB_NAME=bushisa_test_local`, local root/no password | BLOCKED: MySQL rejected `root@localhost` with no password before any test fixture writes |
+| `php tests/unit_mail_configuration.php` | BLOCKED locally: this PHP CLI has `pdo_mysql` and `PDO` but no `openssl` extension, so existing mail encryption tests cannot run in this runtime |
+| `py -3 tests/smtp_transport_test.py` | FAIL/BLOCKED locally: SMTP fixture timed out waiting for its thread to finish; not caused by the DB guard change |
+
+## 2026-10-12 Prompt 01 Harness Changes
+
+- Added `tests/support/disposable_database.php` and `tests/support/disposable-database.js` as shared fail-closed guards for fixture writers and destructive browser resets.
+- Guard requires non-production `APP_ENV`, `BUSHISA_TEST_DATABASE=true`, an explicit `DB_NAME`/`AZURE_MYSQL_DBNAME`, a narrowly named disposable database such as `bushisa_test_ci`, and a second opt-in before using a remote host.
+- Added `tests/bootstrap_database.php` so schema import rewrites `database/bushisa.sql` to the selected disposable database and rejects unrelated `CREATE/USE/DROP DATABASE` targets.
+- Moved guard checks before `config/db.php` in `tests/integration_p0_flows.php`, `tests/integration_core_p0_flows.php`, `tests/policy_safeguards_p0_flows.php`, `tests/overlap_db_p0_flows.php`, `tests/integration_smtp_outbox.php`, `tests/workers/db_race_worker.php` and `database/seed.php`.
+- Updated `tests/browser/p0-rendered-flows.spec.js` to require the same opt-ins, drop only the selected disposable database, rewrite the bootstrap schema target, redact MySQL passwords from command diagnostics and avoid printing code-bearing mail bodies.
+- Updated CI to use `bushisa_test_ci`, run the guarded bootstrap, include `tests/unit_disposable_database_guard.php`, and add `integration_core_p0_flows.php` plus `overlap_db_p0_flows.php` to the DB-backed regression job.
+
+Prompt 01 status: safe runner/guard implementation is reviewable and unit-verified. Full DB-backed migration/integration execution remains **NOT RUN/BLOCKED** until an authorized disposable MySQL credential is supplied or CI executes the new guarded job.
+
+## Prompt 02 startup guard - 2026-10-12
+
+The browser harness startup guard was tightened so `playwright.config.js` no longer supplies unsafe fallback DB/debug/runtime-DDL settings before the reset guard runs. The config now requires explicit disposable DB settings, `APP_DEBUG=false`, `BUSHISA_ALLOW_RUNTIME_DDL=false`, `BUSHISA_TEST_DATABASE=true` and `MAIL_PROVIDER=fake` before launching the PHP test server. External test servers require an explicit opt-in and do not launch the default server. `tests/browser/prompt02-session-routes.spec.js` prepares a two-context session revocation route check for the next guarded browser run.
+
+Local checks for this slice passed: changed PHP/JS syntax, `php tests/unit_disposable_database_guard.php`, `node tests/unit_playwright_config_guard.js`, `php tests/unit_signup_verification.php`, `php tests/unit_mail_configuration.php` and `py -3 tests/smtp_transport_test.py`.
+
+[Prompt 02 evidence checkpoint](prompt02-route-session-evidence-2026-10-12.md) records the exact boundaries. Rendered browser execution, two-session route revocation and genuine multi-worker HTTP overlap remain **NOT RUN/BLOCKED** until the authorized disposable DB environment and suitable multi-worker runtime are available.
 
 ## Explicit Non-Claims
 
@@ -54,3 +79,18 @@ Status: technical implementation evidence for pending D04/D05 proposals. This is
 - No verified real sender/inbox delivery.
 - No Azure restore rehearsal.
 - No claim that a Windows single-worker development server proves HTTP concurrency.
+
+
+## Prompt 01 local DB execution - 2026-10-12
+
+Selected signup, core, policy, SMTP-outbox and DB-overlap suites passed
+on the disposable database. These results supersede the earlier local
+execution blockers.
+
+[Full execution checkpoint](prompt01-local-db-execution-2026-10-12.md).
+
+Tested baseline: 6ed126d, with uncommitted changes now preserved on
+codex/prompt01-db-validation-20261012.
+
+Browser/HTTP/session, migration-role, production-version and CI evidence
+remain incomplete. D04/D05 approval and P0/P1 gates remain open.

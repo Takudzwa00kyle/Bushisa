@@ -1,6 +1,6 @@
 # Bushisa P0-P2 Remediation Backlog
 
-Updated: 2026-10-09, Africa/Harare.
+Updated: 2026-10-12, Africa/Harare.
 
 | Finding | Current state | Evidence / files |
 |---|---|---|
@@ -15,3 +15,26 @@ Updated: 2026-10-09, Africa/Harare.
 | F08 | Partial. Discover API no longer overrides cursor with default offset. Stable keyset/snapshot pagination and representative 5,000-account tests pending. | `api/discover.php`. |
 | U01 | Partial. API create responses now return DB-stored UTC confession time; rendered page emits UTC ISO in `datetime`. Synthetic browser test verifies an older persisted confession timestamp does not render as current after reload. Fake-clock boundary tests and H09 human comparison remain pending. | `api/confessions.php`, `confessions.php`, `php/function.php`, `tests/browser/p0-rendered-flows.spec.js`. |
 | U02 | Pending. Geographic matching requires D12 before implementation can be certified. | Pending. |
+
+## 2026-10-12 Continuation Notes
+
+| Finding | Current state | Evidence / files |
+|---|---|---|
+| B01 | Improved. Fixture-writing PHP suites, the DB race worker, synthetic seed script and browser reset now require a shared disposable-database guard before connecting or dropping/importing schema. Local unit and syntax checks pass; full DB-backed execution is still blocked by missing authorized local MySQL credentials. | `tests/support/disposable_database.php`, `tests/support/disposable-database.js`, `tests/bootstrap_database.php`, `tests/unit_disposable_database_guard.php`, `tests/browser/p0-rendered-flows.spec.js`, `docs/remediation/d04-d05-implementation-evidence.md`. |
+| F07 | Improved. CI now uses `bushisa_test_ci`, bootstraps through the guarded runner instead of an inline unguarded PDO import, and includes the previously omitted core and DB-overlap regressions. Browser CI and production-version execution remain pending. | `.github/workflows/ci.yml`. |
+| Prompt 02 | Started. Browser harness startup now fails closed unless explicit disposable DB, fake mail, non-debug and runtime-DDL-disabled settings are present before server launch. A two-context session revocation browser test is prepared but NOT RUN here. Actual rendered browser, broader route matrix and multi-worker HTTP-overlap evidence remains NOT RUN/BLOCKED. | `playwright.config.js`, `tests/unit_playwright_config_guard.js`, `tests/browser/prompt02-session-routes.spec.js`, `docs/remediation/prompt02-route-session-evidence-2026-10-12.md`. |
+
+
+## Prompt 01 local DB execution - 2026-10-12
+
+Selected signup, core, policy, SMTP-outbox and DB-overlap suites passed
+on the disposable database. These results supersede the earlier local
+execution blockers.
+
+[Full execution checkpoint](prompt01-local-db-execution-2026-10-12.md).
+
+Tested baseline: 6ed126d, with uncommitted changes now preserved on
+codex/prompt01-db-validation-20261012.
+
+Browser/HTTP/session, migration-role, production-version and CI evidence
+remain incomplete. D04/D05 approval and P0/P1 gates remain open.
