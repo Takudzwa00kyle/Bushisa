@@ -1,6 +1,6 @@
 # Prompt 02 route/session evidence checkpoint
 
-Evidence through **13 October 2026, 22:22 Harare (UTC+02:00)**.
+Evidence through **14 October 2026, 00:40 Harare (UTC+02:00)**.
 
 Status: Prompt 02 startup safety repair is implemented. On 13 October 2026 the rendered browser suite, two-session revocation browser route check and Linux multi-worker HTTP reciprocal-swipe overlap check passed against guarded disposable MySQL targets. Native Windows overlap remains blocked by PHP worker limits, but the overlap proof was executed in a Linux Playwright container using `PHP_CLI_SERVER_WORKERS=4` and the local disposable MySQL listener.
 
@@ -184,3 +184,70 @@ Prompt 02 now has local Linux-container HTTP overlap execution evidence for reci
 2. Let the new `browser-route-session-overlap` GitHub Actions job run on `ubuntu-latest` as an independent CI confirmation of the local Linux-container result.
 3. Execute the broader route matrix that remains outside this Prompt 02 slice: request cancel/decline/approve/revoke route coverage, block/delete/message races, role removal/moderation access, account deletion routes, full retention worker and isolated restore/replay.
 4. Keep D04/D05 policy decisions, production runtime matrix, restricted runtime role, real sender/delivery, telemetry and password reset as separate gates.
+
+## 2026-10-14 route/session/race completion entry
+
+This entry continues branch `codex/prompt02-completion-20261013` from committed checkpoint `438397e4656d8506c9144134eb53c48110ffb7fc`. The tested artifact is the uncommitted Prompt 02 follow-up diff adding chat route/session/race regressions and focused repairs in `api/message_requests.php`, `api/messages.php`, `api/safety.php`, `api/swipe.php`, `php/policy_safeguards.php`, `php/http_test_barrier.php`, `.github/workflows/ci.yml`, `tests/browser/prompt02-http-overlap.spec.js`, `tests/browser/prompt02-chat-routes.spec.js` and `tests/browser/prompt02-chat-overlap.spec.js`. No Azure, production database, real SMTP or deployment target was used.
+
+### Runtime and commands
+
+| Item | Value |
+|---|---|
+| Branch | `codex/prompt02-completion-20261013` |
+| Starting HEAD | `438397e4656d8506c9144134eb53c48110ffb7fc` |
+| Local PHP | `PHP 8.5.11 (cli)` |
+| Local Node/npm | Node `v20.19.6`, npm `10.8.2` |
+| Local DB | MySQL `9.6.0`, `127.0.0.1:3318`, DB `bushisa_test_prompt02_local`, principal `root@localhost`, empty password, disposable local datadir |
+| Docker overlap runtime | `mcr.microsoft.com/playwright:v1.64.0-noble`; PHP `8.3.6`; MySQL client `8.0.46`; Node `v24.21.0`; `PHP_CLI_SERVER_WORKERS=4` |
+| Docker overlap DB | `host.docker.internal:3318/bushisa_test_prompt02_docker_overlap`, guarded with `BUSHISA_ALLOW_REMOTE_TEST_DATABASE=true` for the host-owned disposable listener |
+| Guard settings | `APP_ENV=development`, `APP_DEBUG=false`, `BUSHISA_ALLOW_RUNTIME_DDL=false`, `BUSHISA_TEST_DATABASE=true`, `MAIL_PROVIDER=fake` |
+
+| Command | Result | Notes |
+|---|---|---|
+| `php -l api/message_requests.php; php -l api/messages.php; php -l api/safety.php; php -l api/swipe.php; php -l php/policy_safeguards.php; php -l php/http_test_barrier.php` | PASS | Changed PHP syntax. |
+| `node --check playwright.config.js; node --check tests/unit_playwright_config_guard.js; node --check tests/browser/prompt02-chat-routes.spec.js; node --check tests/browser/prompt02-chat-overlap.spec.js; node --check tests/browser/prompt02-http-overlap.spec.js; node --check tests/browser/prompt02-session-routes.spec.js; node --check tests/browser/p0-rendered-flows.spec.js` | PASS | Changed and related JS syntax. |
+| `php tests/bootstrap_database.php; php bin/migrate.php; php bin/migrate.php; php tests/unit_disposable_database_guard.php; node tests/unit_playwright_config_guard.js; php tests/unit_signup_verification.php; php tests/unit_mail_configuration.php; py -3 tests/smtp_transport_test.py; php tests/integration_core_p0_flows.php; php tests/overlap_db_p0_flows.php; php tests/policy_safeguards_p0_flows.php; php tests/integration_p0_flows.php; php tests/integration_smtp_outbox.php` | PASS | Guarded local disposable DB and fake mail. |
+| `npx playwright test tests/browser/p0-rendered-flows.spec.js tests/browser/prompt02-session-routes.spec.js tests/browser/prompt02-chat-routes.spec.js` | PASS | 7 browser/API route tests passed in 2.4m on Windows single-worker PHP server. |
+| Docker `npx playwright test tests/browser/prompt02-http-overlap.spec.js --reporter=line` | PASS | One reciprocal swipe overlap test passed in 1.0m. Barrier `swipe-1791930733681-12572` saw worker PIDs `5021,5020`. Earlier rerun attempts exposed same-worker scheduling/barrier timeouts; test now retries only missing two-worker barrier evidence and still fails application 500s after a valid two-worker barrier. |
+| Docker `npx playwright test tests/browser/prompt02-chat-overlap.spec.js --reporter=line` | PASS | Two chat overlap tests passed in 1.5m. Barriers `chat-request-1791930926037-74251` and `chat-block-1791930959820-62184` each saw worker PIDs `5021,5020`. |
+
+### Focused repairs
+
+- `api/message_requests.php` validates CSRF before POST authorization side effects, exposes a guarded overlap barrier, checks row counts for approve/decline/cancel/revoke races, and suppresses obsolete chat notifications on revoke.
+- `api/messages.php` validates CSRF before POST authorization, keeps sender-only unsend parameters distinct for PDO, and reauthorizes with `FOR UPDATE` after the send/block race barrier before inserting messages.
+- `api/safety.php` coordinates block races at the same guarded relationship-mutation barrier before closing matches.
+- `api/swipe.php` catches lock-release failures, while the overlap spec now tolerates only infrastructure-level missing-barrier retries.
+- `php/policy_safeguards.php` suppresses message-request notifications whenever match requests are revoked by block/delete cleanup.
+- `php/http_test_barrier.php` remains fail-closed outside guarded development overlap runs and now handles concurrent directory creation without noisy warnings.
+
+### Executed Prompt 02 case matrix
+
+| Case ID | Route/caller | Actors/sessions | Result | Key invariant |
+|---|---|---:|---|---|
+| P02-CHAT-01 | `/api/message_requests.php`, `/api/messages.php`, `/api/safety.php` | 3 users, 3 independent browser contexts | PASS | Missing CSRF and forged outsider ownership denied with zero writes; pending request blocks send; recipient approve enables send/read; report preserves moderation evidence; non-sender unsend denied; sender unsend purges ordinary body but keeps scoped evidence; revoke denies later send and leaves one message. |
+| P02-CHAT-02 | `/api/safety.php`, `/api/account.php`, `/api/messages.php`, `/api/discover.php` | 2 users, two sessions for deleting user | PASS | Missing-CSRF block denied; real block closes match, revokes chat grant, preserves message/evidence rows, suppresses obsolete chat notifications and denies later send; account deletion marks user deleted and a second stale session receives `401`; protective replay event recorded. |
+| P02-CHAT-03 | `/admin/dashboard.php`, `/admin/reports.php` | 1 moderator, 2 independent browser contexts | PASS | After DB role removal, both existing moderator sessions are redirected to `/discover.php`; no report rows are created. |
+| P02-RACE-SWIPE-01 | `/api/swipe.php` | 2 users, 2 contexts, two PHP workers | PASS | Overlapping reciprocal likes produce exactly two swipe rows, one active match and zero approved message requests. |
+| P02-RACE-CHAT-01 | `/api/message_requests.php` | 2 users, 2 contexts, two PHP workers | PASS | Overlapping approve and revoke leave the grant revoked and leave zero obsolete chat deep-link notifications. |
+| P02-RACE-CHAT-02 | `/api/messages.php` versus `/api/safety.php` | 2 users, 2 contexts, two PHP workers | PASS | Overlapping send and block leave the match blocked, chat grant revoked, at most one already-raced message, zero obsolete chat notifications and no later message writes. |
+
+### R01-R12 matrix after this entry
+
+| Rule | Prompt 02 result | Boundary |
+|---|---|---|
+| R01 | PASS for actual signup/onboarding and reciprocal swipe route overlap; PARTIAL overall | Real route signup/approval/onboarding and two-worker reciprocal match creation passed. Production launch scope and broader matching catalogue gates remain separate. |
+| R02 | PARTIAL PASS | Actual request/approve/revoke route and approve-vs-revoke overlap passed. Cancel/decline expiry/cooldown/budget/rematch choices remain provisional D04 policy work. |
+| R03 | PARTIAL PASS | Actual block route and send-vs-block overlap passed; message/evidence rows survive and obsolete notifications are suppressed. Full account deletion overlap, rollback injection and production retention gates remain later work. |
+| R04 | PASS for current actual unsend route | Browser/API test proves non-sender denial, sender-only unsend, ordinary-body purge and retained moderation evidence. D04 final retention wording remains pending. |
+| R05 | PARTIAL PASS | Signup fake-mail browser route, units, SMTP fixture and outbox regression passed. Real sender/ACS and broader terminal verifier delivery-failure matrix remain later tasks. |
+| R06 | PARTIAL PASS | Actual account deletion route passed for deleted status, stale-session revocation, relationship cleanup and protective event. Full data inventory/media/cache/log purge remains D05/D12 work. |
+| R07 | PARTIAL | Existing DB/service confession erasure and rendered timestamp evidence remain; this entry did not add confession deletion/suppressed-reference browser coverage. |
+| R08 | NOT RUN | Environment-specific personal-data inventory and full purge/access effects remain later D05/D06/D12 work. |
+| R09 | PARTIAL | Cleanup/replay rows are asserted for deletion and moderation cases, but independent replay horizon and recoverable-copy proof remain later work. |
+| R10 | PARTIAL | UTC rendered timestamp evidence and purge due fields remain covered; full retention worker execution was not run. |
+| R11 | PARTIAL PASS | Actual outsider message-report denial and report evidence capture passed; role-removal sessions lose admin pages. Assigned-moderator case evidence UI/API matrix remains later work. |
+| R12 | NOT RUN | No isolated Azure restore or independent protective replay rehearsal was performed. |
+
+### Remaining gates
+
+CI has not yet run for this exact candidate commit because the branch was still local at the time of this entry. Production version matrix, restricted runtime role, isolated restore/replay, real sender, telemetry, password reset and final D04/D05 owner approvals remain separate gates. Native Windows remains unsuitable for HTTP overlap; the PASS overlap evidence is from the isolated Linux Docker runtime above.

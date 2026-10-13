@@ -32,3 +32,17 @@ Update the existing `docs/remediation/prompt02-route-session-evidence-2026-10-12
 
 - [Playwright CI setup](https://playwright.dev/docs/ci).
 - [PHP built-in server: worker configuration and Windows limitation](https://www.php.net/manual/en/features.commandline.webserver.php).
+
+## 2026-10-14 status addendum
+
+Prompt 02 was continued on `codex/prompt02-completion-20261013` from `438397e4656d8506c9144134eb53c48110ffb7fc`. The remaining local route/session/race work is implemented and locally executed against guarded disposable databases only.
+
+Passed local checks:
+
+- Changed PHP syntax for message request, message, safety, swipe, policy safeguard and HTTP barrier code.
+- Changed/related JS syntax for Playwright config, guard unit and Prompt 02 browser specs.
+- Guarded DB/bootstrap/migration/mail/core/policy/outbox suites on `127.0.0.1:3318/bushisa_test_prompt02_local`.
+- Browser route suite: `p0-rendered-flows`, `prompt02-session-routes` and `prompt02-chat-routes`, 7 tests passed.
+- Linux Docker overlap: reciprocal swipe, approve-vs-revoke and send-vs-block all passed with `PHP_CLI_SERVER_WORKERS=4` and two distinct PHP worker PIDs at each guarded barrier.
+
+Evidence is recorded in `docs/remediation/prompt02-route-session-evidence-2026-10-12.md` under the `2026-10-14 route/session/race completion entry`. CI for the exact candidate remains pending until the branch is pushed and a draft PR/workflow run is available. Production deployment, live Azure DB, real mail, telemetry, password reset, D04/D05 approval and R12 isolated restore remain out of scope for this Prompt 02 completion work.

@@ -148,8 +148,12 @@ function bushisa_release_swipe_match_lock(PDO $pdo, ?string $lockName): void
         return;
     }
 
-    $statement = $pdo->prepare('SELECT RELEASE_LOCK(:lock_name)');
-    $statement->execute([':lock_name' => $lockName]);
+    try {
+        $statement = $pdo->prepare('SELECT RELEASE_LOCK(:lock_name)');
+        $statement->execute([':lock_name' => $lockName]);
+    } catch (Throwable $throwable) {
+        log_to_file('Unable to release reciprocal match lock ' . $lockName . ': ' . $throwable->getMessage(), 'ERROR');
+    }
 }
 
 try {

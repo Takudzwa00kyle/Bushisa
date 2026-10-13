@@ -31,7 +31,7 @@ function bushisa_http_test_barrier(string $point): void
     }
 
     $directory = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'bushisa-http-barriers';
-    if (!is_dir($directory) && !mkdir($directory, 0700, true) && !is_dir($directory)) {
+    if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
         throw new RuntimeException('Unable to create HTTP test barrier directory.');
     }
 

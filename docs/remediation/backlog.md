@@ -1,6 +1,6 @@
 # Bushisa P0-P2 Remediation Backlog
 
-Updated: 2026-10-13, Africa/Harare.
+Updated: 2026-10-14, Africa/Harare.
 
 | Finding | Current state | Evidence / files |
 |---|---|---|
@@ -29,6 +29,7 @@ Updated: 2026-10-13, Africa/Harare.
 | Finding | Current state | Evidence / files |
 |---|---|---|
 | Prompt 02 | Improved. Local disposable MySQL `9.6.0` on `127.0.0.1:3318` executed the rendered browser suite and two-session revocation route check successfully. Guard/unit/PHP DB/mail regressions passed. Genuine HTTP reciprocal-swipe overlap passed in a Linux Playwright container using `PHP_CLI_SERVER_WORKERS=4` and the same host-owned disposable MySQL listener through `host.docker.internal`. Native Windows remains unsuitable for overlap; CI confirmation is still useful but no longer the first execution blocker. | `docs/remediation/prompt02-route-session-evidence-2026-10-12.md`, `.github/workflows/ci.yml`, `playwright.config.js`, `tests/browser/p0-rendered-flows.spec.js`, `tests/browser/prompt02-session-routes.spec.js`, `tests/browser/prompt02-http-overlap.spec.js`, `api/swipe.php`, `php/http_test_barrier.php`. |
+| Prompt 02 route/session/race completion | Improved. Actual browser/API route tests now cover request/approve/send/read/unsend/report/revoke, forged ownership, missing CSRF, block cleanup, account deletion stale-session denial and moderator role removal. Linux Docker multi-worker HTTP tests now cover reciprocal swipe overlap, approve-vs-revoke and send-vs-block with two distinct PHP worker PIDs at guarded barriers. Candidate CI remains pending until branch push/PR run. | `docs/remediation/prompt02-route-session-evidence-2026-10-12.md`, `tests/browser/prompt02-chat-routes.spec.js`, `tests/browser/prompt02-chat-overlap.spec.js`, `tests/browser/prompt02-http-overlap.spec.js`, `api/message_requests.php`, `api/messages.php`, `api/safety.php`, `php/policy_safeguards.php`, `php/http_test_barrier.php`. |
 
 
 ## Prompt 01 local DB execution - 2026-10-12

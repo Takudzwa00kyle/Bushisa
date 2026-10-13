@@ -207,70 +207,88 @@ function barrierParticipants(barrierId, point) {
 }
 
 test.describe.serial('Prompt 02 HTTP overlap checks', () => {
+  test.setTimeout(180_000);
+
   test.beforeAll(() => {
     requireOverlapRuntime();
     resetDatabase();
   });
 
   test('overlapping reciprocal swipe requests produce one established match and no duplicate consent', async ({ browser }, testInfo) => {
-    const firstStudent = await createActiveStudent(browser, 'male');
-    const secondStudent = await createActiveStudent(browser, 'female');
-    const first = await loginForApi(browser, firstStudent);
-    const second = await loginForApi(browser, secondStudent);
-    const barrierId = `swipe-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+    let lastAttempt = null;
 
-    const [firstResult, secondResult] = await Promise.all([
-      overlappingSwipe(first.page, first.csrfToken, secondStudent.id, barrierId),
-      overlappingSwipe(second.page, second.csrfToken, firstStudent.id, barrierId),
-    ]);
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      const firstStudent = await createActiveStudent(browser, 'male');
+      const secondStudent = await createActiveStudent(browser, 'female');
+      const first = await loginForApi(browser, firstStudent);
+      const second = await loginForApi(browser, secondStudent);
+      const barrierId = `swipe-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
 
-    expect([firstResult.status, secondResult.status]).toEqual([200, 200]);
-    expect([firstResult.body.match, secondResult.body.match].filter(Boolean)).toHaveLength(1);
+      const [firstResult, secondResult] = await Promise.all([
+        overlappingSwipe(first.page, first.csrfToken, secondStudent.id, barrierId),
+        overlappingSwipe(second.page, second.csrfToken, firstStudent.id, barrierId),
+      ]);
 
-    const participants = barrierParticipants(barrierId, 'swipe_after_transaction_begin');
-    expect(participants).toHaveLength(2);
-    expect(new Set(participants.map((participant) => participant.pid)).size).toBe(2);
-    await testInfo.attach('http-overlap-barrier', {
-      body: JSON.stringify({
-        barrierId,
-        participants,
-        firstTiming: {
-          startedAt: firstResult.startedAt,
-          completedAt: firstResult.completedAt,
-        },
-        secondTiming: {
-          startedAt: secondResult.startedAt,
-          completedAt: secondResult.completedAt,
-        },
-      }, null, 2),
-      contentType: 'application/json',
-    });
-    console.log(`HTTP overlap barrier ${barrierId} participants=${participants.map((participant) => participant.pid).join(',')}`);
+      const participants = barrierParticipants(barrierId, 'swipe_after_transaction_begin');
+      const attemptEvidence = { attempt, barrierId, participants, firstResult, secondResult, firstStudent, secondStudent };
+      lastAttempt = attemptEvidence;
 
-    const swipes = Number(queryValue(
-      `SELECT COUNT(*) FROM swipes
-       WHERE (swiper_id = ${firstStudent.id} AND swiped_id = ${secondStudent.id})
-          OR (swiper_id = ${secondStudent.id} AND swiped_id = ${firstStudent.id})`
-    ));
-    const matches = Number(queryValue(
-      `SELECT COUNT(*) FROM matches
-       WHERE user_a_id = ${Math.min(firstStudent.id, secondStudent.id)}
-         AND user_b_id = ${Math.max(firstStudent.id, secondStudent.id)}
-         AND match_status = 'active'`
-    ));
-    const approvedRequests = Number(queryValue(
-      `SELECT COUNT(*) FROM message_requests
-       WHERE status = 'approved'`
-    ));
+      await first.context.close();
+      await second.context.close();
 
-    expect(swipes).toBe(2);
-    expect(matches).toBe(1);
-    expect(approvedRequests).toBe(0);
-    expect(Math.max(firstResult.completedAt, secondResult.completedAt)).toBeGreaterThan(
-      Math.min(firstResult.startedAt, secondResult.startedAt)
-    );
+      if (participants.length < 2 || new Set(participants.map((participant) => participant.pid)).size < 2) {
+        await testInfo.attach(`http-overlap-barrier-miss-${attempt}`, {
+          body: JSON.stringify(attemptEvidence, null, 2),
+          contentType: 'application/json',
+        });
+        continue;
+      }
 
-    await first.context.close();
-    await second.context.close();
+      expect([firstResult.status, secondResult.status]).toEqual([200, 200]);
+      expect([firstResult.body.match, secondResult.body.match].filter(Boolean)).toHaveLength(1);
+
+      await testInfo.attach('http-overlap-barrier', {
+        body: JSON.stringify({
+          barrierId,
+          participants,
+          firstTiming: {
+            startedAt: firstResult.startedAt,
+            completedAt: firstResult.completedAt,
+          },
+          secondTiming: {
+            startedAt: secondResult.startedAt,
+            completedAt: secondResult.completedAt,
+          },
+        }, null, 2),
+        contentType: 'application/json',
+      });
+      console.log(`HTTP overlap barrier ${barrierId} participants=${participants.map((participant) => participant.pid).join(',')}`);
+
+      const swipes = Number(queryValue(
+        `SELECT COUNT(*) FROM swipes
+         WHERE (swiper_id = ${firstStudent.id} AND swiped_id = ${secondStudent.id})
+            OR (swiper_id = ${secondStudent.id} AND swiped_id = ${firstStudent.id})`
+      ));
+      const matches = Number(queryValue(
+        `SELECT COUNT(*) FROM matches
+         WHERE user_a_id = ${Math.min(firstStudent.id, secondStudent.id)}
+           AND user_b_id = ${Math.max(firstStudent.id, secondStudent.id)}
+           AND match_status = 'active'`
+      ));
+      const approvedRequests = Number(queryValue(
+        `SELECT COUNT(*) FROM message_requests
+         WHERE status = 'approved'`
+      ));
+
+      expect(swipes).toBe(2);
+      expect(matches).toBe(1);
+      expect(approvedRequests).toBe(0);
+      expect(Math.max(firstResult.completedAt, secondResult.completedAt)).toBeGreaterThan(
+        Math.min(firstResult.startedAt, secondResult.startedAt)
+      );
+      return;
+    }
+
+    throw new Error(`HTTP overlap barrier did not observe two distinct workers after retries: ${JSON.stringify(lastAttempt)}`);
   });
 });

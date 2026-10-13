@@ -1,6 +1,6 @@
 # D04/D05 Implementation Evidence
 
-Updated: 2026-10-12, Africa/Harare.
+Updated: 2026-10-14, Africa/Harare.
 
 Status: technical implementation evidence for pending D04/D05 proposals. This is not P0 clearance and not production approval.
 
@@ -78,6 +78,14 @@ The guarded Prompt 02 browser work advanced on branch `codex/prompt02-completion
 The reciprocal swipe overlap test passed with two distinct PHP worker PIDs at the guarded `swipe_after_transaction_begin` barrier and asserted exactly two swipe rows, one active match and zero approved message-request rows. This establishes the focused R01/F02 HTTP overlap case for reciprocal swipes; broader request/revoke/block/delete/message races, role-removal routes, full retention worker execution, production-version acceptance and R12 isolated restore remain open.
 
 [Prompt 02 route/session evidence](prompt02-route-session-evidence-2026-10-12.md) contains the exact commands, runtimes, barrier output and R01-R12 matrix.
+
+## Prompt 02 route/session/race completion - 2026-10-14
+
+The same branch advanced from `438397e4656d8506c9144134eb53c48110ffb7fc` with focused actual-route tests and repairs for the remaining Prompt 02 matrix. Local guarded disposable DB checks passed on `127.0.0.1:3318/bushisa_test_prompt02_local`, including bootstrap, migrations twice, guard units, signup/mail/SMTP fixture, core P0, DB-overlap, policy safeguards, integration P0 and SMTP outbox suites.
+
+Browser route execution passed `tests/browser/p0-rendered-flows.spec.js`, `tests/browser/prompt02-session-routes.spec.js` and `tests/browser/prompt02-chat-routes.spec.js` in one 7-test run. The added chat route cases cover missing CSRF, forged ownership, request/approve/send/read/report/unsend/revoke, block cleanup, account deletion stale-session denial and moderator role removal.
+
+Linux Docker multi-worker execution passed `tests/browser/prompt02-http-overlap.spec.js` and `tests/browser/prompt02-chat-overlap.spec.js` with `PHP_CLI_SERVER_WORKERS=4`. The current evidence includes two-worker reciprocal swipe overlap (`5021,5020`), approve-vs-revoke (`5021,5020`) and send-vs-block (`5021,5020`). Candidate CI remains pending until branch push/PR execution; D04/D05 approval, production runtime matrix and R12 isolated restore remain separate gates.
 
 ## Explicit Non-Claims
 

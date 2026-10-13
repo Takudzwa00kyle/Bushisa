@@ -291,6 +291,19 @@ deployment and live database operations outside this development task.
 
 Keep PR #3 in draft. Give this complete handoff to the coding agent and start Prompt 02 on a separate task branch. Preserve the passed guard/mail/DB work and the README-only main update; develop actual route/session/browser/HTTP-overlap evidence. Production merging/deployment and policy approval remain separate gates.
 
+## 2026-10-14 continuation result
+
+The later Prompt 02 continuation ran on branch `codex/prompt02-completion-20261013` from `438397e4656d8506c9144134eb53c48110ffb7fc`. The current candidate adds focused chat/request/session/race tests and repairs, with evidence in `docs/remediation/prompt02-route-session-evidence-2026-10-12.md`.
+
+Local guarded evidence now includes:
+
+- 7-test browser route run passing `p0-rendered-flows`, `prompt02-session-routes` and `prompt02-chat-routes`.
+- Actual API coverage for missing CSRF, forged ownership, request/approve/send/read/report/unsend/revoke, block cleanup, account deletion stale-session denial and moderator role removal.
+- Linux Docker multi-worker HTTP overlap passing reciprocal swipe, approve-vs-revoke and send-vs-block with two distinct PHP worker PIDs at each guarded barrier.
+- Guarded disposable DB, migration, unit, mail, SMTP fixture, core, DB-overlap, policy, integration and outbox checks passing against `127.0.0.1:3318/bushisa_test_prompt02_local`.
+
+The exact candidate CI run is still pending until branch push/PR execution. Do not treat this as production clearance, D04/D05 approval, R12 restore evidence, real-mail evidence or deployment approval.
+
 Optional updated PR description:
 
 > The test harness now requires an explicit disposable database before fixture writes, schema resets and seeding. Bootstrap SQL is rewritten to the selected target; CI uses `bushisa_test_ci` and includes the core and DB-overlap regressions. Windows mail configuration and SMTP fixture portability fixes are included.
