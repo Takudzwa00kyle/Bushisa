@@ -26,6 +26,7 @@ jobs:
         run: |
           php tests/unit_signup_verification.php
           php tests/unit_mail_configuration.php
+          php tests/unit_disposable_database_guard.php
           python3 tests/smtp_transport_test.py
 
   smtp-outbox-integration:
@@ -35,7 +36,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: synthetic-ci-password
-          MYSQL_DATABASE: bushisa_db
+          MYSQL_DATABASE: bushisa_test_ci
         ports:
           - 3306:3306
         options: >-
@@ -48,7 +49,7 @@ jobs:
       APP_DEBUG: "false"
       DB_HOST: 127.0.0.1
       DB_PORT: "3306"
-      DB_NAME: bushisa_db
+      DB_NAME: bushisa_test_ci
       DB_USER: root
       DB_PASSWORD: synthetic-ci-password
       MAIL_PROVIDER: fake
@@ -64,11 +65,13 @@ jobs:
         run: composer install --no-interaction --prefer-dist
       - name: Bootstrap isolated test database
         run: |
-          php -r '$pdo = new PDO("mysql:host=127.0.0.1;dbname=bushisa_db", "root", getenv("DB_PASSWORD")); $pdo->exec(file_get_contents("database/bushisa.sql"));'
+          php tests/bootstrap_database.php
           php bin/migrate.php
           php bin/migrate.php
       - name: Signup and outbox regressions
         run: |
           php tests/integration_p0_flows.php
+          php tests/integration_core_p0_flows.php
           php tests/policy_safeguards_p0_flows.php
           php tests/integration_smtp_outbox.php
+          php tests/overlap_db_p0_flows.php

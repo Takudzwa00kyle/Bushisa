@@ -2,13 +2,17 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../config/db.php';
-require_once __DIR__ . '/../php/password_policy.php';
-
 if (PHP_SAPI !== 'cli') {
     http_response_code(403);
     exit('This seed script must be run from the command line.' . PHP_EOL);
 }
+
+require_once __DIR__ . '/../tests/support/disposable_database.php';
+
+bushisa_require_disposable_test_database('database seed');
+
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../php/password_policy.php';
 
 echo 'Starting Bushisa database seed...' . PHP_EOL;
 

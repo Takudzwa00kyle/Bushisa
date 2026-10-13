@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/support/disposable_database.php';
+
+bushisa_require_disposable_test_database('policy_safeguards_p0_flows');
+
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/policy_safeguards.php';
@@ -205,4 +209,3 @@ $restoreCheck = $pdo->query('SELECT traffic_reopen_allowed FROM restore_replay_r
 assert_policy((int) $restoreCheck->fetchColumn() === 0, 'missing replay evidence must fail closed for synthetic restore');
 
 fwrite(STDOUT, "policy_safeguards_p0_flows PASS\n");
-

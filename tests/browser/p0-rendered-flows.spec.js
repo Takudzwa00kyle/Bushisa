@@ -2,23 +2,29 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { test, expect } = require('@playwright/test');
+const {
+  disposableDatabaseSettings,
+  quoteIdentifier,
+  redactedCommand,
+  schemaForDisposableDatabase,
+} = require('../support/disposable-database');
 
 const repoRoot = path.resolve(__dirname, '..', '..');
 const password = 'Passw0rd!';
 
 function mysqlArgs(database = true) {
+  const settings = disposableDatabaseSettings('P0 rendered workflow reset');
   const args = [
     '--protocol=TCP',
-    `--host=${process.env.DB_HOST || '127.0.0.1'}`,
-    `--port=${process.env.DB_PORT || '3317'}`,
-    `--user=${process.env.DB_USER || 'root'}`,
+    `--host=${settings.host}`,
+    `--port=${settings.port}`,
+    `--user=${settings.user}`,
   ];
-  const dbPassword = process.env.DB_PASSWORD || process.env.DB_PASS || '';
-  if (dbPassword !== '') {
-    args.push(`--password=${dbPassword}`);
+  if (settings.password !== '') {
+    args.push(`--password=${settings.password}`);
   }
   if (database) {
-    args.push(process.env.DB_NAME || 'bushisa_db');
+    args.push(settings.name);
   }
   return args;
 }
@@ -31,15 +37,16 @@ function run(command, args, options = {}) {
     ...options,
   });
   if (result.status !== 0) {
-    throw new Error(`${command} ${args.join(' ')} failed\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
+    throw new Error(`${redactedCommand(command, args)} failed\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
   }
   return result.stdout;
 }
 
 function resetDatabase() {
-  const schema = fs.readFileSync(path.join(repoRoot, 'database', 'bushisa.sql'), 'utf8');
+  const settings = disposableDatabaseSettings('P0 rendered workflow reset');
+  const schema = schemaForDisposableDatabase(fs.readFileSync(path.join(repoRoot, 'database', 'bushisa.sql'), 'utf8'), settings.name);
   run('mysql', mysqlArgs(false), {
-    input: `DROP DATABASE IF EXISTS \`${process.env.DB_NAME || 'bushisa_db'}\`;\n`,
+    input: `DROP DATABASE IF EXISTS ${quoteIdentifier(settings.name)};\n`,
   });
   run('mysql', mysqlArgs(false), { input: schema });
   run('php', ['bin/migrate.php']);
@@ -85,7 +92,7 @@ function approvalCodeFor(email) {
   );
   const match = body.match(/approval code is ([0-9]{6,10})/);
   if (!match) {
-    throw new Error(`No approval code found for ${email}. Body: ${body}`);
+    throw new Error(`No approval code found for ${email}.`);
   }
   return match[1];
 }
