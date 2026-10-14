@@ -12,6 +12,7 @@ require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/policy_safeguards.php';
+require_once __DIR__ . '/../php/http_test_barrier.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -49,6 +50,7 @@ if ($action === 'block' || $action === 'unblock') {
     if ($action === 'block') {
         try {
             $pdo->beginTransaction();
+            bushisa_http_test_barrier('chat_relationship_mutation_before_update');
             $statement = $pdo->prepare(
                 'INSERT IGNORE INTO blocks (blocker_id, blocked_id, created_at)
                  VALUES (:blocker_id, :blocked_id, NOW())'
@@ -190,4 +192,3 @@ if ($action === 'report') {
 }
 
 json_response(['error' => 'Invalid safety action'], 400);
-

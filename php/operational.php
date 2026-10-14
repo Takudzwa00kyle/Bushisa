@@ -186,13 +186,17 @@ function operational_create_policy_safeguard_tables(PDO $pdo): void
             subject_id BIGINT UNSIGNED NOT NULL,
             actor_user_id INT UNSIGNED NULL,
             payload_json JSON NOT NULL,
-            occurred_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            replayed_at TIMESTAMP NULL,
+            occurred_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+            replayed_at TIMESTAMP(6) NULL,
             UNIQUE KEY uq_replay_event (event_type, subject_type, subject_id, occurred_at),
             INDEX idx_replay_subject (subject_type, subject_id),
             INDEX idx_replay_pending (replayed_at, occurred_at)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
+    if (operational_table_exists($pdo, 'protective_replay_events')) {
+        $pdo->exec('ALTER TABLE protective_replay_events MODIFY occurred_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)');
+        $pdo->exec('ALTER TABLE protective_replay_events MODIFY replayed_at TIMESTAMP(6) NULL');
+    }
 }
 
 function ensure_operational_schema(PDO $pdo): void

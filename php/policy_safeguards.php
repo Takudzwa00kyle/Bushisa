@@ -44,7 +44,7 @@ function bushisa_record_protective_event(PDO $pdo, string $eventType, string $su
 
     $statement = $pdo->prepare(
         'INSERT INTO protective_replay_events (event_type, subject_type, subject_id, actor_user_id, payload_json, occurred_at)
-         VALUES (:event_type, :subject_type, :subject_id, :actor_user_id, :payload_json, UTC_TIMESTAMP())'
+         VALUES (:event_type, :subject_type, :subject_id, :actor_user_id, :payload_json, UTC_TIMESTAMP(6))'
     );
     $statement->execute([
         ':event_type' => $eventType,
@@ -159,10 +159,29 @@ function bushisa_revoke_match_requests(PDO $pdo, int $matchId, string $reason): 
          WHERE match_id = :match_id'
     );
     $statement->execute([':match_id' => $matchId]);
+    bushisa_suppress_chat_notifications_for_match($pdo, $matchId);
 
     bushisa_enqueue_cleanup($pdo, 'message_request_cleanup', 'match', $matchId, [
         'policy_status' => 'proposed',
         'reason' => $reason,
+    ]);
+}
+
+function bushisa_suppress_chat_notifications_for_match(PDO $pdo, int $matchId): void
+{
+    ensure_operational_schema($pdo);
+
+    $delete = $pdo->prepare(
+        'DELETE FROM notifications
+         WHERE (category = "message_request" OR category = "message_request_response")
+           AND (deep_link = :deep_link
+             OR dedupe_key LIKE :request_dedupe
+             OR dedupe_key LIKE :response_dedupe)'
+    );
+    $delete->execute([
+        ':deep_link' => 'chat.php?match_id=' . $matchId,
+        ':request_dedupe' => 'message_request:' . $matchId . ':%',
+        ':response_dedupe' => 'message_request_response:' . $matchId . ':%',
     ]);
 }
 

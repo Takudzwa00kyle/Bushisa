@@ -13,6 +13,7 @@ require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/policy_safeguards.php';
+require_once __DIR__ . '/../php/http_test_barrier.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -36,6 +37,19 @@ if ($matchId === null || $matchId <= 0) {
     json_response(['error' => 'Invalid match ID'], 400);
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $submittedToken = '';
+    if (isset($_SERVER['HTTP_X_CSRF_TOKEN']) && is_string($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+        $submittedToken = $_SERVER['HTTP_X_CSRF_TOKEN'];
+    } elseif (isset($payload['csrf_token']) && is_string($payload['csrf_token'])) {
+        $submittedToken = $payload['csrf_token'];
+    }
+
+    if ($submittedToken === '' || !validate_csrf_token($submittedToken)) {
+        json_response(['error' => 'Invalid CSRF token'], 403);
+    }
+}
+
 $authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, false);
 if (!$authorization['ok']) {
     json_response(['error' => $authorization['error'] ?? 'This match is unavailable'], $authorization['status']);
@@ -47,17 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'success' => true,
         'data' => operational_message_request_status($pdo, $matchId, $currentUserId, $otherUserId),
     ]);
-}
-
-$submittedToken = '';
-if (isset($_SERVER['HTTP_X_CSRF_TOKEN']) && is_string($_SERVER['HTTP_X_CSRF_TOKEN'])) {
-    $submittedToken = $_SERVER['HTTP_X_CSRF_TOKEN'];
-} elseif (isset($payload['csrf_token']) && is_string($payload['csrf_token'])) {
-    $submittedToken = $payload['csrf_token'];
-}
-
-if ($submittedToken === '' || !validate_csrf_token($submittedToken)) {
-    json_response(['error' => 'Invalid CSRF token'], 403);
 }
 
 $action = isset($payload['action']) && is_string($payload['action'])
@@ -88,6 +91,7 @@ $state = operational_message_request_status($pdo, $matchId, $currentUserId, $oth
 
 try {
     record_attempt($pdo, 'message_request', (string) $currentUserId);
+    bushisa_http_test_barrier('message_request_before_mutation');
 
     if ($action === 'request') {
         if ($state['status'] === 'approved') {
@@ -165,6 +169,9 @@ try {
             ':current_user_id' => $currentUserId,
             ':other_user_id' => $otherUserId,
         ]);
+        if ($statement->rowCount() < 1) {
+            json_response(['error' => 'No pending request to respond to'], 409);
+        }
 
         operational_write_notification(
             $pdo,
@@ -197,6 +204,9 @@ try {
             ':current_user_id' => $currentUserId,
             ':other_user_id' => $otherUserId,
         ]);
+        if ($statement->rowCount() < 1) {
+            json_response(['error' => 'No pending request to cancel'], 409);
+        }
     } elseif ($action === 'revoke') {
         if ($state['status'] === 'none') {
             json_response(['error' => 'No message permission exists'], 409);
@@ -220,6 +230,10 @@ try {
             ':reverse_requester_user_id' => $otherUserId,
             ':reverse_recipient_user_id' => $currentUserId,
         ]);
+        if ($statement->rowCount() < 1) {
+            json_response(['error' => 'No active message permission exists'], 409);
+        }
+        bushisa_suppress_chat_notifications_for_match($pdo, $matchId);
     }
 
     log_action($pdo, $currentUserId, 'message_request_' . $action . ':' . $matchId, $_SERVER['REMOTE_ADDR'] ?? null);
