@@ -373,6 +373,7 @@ test.describe.serial('Prompt 02 chat route checks', () => {
     });
     expect(deleteResult.status).toBe(200);
     expect(queryValue(`SELECT account_status FROM users WHERE id = ${leftStudent.id}`)).toBe('deleted');
+    expect(Number(queryValue(`SELECT COUNT(*) FROM protective_replay_events WHERE event_type = 'match_closed' AND subject_id = ${matchId}`))).toBe(2);
 
     const staleSession = await getJson(leftSecond.page, '/api/discover.php');
     expect(staleSession.status).toBe(401);

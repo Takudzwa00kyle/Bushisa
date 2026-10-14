@@ -44,7 +44,7 @@ function bushisa_record_protective_event(PDO $pdo, string $eventType, string $su
 
     $statement = $pdo->prepare(
         'INSERT INTO protective_replay_events (event_type, subject_type, subject_id, actor_user_id, payload_json, occurred_at)
-         VALUES (:event_type, :subject_type, :subject_id, :actor_user_id, :payload_json, UTC_TIMESTAMP())'
+         VALUES (:event_type, :subject_type, :subject_id, :actor_user_id, :payload_json, UTC_TIMESTAMP(6))'
     );
     $statement->execute([
         ':event_type' => $eventType,

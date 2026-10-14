@@ -251,3 +251,56 @@ This entry continues branch `codex/prompt02-completion-20261013` from committed 
 ### Remaining gates
 
 CI has not yet run for this exact candidate commit because the branch was still local at the time of this entry. Production version matrix, restricted runtime role, isolated restore/replay, real sender, telemetry, password reset and final D04/D05 owner approvals remain separate gates. Native Windows remains unsuitable for HTTP overlap; the PASS overlap evidence is from the isolated Linux Docker runtime above.
+
+## 2026-10-14 account deletion CI repair entry
+
+This entry continues branch `codex/prompt02-completion-20261013` from committed checkpoint `b386e04826d7dc36155fa01af9fb969836af627f`. The workspace had not advanced past that commit; the repaired artifact was the unstaged follow-up diff in `database/migrations/002_policy_safeguards.sql`, `database/migrations/005_protective_replay_event_precision.sql`, `php/operational.php`, `php/policy_safeguards.php` and `tests/browser/prompt02-chat-routes.spec.js`.
+
+No Azure, production database, real SMTP, merge or deployment target was used. All database work below used guarded disposable databases on local MySQL `9.6.0` at `127.0.0.1:3318` or the Linux Playwright container reaching that listener through `host.docker.internal`.
+
+### Cause and repair
+
+The original `P02-CHAT-02` CI failure was a replay-event uniqueness collision, not a login or stale-session issue. The block step records `match_closed` for the match. Account deletion later closes the same relationship with reason `deleted_cleanup` and records another `match_closed` for the same `event_type`, `subject_type` and `subject_id`. With `protective_replay_events.occurred_at TIMESTAMP` at second precision, two valid protective events in the same second collide on `uq_replay_event`.
+
+Disposable reproduction:
+
+| Command / check | Result |
+|---|---|
+| Created `bushisa_test_prompt02_repro` with old `protective_replay_events.occurred_at TIMESTAMP` and inserted two same-subject `match_closed` events using `UTC_TIMESTAMP(6)` | PASS reproduced: `ERROR 1062 (23000): Duplicate entry 'match_closed-match-42-2026-10-14 09:40:32' for key 'protective_replay_events.uq_replay_event'` |
+
+Repair:
+
+- Fresh policy-safeguard DDL now creates `protective_replay_events.occurred_at` and `replayed_at` as `TIMESTAMP(6)`.
+- Runtime development schema helper aligns existing development tables to `TIMESTAMP(6)`.
+- `bushisa_record_protective_event()` writes `UTC_TIMESTAMP(6)`.
+- New forward migration `005_protective_replay_event_precision.sql` upgrades already migrated databases. Editing `002_policy_safeguards.sql` alone would not upgrade databases where `schema_migrations` already records `002_policy_safeguards`.
+- `P02-CHAT-02` now asserts two retained `match_closed` replay events for the same match after block plus deletion.
+
+### Migration compatibility
+
+| Command / check | Result | Notes |
+|---|---|---|
+| Upgrade rehearsal on `bushisa_test_prompt02_upgrade_precision` with `001` through `004` pre-marked applied and old second-precision replay columns, then `php bin/migrate.php` | PASS | `005_protective_replay_event_precision.sql` applied; `occurred_at` and `replayed_at` reported `datetime_precision = 6`; schema_migrations recorded `005_protective_replay_event_precision`. |
+| Fresh bootstrap on `bushisa_test_prompt02_fresh_precision`: `php tests/bootstrap_database.php; php bin/migrate.php; php bin/migrate.php` | PASS | First migration run applied `001` through `005`; second run skipped all migrations; replay timestamp columns reported precision `6`. |
+
+### Commands and results
+
+| Command | Result | Notes |
+|---|---|---|
+| `php -l php\operational.php; php -l php\policy_safeguards.php` | PASS | Changed PHP syntax. |
+| `php tests\bootstrap_database.php; php bin\migrate.php; php bin\migrate.php; php tests\unit_disposable_database_guard.php; node tests\unit_playwright_config_guard.js; php tests\unit_signup_verification.php; php tests\unit_mail_configuration.php; py -3 tests\smtp_transport_test.py; php tests\integration_core_p0_flows.php; php tests\overlap_db_p0_flows.php; php tests\policy_safeguards_p0_flows.php; php tests\integration_p0_flows.php; php tests\integration_smtp_outbox.php` | PASS | Guarded local disposable DB `bushisa_test_prompt02_php_regression`; `005` applied on first migration and skipped on second. |
+| `node node_modules\playwright\cli.js test tests/browser/prompt02-chat-routes.spec.js --grep "P02-CHAT-02" --reporter=line` | PASS | One repaired deletion case passed in 39.3s; `/api/account.php` returned `200` and stale second session received `401`. |
+| `node node_modules\playwright\cli.js test tests/browser/prompt02-chat-routes.spec.js --reporter=line` | PASS | Three chat-route tests passed in 1.1m, including the previously unexecuted `P02-CHAT-03` role-removal session test. |
+| `node node_modules\playwright\cli.js test tests/browser/p0-rendered-flows.spec.js tests/browser/prompt02-session-routes.spec.js --reporter=line` | PASS | Four rendered/session tests passed in 33.5s. |
+| Docker `mcr.microsoft.com/playwright:v1.64.0-noble` with PHP `8.3.6`, MySQL client `8.0.46`, `PHP_CLI_SERVER_WORKERS=4`, `MAIL_PROVIDER=fake`, `DB_HOST=host.docker.internal`, `DB_PORT=3318`, `DB_NAME=bushisa_test_prompt02_docker_overlap_current`, command `node node_modules/playwright/cli.js test tests/browser/prompt02-http-overlap.spec.js tests/browser/prompt02-chat-overlap.spec.js --reporter=line` | PASS | Three Linux overlap tests passed in 1.1m. Barriers: `chat-request-1791971921320-25916` participants `5005,5001`; `chat-block-1791971939015-46565` participants `5005,5002`; `swipe-1791971958895-21561` participants `5005,5001`. |
+
+### Executed case updates
+
+| Case ID | Result | Added invariant |
+|---|---|---|
+| P02-CHAT-02 | PASS | Block plus account deletion can record two same-match `match_closed` protective events without a uniqueness collision; deleted user is marked `deleted`; message request is revoked; existing second session is denied with `401`; retained message/evidence rows are not purged by the route. |
+| P02-CHAT-03 | PASS | The previously unexecuted role-removal session check ran and both existing moderator sessions lost admin access. |
+
+### Remaining gates
+
+The deletion repair is locally executed and migration-compatible on disposable databases. CI still must run for the new pushed candidate before treating PR #4 as independently confirmed. Production version matrix, restricted runtime role, isolated restore/replay, real sender, telemetry, password reset and final D04/D05 owner approvals remain separate gates.
