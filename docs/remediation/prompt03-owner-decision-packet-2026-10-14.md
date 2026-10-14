@@ -8,9 +8,11 @@ Starting checkpoint: `e30dcf844abaf499bcc657172c2c9aa1f4b4986d`.
 
 Draft PR kept open and draft: https://github.com/Takudzwa00kyle/Bushisa/pull/4.
 
-This packet prepares D03-D12 for owner review. It does not approve any pending
-decision, apply policy to production, deploy code, merge PR #4, run against the
-live database or mark P0/P1 cleared. D01 and D02 remain the only approved
+This packet prepares D03-D12 for owner review. D03 is now recorded as approved
+product scope for Bushisa's next production-ready release by reviewer Takudzwa
+Hondova on 2026-10-14. This does not approve D04, D05, D12 or any other pending
+policy, apply policy to production, deploy code, merge PR #4, run against the
+live database or mark P0/P1 cleared. D01, D02 and D03 are the approved
 decision-register entries.
 
 ## Current Evidence And Non-Claims
@@ -21,6 +23,7 @@ decision-register entries.
 |---|---|
 | D01 | Approved student domain and student-number grammar remain unchanged in `docs/remediation/decisions.md`. |
 | D02 | Approved adult eligibility of `age >= 18` remains unchanged in `docs/remediation/decisions.md`. |
+| D03 | Approved full feature scope for the next production-ready release: signup, adult onboarding, discovery, reciprocal matching, geographic matching, approved chat, confession posting, safety/moderation and account-management workflows. |
 
 ### Completed deletion repair recorded from Prompt 02
 
@@ -71,9 +74,26 @@ Unknown owners remain unassigned. Product authority can select product behavior;
 privacy/legal/security/operations review remains separate where the playbook
 requires H03 or other specialist acceptance.
 
-## D03 - Launch Product Scope
+## D03 - Next Production-Ready Release Product Scope
 
-Status: pending.
+Status: approved product scope only.
+
+Reviewer: Takudzwa Hondova, 2026-10-14.
+
+Accepted scope:
+
+- Bushisa's next production-ready release targets the full feature set, not a
+  narrowed pilot scope.
+- Included features are signup and student-email approval, adult onboarding,
+  discovery, reciprocal matching, geographic matching, approved chat,
+  confession posting, safety/moderation workflows and account-management
+  workflows.
+- The existing Azure deployment must be preserved while changes are prepared.
+  This scope decision does not authorize live production mutation, migration
+  against production, PR merge, or deployment by itself.
+- D04 messaging/safety policy, D05 retention/lifecycle policy and D12
+  geographic matching policy remain pending. The whole application is not
+  production-ready until those and the other open release gates are accepted.
 
 Current implemented behavior and evidence:
 
@@ -85,37 +105,47 @@ Current implemented behavior and evidence:
   denial and moderator role removal on synthetic routes.
 - U01 confession time has partial repair and a rendered timestamp test, but
   fake-clock boundaries and H09 human comparison remain open.
-- U02 geographic matching is required for P1 if matchmaking launches and remains
-  pending D12.
+- U02 geographic matching is required for the next production-ready release and
+  remains pending D12.
 
-Proposed options and tradeoffs:
+Implementation work, tests and dependent decisions:
 
-| Option | Tradeoff |
-|---|---|
-| Narrow launch: signup, adult onboarding, discovery, reciprocal matching and approved chat only | Reduces active surface, but confessions, extra media, advanced notifications and geographic features must be disabled or removed from promises until accepted. |
-| Include confessions | Requires D05 confession deletion/lifecycle, report/reference privacy, U01 timestamp acceptance and moderation ownership before launch. |
-| Include geographic proximity in launch | Meets U02/P1-01G but requires D12 consent/catalogue/lifecycle choices and representative tests before collecting location. |
-| Keep all current UI surfaces visible | Highest feature continuity, but every promised feature must satisfy P0/P1 gates and owner decisions before real users. |
+| Feature | Implementation work required | Required tests/evidence | Dependent decisions |
+|---|---|---|---|
+| Signup and student-email approval | Complete production mail transport, exact sender settings, code expiry/resend/error UX and least-privilege runtime configuration. | Unit, DB and browser signup flows; real student-inbox delivery; leading-zero/delayed/replayed code cases; fake-mail denial in production. | D06, D08, D10, D11. |
+| Adult onboarding | Keep DOB collection after email approval, enforce `age >= 18`, block underage accounts and remove raw DOB from public DTOs. | DOB boundary tests, pending-state route restrictions, stale-session denial and accessibility/device acceptance. | D02 approved; D05 retention for DOB/underage proof. |
+| Discovery | Finish stable candidate retrieval, filtering, pagination/cursors, empty states, privacy-safe DTOs and representative pool behavior. | Browser/API discovery tests, 5,000-account or agreed representative dataset, cursor stability and blocked/ineligible exclusion. | D03 approved; D08 runtime matrix; D10 telemetry allowlist. |
+| Reciprocal matching | Preserve mutual eligibility, questionnaire scoring, swipes, match uniqueness, block exclusion and overlap-safe writes. | Transaction/concurrency tests for reciprocal swipes, duplicate/replayed requests, match cleanup and rollback paths. | D04 for block/unmatch/rematch effects; D05 for cleanup after deletion. |
+| Geographic matching | Add approved coarse-location catalogue, consent/update endpoints, proximity score integration, fallback behavior and privacy-safe responses. | Nearer-equal-compatible ranking, far-stronger-compatible ranking, missing/stale/withdrawn location, blocked/ineligible near users, cursor/cache invalidation, load/query-plan and H13 mobile permission evidence. | D12 required; D05 retention/withdrawal; D10 location-safe logging. |
+| Approved chat | Keep chat gated behind explicit approved message request; complete request lifecycle, revoke/block effects, unmatch behavior, closed-chat access and notification cleanup. | Request/approve/send/read/revoke, send-vs-block, approve-vs-revoke, forged IDs, CSRF, stale sessions, rate limits and closed-chat cases. | D04 required; D05 for message/evidence retention. |
+| Confession posting | Complete posting, immutable UTC times, feed/detail display, references, reporting, deletion-on-account-removal behavior and moderation controls. | API/DB/rendered timestamp tests, fake-clock boundary tests, reference/report privacy tests, suppressed-reference cases and H09 comparison. | D05 confession lifecycle; D04/D09 moderation/evidence access. |
+| Safety and moderation | Finish shared safety service behavior for reports, blocks, case evidence, moderator access, audit trails, role removal and appeals/outcomes. | Cross-route report/block tests, evidence access denial, moderator role-removal sessions, abuse/rate-limit tests and case UI/API tests. | D04, D05, D09, D10. |
+| Account management | Complete profile/media settings, account deletion, consent withdrawal, rights/export/delete handling, session revocation and cleanup/replay jobs. | Deletion stale-session tests, personal-data inventory, media/cache/log purge, restore replay rehearsal and rights-request acceptance. | D05 required; D06/D07 for Azure backup/recovery; D12 for location data. |
 
 Affected routes, data, notices and operations:
 
 - Routes: `discover.php`, `matches.php`, `chat.php`, `confessions.php`,
-  `profile.php`, `api/swipe.php`, `api/message_requests.php`,
-  `api/messages.php`, `api/confessions.php`, `api/safety.php`,
-  `api/account.php`, admin routes.
-- Data: `users`, `profiles`, `preferences`, `swipes`, `matches`,
-  `message_requests`, `messages`, `confessions`, reports/evidence,
-  notifications, media and future location fields.
-- Notices: Terms, privacy, safety, deletion, messaging consent, confession
-  visibility and location-use copy must match the accepted scope.
-- Operations: staffing and alerts must cover every launched feature.
+  `profile.php`, `verify_email.php`, `onboarding.php`, `api/swipe.php`,
+  `api/message_requests.php`, `api/messages.php`, `api/confessions.php`,
+  `api/safety.php`, `api/account.php`, future location endpoints and admin
+  routes.
+- Data: `users`, `profiles`, `preferences`, `find_match_answers`, `swipes`,
+  `matches`, `message_requests`, `messages`, `confessions`,
+  `confession_references`, reports/evidence, notifications, media, consent,
+  logs, telemetry and future location fields.
+- Notices: terms, privacy, safety, deletion, messaging consent, confession
+  visibility, location-use and support wording must match the full accepted
+  scope and any remaining policy approvals.
+- Operations: staffing, alerts, cleanup jobs, Azure backup/restore, support,
+  moderation and privacy request handling must cover every feature in scope.
 
 Responsible reviewer role: product owner, with engineering release reviewer and
-privacy/moderation reviewer for included safety/data features. Unknown named
-owner: unassigned.
+privacy/moderation reviewer for included safety/data features. Named reviewer:
+Takudzwa Hondova.
 
-Blocks: P1 UI/API completion, optional-feature removal, launch acceptance and
-which Prompts 09-14 remain mandatory for the first release.
+Blocks now clarified: D03 no longer blocks feature inclusion. D04, D05, D12 and
+the remaining production evidence still block production readiness for the
+included features.
 
 ## D04 - Messaging And Safety Policy
 
@@ -177,6 +207,7 @@ Affected routes, data, notices and operations:
 Responsible reviewer role: product/safety owner for contact rules; moderation
 owner for report/evidence access; privacy specialist for retention and unsent
 originals; engineering reviewer for implementation. Named owners: unassigned.
+This is the next owner-review decision after approved D03.
 
 Blocks: Prompt 04 identity/current authorization/safety work, final P0-05
 safety acceptance, user-facing notices, retention cleanup workers and any
@@ -243,6 +274,7 @@ Affected routes, data, notices and operations:
 
 Responsible reviewer role: privacy specialist/H03, product owner, moderation
 owner, support owner, engineering/release owner. Named owners: unassigned.
+This remains pending and is the next owner-review decision after D04.
 
 Blocks: Prompt 05 lifecycle execution, public deletion promises, cleanup/restore
 worker release, retention notices, isolated restore acceptance and any launch
@@ -494,8 +526,18 @@ Current implemented behavior and evidence:
 
 - `docs/remediation/geographic-matching.md` records no verified active
   geographic ranking signal in the authoritative matching service.
-- Current matching ranks by questionnaire score plus faculty/year tie breakers
-  and applies reciprocal eligibility, swipes, matches and blocks.
+- Current matching in `php/matching/service.php` loads profile/preference rows,
+  excludes the viewer, already swiped users, existing matches and either-way
+  blocks, requires verified/active adult profiles and then applies reciprocal
+  gender/age preferences plus hard questionnaire incompatibility checks.
+- Ranking uses `matching_score_pair()` from `php/matching/scoring.php` as the
+  primary rank value. It then adds only a small faculty/year profile tie breaker
+  and sorts by rank descending, then `user_id` ascending. It does not join a
+  location table, calculate distance, read device coordinates or apply a
+  proximity weight.
+- The base schema has a legacy `profiles.campus_zone` text column, but the
+  authoritative matcher does not currently use it for discovery ranking and no
+  approved catalogue or consent/lifecycle model is attached to it.
 - Production location use remains disabled/pending; no approved catalogue,
   consent flow, lifecycle or proximity weight exists.
 
@@ -505,9 +547,27 @@ Options and tradeoffs:
 |---|---|
 | Manual coarse campus/area selection only | Lower privacy and permission friction; less precise proximity. |
 | Optional browser geolocation converted to coarse area/cell | Better proximity signal; requires consent, HTTPS permission UX, freshness, withdrawal and telemetry safeguards. |
-| No production location in first launch | Avoids privacy and data-flow risk; U02/P1-01G remains unsatisfied unless geography is removed from launch scope by D03. |
+| No production location in the next production-ready release | Not selected under approved D03 full scope; would avoid privacy and data-flow risk, but U02/P1-01G would remain unsatisfied because geography is now in scope. |
 | Soft bounded bonus | Reduces overfitting and avoids hard exclusion by location; owner must approve weight/scale and disclosure. |
 | Hard radius | Stronger location behavior but high risk of false exclusion, sparse areas and privacy probing. |
+
+Remaining D12 choices for owner review:
+
+- Location source: manual area, optional browser geolocation converted to a
+  coarse area/cell, both, or another approved source.
+- Consent: exact opt-in wording, whether location is optional, denial fallback,
+  withdrawal behavior and whether existing matches/chats are affected.
+- Granularity: campus/area labels, representative points, approximate cell
+  size, whether precise coordinates are ever stored, and what appears in public
+  responses.
+- Retention: freshness period, expiry, deletion/withdrawal deadline, backup
+  treatment, consent proof fields and D05 alignment.
+- Weighting: soft bonus cap, distance scale, hard-radius prohibition or limit,
+  treatment of unknown/stale locations and whether far stronger reciprocal
+  matches can outrank closer weaker matches.
+- Stability and privacy: cursor/cache invalidation on location change,
+  telemetry redaction, anti-probing behavior, sparse-area disclosure and H13
+  human/mobile acceptance.
 
 Affected routes, data, notices and operations:
 
@@ -524,9 +584,11 @@ Affected routes, data, notices and operations:
 
 Responsible reviewer role: product owner, privacy specialist/H13, engineering
 owner and catalogue/local-area reviewer. Named owners: unassigned.
+This remains pending and is the next owner-review decision after D05.
 
 Blocks: U02/P1-01G, location collection, geographic ranking, location-related
-retention/rights handling and launch scope if geography remains required.
+retention/rights handling and the next production-ready release scope because
+geography is included by D03.
 
 ## R01-R12 Remaining Gaps
 
@@ -535,7 +597,7 @@ not close policy approval, production compatibility or restore proof.
 
 | Rule | Current state after Prompt 02 | Remaining gap |
 |---|---|---|
-| R01 | Partial pass. Signup/onboarding and reciprocal swipe overlap passed; chat approval through real routes passed. | Launch scope, broader matching catalogue and production-bound compatibility remain open. |
+| R01 | Partial pass. Signup/onboarding and reciprocal swipe overlap passed; chat approval through real routes passed. D03 now approves the full feature scope. | Broader matching catalogue, D04/D05/D12 policy acceptance and production-bound compatibility remain open. |
 | R02 | Partial pass. Request/approve/revoke and approve-vs-revoke overlap passed. | Expiry, cooldowns, budgets, revoke/re-request, rematch/unblock and pause policy remain pending D04. |
 | R03 | Partial pass. Block route and send-vs-block overlap passed; messages/evidence survive normal close path. | Account deletion overlap beyond covered stale-session route, rollback injection, legacy cascade audit and production retention remain open. |
 | R04 | Pass for current actual unsend route. | Final D04 unsent-original retention wording, attachment projections and closed-chat access remain pending. |
@@ -550,29 +612,31 @@ not close policy approval, production compatibility or restore proof.
 
 ## Prioritized Owner Questions
 
-1. What is the initial launch scope under D03: chat-only matching, confessions
-   included, geographic matching included, or a narrower pilot?
-2. Who owns D04 messaging/safety choices, and should the current proposed
+Continue owner review in this order: D04 first, then D05, then D12. The
+questions below intentionally leave D04, D05 and D12 pending until their exact
+answers are recorded.
+
+1. Who owns D04 messaging/safety choices, and should the current proposed
    seven-day request expiry, 24-hour retry, 30-day decline retry, 15-minute
    unsend and non-restoring unblock/rematch model be accepted or changed?
-3. Who owns D05 privacy/retention review, and what are the exact deadlines for
+2. Who owns D05 privacy/retention review, and what are the exact deadlines for
    abandoned signup, underage attempts, consent proof, closed chats, case
    evidence, media cleanup, logs and recoverable-copy replay?
+3. For D12, will Bushisa collect manual area, device location, both or neither,
+   and what catalogue, consent wording, granularity, freshness, retention,
+   withdrawal behavior, public disclosure and score weight are approved?
 4. Is the Azure for Students subscription acceptable for real production use,
    and who funds/owns the service after credits or eligibility change?
 5. Is the South Africa North app plus United States ACS email data flow accepted
    after specialist review?
-6. What RPO/RTO and downtime are acceptable for the first pilot, and who will
-   witness an isolated restore rehearsal?
+6. What RPO/RTO and downtime are acceptable for the next production-ready
+   release pilot, and who will witness an isolated restore rehearsal?
 7. Which production PHP/MySQL/session/network matrix is approved for the
    Azure-bound artifact?
 8. Who receives alerts, support requests, privacy requests, moderation cases and
    delivery failures?
 9. Is `DoNotReply@bushisa.me` accepted as the production From, and will a real
    monitored Reply-To/support inbox be configured?
-10. For D12, will Bushisa collect manual area, device location, both or neither,
-    and what catalogue, freshness, granularity, retention and score weight are
-    approved?
 
 ## Technical Tasks That Can Proceed Meanwhile
 
