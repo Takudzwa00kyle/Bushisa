@@ -13,6 +13,7 @@ require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/policy_safeguards.php';
+require_once __DIR__ . '/../php/http_test_barrier.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -34,6 +35,17 @@ $matchId = clean_int($_GET['match_id'] ?? $payload['match_id'] ?? null);
 
 if ($matchId === null || $matchId <= 0) {
     json_response(['error' => 'Invalid match ID'], 400);
+}
+
+$submittedToken = '';
+if (isset($_SERVER['HTTP_X_CSRF_TOKEN']) && is_string($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+    $submittedToken = $_SERVER['HTTP_X_CSRF_TOKEN'];
+} elseif (isset($payload['csrf_token']) && is_string($payload['csrf_token'])) {
+    $submittedToken = $payload['csrf_token'];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($submittedToken === '' || !validate_csrf_token($submittedToken))) {
+    json_response(['error' => 'Invalid CSRF token'], 403);
 }
 
 $authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, true);
@@ -114,17 +126,6 @@ if (!is_array($payload)) {
     json_response(['error' => 'Invalid request body'], 400);
 }
 
-$submittedToken = '';
-if (isset($_SERVER['HTTP_X_CSRF_TOKEN']) && is_string($_SERVER['HTTP_X_CSRF_TOKEN'])) {
-    $submittedToken = $_SERVER['HTTP_X_CSRF_TOKEN'];
-} elseif (isset($payload['csrf_token']) && is_string($payload['csrf_token'])) {
-    $submittedToken = $payload['csrf_token'];
-}
-
-if ($submittedToken === '' || !validate_csrf_token($submittedToken)) {
-    json_response(['error' => 'Invalid CSRF token'], 403);
-}
-
 $action = isset($payload['action']) && is_string($payload['action']) ? clean_enum($payload['action'], ['send', 'unsend']) : 'send';
 if ($action === null) {
     json_response(['error' => 'Invalid message action'], 400);
@@ -147,12 +148,12 @@ if ($action === 'unsend') {
                  SET moderation_body = NULL,
                      %1$s = "",
                      unsent_at = NOW(),
-                     unsent_by = :current_user_id,
+                    unsent_by = :unsent_by_user_id,
                      unsent_reason = "sender_unsend",
                      ordinary_body_purged_at = UTC_TIMESTAMP()
                  WHERE id = :message_id
                    AND match_id = :match_id
-                   AND sender_id = :current_user_id
+                   AND sender_id = :sender_user_id
                    AND unsent_at IS NULL
                    AND %2$s >= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 15 MINUTE)',
                 $messageBodyColumn
@@ -163,7 +164,8 @@ if ($action === 'unsend') {
         $statement->execute([
             ':message_id' => $messageId,
             ':match_id' => $matchId,
-            ':current_user_id' => $currentUserId,
+            ':unsent_by_user_id' => $currentUserId,
+            ':sender_user_id' => $currentUserId,
         ]);
 
         if ($statement->rowCount() < 1) {
@@ -207,6 +209,7 @@ $body = function_exists('mb_substr') ? mb_substr($body, 0, 1000) : substr($body,
 
 try {
     $pdo->beginTransaction();
+    bushisa_http_test_barrier('chat_relationship_mutation_before_update');
     $authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, true, true);
     if (!$authorization['ok']) {
         $pdo->rollBack();

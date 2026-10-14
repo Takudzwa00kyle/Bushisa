@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-if (getenv('BUSHISA_TEST_DATABASE') !== 'true' || getenv('APP_ENV') === 'production') {
-    throw new RuntimeException('Run this suite only against an explicitly selected synthetic test database.');
-}
+require_once __DIR__ . '/support/disposable_database.php';
+
+bushisa_require_disposable_test_database('integration_smtp_outbox');
 
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/signup_verification.php';
