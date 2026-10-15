@@ -101,8 +101,11 @@ behavior](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/
 2. **Receiving support is separate.** `support@bushisa.me` is proposed; actual
    provider/account/owner/backup, external receipt, monitoring and a privacy
    route are CONFIRM/VERIFY. Outbound ACS registration proves no receiving
-   mailbox. Resolve the earlier D11 matching-Reply-To versus proposed unset
-   fallback in the reconciliation; do not publish an unverified inbox.
+   mailbox. The owner now approves temporary unset Reply-To until a real
+   monitored inbox is verified; see the
+   [amendment record](owner-conflict-decisions-2026-10-16.md). The former conflict
+   is resolved, while actual receiving/header/monitoring evidence remains open.
+   Do not publish an unverified inbox or change live configuration in this task.
 3. **Capture authoritative DNS first.** Registration at Namecheap alone does
    not establish the active zone. Capture current nameservers and approved
    receiving-provider instructions. Namecheap's Mail Settings depend on the

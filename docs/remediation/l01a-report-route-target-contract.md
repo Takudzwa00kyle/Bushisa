@@ -15,8 +15,10 @@ The requirements below trace existing product approvals. Wire vocabulary,
 idempotency/proof storage and the additive implementation slice are **engineering
 proposals for review**, not newly approved product rules or implemented features.
 Takudzwa Hondova remains the product reviewer. Named safety/privacy/security/
-engineering operators and backups remain UNASSIGNED. No existing approval status,
-missing acceptance timestamp or qualified-review gate changes in this task.
+engineering operators and backups remain UNASSIGNED. L01a originally changed
+no approval status. Later Decision 27 and the D11 temporary-unset amendment
+below now record explicit owner changes; missing
+actual acceptance timestamps and remaining qualified-review gates stay open.
 
 ## Requirements and independent boundaries
 
@@ -29,17 +31,17 @@ missing acceptance timestamp or qualified-review gate changes in this task.
 | D04 Decisions 15-17; Q10/Q18/Q20 | No new capture of erased unsent originals; already-preserved existing-report evidence is separate. Capture only relevant available evidence; context maximum is necessary 10 preceding and 10 following messages. Item-scoped holds do not preserve entire chats/accounts. |
 | Q17-Q27 and [retention matrix](data-inventory-retention-matrix.md) | Separate filing permission, ordinary read permission and assigned evidence access; enforce original expiry despite unpurged rows. Final-resolution/appeal/hold clocks and independent recovery protections remain unchanged. |
 
-The two existing conflicts do not block documenting or implementing a separately
-authorized text-only report intake. Neither report creation nor duplicate
-handling decides them:
+The two previously pending conflicts were expressly resolved by the owner in
+[the amendment record](owner-conflict-decisions-2026-10-16.md). Neither report
+creation nor duplicate handling itself restores a match or configures mail:
 
-| Conflict (status unchanged) | Earlier approval | Conflicting proposal and practical choice |
+| Resolved conflict | Earlier approval | Latest explicit owner selection |
 |---|---|---|
-| Renewed consent: pending | Decisions 20-21: only the unmatcher restores without the other's renewed agreement. Decision 22: if both unmatched, each undoes their own action. | Q08 requires the other's current consent, allowing refusal. Owner must choose whether to retain approved own-undo restoration or explicitly replace its no-renewed-agreement rule. The separate selected one-success-per-pair/rolling-24h cap is not reopened. |
-| Reply-To: pending | D11 requires an owned sender, approved From and matching Reply-To. | Q45 proposes no Reply-To until a real monitored receiving mailbox is verified. Owner must allow that temporary unset state or retain verified matching Reply-To as a mail-release requirement. `support@bushisa.me` and its operator remain unverified proposals. |
+| Renewed consent: resolved | Decision 20 formerly allowed restoration without renewed agreement; Decisions 21-22 control own unmatch/undo. | Owner selected replacement. Decision 27 requires fresh affirmative agreement from both participants; either may refuse. Own-unmatch control, both own undos where applicable and the separate one-success/rolling-24h cap remain. |
+| Reply-To: resolved | D11 formerly required matching Reply-To without a temporary-unset exception. | Owner permits temporary unset Reply-To until a real monitored receiving inbox is verified. `support@bushisa.me`, its operator and actual inbox/header evidence remain unverified; no live mail setting changes. |
 
 Report-only actions do not send acknowledgment email in this contract, so the
-Reply-To conflict need not delay an in-app receipt design. This does not waive
+permitted temporary-unset policy does not delay an in-app receipt design. This does not waive
 the separate monitored support/privacy-contact or staffing release gates.
 
 ## Existing route and caller map
@@ -128,8 +130,8 @@ Whether adding a report to an **existing ordinary block** also attaches the
 combined flow's review-before-unblock restriction is a focused unresolved L02
 transition detail. Intake can record the report while preserving the block;
 it must not silently reclassify the block or expose an unblock action. This
-dependency does not change either of the two owner conflicts or approve a new
-transition. Actual combined-action implementation remains pending.
+separate dependency was not resolved by the two owner amendments and approves
+no new block transition. Actual combined-action implementation remains pending.
 
 ## Proposed intake and response contract
 
@@ -325,11 +327,17 @@ under a separately authorized implementation task. Start with target proof,
 server attribution and once-only own-case receipts, including authorized
 historical reports and denial cases. Do not activate uploads, invent qualifying
 reports, adopt ban/renewal proposals, change personal blocks or promise public
-service deadlines. Both owner conflicts stay pending and independent.
+service deadlines. Both named owner conflicts are resolved to the amendment
+scope; other engineering, qualified-review and operational gates remain open.
 
 ## Documentation checks
 
-PASS for this documentation checkpoint: `git diff --check`; 37 local links and
+The results below belong to original L01a checkpoint `93314b2`, before the
+later owner amendments. Linked policy documents now intentionally reflect those
+amendments; this historical baseline comparison is not a fresh unchanged-policy
+claim for the later checkpoint.
+
+PASS for the original L01a documentation checkpoint: `git diff --check`; 37 local links and
 anchors across the four affected Markdown files; presence of all 11 contract
 sections once; paired code fences and no trailing whitespace in the new file.
 Scope/status checks confirm only this contract, backlog, navigation README and

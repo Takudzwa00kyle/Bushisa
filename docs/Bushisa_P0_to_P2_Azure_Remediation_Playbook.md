@@ -1,6 +1,6 @@
 # Bushisa: P0–P2 remediation and Azure deployment prompt playbook
 
-## Current decision authority: 2026-10-15
+## Current decision authority: 2026-10-16
 
 Use the current [decision register](remediation/decisions.md), its
 [Q01-Q48 owner reconciliation](remediation/owner-policy-reconciliation-2026-10-15.md)
@@ -12,8 +12,11 @@ Earlier provisional close-on-unmatch, unsent-placeholder, retention and geograph
 defaults do not replace recorded approvals. Owner-selected policy is distinct
 from implementation/evidence, qualified review and release acceptance.
 
-Q08's renewed-consent undo requirement and Q45's Reply-To fallback remain pending
-conflicts against earlier approvals. Explicit new proposals remain proposed.
+The owner has expressly resolved the two conflicts in
+[the amendment record](remediation/owner-conflict-decisions-2026-10-16.md):
+Decision 27 requires fresh agreement from both before match restoration, and
+D11 permits temporary unset Reply-To until a monitored inbox is verified.
+Own-unmatch control and unrelated approvals remain; other proposals stay proposed.
 Exact owner acceptance UTC/Harare timestamp is CONFIRM; no human review is
 completed by this note. The [read-only impact checklist](remediation/configuration-impact-checklist-2026-10-15.md)
 and [later bounded backlog](remediation/backlog.md#q01-q48-implementation-backlog)

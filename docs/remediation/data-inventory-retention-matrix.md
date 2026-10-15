@@ -10,6 +10,12 @@ implemented, tested, deployed or fully accepted under D05. Named accountable
 operators remain **UNASSIGNED**; role labels below describe responsibilities,
 not appointments. No live store was inspected or purged.
 
+Latest scoped amendment: [Decision 27 and temporary unset Reply-To](owner-conflict-decisions-2026-10-16.md).
+Match restoration now needs fresh agreement from both participants while
+preserving own-unmatch control. Existing account/consent proof requires its
+purpose-scoped review; no retention duration, evidence exception or recovery
+bound is changed by these two approvals.
+
 This matrix supersedes conflicting legacy retention suggestions, including
 `docs/data_retention_policy.md`'s former indefinite consent, both-users-delete
 chat and default anonymous-confession rules. It does not rewrite earlier

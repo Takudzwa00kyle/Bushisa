@@ -2,6 +2,15 @@
 
 Document date: 2026-10-15. This is a documentation checkpoint, not a release.
 
+Latest owner amendments recorded on 2026-10-16, Africa/Harare: both named
+conflicts are resolved by express adoption in
+[owner-conflict-decisions-2026-10-16.md](owner-conflict-decisions-2026-10-16.md).
+Decision 27 replaces only Decision 20's no-renewed-agreement rule; fresh
+agreement from both is required. Temporary unset Reply-To is now permitted
+until a monitored receiving inbox is verified. Earlier acceptance/validation
+capture dates below remain historical and are not timestamps for these new
+approvals; their exact actual acceptance time remains CONFIRM.
+
 Reviewer: **Takudzwa Hondova**. Source: the owner's message beginning
 `Shared conventions`, containing answers 01-48 and the required documentation
 outputs. Direct selections in that message are product approvals only to their
@@ -45,10 +54,10 @@ this checkpoint.
 
 | Point | Existing approval / missing fact | Disposition |
 |---|---|---|
-| Q08 renewed consent | D04 Decisions 20-21 allow only the unmatcher to restore without the other's renewed agreement; Decision 22 requires both own undo actions if both unmatched. | Preserve those approvals. Q08's contrary renewed-consent/refusal requirement is **pending conflict**, not adopted. Immediate undo and the separate one-success-per-pair/rolling-24-hour cap are adopted without replacing the approved actors. |
+| Q08 renewed consent | Decision 20 previously allowed restoration without renewed agreement; Decisions 21-22 control own unmatch/undo. | **Resolved by explicit replacement: D04 Decision 27.** Restoring the existing relationship now requires both participants' fresh agreement; either may refuse. Own-unmatch control, both own undos when both unmatched and the one-success/rolling-24h cap remain. |
 | Q03 chat restoration | D04 Decisions 10-12 and 25-26 provide immediate chat on the blocker's qualifying unblock, including never-approved chat; moderator clearance alone does not unblock. | No moderator may supply a user's choice. Preserve the already-approved immediate chat effect after the blocker's action. Any broader reading requiring fresh approval after every unblock is **pending conflict**. |
 | Q06 recreated match | Decision 5 clears decline restrictions on a recreated match only; Decisions 9 and 20 do not reset other restrictions or grant extra clearance on undo. | Adopt the clarification: restoring the existing relationship is not a new match; a genuinely new match requires fresh mutual interest and clears decline restrictions only. No pair-budget, probation, block, account or second-ending reset. |
-| Q45 Reply-To | D11 previously approved an owned sender and matching Reply-To. An actual monitored inbound mailbox is not established. | Approve the exact From/display name and sender reuse. Proposed `support@bushisa.me`, its operator and the contrary unset-Reply-To fallback remain **pending** against D11; do not publish an unverified address or change live settings. |
+| Q45 Reply-To | D11 previously required matching Reply-To without the temporary-unset exception. | **Resolved by explicit approval:** temporary unset Reply-To is permitted until a real monitored inbox is verified. Selected From/display name are unchanged. `support@bushisa.me`, operator and receiving/header verification remain pending; no live setting is changed. |
 | Q22 / Q46 verification | Existing entered-code signup and terminal secret-erasure safeguards; Q46 mentions verification links. | Preserve entered-code approval and existing immediate terminal erasure. A navigation link never verifies signup. Any link-only signup change is **pending conflict**. Q22's 24-hour/one-hour ceilings do not authorize delaying existing immediate erasure; keep keyed HMAC for low-entropy codes, not an unkeyed hash. |
 | Q12 / Q13 clocks | Later fresh adult eligibility is not selected. Q13's 11-month warning lacks an elapsed-time definition under Q25. | Keep the rejected attempt permanently non-activatable; a later fresh adult application remains **CONFIRM/REVIEW GATE**. Treat the 12-month inactivity year as 365 elapsed days under Q25; the exact 11-month warning offset is **CONFIRM**, not an invented 330-day value. |
 | Acceptance and people | Only the timezone was supplied; no exact acceptance instant, accepted role appointments, independent reviewers, approved recipient list or monitored contact. | **CONFIRM** exact acceptance UTC/Harare time and real personnel/contact/coverage. Unstaffed gates stay open. No further 48-question sequence is required. |
@@ -174,9 +183,11 @@ L02 and existing Decisions 1-26 alignment remain required.
 **Approved portion:** immediate undo attempt and at most one successful pair
 restoration per rolling 24 hours, atomically enforced. A successful restoration
 is the return to matched state, not each unsuccessful own-undo attempt.
-**Pending conflict:** requiring the other's renewed consent/right to refuse
-replaces Decisions 20-22 and is not adopted. Keep only the unmatcher's own undo,
-no renewed agreement, and both own undos when both unmatched. The cap never
+**New approved amendment, Decision 27:** fresh affirmative agreement from both
+participants is now required; either may refuse. This expressly supersedes
+Decision 20's no-renewed-agreement clause. Keep control of each person's own
+unmatch and both own undos when both unmatched under Decisions 21-22. An
+immediate attempt is not completed restoration without both agreements. The cap never
 limits block/report/deletion/consent withdrawal, changes the ended-chat restart
 cooldown or resets lifetime limits. L02.
 
@@ -642,8 +653,10 @@ including password reset. Existing verification/delivery is historical
 operator-supplied evidence, not reverified in this task.
 **Proposed:** `support@bushisa.me` and Takudzwa as its operator, conditional on
 acceptance and real external receiving/monitoring proof. Outbound ACS is not
-proof of inbound mailbox existence. Resolve D11's Reply-To conflict above;
-no invented inbox goes in notices/templates. L06/L07.
+proof of inbound mailbox existence. The owner now expressly permits temporary
+unset Reply-To until a real monitored receiving inbox is verified; the fallback
+conflict is resolved. This does not approve `support@bushisa.me` or its operator
+or change live settings. No invented inbox goes in notices/templates. L06/L07.
 
 ### Q46 Delivery acceptance
 
@@ -699,11 +712,11 @@ for them; release remains separate authorization. L01-L07.
 | Workstream | Questions | Implementation gap and evidence needed | Named acceptance / release gate |
 |---|---|---|---|
 | L01 Reports/roles | 01-05, 18-20 | Authorized target routes, text-first intake, case dedupe, human sanctions, assignment/MFA/audits/independent appeals and demonstrated timed queues. | Product Takudzwa; safety/privacy/security UNASSIGNED; H03/H10. |
-| L02 Pair/terminal history | 06-10, 17, 25 | Split active match from chat grants, own-undo state and atomic rolling cap; decline-only recreated-match clearance; old/new chat segments; pause/cache and unsend projections. | Product Takudzwa; engineering/safety UNASSIGNED; R01/R02/R04 and D04 conflict resolution. |
+| L02 Pair/terminal history | 06-10, 17, 25 | Split active match from chat grants, own-undo state and atomic rolling cap; decline-only recreated-match clearance; old/new chat segments; pause/cache and unsend projections. | Product Takudzwa; engineering/safety UNASSIGNED; R01/R02/R04, Decision 27 alignment and D04 review. |
 | L03 Lifecycle/replay | 11-27 | Inventory all live/copy stores, immutable deadlines, scoped holds, full workers/media index, measured erasure and independent restore source. | Privacy/operations/engineering UNASSIGNED; H03/H08, D05. |
 | L04 Coarse geography | 28-34 | Reviewed real catalogue, consent/current area only, cohort protection, 2/24-hour atomic limit, score normalization and cursor invalidation. | Local/privacy/engineering witnesses UNASSIGNED; H13/D12; proposed source/widths/bands unadopted. |
 | L05 Telemetry | 23, 43 | Pre-send allowlist/redaction, optional-consent gate, sample/aggregate separation and verified provider retention. | Privacy/security/operations UNASSIGNED; D10/H03. |
-| L06 Recovery mail | 11, 22, 40, 45-47 | Separate reset purpose/outbox from signup; trusted origins, encrypted payload/hashed challenge distinction, useful dispatch and revocation. | Product Takudzwa; mail/security/support UNASSIGNED; H06, D11 Reply-To resolution. |
+| L06 Recovery mail | 11, 22, 40, 45-47 | Separate reset purpose/outbox from signup; trusted origins, encrypted payload/hashed challenge distinction, useful dispatch and revocation. | Product Takudzwa; mail/security/support UNASSIGNED; H06, D11 inbox/header verification. |
 | L07 Operations/config | 05, 24, 26, 35-44, 46, 48 | Read-only capture, priced topology, accepted owners/funding/targets, monitor feasibility, actual staged restore and final acceptance evidence. | All operational appointments UNASSIGNED; H04-H11; no infrastructure mutation here. |
 
 Existing candidate CI remains attributed exactly to head

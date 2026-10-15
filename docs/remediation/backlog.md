@@ -2,6 +2,16 @@
 
 Updated: 2026-10-16, Africa/Harare.
 
+## Latest explicit owner amendments
+
+[The two-answer record](owner-conflict-decisions-2026-10-16.md) approves Decision
+27 (fresh agreement from both before restoring an existing match) and temporary
+unset Reply-To until a real monitored inbox is verified. These supersede only
+the recorded no-agreement clause and unconditional interim Reply-To requirement.
+Own-unmatch control, rolling successful-restoration cap, approved chat, expiry
+and lifetime safety limits remain. L02/L06/L07 alignment and evidence are open;
+L01a reporting still requires no match restoration or email.
+
 ## Current owner-policy checkpoint
 
 Owner Q01-Q48 answers have been reconciled in
@@ -15,9 +25,10 @@ is treated as implemented or deployed by documentation.
 The [inventory/retention matrix](data-inventory-retention-matrix.md) and
 [read-only configuration/costing checklist](configuration-impact-checklist-2026-10-15.md)
 record category clocks, roles, evidence and real-world gaps. Preserve approved
-own-undo restoration despite the conflicting renewed-consent answer; keep
-matching-Reply-To resolution open; never broaden decline-only recreated-match
-clearance. New active-chat/copy/metadata/default values introduced as proposals
+own-unmatch authority with Decision 27's newly approved fresh agreement from
+both before restoration; permit temporary unset Reply-To until monitored-inbox
+verification under the new D11 amendment. Both named conflicts are resolved;
+never broaden decline-only recreated-match clearance. New active-chat/copy/metadata/default values introduced as proposals
 remain proposed. See L01-L07 below for later work; no code/configuration work
 is authorized or performed in this checkpoint.
 
@@ -120,11 +131,11 @@ deadlines stay gated by ownership, overdue alerts and measured capacity.
 | Task | Policy dependency / scope | Current gap and later bounded output | Evidence needed / release gate |
 |---|---|---|---|
 | L01 Report routes and roles | Q01-Q05/Q18-Q20; preserve fixed probation and combined-flow approvals; post-expiry renewal and sanction ladder still proposed | Map actual `api/safety.php`, `php/report_handler.php`, `php/policy_safeguards.php`, `admin/*` and case tables. Add text-first authorized account/message/pair/confession/reference reporting without contact restoration; server IDs/time, 2,000-character optional explanation, dedupe, assignment, human findings, independent appeal and content-free access/export audit. Gate image evidence until private validation/scanning/metadata stripping. Do not invent qualifying-report/ban criteria or reviewer names. | Later forged/inaccessible/erased-target/duplicate tests on guarded synthetic systems; case-assignment/revocation/appeal and timed-queue evidence. Named safety/privacy/security review, H03/H10 and report-capacity targets stay open. |
-| L02 Terminal pair state, undo and projections | Existing D04 Decisions 1-26 plus Q06-Q10/Q17/Q25; Q08 renewed-consent conflict unresolved | Align `api/message_requests.php` from 24h cancel/expiry, 30d decline and 20/hour provisional behavior to approved clocks/budgets. Split active match, chat grant, own unmatch/undo, pending requests, decline-only new-match clearance, lifetime counts/endings and old/new history segments. Add adopted immediate own-undo/one successful pair restoration per rolling 24h without changing approved actors; preserve chat on unmatch, pending expiry, pause functions, 7d rediscovery exclusion, cache visibility and unsend projection deadlines. | Later real-route/atomic-overlap/boundary/authorization and projection checks, without reusing old CI as evidence for new semantics. Confirm overlapping-unmatch event representation and exact unsend edge. Product/engineering/safety sign-off and D04 gates remain open. |
+| L02 Terminal pair state, undo and projections | Existing D04 Decisions 1-26 plus Q06-Q10/Q17/Q25; Decision 27 fresh mutual restoration agreement approved | Align `api/message_requests.php` from 24h cancel/expiry, 30d decline and 20/hour provisional behavior to approved clocks/budgets. Split active match, chat grant, own unmatch/undo, pending requests, decline-only new-match clearance, lifetime counts/endings and old/new history segments. Add immediate own-undo attempts with fresh agreement from both before restoration under Decision 27, and one successful pair restoration per rolling 24h; preserve chat on unmatch, pending expiry, pause functions, 7d rediscovery exclusion, cache visibility and unsend projection deadlines. | Later real-route/atomic-overlap/boundary/authorization and projection checks, without reusing old CI as evidence for new semantics. Confirm overlapping-unmatch event representation and exact unsend edge. Product/engineering/safety sign-off and D04 gates remain open. |
 | L03 Cleanup, evidence clocks and independent replay | Q10-Q27/Q32; D05 partial; Q12 anti-replay/Q16 active chat/Q23 metadata/Q26 copy settings still proposed | Inventory all fields/media/derivatives/caches/logs/exports/copies; additive immutable deadlines and old/new history segmentation; scoped hold authority/release; original-text evidence exception; either-account cleanup and confession erasure. `bin/cleanup_policy.php` only handles limited signup/synthetic categories; provisional helpers still have 30d account/90d closed-chat/24-month case deadlines, some derived at creation. Build full idempotent bounded workers and independently durable replay with real object-completion proof. | Later expiry/no-reset/hold/retry/object-index/failure tests; actual copy/purge watermarks and independently witnessed isolated restore under separate authorization. Calculate latest copy +7d; conditional 7+35+7=49d, never universal. H03/H08, privacy and named cleanup/backup operators open. |
 | L04 Consent and coarse geography | Q28-Q34; D12 partial; source combination/catalogue widths/bonus bands still proposed; D03 full geography scope preserved | Build reviewed catalogue contract without invented points; current coarse area/version/time/consent only; optional opt-in/refusal/withdrawal; 7d freshness/24h purge; >=10-user cohort suppression; atomic 2 changes/24h; <=5-point soft ranking with zero fallback; cursor invalidation/live safety checks. `profiles.campus_zone` is legacy and authoritative matcher currently lacks geographic ranking. | Local catalogue/point acceptance, normalization/fairness/probing/query/load evidence and Android/iOS grant/refuse/withdraw/expiry/paging witnesses. Privacy/H13, final notice and actual catalogue reviewers UNASSIGNED; no production collection before acceptance. |
 | L05 Telemetry allowlist | Q13/Q23/Q43-Q44; provider/sampling/metadata defaults and funding remain proposed | Map every server/browser/provider destination. Prepare pre-transmission fixed-field redaction/allowlist, optional browser consent/withdrawal gate, random expiring visitor reference, separate app-side totals and suppressed aggregates. Inventory table minimums/export/archive paths against retention; no session replay, message/location/answer/token collection. | Later consent/redaction/retention/source-count tests, priced region/configuration review and named privacy/security acceptance. D10 stays pending; US$5 is not an approved spend. |
-| L06 Reset challenge, outbox and sessions | Q11/Q22/Q40/Q45-Q47; sender/15m token controls selected; signup/reset resend values and session redesign still proposed; D11 Reply-To conflict open | Extend signup-specific `php/mail_delivery.php`/dispatcher with separate reset purpose and >=256-bit random/hash-only challenge, atomic supersession/consume, trusted configured HTTPS origin, existing password policy, no enumeration and all-session revocation. Queue redeemable bodies encrypted separately; deadline min(queue+5m, token expiry-60s), terminal erasure, code-free 7d metadata. No fabricated support inbox. Use the next genuinely free additive migration identifier; 005 is already precision migration, not available for password recovery. | Later guarded expiry/replay/concurrent-consume/enumeration/revocation/transport-failure tests; no live reset now. Real headers/inbox/DNS/consenting recipients only in separately authorized acceptance. Named mail/security/support owners and H06 remain open. |
+| L06 Reset challenge, outbox and sessions | Q11/Q22/Q40/Q45-Q47; sender/15m token controls selected; signup/reset resend values and session redesign still proposed; temporary unset Reply-To approved; actual inbox/header verification open | Extend signup-specific `php/mail_delivery.php`/dispatcher with separate reset purpose and >=256-bit random/hash-only challenge, atomic supersession/consume, trusted configured HTTPS origin, existing password policy, no enumeration and all-session revocation. Queue redeemable bodies encrypted separately; deadline min(queue+5m, token expiry-60s), terminal erasure, code-free 7d metadata. No fabricated support inbox. Use the next genuinely free additive migration identifier; 005 is already precision migration, not available for password recovery. | Later guarded expiry/replay/concurrent-consume/enumeration/revocation/transport-failure tests; no live reset now. Real headers/inbox/DNS/consenting recipients only in separately authorized acceptance. Named mail/security/support owners and H06 remain open. |
 | L07 Monitoring and configuration hardening | Q05/Q24/Q26/Q35-Q44/Q46/Q48; appointment/budget/SLO/RPO/runtime/session/security proposals not adopted | Start with the read-only Azure/Namecheap checklist: actual resources/regions/versions/roles/session store, backup/provider minima, staged topology, priced cost worksheet, inbound support/provider DNS needs and accepted private role register. Prepare overdue cleanup/dispatch/queue/alert routing/capacity evidence, budget thresholds and rollback/restore checklist. No settings/DNS/secrets/billing/paid monitor mutation in documentation work. | Current configuration captures under later authorization, accepted names/backup/on-call/independent reviews and funding; actual staged compatibility, alert receipt and isolated restore. Required release gates stay open; 005 production application is unverified, restore NOT RUN. |
 
 ### L01a documentation checkpoint
@@ -149,8 +160,10 @@ idempotency choices still need review. Qualifying-report trigger, legacy alias/
 self-target handling and adding a report to an ordinary block's unblock policy
 are explicit dependencies. Proposed probation renewal/ban defaults, named roles,
 privacy review, MFA/coverage, actual erasure and later runtime evidence remain
-gates. Renewed-consent and Reply-To conflicts retain their existing statuses;
-neither is silently resolved by report intake. No acceptance timestamp is invented.
+gates. Renewed-consent and Reply-To conflicts were later expressly resolved by
+[the owner amendments](owner-conflict-decisions-2026-10-16.md), not by report
+intake itself. L01a requires no match restoration or mail, and other gates remain
+open. No acceptance timestamp is invented.
 
 ### Next bounded task
 

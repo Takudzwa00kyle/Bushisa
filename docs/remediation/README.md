@@ -8,6 +8,7 @@ evidence and owner-review packets. A link here does not imply approval.
 | Document | Purpose |
 |---|---|
 | [decisions.md](decisions.md) | Current register: D01-D03 approved; D04/D05/D12 partial product selections but pending overall; D06-D10 pending; D11 partial. |
+| [owner-conflict-decisions-2026-10-16.md](owner-conflict-decisions-2026-10-16.md) | Explicit owner amendments: Decision 27 requires fresh mutual match-restoration agreement; D11 permits temporary unset Reply-To pending verified monitored inbox. Both named conflicts resolved, implementation/evidence gates open. |
 | [owner-policy-reconciliation-2026-10-15.md](owner-policy-reconciliation-2026-10-15.md) | Q01-Q48 adoption scope, one conflict/unknown table, proposed values, missing actual acceptance timestamp and qualified/operational gates. |
 | [data-inventory-retention-matrix.md](data-inventory-retention-matrix.md) | Schema/purpose inventory, access/live-erasure/copy deadlines, immutable clocks, evidence exceptions and conditional 49-day recovery calculation. |
 | [configuration-impact-checklist-2026-10-15.md](configuration-impact-checklist-2026-10-15.md) | Read-only Azure/Namecheap capture, historical evidence attribution, unpriced-input cost worksheet, sender/receiving-mailbox and provider DNS checks. |

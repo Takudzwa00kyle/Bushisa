@@ -1,6 +1,25 @@
 # Bushisa Remediation Decision Register
 
-Updated: 2026-10-15, Africa/Harare.
+Updated: 2026-10-16, Africa/Harare.
+
+## Latest explicit owner amendments
+
+Reviewer Takudzwa Hondova answered `1. replace` and `2. permit temporary unset
+until monitored inbox is verified.` See the
+[acceptance and supersession record](owner-conflict-decisions-2026-10-16.md).
+**D04 Decision 27** now requires fresh affirmative agreement from both
+participants before restoring an existing unmatched relationship, superseding
+Decision 20's no-renewed-agreement clause. Each person's control of their own
+unmatch and both own undos when both unmatched remain, as does the one-successful-
+restoration-per-pair/rolling-24-hour cap. Existing approved chat continues after
+unmatch; restoration consent is not chat approval or a reset of any restriction.
+
+The **D11 Reply-To amendment** permits temporary unset Reply-To until a real
+monitored receiving inbox is verified. `support@bushisa.me`, operators and actual
+inbox/header verification remain pending. These two conflicts are resolved by
+express owner adoption; other proposals are not adopted and no whole D-number
+or implementation/release gate is cleared. Exact acceptance UTC/Harare time is
+CONFIRM; the linked recording clock is not an invented approval timestamp.
 
 ## Current Q01-Q48 acceptance supplement
 
@@ -15,19 +34,20 @@ timezone only. Drafting/capture timestamps are not approval timestamps.
 | Entry | Current decision status after Q01-Q48 | Accepted scope and remaining gate |
 |---|---|---|
 | D01-D03 | Approved, unchanged | Preserve student eligibility, adult onboarding and the full next-production-ready feature scope, including geographic matching, with existing Azure hosting. No scope reduction is authorized. |
-| D04 | **Partial product selections; pending overall** | Decisions 1-26 remain approved. Q01-Q10 add reporting routes/targets/conduct, human sanctions/independent appeals, unmatch/rediscovery definition, matched new-request prerequisite, immediate capped own-undo, pause visibility and unsend projections. Q17-Q20 add closed-history/evidence/access/hold rules. Q08's renewed-consent requirement conflicts with Decisions 20-22 and stays pending; preserve approved own-undo actors and no renewed agreement. Proposed probation renewal, sanction ladder and report targets remain unadopted. Implementation, qualified review, named staffing and final acceptance are open. |
+| D04 | **Partial product selections; pending overall** | Decisions 1-26 remain recorded with Decision 20's no-renewed-agreement clause superseded by Decision 27: fresh affirmative agreement from both participants is required before restoring an existing unmatched relationship. Own-unmatch control under Decisions 21-22, immediate attempts and one successful pair restoration per rolling 24h remain. Existing chat, pending-request expiry/recipient approval, budgets and safety limits are unchanged. Other Q01-Q20 selections remain recorded; proposed probation renewal, sanction ladder and report targets stay unadopted. Implementation, qualified/named review and release acceptance remain open. |
 | D05 | **Partial product selections; pending overall** | Q10-Q27/Q32 select category-specific access denial/live erasure, signup/deletion/confession/evidence/consent/export/hold/clock and recovery rules, subject to stated privacy gates. Q12's anti-replay value, Q13's candidate fields, Q16's linked active-chat schedule, Q23's metadata table and Q26's copy-retention values remain proposed. See the matrix; do not reuse older 30-day account, 90-day closed-history, 24-month case or indefinite-consent proposals as accepted values. |
 | D06 | Pending | Q35/Q36 funding/region proposals need actual ownership, credit/continuity, priced inventory, approved budget and qualified data-flow review. Cost-alert guardrails are selected, without a spending commitment or live change. |
 | D07 | Pending | Q37 99.5%/30-minute availability and Q38 RPO/RTO are proposals. Isolation, release-stop and protective-replay requirements are recorded; actual isolated restore remains NOT RUN. |
 | D08 | Pending | Q39 exact matrix requires capture/acceptance; Q40 session configuration and Q41 target security configuration remain proposals. Existing security guards are preserved; no production configuration changed. |
 | D09 | Pending | Q42 appointments/coverage and Q48 final go/no-go assignment remain proposals. Reviewer/backup/independent appeal/privacy/security/support/operations names are UNASSIGNED; product review by Takudzwa is not a DPO or on-call appointment. |
 | D10 | Pending | Q43 telemetry/provider/sampling and Q44 US$5/threshold/response values remain proposed, unfunded/unverified. Redaction and optional-consent protections apply; configuration, notice, staffing and evidence gates stay open. |
-| D11 | **Partial** | Q45 expressly selects transactional From `DoNotReply@bushisa.me`, display `Bushisa`; Q47 approves sender reuse and the specified reset-token/flow controls, not implementation. Reset resend limits and `support@bushisa.me`/operator are proposals. Earlier matching-Reply-To approval versus proposed unset fallback remains a recorded conflict; no unverified inbox is advertised. Delivery/headers/recipients, roles, reset implementation and acceptance remain open. |
+| D11 | **Partial** | Q45 selects From `DoNotReply@bushisa.me`, display `Bushisa`; Q47 selects reuse and reset-token controls, not implementation. The owner now expressly permits temporary unset Reply-To until a real monitored inbox is verified; the fallback conflict is resolved. `support@bushisa.me`, its operator, actual receipt/monitoring and header verification remain proposals/missing evidence. Reset resend limits and session redesign remain proposed; delivery, roles, implementation and release gates remain open. |
 | D12 | **Partial product selections; pending overall** | Q29-Q34 select coarse catalogue structure, optional consent/withdrawal, current coarse state only, >=10-user disclosure cohort, 2 location changes/rolling 24h, 7-day freshness, <=24h purge, <=5-point soft bonus and cursor invalidation. Q28 source combination, Q29 widths and Q33 candidate distance bands remain proposed. Real catalogue/points, final wording, privacy/inference/mobile tests and H13 acceptance are missing. No production location collection/use is authorized by documentation alone. |
 
 The [single reconciliation/unknown table](owner-policy-reconciliation-2026-10-15.md#reconciliation-and-missing-information)
-preserves earlier approvals for undo, immediate chat on blocker unblock,
-matching Reply-To and entered-code signup. A genuinely recreated match clears
+records the explicit Decision 27 and D11 supersessions, preserving unrelated
+approvals for immediate chat on blocker unblock and entered-code signup.
+A genuinely recreated match clears
 decline restrictions only; undo of the existing relationship is not such a match.
 Pair budgets, fixed probation, independent restrictions and the second-ending
 cutoff never reset through this clarification.
@@ -44,6 +64,9 @@ The narrative and table below preserve earlier Decisions 1-26 and their
 historical pending choices. Their unanswered-question and provisional-policy
 notes are supplemented by the current acceptance record above; they must not
 be read as undoing the Q01-Q48 selections or approving the remaining proposals.
+Decision 20's historical no-renewed-agreement text and D11's former unconditional
+matching-Reply-To requirement below are retained as history and are superseded
+only to the express scope of the latest amendments.
 
 Prompt 03 prepared the concrete owner decision packet for D03-D12 in
 `docs/remediation/prompt03-owner-decision-packet-2026-10-14.md`. That packet is

@@ -1,6 +1,6 @@
 # Bushisa: Azure SMTP deployment
 
-## Current documentation boundary: 2026-10-15
+## Current documentation boundary: 2026-10-16
 
 The [11 October continuation checkpoint](Bushisa-P0-P2-Continuation-Prompts-2026-10-11.md)
 T02/T10-T14 records later source/operator evidence of deployment, SMTP and an
@@ -10,8 +10,11 @@ It is not fresh verification of current Azure settings or all delivery gates.
 
 Q45/Q47 now select the recorded `DoNotReply@bushisa.me` sender/display `Bushisa`
 for transactional mail/reset. Reset is not implemented/accepted merely by that
-selection. `support@bushisa.me`, its monitoring owner and the unset-Reply-To
-fallback remain proposed/unresolved against earlier D11. See the
+selection. The owner now permits temporary unset Reply-To until a real
+monitored receiving inbox is verified; see the
+[amendment record](remediation/owner-conflict-decisions-2026-10-16.md).
+`support@bushisa.me`, its owner and actual receipt/monitoring proof remain
+proposed/unverified. See the
 [acceptance supplement](remediation/owner-policy-reconciliation-2026-10-15.md),
 [retention matrix](remediation/data-inventory-retention-matrix.md) and
 [read-only Azure/Namecheap checklist](remediation/configuration-impact-checklist-2026-10-15.md).
