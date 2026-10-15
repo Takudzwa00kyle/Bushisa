@@ -140,40 +140,57 @@ deadlines stay gated by ownership, overdue alerts and measured capacity.
 
 ### L01a documentation checkpoint
 
-**Complete as documentation; L01 implementation/acceptance remain pending.**
-[Report-route and target-authorization contract](l01a-report-route-target-contract.md)
-maps the actual safety/confession/admin routes, legacy helpers, snapshot and
-case-view queries. It defines approved target families, independent reporter/
-ordinary-read/evidence permissions, historical reports without resumed contact,
-bounded capture, private response rules and proposed once-only duplicate handling.
-It includes a later synthetic negative-case plan; no DB/browser checks were run.
+**Ready for review; design and documentation checks complete. Implementation and
+independent review/sign-off have not occurred.** The focused continuation from `bde4473`
+changes only this backlog and the [report-route contract](l01a-report-route-target-contract.md).
 
-Source gaps: incomplete non-message target resolvers/client subject trust,
-unscoped direct confession flagging, two incompatible duplicate paths, raw-ID
-snapshot loading with old creation-time +24-month expiry, admin reason-based
-exceptions and moderator actions without assigned-case scope. Disabled buttons
-are not server authorization. These are source observations at `e0a0066`, not
-claims of a live exploit or independently executed failure.
+The completed engineering draft defines actor-bound response/action proof for
+all five approved target families, immutable item/event/segment identity,
+post-unmatch/block filing without renewed reads, and metadata-only handling for
+proven erased targets. Missing proof cannot authorize private lookup; a separately
+selected valid pair/person report is the fallback. Existing message read flags
+and confession-view rows cannot be backfilled into reliable exposure proof.
+No new exposure-history retention is approved; minimal records inherit reviewed
+category/deletion deadlines and expire without reset.
 
-Requirements preserve earlier product decisions. Engineering API/proof/schema/
-idempotency choices still need review. Qualifying-report trigger, legacy alias/
-self-target handling and adding a report to an ordinary block's unblock policy
-are explicit dependencies. Proposed probation renewal/ban defaults, named roles,
-privacy review, MFA/coverage, actual erasure and later runtime evidence remain
-gates. Renewed-consent and Reply-To conflicts were later expressly resolved by
-[the owner amendments](owner-conflict-decisions-2026-10-16.md), not by report
-intake itself. L01a requires no match restoration or mail, and other gates remain
-open. No acceptance timestamp is invented.
+The retry contract specifies actor/key uniqueness across report operations, a protected intent
+fingerprint, own-receipt replay without recapture, per-reporter immutable incident
+linkage, independent incidents/reporters, and transactional evidence/combined-block/
+once-only qualifying effects. Existing active probation is fixed at 168h;
+post-expiry renewal remains proposed. Concurrent retries, rollback, source erasure,
+new information and expired receipts have defined outcomes.
+
+[Acceptance matrix A01-A36](l01a-report-route-target-contract.md#acceptance-test-matrix-for-later-execution)
+covers permitted reports, forged/stale/deleted targets, disclosure, duplicate and
+concurrent submissions. Every case is NOT RUN here. The original route map is
+source evidence from `e0a0066`, with relevant source unchanged at `bde4473`;
+old CI is not verification of this new design.
+
+[One policy batch P1-P6](l01a-report-route-target-contract.md#one-owner-policy-batch)
+records exactly the remaining L01 choices: initial qualifying-report definition,
+post-expiry renewal, adding a report to an ordinary block's unblock policy,
+own-content primary reports, later sanction defaults and report service targets.
+Each points to the existing Q01-Q05 reconciliation and leaves approved clocks,
+target families and appeal rules intact. Legacy aliases/reason mapping/schema/
+locks are engineering review. Proof-purpose/retention, evidence and access need
+qualified review; real reviewer/operator/backup appointments and sign-off remain
+UNASSIGNED. These are distinct gates, not more owner policy questions.
+
+Historical exact acceptance timestamps were not captured; no drafting time is
+substituted and no existing approval is reopened. Decision 27 and temporary
+unset Reply-To remain resolved; L01a needs no restoration or mail.
 
 ### Next bounded task
 
-**L01b: reviewed text-report resolver/intake slice.** Review the L01a engineering
-contract, then implement only under separate authorization on guarded synthetic
-systems. Consolidate caller authorization, canonical target/event proof, server
-subject attribution, own-case receipt and idempotent retries/addenda. Coordinate
-L02 transitions and L03 evidence expiry; do not activate images, choose new
-sanction/probation rules, mutate production or send mail. Required negative/race/
-privacy checks are listed in the contract and remain NOT RUN in this doc task.
+**L01b: reviewed text-report resolver/intake slice.** Review the completed L01a
+design; resolve P1/P3 before accepting their affected classifier/block transition.
+Then implement only with separate authorization on guarded synthetic systems:
+common actor/target proof, canonical subject attribution, explicit incident intent,
+private own receipts and atomic retries/addenda. Coordinate L02's shared locks
+and immutable events with L03's evidence expiry/recovery. Execute A01-A36 with
+persistent state and disclosure assertions; independent reviewers accept the new
+evidence. No uploads, new renewal/sanction policies, live mail or production work
+are included. No required runtime evidence or human sign-off is claimed here.
 
 ### Evidence boundaries for this checkpoint
 
