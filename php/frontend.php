@@ -86,6 +86,7 @@ function render_document_head(string $title, ?string $csrfToken = null, ?int $cu
     <?php endif; ?>
     <title><?= e($title) ?> | Bushisa</title>
     <link rel="stylesheet" href="<?= e(asset_path('css/style.css')) ?>">
+    <link rel="stylesheet" href="<?= e(asset_path('css/figma-integration-stage.css')) ?>">
 </head>
 <?php
 }
