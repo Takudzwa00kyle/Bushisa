@@ -1,6 +1,6 @@
 # Bushisa Remediation Navigation
 
-Updated: 2026-10-15, Africa/Harare.
+Updated: 2026-10-16, Africa/Harare.
 
 This directory separates approved decisions, proposed policy, technical
 evidence and owner-review packets. A link here does not imply approval.
@@ -12,6 +12,7 @@ evidence and owner-review packets. A link here does not imply approval.
 | [data-inventory-retention-matrix.md](data-inventory-retention-matrix.md) | Schema/purpose inventory, access/live-erasure/copy deadlines, immutable clocks, evidence exceptions and conditional 49-day recovery calculation. |
 | [configuration-impact-checklist-2026-10-15.md](configuration-impact-checklist-2026-10-15.md) | Read-only Azure/Namecheap capture, historical evidence attribution, unpriced-input cost worksheet, sender/receiving-mailbox and provider DNS checks. |
 | [backlog.md](backlog.md) | Current F/U finding state, remediation progress and remaining blockers. |
+| [l01a-report-route-target-contract.md](l01a-report-route-target-contract.md) | Source map and reporting authorization/evidence/duplicate/disclosure contract; L01a documentation complete, implementation, proposed engineering details and qualified/operational gates pending. |
 | [prompt03-owner-decision-packet-2026-10-14.md](prompt03-owner-decision-packet-2026-10-14.md) | Prompt 03 packet for D03-D12 owner review. It prepares choices; it does not approve them. |
 | [prompt02-route-session-evidence-2026-10-12.md](prompt02-route-session-evidence-2026-10-12.md) | Prompt 02 route/session/overlap/deletion repair evidence and remaining R01-R12 gaps. |
 | [d04-d05-implementation-evidence.md](d04-d05-implementation-evidence.md) | Technical evidence for pending D04/D05 safeguards. |

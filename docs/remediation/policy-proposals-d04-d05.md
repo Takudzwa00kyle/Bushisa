@@ -1,6 +1,6 @@
 # D04/D05 Policy Proposals
 
-Updated: 2026-10-15, Africa/Harare.
+Updated: 2026-10-16, Africa/Harare.
 
 ## Current owner selections after Q01-Q48
 
@@ -47,6 +47,14 @@ in `docs/remediation/decisions.md` by the actual owner/reviewer before
 production use.
 
 ## 1. R01-R12 Implementation Map
+
+The [L01a report-route/target contract](l01a-report-route-target-contract.md)
+now provides the source-level report/case/role map and later negative-case plan
+for R02/R03/R04/R11. It separates approved requirements from proposed engineering
+details and identifies missing target resolvers, duplicate/case linkage, private
+evidence/expiry and admin assignment/exception controls. Documentation is complete;
+implementation, runtime evidence and qualified/named acceptance are not. Existing
+approval statuses, including renewed-consent and Reply-To conflicts, are unchanged.
 
 | Rule | Current mapping | Working behavior | Reproduced gap or pending evidence |
 |---|---|---|---|

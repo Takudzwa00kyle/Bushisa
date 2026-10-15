@@ -1,6 +1,6 @@
 # Bushisa P0-P2 Remediation Backlog
 
-Updated: 2026-10-15, Africa/Harare.
+Updated: 2026-10-16, Africa/Harare.
 
 ## Current owner-policy checkpoint
 
@@ -127,17 +127,40 @@ deadlines stay gated by ownership, overdue alerts and measured capacity.
 | L06 Reset challenge, outbox and sessions | Q11/Q22/Q40/Q45-Q47; sender/15m token controls selected; signup/reset resend values and session redesign still proposed; D11 Reply-To conflict open | Extend signup-specific `php/mail_delivery.php`/dispatcher with separate reset purpose and >=256-bit random/hash-only challenge, atomic supersession/consume, trusted configured HTTPS origin, existing password policy, no enumeration and all-session revocation. Queue redeemable bodies encrypted separately; deadline min(queue+5m, token expiry-60s), terminal erasure, code-free 7d metadata. No fabricated support inbox. Use the next genuinely free additive migration identifier; 005 is already precision migration, not available for password recovery. | Later guarded expiry/replay/concurrent-consume/enumeration/revocation/transport-failure tests; no live reset now. Real headers/inbox/DNS/consenting recipients only in separately authorized acceptance. Named mail/security/support owners and H06 remain open. |
 | L07 Monitoring and configuration hardening | Q05/Q24/Q26/Q35-Q44/Q46/Q48; appointment/budget/SLO/RPO/runtime/session/security proposals not adopted | Start with the read-only Azure/Namecheap checklist: actual resources/regions/versions/roles/session store, backup/provider minima, staged topology, priced cost worksheet, inbound support/provider DNS needs and accepted private role register. Prepare overdue cleanup/dispatch/queue/alert routing/capacity evidence, budget thresholds and rollback/restore checklist. No settings/DNS/secrets/billing/paid monitor mutation in documentation work. | Current configuration captures under later authorization, accepted names/backup/on-call/independent reviews and funding; actual staged compatibility, alert receipt and isolated restore. Required release gates stay open; 005 production application is unverified, restore NOT RUN. |
 
+### L01a documentation checkpoint
+
+**Complete as documentation; L01 implementation/acceptance remain pending.**
+[Report-route and target-authorization contract](l01a-report-route-target-contract.md)
+maps the actual safety/confession/admin routes, legacy helpers, snapshot and
+case-view queries. It defines approved target families, independent reporter/
+ordinary-read/evidence permissions, historical reports without resumed contact,
+bounded capture, private response rules and proposed once-only duplicate handling.
+It includes a later synthetic negative-case plan; no DB/browser checks were run.
+
+Source gaps: incomplete non-message target resolvers/client subject trust,
+unscoped direct confession flagging, two incompatible duplicate paths, raw-ID
+snapshot loading with old creation-time +24-month expiry, admin reason-based
+exceptions and moderator actions without assigned-case scope. Disabled buttons
+are not server authorization. These are source observations at `e0a0066`, not
+claims of a live exploit or independently executed failure.
+
+Requirements preserve earlier product decisions. Engineering API/proof/schema/
+idempotency choices still need review. Qualifying-report trigger, legacy alias/
+self-target handling and adding a report to an ordinary block's unblock policy
+are explicit dependencies. Proposed probation renewal/ban defaults, named roles,
+privacy review, MFA/coverage, actual erasure and later runtime evidence remain
+gates. Renewed-consent and Reply-To conflicts retain their existing statuses;
+neither is silently resolved by report intake. No acceptance timestamp is invented.
+
 ### Next bounded task
 
-**L01a: report-route and target-authorization contract.** Read the current
-report/block/case routes and real target-resolution queries; produce a small
-route/role/target matrix and synthetic negative-case plan for Q01/Q02/Q03/Q19.
-Specify text-only intake, inaccessible/erased content denial, duplicate-case
-updates and preservation of personal blocks/approved probation. Identify the
-minimum additive schema/API slice and required named safety/privacy decisions
-before a separately authorized implementation task. Do not change production,
-send mail, choose the proposed probation renewal/ban defaults or run a real
-student case. This narrow contract can proceed without reopening all 48 answers.
+**L01b: reviewed text-report resolver/intake slice.** Review the L01a engineering
+contract, then implement only under separate authorization on guarded synthetic
+systems. Consolidate caller authorization, canonical target/event proof, server
+subject attribution, own-case receipt and idempotent retries/addenda. Coordinate
+L02 transitions and L03 evidence expiry; do not activate images, choose new
+sanction/probation rules, mutate production or send mail. Required negative/race/
+privacy checks are listed in the contract and remain NOT RUN in this doc task.
 
 ### Evidence boundaries for this checkpoint
 
