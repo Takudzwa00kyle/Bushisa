@@ -1,5 +1,24 @@
 # Bushisa: Azure SMTP deployment
 
+## Current documentation boundary: 2026-10-15
+
+The [11 October continuation checkpoint](Bushisa-P0-P2-Continuation-Prompts-2026-10-11.md)
+T02/T10-T14 records later source/operator evidence of deployment, SMTP and an
+authorized inbox/code-entry journey. This document's original not-pushed/not-deployed
+paragraph describes its original patch baseline, not the latest operator report.
+It is not fresh verification of current Azure settings or all delivery gates.
+
+Q45/Q47 now select the recorded `DoNotReply@bushisa.me` sender/display `Bushisa`
+for transactional mail/reset. Reset is not implemented/accepted merely by that
+selection. `support@bushisa.me`, its monitoring owner and the unset-Reply-To
+fallback remain proposed/unresolved against earlier D11. See the
+[acceptance supplement](remediation/owner-policy-reconciliation-2026-10-15.md),
+[retention matrix](remediation/data-inventory-retention-matrix.md) and
+[read-only Azure/Namecheap checklist](remediation/configuration-impact-checklist-2026-10-15.md).
+No additional sender-domain DNS is required solely by reusing the same verified
+sender for reset; any real repair/receiving-provider records need actual evidence.
+Do not run the historical mutation/deployment examples below for this task.
+
 The original application only captured fake development email. This change adds
 the SMTP provider, an encrypted transactional outbox, a CLI dispatcher and Azure
 MySQL environment-variable mapping with verified TLS. DNS and a connected Azure

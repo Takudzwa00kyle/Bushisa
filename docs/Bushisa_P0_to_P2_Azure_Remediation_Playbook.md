@@ -1,5 +1,24 @@
 # Bushisa: P0–P2 remediation and Azure deployment prompt playbook
 
+## Current decision authority: 2026-10-15
+
+Use the current [decision register](remediation/decisions.md), its
+[Q01-Q48 owner reconciliation](remediation/owner-policy-reconciliation-2026-10-15.md)
+and [retention matrix](remediation/data-inventory-retention-matrix.md) before
+executing these historical task prompts. D03 approves the full next-production-ready
+feature scope, including geography, with existing Azure hosting; older narrow
+pilot/feature-removal suggestions here are not an approved scope reduction.
+Earlier provisional close-on-unmatch, unsent-placeholder, retention and geographic
+defaults do not replace recorded approvals. Owner-selected policy is distinct
+from implementation/evidence, qualified review and release acceptance.
+
+Q08's renewed-consent undo requirement and Q45's Reply-To fallback remain pending
+conflicts against earlier approvals. Explicit new proposals remain proposed.
+Exact owner acceptance UTC/Harare timestamp is CONFIRM; no human review is
+completed by this note. The [read-only impact checklist](remediation/configuration-impact-checklist-2026-10-15.md)
+and [later bounded backlog](remediation/backlog.md#q01-q48-implementation-backlog)
+do not authorize running deployment/configuration/migration examples now.
+
 Prepared: **8 October 2026**, Africa/Harare.  
 Updated: **9 October 2026**, Africa/Harare — geographic proximity alongside reciprocal matching; retains confession timestamp repair, student-email approval codes and a verified Bushisa-domain sender.  
 Repository: [Takudzwa00kyle/Bushisa](https://github.com/Takudzwa00kyle/Bushisa).  
