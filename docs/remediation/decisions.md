@@ -2,7 +2,57 @@
 
 Updated: 2026-10-16, Africa/Harare.
 
-## Latest explicit owner amendments
+## P1-P6 explicit owner decisions
+
+Reviewer: **Takudzwa Hondova**. Source: the owner's message beginning `Record
+my decisions for P1-P6`, expressly adopting the six choices below. Recorded in
+the documentation continuation from `237b7d1`; this is policy acceptance only,
+not implementation, independent review, staffing or release evidence.
+
+The exact message acceptance instant was not captured. UTC and Africa/Harare
+acceptance timestamps remain unavailable; the documentation date is not used
+as an invented approval time. This limitation does not reopen these approvals.
+
+| Owner choice / register entry | Approved scope | Remaining implementation/evidence gate |
+|---|---|---|
+| P1 / D04 Decision 28: initial probation | Any accepted, authorized, non-self report with unambiguous attribution triggers the already-approved seven-day reduced sending allowance for its reported actor. Validation means valid submission/attribution, not a proven allegation. Message/confession/reference targets use their actual author; account targets use the reported account; match behavior uses the particular participant whose conduct is reported, never both automatically. Authorized ambiguous cases go to human review without guessed probation. | Canonical proof/attribution and once-only acceptance events; atomic subject probation integration. A duplicate retry is not another sanction. |
+| P2 / D04 Decision 29: renewal | A new qualifying report received after expiry starts a fresh seven-day probation. Reports received during an active period do not reset/extend its deadline; deduplicated retries cannot start a new period. No early restoration of normal allowance. | Immutable server receipt/event identity, boundary/order/concurrency checks and replay protection. Keep each period start/end, the approved UTC activation +168h duration and 3 requests/24h allowance; no lifetime-budget reset. |
+| P3 / D04 Decision 30: report attached to ordinary block | Once attached, require reviewer clearance before that block is eligible for removal. Clearance leaves it blocked; only its creator may explicitly remove it. Bans and all other restrictions remain independently enforced. | Case/block linkage and clearance version/authority; atomic attachment and removal guards. No contact restoration or pending-request/chat grant is implied by attaching a report. |
+| P4 / D04 Decision 31: self-content and recovery | Reject own-content primary reports. Own messages may be relevant supporting context about someone else's conduct. Provide a separate human-reviewed compromise/disputed-authorship support/recovery route, with no automatic self-probation. Impersonation/quotation reports target the other person's actual account/content. | Reviewed limited recovery authorization, safe attribution and real monitored support/recovery coverage. No invented inbox, identity check, account reactivation or self-probation. |
+| P5 / D04 Decision 32: severity bans | Adopt the proposed seven-day, 30-day and permanent severity defaults, with documented findings and human review. Preserve independent appeals, no reviewer deciding their own appeal and a second independent reviewer for permanent-ban reversal. | Named authorized reviewers, findings/notices/appeal/enforcement evidence. This is not automatic guilt or operational enforcement proof; Q18 long-lived identifier/privacy gates stay open. |
+| P6 / D04 Decision 33: service targets | Adopt the proposed report/appeal targets conditionally on demonstrated staffing and coverage. Do not advertise them as staffed or achieved. Existing approved appeal rights/clocks remain; operational/public-service readiness requires evidence. | Accepted real primary/backup/on-call reviewers, monitored queues, overdue alerts and measured capacity. The readiness gate remains open. |
+
+Decision 32's adopted severity defaults are: **7 days** for a substantiated,
+moderate first violation requiring more than a warning; **30 days** for repeated
+or more serious harassment or deliberate safety-limit evasion; **permanent** for
+substantiated severe exploitation, credible serious threats, persistent ban
+evasion or repeated serious abuse after previous sanctions. Severity can skip
+shorter stages. Temporary bans expire at their recorded UTC deadline unless a
+separately justified sanction intervenes; permanent means no automatic account
+reactivation. Bans are separate from reduced-sending probation.
+
+Decision 33's conditional calendar-time targets are: report acknowledgment
+**24h**; credible immediate-danger initial triage **1h** with actual on-call
+coverage; ordinary first review **72h**; ordinary decision **7d**, with one
+reasoned/safely notified complex extension to **14d total**. Appeals remain
+available **14d from effective notice**; acknowledgment **2d**, independent
+decision **14d from receipt**, with one documented/notified complex extension
+of **14d**. Escalate at the deadline to the safety lead/backup and urgent overdue
+cases also to the accountable owner. Overdue review never unblocks, lifts a ban
+or shortens probation. No coverage, reviewer appointment or achieved deadline
+is asserted here.
+
+These express selections resolve P1-P6. They supersede only the earlier
+unresolved/proposed treatment of these points in the
+[48-answer reconciliation](owner-policy-reconciliation-2026-10-15.md) and older
+policy/task records; those remain historical records of their original scope.
+The [L01a contract](l01a-report-route-target-contract.md#p1-p6-owner-decisions-recorded)
+and [L01 backlog](backlog.md#l01a-documentation-checkpoint) carry implementation
+requirements. No other proposal is adopted, no retention limit changes and no
+whole D-number or release gate closes. D03's full scope, Decision 27, Reply-To,
+request/chat/unsend rules, privacy reviews and production boundaries remain.
+
+## Earlier explicit owner amendments: restoration and Reply-To
 
 Reviewer Takudzwa Hondova answered `1. replace` and `2. permit temporary unset
 until monitored inbox is verified.` See the
@@ -17,7 +67,8 @@ unmatch; restoration consent is not chat approval or a reset of any restriction.
 The **D11 Reply-To amendment** permits temporary unset Reply-To until a real
 monitored receiving inbox is verified. `support@bushisa.me`, operators and actual
 inbox/header verification remain pending. These two conflicts are resolved by
-express owner adoption; other proposals are not adopted and no whole D-number
+express owner adoption. That earlier amendment adopted no other proposal; the
+new P1-P6 section above governs its later selections. No whole D-number
 or implementation/release gate is cleared. Exact acceptance UTC/Harare time is
 CONFIRM; the linked recording clock is not an invented approval timestamp.
 
@@ -27,14 +78,16 @@ Reviewer: **Takudzwa Hondova**. The owner's 48-answer message is reconciled in
 [owner-policy-reconciliation-2026-10-15.md](owner-policy-reconciliation-2026-10-15.md).
 That linked acceptance record is part of this register. It records every
 answer's approved portion, proposed values, conflicts, implementation gap,
-required evidence, approver and release gate. **Exact actual acceptance UTC
+required evidence, approver and release gate for that message. P1-P6 above
+expressly update the affected Q01-Q05 points; older proposed labels there do
+not undo these later approvals. **Exact actual acceptance UTC
 timestamp and Africa/Harare date/time remain CONFIRM**; the owner supplied the
 timezone only. Drafting/capture timestamps are not approval timestamps.
 
 | Entry | Current decision status after Q01-Q48 | Accepted scope and remaining gate |
 |---|---|---|
 | D01-D03 | Approved, unchanged | Preserve student eligibility, adult onboarding and the full next-production-ready feature scope, including geographic matching, with existing Azure hosting. No scope reduction is authorized. |
-| D04 | **Partial product selections; pending overall** | Decisions 1-26 remain recorded with Decision 20's no-renewed-agreement clause superseded by Decision 27: fresh affirmative agreement from both participants is required before restoring an existing unmatched relationship. Own-unmatch control under Decisions 21-22, immediate attempts and one successful pair restoration per rolling 24h remain. Existing chat, pending-request expiry/recipient approval, budgets and safety limits are unchanged. Other Q01-Q20 selections remain recorded; proposed probation renewal, sanction ladder and report targets stay unadopted. Implementation, qualified/named review and release acceptance remain open. |
+| D04 | **Partial product selections; pending overall** | Decisions 1-26 remain recorded with Decision 20's no-renewed-agreement clause superseded by Decision 27. Decisions 28-33 now record P1-P6: attribution-valid non-self reports trigger fixed probation; new qualifying reports after expiry renew it; report-attached blocks require clearance plus creator choice; self-content primary reports are rejected with a separate human recovery route; severity ban defaults are adopted; report/appeal targets are conditional on demonstrated staffing. Existing chat, undo controls/cap, pending-request expiry/recipient approval, budgets and other safety limits remain. Implementation, qualified/named review, recovery-route design, staffing/capacity and release acceptance are open; no whole D04 approval. |
 | D05 | **Partial product selections; pending overall** | Q10-Q27/Q32 select category-specific access denial/live erasure, signup/deletion/confession/evidence/consent/export/hold/clock and recovery rules, subject to stated privacy gates. Q12's anti-replay value, Q13's candidate fields, Q16's linked active-chat schedule, Q23's metadata table and Q26's copy-retention values remain proposed. See the matrix; do not reuse older 30-day account, 90-day closed-history, 24-month case or indefinite-consent proposals as accepted values. |
 | D06 | Pending | Q35/Q36 funding/region proposals need actual ownership, credit/continuity, priced inventory, approved budget and qualified data-flow review. Cost-alert guardrails are selected, without a spending commitment or live change. |
 | D07 | Pending | Q37 99.5%/30-minute availability and Q38 RPO/RTO are proposals. Isolation, release-stop and protective-replay requirements are recorded; actual isolated restore remains NOT RUN. |

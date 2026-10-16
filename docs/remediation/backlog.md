@@ -2,7 +2,17 @@
 
 Updated: 2026-10-16, Africa/Harare.
 
-## Latest explicit owner amendments
+## Latest P1-P6 owner decisions
+
+The [register approval record](decisions.md#p1-p6-explicit-owner-decisions) now
+accepts all six choices as D04 Decisions 28-33: valid-attribution probation,
+post-expiry renewal, review-gated report-attached blocks, self-primary rejection
+with human recovery, severity bans and staffing-conditional review targets.
+Policy acceptance does not implement, independently review or staff a workflow.
+No exact acceptance UTC/Harare timestamp was captured; none is invented.
+D04/D05/D12 and operational release gates stay open.
+
+## Earlier explicit owner amendments: restoration and Reply-To
 
 [The two-answer record](owner-conflict-decisions-2026-10-16.md) approves Decision
 27 (fresh agreement from both before restoring an existing match) and temporary
@@ -16,7 +26,9 @@ L01a reporting still requires no match restoration or email.
 
 Owner Q01-Q48 answers have been reconciled in
 [owner-policy-reconciliation-2026-10-15.md](owner-policy-reconciliation-2026-10-15.md)
-and incorporated into [decisions.md](decisions.md). Reviewer: Takudzwa Hondova;
+and incorporated into [decisions.md](decisions.md). P1-P6's express later
+approvals now supersede only their earlier proposed/unresolved scope in that
+48-answer record. Reviewer: Takudzwa Hondova;
 exact actual acceptance UTC/Harare date/time remains CONFIRM, with timezone
 confirmed only. D03 stays approved full scope; D04/D05/D12 have partial product
 selections but remain pending overall, D06-D10 pending, D11 partial. No choice
@@ -130,7 +142,7 @@ deadlines stay gated by ownership, overdue alerts and measured capacity.
 
 | Task | Policy dependency / scope | Current gap and later bounded output | Evidence needed / release gate |
 |---|---|---|---|
-| L01 Report routes and roles | Q01-Q05/Q18-Q20; preserve fixed probation and combined-flow approvals; post-expiry renewal and sanction ladder still proposed | Map actual `api/safety.php`, `php/report_handler.php`, `php/policy_safeguards.php`, `admin/*` and case tables. Add text-first authorized account/message/pair/confession/reference reporting without contact restoration; server IDs/time, 2,000-character optional explanation, dedupe, assignment, human findings, independent appeal and content-free access/export audit. Gate image evidence until private validation/scanning/metadata stripping. Do not invent qualifying-report/ban criteria or reviewer names. | Later forged/inaccessible/erased-target/duplicate tests on guarded synthetic systems; case-assignment/revocation/appeal and timed-queue evidence. Named safety/privacy/security review, H03/H10 and report-capacity targets stay open. |
+| L01 Report routes and roles | Q01-Q05/Q18-Q20 plus D04 Decisions 28-33: P1-P6 approved, service targets conditional on staffing | Use the mapped safety/report/confession/admin surfaces and reviewed L01a contract. Implement authorized text-first targets, actual actor attribution, accepted ambiguous cases, rejected self-primary reports, human recovery interface, case/receipt dedupe, once-only fixed probation/renewal and report-attached block clearance. Apply approved severity findings/independent appeals in later reviewed workflow; gate uploads and public targets by real controls/coverage. | A01-A45 remain NOT RUN; later guarded proof/authorization/duplicate/overlap/renewal/clearance and reviewer-workflow evidence required. Engineering/security/privacy/safety sign-off, real roles/capacity, H03/H10 and release acceptance remain open; no whole D04 approval. |
 | L02 Terminal pair state, undo and projections | Existing D04 Decisions 1-26 plus Q06-Q10/Q17/Q25; Decision 27 fresh mutual restoration agreement approved | Align `api/message_requests.php` from 24h cancel/expiry, 30d decline and 20/hour provisional behavior to approved clocks/budgets. Split active match, chat grant, own unmatch/undo, pending requests, decline-only new-match clearance, lifetime counts/endings and old/new history segments. Add immediate own-undo attempts with fresh agreement from both before restoration under Decision 27, and one successful pair restoration per rolling 24h; preserve chat on unmatch, pending expiry, pause functions, 7d rediscovery exclusion, cache visibility and unsend projection deadlines. | Later real-route/atomic-overlap/boundary/authorization and projection checks, without reusing old CI as evidence for new semantics. Confirm overlapping-unmatch event representation and exact unsend edge. Product/engineering/safety sign-off and D04 gates remain open. |
 | L03 Cleanup, evidence clocks and independent replay | Q10-Q27/Q32; D05 partial; Q12 anti-replay/Q16 active chat/Q23 metadata/Q26 copy settings still proposed | Inventory all fields/media/derivatives/caches/logs/exports/copies; additive immutable deadlines and old/new history segmentation; scoped hold authority/release; original-text evidence exception; either-account cleanup and confession erasure. `bin/cleanup_policy.php` only handles limited signup/synthetic categories; provisional helpers still have 30d account/90d closed-chat/24-month case deadlines, some derived at creation. Build full idempotent bounded workers and independently durable replay with real object-completion proof. | Later expiry/no-reset/hold/retry/object-index/failure tests; actual copy/purge watermarks and independently witnessed isolated restore under separate authorization. Calculate latest copy +7d; conditional 7+35+7=49d, never universal. H03/H08, privacy and named cleanup/backup operators open. |
 | L04 Consent and coarse geography | Q28-Q34; D12 partial; source combination/catalogue widths/bonus bands still proposed; D03 full geography scope preserved | Build reviewed catalogue contract without invented points; current coarse area/version/time/consent only; optional opt-in/refusal/withdrawal; 7d freshness/24h purge; >=10-user cohort suppression; atomic 2 changes/24h; <=5-point soft ranking with zero fallback; cursor invalidation/live safety checks. `profiles.campus_zone` is legacy and authoritative matcher currently lacks geographic ranking. | Local catalogue/point acceptance, normalization/fairness/probing/query/load evidence and Android/iOS grant/refuse/withdraw/expiry/paging witnesses. Privacy/H13, final notice and actual catalogue reviewers UNASSIGNED; no production collection before acceptance. |
@@ -140,57 +152,63 @@ deadlines stay gated by ownership, overdue alerts and measured capacity.
 
 ### L01a documentation checkpoint
 
-**Ready for review; design and documentation checks complete. Implementation and
-independent review/sign-off have not occurred.** The focused continuation from `bde4473`
-changes only this backlog and the [report-route contract](l01a-report-route-target-contract.md).
+**Ready for review. Design and owner-policy recording are documentation only;
+implementation and independent review/sign-off have not occurred.** This
+continuation from `237b7d1` updates only the register, contract and backlog.
 
-The completed engineering draft defines actor-bound response/action proof for
-all five approved target families, immutable item/event/segment identity,
-post-unmatch/block filing without renewed reads, and metadata-only handling for
-proven erased targets. Missing proof cannot authorize private lookup; a separately
-selected valid pair/person report is the fallback. Existing message read flags
-and confession-view rows cannot be backfilled into reliable exposure proof.
-No new exposure-history retention is approved; minimal records inherit reviewed
-category/deletion deadlines and expire without reset.
+The [contract](l01a-report-route-target-contract.md) retains actor-bound proof
+for all five approved families, immutable target/event/segment identity,
+post-unmatch/block reporting without restored reads and metadata-only handling
+for proven erased targets. Missing filing proof still denies private lookup;
+valid proof with ambiguous attribution now yields an accepted human-review case
+without guessed probation. Known own-content primary reports are rejected;
+relevant own-message context and a separate human compromise/recovery route
+are approved. Actual monitored recovery authorization/workflow is not supplied.
 
-The retry contract specifies actor/key uniqueness across report operations, a protected intent
-fingerprint, own-receipt replay without recapture, per-reporter immutable incident
-linkage, independent incidents/reporters, and transactional evidence/combined-block/
-once-only qualifying effects. Existing active probation is fixed at 168h;
-post-expiry renewal remains proposed. Concurrent retries, rollback, source erasure,
-new information and expired receipts have defined outcomes.
+[All P1-P6 choices are now recorded](l01a-report-route-target-contract.md#p1-p6-owner-decisions-recorded)
+as D04 Decisions 28-33. Accepted authorized non-self reports with clear attribution
+trigger fixed probation; new qualifying reports received after expiry start a
+fresh seven-day period. Active-period reports never extend/restart it, retries
+never renew, and no early restoration or request/lifetime-budget reset is allowed.
+Report attachment adds reviewer clearance to an existing ordinary block's removal
+requirements; clearance alone leaves it blocked and creator choice is still
+required. Severity ban defaults are approved with human findings and independent
+appeals/permanent-reversal review. Service targets are conditionally adopted;
+real staffing/coverage/capacity evidence remains an open operational gate.
 
-[Acceptance matrix A01-A36](l01a-report-route-target-contract.md#acceptance-test-matrix-for-later-execution)
-covers permitted reports, forged/stale/deleted targets, disclosure, duplicate and
-concurrent submissions. Every case is NOT RUN here. The original route map is
-source evidence from `e0a0066`, with relevant source unchanged at `bde4473`;
-old CI is not verification of this new design.
+The engineering retry/proof/incident design remains ready for review. It must
+resolve immutable report identity versus informational update, receipt/activation
+ordering, concurrent renewals, source-erasure locking, exact case/block/clearance
+linkage and separate human recovery authority. No raw submitted actor ID can
+supply attribution, and no case reuse/key change can multiply sanctions.
+Proof/category retention, privacy/security/safety review, MFA and real named
+operators/reviewers/backups remain open; they are not unanswered P1-P6 choices.
 
-[One policy batch P1-P6](l01a-report-route-target-contract.md#one-owner-policy-batch)
-records exactly the remaining L01 choices: initial qualifying-report definition,
-post-expiry renewal, adding a report to an ordinary block's unblock policy,
-own-content primary reports, later sanction defaults and report service targets.
-Each points to the existing Q01-Q05 reconciliation and leaves approved clocks,
-target families and appeal rules intact. Legacy aliases/reason mapping/schema/
-locks are engineering review. Proof-purpose/retention, evidence and access need
-qualified review; real reviewer/operator/backup appointments and sign-off remain
-UNASSIGNED. These are distinct gates, not more owner policy questions.
+[Acceptance matrix A01-A45](l01a-report-route-target-contract.md#acceptance-test-matrix-for-later-execution)
+adds adopted-rule attribution, ambiguity, self/recovery, renewal-boundary,
+block-clearance, sanction/review-target and concurrent-renewal cases. Every
+case remains NOT RUN. No old candidate CI is reused as evidence for these rules.
+The source route map remains an observation from `e0a0066`, unchanged at the
+continuation baseline, not a live behavior test.
 
-Historical exact acceptance timestamps were not captured; no drafting time is
-substituted and no existing approval is reopened. Decision 27 and temporary
-unset Reply-To remain resolved; L01a needs no restoration or mail.
+Exact acceptance UTC/Harare timestamps were not captured; no drafting time is
+substituted and no approved decision is reopened. Decision 27, temporary unset
+Reply-To, retention/copy proposals and unrelated release gates remain unchanged.
 
 ### Next bounded task
 
-**L01b: reviewed text-report resolver/intake slice.** Review the completed L01a
-design; resolve P1/P3 before accepting their affected classifier/block transition.
-Then implement only with separate authorization on guarded synthetic systems:
-common actor/target proof, canonical subject attribution, explicit incident intent,
-private own receipts and atomic retries/addenda. Coordinate L02's shared locks
-and immutable events with L03's evidence expiry/recovery. Execute A01-A36 with
-persistent state and disclosure assertions; independent reviewers accept the new
-evidence. No uploads, new renewal/sanction policies, live mail or production work
-are included. No required runtime evidence or human sign-off is claimed here.
+**L01b: reviewed text-report resolver/intake slice.** Obtain engineering/security/
+safety/privacy review of the completed design, then implement only under separate
+authorization on guarded synthetic systems: canonical target/actor proof,
+accepted ambiguous cases, rejected self-primary cases, immutable accepted-report
+events, private receipts, retry/addendum dedupe, atomic fixed probation/renewal
+and report attachment to an existing block's clearance gate. Coordinate L02/L03
+shared locks, event identity and expiry/recovery. Execute the relevant A01-A45
+cases with persisted-state/disclosure/overlap assertions; obtain named review
+of the resulting evidence. Separate reviewed slices supply human recovery,
+full sanctions/appeals and staffed queues/targets. No uploads, live mail,
+production/config/database changes, merge or deployment in this documentation
+task; no runtime acceptance, staffing or go/no-go sign-off is claimed.
 
 ### Evidence boundaries for this checkpoint
 

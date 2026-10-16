@@ -4,9 +4,9 @@ Design revision: 2026-10-16, Africa/Harare. Original source inspection capture:
 2026-10-15T22:02:14Z / 2026-10-16 00:02:14 Africa/Harare (UTC+02:00).
 This is a documentation timestamp, not a policy acceptance timestamp.
 
-Design continuation baseline: `bde4473af70fac029c7d42e8fe6c062c4a243e3e`, on
-`codex/prompt03-owner-decisions-20261014`, initially clean and three local commits
-ahead of its tracking branch. The original route map was captured at `e0a0066`;
+Owner-decision continuation baseline: `237b7d1b5ebf88b7adb067c4c897fe51a72ed816`,
+on `codex/prompt03-owner-decisions-20261014`, initially clean and four local
+commits ahead of its tracking branch. The original route map was captured at `e0a0066`;
 relevant source paths are unchanged at this continuation baseline. No applicable AGENTS.md was found in the checkout
 or parent folders. Source files were read, not executed; no HTTP, database,
 mail, production configuration, migration, merge, push or deployment action.
@@ -22,7 +22,10 @@ no approval status. Later Decision 27 and the D11 temporary-unset amendment
 below record explicit owner changes. Exact historical acceptance timestamps
 were not captured and remain unavailable; no drafting/inspection time is
 substituted and no already-approved choice is reopened. Qualified-review gates
-stay open. This continuation changes only this contract and the backlog.
+stay open. This continuation records P1-P6 in the decision register, this
+contract and backlog only; it performs no implementation or runtime acceptance.
+The [P1-P6 approval record](decisions.md#p1-p6-explicit-owner-decisions) now
+governs the previously unresolved/proposed treatment of those choices.
 
 ## Requirements and independent boundaries
 
@@ -30,7 +33,7 @@ stay open. This continuation changes only this contract and the backlog.
 |---|---|
 | [Register](decisions.md), Q01/Q02 in the [acceptance supplement](owner-policy-reconciliation-2026-10-15.md) | Authenticated reporting without block, after unmatch and onto an ordinary block; approved target families; minimal input and <=2,000-character explanatory text; text-only reporting works. Reporting never grants contact or private-content access. |
 | Q03/Q04/Q19 | Allegation differs from finding; durable sanctions require human review; personal block belongs to its creator. Assigned-case access, controlled exceptions, redacted disclosure and independent appeals are separate permissions. |
-| D04 Decisions 4 and 23-26 | Fixed 168-hour qualifying-report probation, no early rate restoration or active-period extension. Combined Block and report clears pending pair requests and requires explicit reviewer clearance plus blocker's choice before unblock; its earlier immediate-chat effect is preserved. |
+| D04 Decisions 4 and 23-33; P1-P6 | Accepted authorized non-self reports with clear attribution trigger fixed 168-hour probation; new qualifying reports received after expiry start a fresh period, with no active-period extension or early restoration. Report-attached ordinary blocks need reviewer clearance plus creator choice. Self-content primary reports are rejected, with separate human recovery policy. Severity bans require human findings; service targets are conditionally adopted with staffing gates open. Combined-action request clearing and earlier unblock/chat effects remain. |
 | D04 Decisions 13/19-22/27; Q06-Q09 | Approved chat survives unmatch; pending request keeps original expiry but approval waits for matched state. Reporting must not require undo, new likes, renewed chat approval or resuming discovery. |
 | D04 Decisions 15-17; Q10/Q18/Q20 | No new capture of erased unsent originals; already-preserved existing-report evidence is separate. Capture only relevant available evidence; context maximum is necessary 10 preceding and 10 following messages. Item-scoped holds do not preserve entire chats/accounts. |
 | Q17-Q27 and [retention matrix](data-inventory-retention-matrix.md) | Separate filing permission, ordinary read permission and assigned evidence access; enforce original expiry despite unpurged rows. Final-resolution/appeal/hold clocks and independent recovery protections remain unchanged. |
@@ -96,9 +99,9 @@ pair/request behavior, **not** a new all-message capture permission. Standalone
 Q02 target family: proposed mapping is to its authorized account/message/post
 parent. Independent photo target scope and legacy aliases need safety/product
 review before activation. Supporting-image uploads remain gated; text intake
-cannot depend on them. Preserve existing self-target guards until their handling
-of legitimate own-content/context reports is explicitly reviewed; do not invent
-a new owner-approved self-report policy from current code.
+cannot depend on them. P4 now rejects own-content primary reports while
+permitting relevant authorized own messages as supporting context. Compromise
+or disputed authorship uses a separate human-reviewed support/recovery route.
 
 ## Target proof and content availability
 
@@ -127,9 +130,9 @@ synthetic prior-access proof from a guessed ID. Separate these server decisions:
 
 The proposed account/message/post-parent mapping for legacy photo input adds no
 new family. Conversation input can map only to a verified pair/event, never all
-messages. Unsupported aliases fail closed. Own-content-as-primary reports stay
-behind the policy question below; already-authorized own messages can still be
-necessary bounded context for a report about another actor.
+messages. Unsupported aliases fail closed. P4 rejects own-content-as-primary
+reports; already-authorized own messages can still be necessary bounded context
+for a report about another actor.
 
 ### Minimal actor-bound report context
 
@@ -205,17 +208,23 @@ loader. A valid historical report never makes a source ordinarily readable.
 | Eligible actor, no block and no match | Person/visible-public-content report remains possible; private targets still require their own proof. Never create a match/request/chat as a side effect. |
 | Unmatched with continued approved chat | Preserve that chat grant under Decision 13, but separately authorize the reported item. Do not count a chat ending or perform undo. |
 | Unmatched with a pending request | Report the retained pair/request behavior without approving/cancelling it; original expiry and matched-state approval condition remain. |
-| Ordinary block in either direction | Allow authorized historical report and preserve all blocks; no unblock, new source access, recipient notification or resumed contact. Adding a report does not itself decide the separate unblock-clearance policy. |
+| Ordinary block in either direction | Allow authorized historical reporting without contact restoration. Once the report is attached to an existing ordinary block, P3 requires reviewer clearance before that specific block is eligible for removal; clearance alone leaves it blocked and only its creator chooses removal. Preserve other blocks, bans and account restrictions. |
 | Explicit Block and report | Combined atomic action records the report/block, clears pending pair requests and preserves review-gated unblock. Ordinary reporting/blocking remain separately available; no fresh approval or rate restoration is inferred. |
 | Source erased, deleted, expired or capture-prohibited | Never restore source text/media or links. A metadata-only allegation about a verifiable retained interaction can proceed; an already-preserved report copy remains private to its authorized case. Ordinary read denial from block/unmatch is separately assessed under the historical-capture rules, not treated as permission to reopen contact. |
 | Actor cannot authenticate / has revoked session or account restriction | Existing endpoint guards remain. Future appeal/rights/assisted reporting needs named operators and reviewed limited authorization; it does not reactivate the account or relax eligibility. Do not advertise an unverified support address. |
 
-Whether adding a report to an **existing ordinary block** also attaches the
-combined flow's review-before-unblock restriction is a focused unresolved L02
-transition detail. Intake can record the report while preserving the block;
-it must not silently reclassify the block or expose an unblock action. This
-separate dependency was not resolved by the two owner amendments and approves
-no new block transition. Actual combined-action implementation remains pending.
+P3 / Decision 30 resolves the prior ordinary-block transition: attaching a
+report requires reviewer clearance before that block becomes eligible for
+removal. Model the exact existing block and authorized report linkage, not a
+blanket pair unblock. Clearance cannot remove a block, supply the creator's
+choice or override an independent restriction. Replayed old attachments cannot
+reapply a cleared gate; new reports need their own current clearance scope.
+This does not create a new block or clear pending requests merely by reporting;
+the separately approved combined action keeps its own request-clearing effects.
+Eligible creator unblock keeps the separately approved immediate-chat effects
+under Decisions 10-12/25-26, subject to independent restrictions; attachment or
+clearance alone does not grant chat. Implementation/clearance-authority evidence
+remains pending.
 
 ### Authorization sequence
 
@@ -237,7 +246,11 @@ no new block transition. Actual combined-action implementation remains pending.
 5. Project an allowlisted own receipt after commit. Filing does not invoke
    read/receipt marking, profile lookup, discovery refresh, match restoration,
    chat grant/restart, unblock or notification to the reported person.
-   Explicit combined blocking is the only approved contact-state mutation here.
+   An attached-block selector must resolve the exact existing block for this
+   authorized interaction; it cannot select an unrelated block or impersonate
+   its creator. Explicit combined blocking and P3's review-clearance gate are
+   the only approved block-state changes here; neither
+   grants contact by itself.
 
 Denials for nonexistent, someone else's, expired and unsupported private targets
 share the same outward shape/status without body, identity, counts or lifecycle
@@ -361,7 +374,8 @@ Store an operation ID, protected actor, operation/contract version, keyed reques
 fingerprint and key version, completion/outcome reference, original UTC time
 and immutable expiry. Fingerprint the validated intent: operation kind, target
 family/ID, context/event/version selectors, own receipt if an addendum, reason,
-exact explanation, explicit new-incident intent and combined-action choice.
+exact explanation, explicit new-incident intent, attached-block selector and
+combined-action choice.
 Reject unknown authority fields, invalid UTF-8 and oversize input; normalize line endings to LF and
 field ordering, without case-folding or silently trimming the explanation.
 Exclude CSRF/session tokens and server-generated times/subject/case IDs.
@@ -411,7 +425,9 @@ The client must retain its key until an outcome is known. The server cannot
 infer whether different keys and an unanchored narrative represent a retry or
 a genuinely separate incident. Preserve the independent allegation for human
 classification rather than inventing a same-person/time/text rule or dropping
-it. Classification itself never creates another probation or durable sanction.
+it. Duplicate classification never creates another qualifying event or durable
+sanction; genuinely new accepted reports follow P1/P2 below, even within an
+existing case.
 Internal duplicate links keep each original expiry and redacted access scope;
 copying into a newer case cannot extend evidence life.
 
@@ -441,8 +457,11 @@ copying into a newer case cannot extend evidence life.
    evidence. Commit the operation outcome, content-free audit and any once-only
    approved qualifying event together. For an explicit combined action, commit
    the block, pending-pair-request clearance and review-before-unblock state in
-   that transaction too. Report-only/addendum operations do not mutate blocks,
-   pending requests, matches, chat grants, likes or request-budget counters.
+   that transaction too. For a report attached to an existing ordinary block,
+   atomically link the case and apply P3's reviewer-clearance requirement.
+   Clearance and creator removal are separate guarded actions. Report-only/
+   addendum operations do not otherwise change blocks, clear pending requests,
+   restore matches/chat grants, reset likes or alter request-budget counters.
 6. A constraint failure/deadlock rolls back all new records/effects. Retry the
    whole operation with the same key and fresh authorization; an existing block
    remains. No orphan case/snapshot or success receipt may survive a rollback.
@@ -457,28 +476,79 @@ tracked failure/cleanup and original deadlines; a queued job does not qualify
 as already-preserved evidence when unsend/deletion wins. Never fetch arbitrary
 URLs or keep the original pending forever. Upload activation remains gated.
 
-### Existing cases and fixed probation
+### Accepted reports, attribution and fixed probation
 
-An accepted report is an allegation, not automatically a qualifying trigger.
-Use only the separately accepted qualifying-event definition; its missing
-boundary is P1 below. A valid new qualifying activation, once established, is
-atomic with a unique authoritative event and subject probation state, serialized
-across all reporters. It uses server activation time and fixed end = start +
-168 hours, with the approved reduced allowance of 3 requests/24 hours. All other
-account/pair restrictions remain independently enforced.
+P1/P2 are now approved as D04 Decisions 28-29 in the
+[register](decisions.md#p1-p6-explicit-owner-decisions). Every new accepted,
+authorized, non-self report with unambiguous attribution qualifies for the
+already-approved reduced sending allowance. Validated means valid submission
+and attribution; the allegation need not be proven. A reason code or client
+subject ID alone still cannot establish authorization/attribution. Bans remain
+separate, human-reviewed findings under Decision 32.
 
-| Subject state / event | Permitted effect |
+| Target | Server-verified reported actor |
 |---|---|
-| Valid initial activation under the approved qualifying rule | One activation/event and fixed start/end; simultaneous qualifying reports cannot create competing periods. Never infer qualification just from reason, HTTP success or client subject ID. |
-| Active probation, any further report/addendum | Keep the original start/end, budget counters and restrictions. No extension, restart or early restoration, even after dismissal or appeal. |
-| A previously applied event retried after expiry | No activation; replay the receipt only. Delayed processing never turns an old duplicate into a new qualifying report. |
-| New independent report after probation expired | Record/report for review; automatic renewal remains gated by Q01's unadopted proposal (P2). Do not silently start another period. Missing/purged activation history is not proof that this is a first activation; reconstruct only from authorized protective state or leave automation gated for review. |
-| Invalid/unproven target or unknown retained subject | No probation or sanction effect, including a guessed author of deleted/anonymous content. |
+| Message | The actual message author, from its authorized object/version metadata. |
+| Confession | The actual confession author, retained privately; no deanonymization in the receipt. |
+| Reference/quote | The author of the actual reference/quoting content being reported, not automatically the original source author. |
+| Account | The reported account identified through authorized account context. |
+| Match/request behavior | The particular participant whose conduct the submission identifies, verified against the legitimate pair/event. A participant selector is checked against server metadata, never accepted as arbitrary attribution; never penalize both participants automatically. |
 
-Normal allowance returns at the original expiry subject to all other approved
-limits. Durable sanctions require Q03 human findings; a reason code, duplicate
-count or case cluster cannot impose a ban. No new report-rate number, sanction
-ladder, renewal rule or chat-request-budget change is selected by this design.
+If filing proof is valid but attribution is ambiguous, accept the case for human
+review without guessing an actor or automatically assigning probation. A missing
+source body is not itself ambiguous attribution when trustworthy retained
+metadata identifies the author. Known self-content is rejected as a primary
+ordinary report under P4. Disputed authorship uses the separate human route;
+it does not create automatic self-probation. Missing filing authorization still
+uses the common unavailable result; accepting attribution ambiguity is no
+permission to probe inaccessible content.
+
+Commit the immutable accepted-report event, its original server receipt time,
+case link and once-only qualifying effect atomically with serialized subject
+probation state. Use the report's server-recorded receipt for renewal eligibility,
+never a later retry, worker/dispatch timestamp or client clock. Keep the approved
+UTC activation clock: each period ends exactly 168 hours after its activation,
+with 3 requests/24h and all independent restrictions still enforced. Engineering
+review must verify receipt capture/order and delayed-processing behavior; this
+is no new midnight-reset or retention rule.
+
+| Subject state / event | Required effect |
+|---|---|
+| First accepted authorized non-self report with clear attribution | Activate one fixed seven-day period. Simultaneous reports serialize; once a period is active, later reports cannot create competing or extended periods. |
+| New report received during the active period | Keep its original start/end and request counters. No restart, extension or early restoration, including dismissal/appeal. A processing delay past expiry does not turn that original receipt into post-expiry renewal. |
+| A previously accepted event or deduplicated retry replayed after expiry | No new period; replay the safe receipt only. A new key or case link cannot make an old report new. |
+| New qualifying report received at/after the previous expiry | Start a fresh fixed seven-day period once; do not reuse/revive the previous start/end. Equality is outside the expired period under the unchanged expiry-boundary rule. Concurrent post-expiry reports serialize into one new active period. |
+| Authorized case with ambiguous attribution | Accept for human review, no automatic probation to a guessed actor. A later reviewed correction/attribution must have an explicit audited event; never invent a past activation or infer guilt. |
+| Invalid/unproven target or known own-content primary | No ordinary report/probation effect; preserve legitimate supporting-context and separate recovery options. |
+
+A genuine new qualifying report can belong to an existing case. Reusing a case
+is not sufficient reason to suppress it, and a new transport key/case is not
+proof of a new report. Retries, identical-information duplicates and addenda to
+an already accepted report retain that report's original event; they cannot
+renew probation. L01b must distinguish a new accepted report/event from an
+informational update without redefining P1/P2 or multiplying sanctions.
+
+Normal allowance returns at each original period expiry unless a new qualifying
+receipt activates another period, always subject to other approved limits.
+No lifetime pair count, decline, chat-ending cutoff, account restriction or
+consent state resets. Do not infer a clean history from missing protective
+records; L03 replay/continuity and reviewed category retention remain gates.
+No new numerical report-rate limit or request budget is adopted here.
+
+### Human-reviewed compromise and disputed authorship
+
+P4 / Decision 31 rejects own-content primary reports, while allowing necessary
+authorized own messages as supporting context about another actor. Reporting
+someone else's impersonation or quotation targets that other actual account/
+content; it cannot assign an accused identity chosen by the client.
+
+Provide a separate human-reviewed support/recovery route for compromised
+accounts or disputed authorship. Its restricted identity/authority proof,
+reviewer assignment, safe notices and any recovery action need engineering,
+security/privacy review and a real monitored contact/operator. Do not invent
+an inbox or identity-document requirement, relax ordinary session guards,
+automatically reactivate an account or apply self-probation through this route.
+This route is approved policy but not an existing implemented/staffed endpoint.
 
 ## Role and disclosure contract
 
@@ -523,17 +593,18 @@ synthetic systems only under a later implementation/verification authorization.
 A and B are original participants; C is an outsider; R1/R2 are separate reporters.
 Seed valid and absent/expired actor-bound proof deliberately. Assert outward
 status/body, persisted rows and absence of unintended contact/evidence effects,
-not merely that a helper returned true. P1-P6 refer to the owner batch below.
+not merely that a helper returned true. P1-P6 below are accepted policy; test
+implementation/evidence is still missing. All A01-A45 rows remain NOT RUN.
 
 | ID | Fixture / operation | Acceptance observation |
 |---|---|---|
-| A01 | A reports an account from its actually returned authorized profile card, never matched | Own receipt, canonical subject privately derived; no new like/match/chat, profile detail or other-party notice. |
+| A01 | A reports an account from its actually returned authorized profile card, never matched | Own receipt, canonical subject privately derived; no new like/match/chat, private profile detail or disclosure of reporter identity. |
 | A02 | A reports B's message with correct current response proof/segment | One case/submission, only authorized version and necessary private evidence; receipt contains no message body/media/context. |
 | A03 | A reports an inbound pending/terminal request event, including while unmatched | Correct immutable event accepted without chat approval; original status/expiry, pair counts and restart restrictions unchanged. |
 | A04 | A reports a legitimately returned confession | Accepted without exposing its private author, account link or extra post data; global flag/finding not set by filing. |
 | A05 | A reports a displayed reference whose source is inaccessible/erased | Actual reference/quoting parent accepted; no source resurrection, hidden author or source preview. |
 | A06 | A unmatches B with approved chat, then reports retained content/event | Valid historical report; Decision 13 chat stays as independently authorized, with no undo or new grant/ending. |
-| A07 | A reports after an ordinary block in each direction, with valid pre-block proof | Own receipt; block remains, ordinary read stays denied, no profile/contact reopening or post-block content capture. No silent P3 reclassification. |
+| A07 | A reports after an ordinary block in each direction, with valid pre-block proof | Own receipt; block remains, ordinary read stays denied, no profile/contact reopening or post-block content capture. If attached to that block, P3 requires reviewer clearance before creator-only removal. |
 | A08 | Original unsent/deleted, valid proof still within authorized retention | Metadata/own-allegation report only; no original/attachment/preview lookup or erased text in receipt/logs. |
 | A09 | Private item unprovable, but A has a valid own pair context | Item gets common unavailable; only a separately selected pair/person report may proceed. No silent retarget or unverifiable item snapshot. |
 | A10 | Missing CSRF, stale/revoked session, banned/deleted actor; removed reviewer assignment/MFA | Required action denied; no new case/evidence/effect or evidence disclosure. Disabled UI cannot bypass server authorization. |
@@ -548,70 +619,123 @@ not merely that a helper returned true. P1-P6 refer to the owner batch below.
 | A19 | Report overlaps unsend/account deletion; exercise both serial orders | Report-first authorized evidence or erasure-first absence; no torn/untracked snapshot, retrospective hold, content resurrection or lost protective action. |
 | A20 | Block/unmatch/actor revocation overlaps proof issuance and filing | Shared locked decision observes one authorized ordering; context covers only actually permitted items. Filing itself never restores access. |
 | A21 | Relevant context crosses segments, has >10 preceding/following items, or new arrivals | At most necessary 10 before/10 after, deterministic sent-time/ID order in the same segment and authorized exposure scope; no unrelated or future-message subscription. |
-| A22 | Invalid/oversize explanation, forged reason, unsupported alias/self-primary, image/path/URL authority input | Validate without silent truncation or arbitrary fetch; unauthorized aliases/primary scope stay gated (P4). Own lawful context remains possible. |
+| A22 | Invalid/oversize explanation, forged reason, unsupported alias/self-primary, image/path/URL authority input | Validate without truncation/fetch; reject known own-content primary under P4 while allowing relevant authorized own context and separate human recovery. Unsupported aliases stay gated. |
 | A23 | Same key/payload retried after response loss, source erasure, key rotation or contract rollout | Same retained safe receipt; one operation/submission/case/effect, no source reload or new retention. |
 | A24 | Concurrent same-key first submissions, plus retry after rollback/deadlock | One committed outcome; wait/retry never returns uncommitted success. Failed transaction leaves no orphan case/snapshot/effect. |
 | A25 | Same scoped key with changed operation kind, target, reason or explanation | 409 conflict before private lookup; no additional write/effect or existence detail. Different transport field ordering/CSRF token alone still matches. |
 | A26 | Different keys concurrently report the same immutable incident for A | One reporter/anchor case; identical information not copied, changed information attributed once per new intent; no repeated qualifying effect. |
 | A27 | Same person, distinct request events/segments or explicit unanchored new incident | Independent allegations retained; legacy pending-user dedupe does not discard them. Similar text/person ID alone does not merge them. |
-| A28 | R1/R2 independently report the same item during simultaneous initial qualification | Private independent receipts/cases, no reporter/count disclosure. Subject probation has one serialized activation if P1 fixture qualifies. |
+| A28 | R1/R2 independently report the same item during simultaneous initial qualification | Private independent receipts/cases, no reporter/count disclosure. Authorized non-self reports with clear attribution qualify under P1, serialized into one fixed active period. |
 | A29 | Own-case addendum includes another item or arrives after resolution | New item requires separate proof; no automatic reopening, renewed old evidence/appeal deadline or content retention past its category. Expired content cannot be restored from the receipt. |
 | A30 | Retried receipt after account revocation, evidence purge or operation expiry | Current authority/lifecycle wins; redacted own projection or common unavailable, never an old cached sensitive response. A key alone recreates nothing. |
-| A31 | Qualified first trigger fixture, with concurrent retries (conditional on P1) | Exactly one event; immutable UTC start/end separated by 168h; approved 3/24h reduced allowance, other limits preserved. No classifier is assumed approved by this fixture. |
+| A31 | Accepted authorized non-self report with unambiguous attribution, plus concurrent retries | Exactly one qualifying event/effect; immutable UTC activation/end separated by 168h; approved 3/24h allowance and all other limits preserved. No finding of guilt is required for probation or inferred for a ban. |
 | A32 | Further reports/addenda/dismissal/appeal during active probation | Original start/end and consumed request budgets unchanged; no extension, restart or early restoration. |
-| A33 | Old trigger replay and independent report after probation expiry | Old event never reactivates. New automatic renewal remains disabled pending P2; ordinary report review remains possible and normal allowance follows original expiry. |
+| A33 | Old trigger replay and new qualifying report after probation expiry | Old event/duplicates never reactivate. A genuinely new qualifying report received after expiry starts a fresh seven-day period under P2, without early restoration, lifetime resets or overriding other restrictions. |
 | A34 | Successful combined action retried after a later legitimate unblock | Replay its own receipt only: no new block, cleared-request replay, chat grant or source recapture. Initial combined action applies Decisions 23-26 atomically. |
 | A35 | Combined action fails at each write/capture boundary | All new combined effects roll back, pre-existing blocks remain, no misleading success; ordinary blocking remains independently usable. |
 | A36 | Evidence hold/release, read/export/retry and restored stale copies | Original deadlines/assignment still apply; no clock reset or ordinary resurrection. Verify scoped replay/erasure separately with L03; no claim that an actual restore or 005 production application occurred. |
 
-## Remaining decisions and review gates
+| A37 | Parameterize valid authorized non-self reports across all five target families, without a proven allegation | Accepted report triggers the actual author/account/specific conduct participant's probation once. Reference author differs from source author where applicable; never penalize both match participants. |
+| A38 | Valid target proof, ambiguous/deleted attribution or an unknown reference author | Accept for human review without guessed probation or newly disclosed private identity; missing attribution is distinct from missing filing authorization. |
+| A39 | Known own-content primary; own-message context about another actor; compromise/disputed authorship | Reject self-primary, permit only relevant authorized supporting context, and route compromise/dispute to separate human review without automatic self-probation. No invented recovery access or inbox. |
+| A40 | Qualifying receipts just before, exactly at and after probation expiry; delayed validation/worker and retry | Original receipt controls eligibility: active-period report cannot extend; at/after expiry a genuinely new qualifying receipt starts one fresh activation+168h period. Retry/worker time cannot manufacture renewal. |
+| A41 | Attach report to an ordinary block, then attempt removal before clearance, after clearance alone and by the wrong/right creator | Apply review requirement atomically; deny before clearance and without creator choice. Clearance alone leaves the block. Correct creator's eligible removal still cannot override another block, ban or account restriction. |
+| A42 | Substantiated moderate first, repeated/serious and severe violation findings; temporary expiry and permanent reversal | Human-reviewed 7d/30d/permanent defaults apply with documented severity/skip reasons; no automatic ban from allegation. Temporary UTC expiry is enforced; own-appeal review is denied and permanent reversal requires a second independent reviewer. |
+| A43 | Conditional report/appeal targets with missing versus demonstrated coverage and overdue cases | No staffed/achieved public claim without accepted coverage/capacity/alert evidence. Due/overdue escalation and approved appeal deadlines are verified only in later staffed acceptance; no automatic unblock, ban lift or probation shortening. |
+| A44 | Genuine new qualifying report linked to an existing case versus retry/identical information/addendum on an old report | Case reuse cannot suppress a new accepted qualifying event; a new key/case alone cannot create one. Duplicate/update keeps its original event and cannot reactivate probation. No evidence-retention reset. |
+| A45 | Two new qualifying reports received concurrently after previous expiry | Serialize subject state into one fresh fixed period, preserve each private report/receipt, and apply the active-period non-extension rule to the other report; no competing or extended periods. |
 
-### One owner policy batch
+## P1-P6 owner decisions recorded
 
-Only these unresolved L01 policy choices are requested; the existing
-[48-answer reconciliation](owner-policy-reconciliation-2026-10-15.md) supplies
-the approved/proposed scope. They do not prevent this design being reviewed.
-The branch for each unknown is explicit, so engineering cannot silently adopt
-it. Takudzwa Hondova remains the product reviewer; qualified review is separate.
+The owner has expressly answered all six choices. The authoritative
+[register entry](decisions.md#p1-p6-explicit-owner-decisions) records D04 Decisions
+28-33. The earlier [48-answer reconciliation](owner-policy-reconciliation-2026-10-15.md)
+is retained as the scope of that original message; its proposed/unresolved
+labels for these points are superseded only by the approvals below. No P1-P6
+policy answer is still awaited, and none is implementation or reviewer sign-off.
+Exact acceptance UTC/Harare timestamps were not captured and are not invented.
 
-| ID / reconciliation reference | Exact remaining owner decision | Boundary until expressly selected |
+| Choice / authority | Owner-approved rule | Implementation / review gate |
 |---|---|---|
-| P1: [Q01-Q03](owner-policy-reconciliation-2026-10-15.md#q01-reporting-routes); D04 Decision 4 | Which validated report types and conditions qualify for the initial automatic reported-sender probation, and which account is the sender for non-message targets? | Do not equate every accepted report/reason with qualification or invent a threshold. Keep the approved fixed probation; new classifier integration is gated. Unknown/deleted author attribution cannot trigger a guessed account. |
-| P2: [Q01 renewal proposal](owner-policy-reconciliation-2026-10-15.md#q01-reporting-routes) | Adopt the proposed new seven-day period for a qualifying independent report after expiry, or leave that renewal rule unadopted? | No new automatic renewal is enabled. Active-period non-extension and no early restoration are already approved and are not reopened. |
-| P3: [Q01/Q03](owner-policy-reconciliation-2026-10-15.md#q03-conduct-findings-and-unblocking); Decisions 23-26 | When a report is added to an existing ordinary block, does it impose the combined action's reviewer-clearance requirement before the blocker may unblock, or retain the ordinary-block path? | Accept authorized reporting while preserving the block; do not silently reclassify it or grant an unblock. Creator choice and separately approved unblock/chat effects remain intact. |
-| P4: [Q02 primary target boundary](owner-policy-reconciliation-2026-10-15.md#q02-report-targets-and-inputs) | Keep the existing rejection of one's own item as a primary report target, or allow reporting one's own message/post/reference about another actor where attribution is independently proven? | Keep current self-target guards; never accept a client-selected accused account as proof. Necessary own messages as authorized context are already permitted, not a new self-report policy. |
-| P5: [Q04 later sanctions](owner-policy-reconciliation-2026-10-15.md#q04-bans) | Adopt, revise or leave proposed the 7-day / 30-day / permanent severity defaults and escalation criteria? | No numeric ladder is adopted. Human findings, temporary/permanent distinction and independent appeals are already approved. This is later sanction workflow, not a condition for text intake design. |
-| P6: [Q05 later report service targets](owner-policy-reconciliation-2026-10-15.md#q05-reviews-and-appeals) | Adopt, revise or leave proposed acknowledgment 24h, urgent triage 1h, first review 72h, decision 7d and one complex extension to 14d, after actual coverage is demonstrated? | No public promise or staffing fiction. Approved appeal clocks remain; report targets need named coverage, overdue alerts and measured capacity. |
+| P1 / Decision 28; Q01-Q03 | Every accepted authorized non-self report with unambiguous actor attribution qualifies; submission/attribution validation is not a finding. Resolve actual author/account/specific conduct participant; accept ambiguous attribution for human review without guessed probation. | Server proof, actor resolver, unknown/self routing and one accepted-report event/effect. |
+| P2 / Decision 29; Q01 | A new qualifying report received after expiry starts a fresh seven-day period; active reports never reset/extend it, duplicate retries never renew, no early rate restoration. | Immutable received/event identity, 168h activation clocks, boundary/delay/concurrency/replay tests; budgets and independent restrictions unchanged. |
+| P3 / Decision 30; Q01/Q03 | A report attached to an ordinary block requires reviewer clearance before eligibility to remove; only the creator chooses actual removal, with bans/other restrictions independent. | Exact case/block linkage, current clearance scope, atomic attachment and creator-only removal guards; attachment/clearance alone grants no chat, while eligible creator unblock keeps its earlier approved effect. |
+| P4 / Decision 31; Q02 | Reject own-content primary reports, allow relevant own-message context about others, and provide separate human-reviewed compromise/disputed-authorship support/recovery without automatic self-probation. Impersonation/quotation targets the other actual account/content. | Restricted recovery authorization, safe identity evidence/attribution, named human reviewers and monitored route; none is operationally verified. |
+| P5 / Decision 32; Q04 | Adopt severity-based 7d/30d/permanent bans with documented findings and human review; independent appeal and second independent review for permanent reversal. | Findings/notices/sanction clocks/appeal authority and enforcement tests; real reviewers and Q18 privacy gates remain open. |
+| P6 / Decision 33; Q05 | Adopt report/appeal service targets conditionally on demonstrated staffing/coverage; do not advertise present staffing or achievement. Previously approved appeal rights/clocks remain. | Real accepted primary/backup/on-call coverage, monitored queues, overdue escalation and measured capacity; operational readiness open. |
 
-Q02 already approves all five target families and the 2,000-character ceiling;
-Q18-Q20 already select evidence/access/hold rules. Do not request their approval
-again. Legacy wire aliases, reason-code mapping to approved conduct, normalization,
-lock/index design and HTTP codes are engineering review, not extra owner policy
-questions. A standalone photo family beyond an authorized parent is outside this
-slice; it is not required to finish these five approved families. Q08 renewed
-consent and Q45 temporary unset Reply-To were explicitly resolved at `bde4473`
-and are not reopened. The missing historical acceptance instant is a provenance
-limitation, not a reason to undo or ask again for an approved choice.
+P5 uses the proposed severity defaults exactly: 7d for a substantiated moderate
+first violation requiring more than a warning; 30d for repeated/more serious
+harassment or deliberate safety-limit evasion; permanent for substantiated severe
+exploitation, credible serious threats, persistent ban evasion or repeated serious
+abuse after previous sanctions. Severity may skip shorter stages. Temporary bans
+expire at the recorded UTC deadline unless separately justified action intervenes.
+The initial reviewer cannot decide their own appeal; permanent reversal needs a
+second independent reviewer. Ban identifiers and long-lived suppression still
+require Q18 privacy review; no indefinite evidence/identity blacklist is approved.
+
+P6's conditional targets are report acknowledgment 24h, credible immediate-danger
+triage 1h with actual on-call, ordinary first review 72h and decision 7d, with
+one reasoned/notified complex extension to 14d total. Appeal remains available
+14d from effective notice, acknowledgment 2d and independent decision 14d from
+receipt, with one documented/notified complex extension of 14d. Escalate at the
+deadline to safety lead/backup, and urgent overdue cases to the accountable owner.
+Overdue review never unblocks, lifts bans or shortens probation. These are not
+claims of achieved response or available people, and no public promise is made.
+
+Five target families, the 2,000-character ceiling, evidence/hold/access rules,
+Decision 27 and temporary unset Reply-To remain as approved. Wire aliases,
+reason-code mapping, normalization, lock/index design, schema and HTTP codes
+remain engineering review. A standalone photo family beyond an authorized
+parent is outside this slice. No other policy proposal, retention value or
+appointment is accepted through P1-P6.
 
 ### Engineering and named-reviewer acceptance
 
-| Gate | Concrete remaining work / evidence | Required reviewer; no sign-off recorded |
+| Gate | Remaining engineering work / evidence | Reviewer / acceptance status |
 |---|---|---|
-| Engineering design review | Review proposed actions/DTO, context/category mapping, immutable event identity, per-reporter incident anchor, uniqueness/lock order and contention handling. Confirm schema compatibility; no current table is declared sufficient. | Named engineering and security reviewers UNASSIGNED; Takudzwa reviews product behavior. |
-| Qualified privacy/safety review | Validate proof minimization/deadline mapping, historic capture, unknown attribution, context/redaction, scoped evidence/holds and independent appeals. If existing approved categories cannot cover a required record, raise that specific purpose/deadline for decision instead of inventing retention. | Qualified privacy/security/safety reviewers and independent appeal reviewer UNASSIGNED; H03/H10 open. |
-| Implementation and verification | Implement the smallest reviewed L01b slice under separate authorization, coordinate L02/L03, and execute A01-A36 with SQL/object-state assertions on guarded synthetic systems. New qualifying/ordinary-block branches need P1/P3 before acceptance. | Engineering executes; named security/safety/privacy witnesses accept evidence. All matrix rows remain NOT RUN. |
-| Operations and release | Accept real case assignments, MFA, backups, monitored assisted/rights contact, alerts and staffing before enabling workflows/public targets. Verify erasure/copy/replay separately. | Safety lead, operators/backups, support and qualified approvers UNASSIGNED; D04/D05/D12 and operational release gates remain open. |
+| Target proof and actor attribution | Review authorized-response/event proof, actual reference author versus source, selected conduct participant, accepted ambiguous cases, rejected self-primary cases and category/deletion deadlines. Define the restricted recovery route separately. | Engineering/security/privacy/safety reviewers UNASSIGNED; Takudzwa remains product reviewer. |
+| Idempotency and transactional effects | Review immutable logical-report identity versus informational update, actor/key uniqueness and rotation, per-reporter incident links, server receipt/activation ordering, simultaneous renewals and once-only effects. Validate source-erasure lock ordering and exact block/clearance linkage with L02/L03. | Named engineering/security/safety review not performed; source/schema compatibility and no-repeat-effect evidence required. |
+| Review/recovery and privacy workflows | Review evidence minimization/redaction, limited recovery authority, assignment/MFA, sanctions/notices/independent appeals and permanent-reversal second review. Raise only a specific genuinely new purpose/deadline if current approved categories are inadequate. | Qualified privacy/security/safety and independent appeal reviewers UNASSIGNED; H03/H10 open. |
+| Implementation and verification | Implement the reviewed L01b slice under separate authorization and execute A01-A45 with persisted state, access/disclosure and overlap assertions on guarded synthetic systems. | Engineering executes; named witnesses accept new evidence. Every matrix row is NOT RUN; no implementation acceptance. |
+| Operations and release | Demonstrate real monitored recovery/support routes, case assignment, primary/backup/on-call coverage, due/overdue alerts and measured report/appeal capacity. Verify cleanup/copy/replay separately. | Owners/reviewers/backups UNASSIGNED; P6 staffing condition and D04/D05/D12/operational release gates remain open. |
 
-**Next bounded task, L01b:** obtain review of this completed design and resolve
-P1/P3 for their affected behavior, then implement the separately authorized
-common text-only resolver/intake/receipt slice. The independent work needs no
-match restoration or mail. Uploads, unadopted renewal/sanction targets and live
-operations remain gated; no database/migration, real mail, production/DNS/config,
-merge, push or deployment action is authorized by this documentation checkpoint.
+**Next bounded implementation task, L01b:** review this contract, then implement
+only the shared text-report resolver/intake/own-receipt slice on separately
+authorized guarded synthetic systems. Include canonical target/actor proof,
+ambiguous-review and self-primary rejection, immutable accepted-report events,
+retry/addendum dedupe, atomic fixed probation/renewal and report attachment to
+an existing block's clearance gate. Coordinate L02/L03 interfaces. Human recovery,
+full sanctions/appeals/operational coverage need their own reviewed workflow
+slices; no public or operational readiness claim follows from L01b. No uploads,
+live mail, production/config/DNS/database operation, migration application,
+merge, push or deployment is authorized by this documentation checkpoint.
 
 ## Documentation checks
 
-### Current continuation from bde4473
+### Current P1-P6 recording from 237b7d1
+
+PASS: `git diff --check`; 38 local links including ten heading references
+across the three affected Markdown files; paired fences/no trailing whitespace;
+A01-A45 each present once; six adopted choices mapped once each in register and
+contract. Unrelated decision rows and the register's historical body are
+unchanged. Original Q01-Q48 reconciliation, owner packet/candidate CI evidence,
+retention matrix, policy proposals, geography, retention policy, playbook and
+operational-feasibility records remain unchanged; new register approvals govern
+only the superseded P1-P6 points in those historical records. No retention
+period or unrelated approval/gate is changed.
+
+Changed files: `decisions.md`, `l01a-report-route-target-contract.md` and
+`backlog.md`. All 45 acceptance cases remain NOT RUN. No DB/browser suite,
+application/migration/configuration, live resource, real mail, merge, push or
+deployment was performed. This is author self-validation, not independent
+engineering/security/privacy/safety review, staffed coverage or release evidence.
+
+### Historical design checkpoint 237b7d1
+
+The validation below belongs to the design checkpoint before the P1-P6 owner
+answers. Its unchanged-register and 36-case statements are historical, not
+current acceptance claims after these express approvals.
 
 PASS: `git diff --check`; 31 local links including eight heading references
 across the two affected documents; paired code fences and no trailing whitespace;
