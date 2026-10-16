@@ -38,6 +38,7 @@ jobs:
           php tests/unit_signup_verification.php
           php tests/unit_mail_configuration.php
           php tests/unit_disposable_database_guard.php
+          php tests/unit_legacy_history.php
           node tests/unit_playwright_config_guard.js
           python3 tests/smtp_transport_test.py
 

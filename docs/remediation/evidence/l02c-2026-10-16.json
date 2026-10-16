@@ -1,0 +1,635 @@
+{
+  "format": "bushisa.l02c-execution.v1",
+  "started_at": "2026-10-16T21:20:31+00:00",
+  "ended_at": "2026-10-16T21:20:32+00:00",
+  "php": "8.5.11",
+  "os": "Windows",
+  "test_pid": 32368,
+  "assertion_count": 105,
+  "checks": [
+    {
+      "case": "LB01",
+      "variant": "F: exact prefix plus overlapping native tail totals three",
+      "result": "PASS"
+    },
+    {
+      "case": "LB01",
+      "variant": "No grant/session/runtime promotion and no production authenticity claim",
+      "result": "PASS"
+    },
+    {
+      "case": "LB01",
+      "variant": "Deterministic repeated pure run",
+      "result": "PASS"
+    },
+    {
+      "case": "LB02",
+      "variant": "Positive certified account-origin coverage may prove zero",
+      "result": "PASS"
+    },
+    {
+      "case": "LB02",
+      "variant": "Empty surviving rows without prefix never prove zero",
+      "result": "PASS"
+    },
+    {
+      "case": "LB03",
+      "variant": "Incomplete history retains positive lower bound with unknown exact total",
+      "result": "PASS"
+    },
+    {
+      "case": "LB03",
+      "variant": "Unrecognized verified-marker field cannot certify history",
+      "result": "PASS"
+    },
+    {
+      "case": "LB04",
+      "variant": "Ambiguous original-account mapping rejected",
+      "result": "PASS"
+    },
+    {
+      "case": "LB04",
+      "variant": "Alias mismatch is conflicting, never a new match",
+      "result": "PASS"
+    },
+    {
+      "case": "LB04",
+      "variant": "Reused source incarnation conflicts with independent catalogue",
+      "result": "PASS"
+    },
+    {
+      "case": "LB05",
+      "variant": "One immutable identity with different actor conflicts",
+      "result": "PASS"
+    },
+    {
+      "case": "LB06",
+      "variant": "Equal timestamp and missing within-commit order stays incomplete",
+      "result": "PASS"
+    },
+    {
+      "case": "LB07",
+      "variant": "Unknown ender is not replaced with importer identity",
+      "result": "PASS"
+    },
+    {
+      "case": "LB07",
+      "variant": "Unknown ending time remains unknown",
+      "result": "PASS"
+    },
+    {
+      "case": "LB07",
+      "variant": "Unknown current cooldown blocks completeness",
+      "result": "PASS"
+    },
+    {
+      "case": "LB08",
+      "variant": "Duplicate source copy does not alter canonical bundle or projected count",
+      "result": "PASS"
+    },
+    {
+      "case": "LB08",
+      "variant": "JSON property ordering preserves bundle digest and full output",
+      "result": "PASS"
+    },
+    {
+      "case": "LB09",
+      "variant": "Source/native same identity counts once",
+      "result": "PASS"
+    },
+    {
+      "case": "LB09",
+      "variant": "Explicit evidence-backed alias equivalence deduplicates",
+      "result": "PASS"
+    },
+    {
+      "case": "LB09",
+      "variant": "Unproved overlap cannot enable a plan",
+      "result": "PASS"
+    },
+    {
+      "case": "LB10",
+      "variant": "Unexplained current higher count conflicts without reduction",
+      "result": "PASS"
+    },
+    {
+      "case": "LB10",
+      "variant": "Proved union above lifetime budget stays five, not clamped or reset",
+      "result": "PASS"
+    },
+    {
+      "case": "LB13",
+      "variant": "Changed pair version requires replan",
+      "result": "PASS"
+    },
+    {
+      "case": "LB14",
+      "variant": "Changed report attachment scope with same pair version requires replan",
+      "result": "PASS"
+    },
+    {
+      "case": "LB14",
+      "variant": "Native cleanup changes full fingerprint even without pair-version bump",
+      "result": "PASS"
+    },
+    {
+      "case": "LB14",
+      "variant": "Changed active like with same pair version requires replan",
+      "result": "PASS"
+    },
+    {
+      "case": "LB15",
+      "variant": "Session increment requires replan and never refreshes sessions",
+      "result": "PASS"
+    },
+    {
+      "case": "LB15",
+      "variant": "Deleted original account rejects destination",
+      "result": "PASS"
+    },
+    {
+      "case": "LB16",
+      "variant": "Preserve independent ban without access decisions",
+      "result": "PASS"
+    },
+    {
+      "case": "LB16",
+      "variant": "Preserve independent withdrawal without access decisions",
+      "result": "PASS"
+    },
+    {
+      "case": "LB16",
+      "variant": "Supplied grant authority rejected",
+      "result": "PASS"
+    },
+    {
+      "case": "LB16",
+      "variant": "Two-ending cutoff cannot become access through planning",
+      "result": "PASS"
+    },
+    {
+      "case": "LB17",
+      "variant": "Invalid extended probation conflicts, never adjusted by planner",
+      "result": "PASS"
+    },
+    {
+      "case": "LB17",
+      "variant": "Duplicate historical report cannot activate, extend or shorten a period",
+      "result": "PASS"
+    },
+    {
+      "case": "LB18",
+      "variant": "Pair-only proof cannot certify global windows/probation",
+      "result": "PASS"
+    },
+    {
+      "case": "LB19",
+      "variant": "Omitted cleanup/direct writer is incomplete",
+      "result": "PASS"
+    },
+    {
+      "case": "LB19",
+      "variant": "Missing snapshot/catch-up commit interval is incomplete",
+      "result": "PASS"
+    },
+    {
+      "case": "LB19",
+      "variant": "Claimed all-writer epoch after snapshot cannot cover the gap",
+      "result": "PASS"
+    },
+    {
+      "case": "LB20",
+      "variant": "Synthetic committed suffix includes post-B native event exactly once",
+      "result": "PASS"
+    },
+    {
+      "case": "LB21",
+      "variant": "Every database destination mode is unsupported",
+      "result": "PASS"
+    },
+    {
+      "case": "LB21",
+      "variant": "Wrong destination incarnation cannot be planned",
+      "result": "PASS"
+    },
+    {
+      "case": "LB21",
+      "variant": "Host/connection fields are not accepted by offline schema",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 0",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 1",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 2",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 3",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 4",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 5",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 6",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 7",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 8",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 9",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Bounded parser rejection 10",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 0",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 1",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 2",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 3",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 4",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 5",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 6",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 7",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Strict schema rejection 8",
+      "result": "PASS"
+    },
+    {
+      "case": "LB23",
+      "variant": "Modified artifact/semantic digest fails catalogue check",
+      "result": "PASS"
+    },
+    {
+      "case": "LB23",
+      "variant": "Contradictory custody is a conflict",
+      "result": "PASS"
+    },
+    {
+      "case": "LB23",
+      "variant": "Missing source authority stays incomplete even with matching digest",
+      "result": "PASS"
+    },
+    {
+      "case": "LB23",
+      "variant": "Named proof labels without scoped records are incomplete and never labelled covered",
+      "result": "PASS"
+    },
+    {
+      "case": "LB23",
+      "variant": "Proof from wrong pair/boundary/mapping scope conflicts",
+      "result": "PASS"
+    },
+    {
+      "case": "LB25",
+      "variant": "Expiry boundary is exclusive; no import/read renewal",
+      "result": "PASS"
+    },
+    {
+      "case": "LB25",
+      "variant": "Own original event-detail expiry cannot be reset by fresh bundle",
+      "result": "PASS"
+    },
+    {
+      "case": "LB25",
+      "variant": "Earliest proof expiry also bounds proposed plan retention",
+      "result": "PASS"
+    },
+    {
+      "case": "LB31",
+      "variant": "Native genesis destination cannot be downgraded/imported",
+      "result": "PASS"
+    },
+    {
+      "case": "LB31",
+      "variant": "Epoch authority supplied in bundle rejected",
+      "result": "PASS"
+    },
+    {
+      "case": "LB33",
+      "variant": "Pending then approved observations count one creation with separate actual action",
+      "result": "PASS"
+    },
+    {
+      "case": "LB33",
+      "variant": "Capture time does not invent missing actual approval action",
+      "result": "PASS"
+    },
+    {
+      "case": "LB07",
+      "variant": "Unknown request actor never guesses a direction/count",
+      "result": "PASS"
+    },
+    {
+      "case": "LB19",
+      "variant": "Post-H fact needs the captured destination tail",
+      "result": "PASS"
+    },
+    {
+      "case": "LB19",
+      "variant": "Quiescence label cannot replace a frozen boundary proof",
+      "result": "PASS"
+    },
+    {
+      "case": "LB10",
+      "variant": "Observed prefix send contradicts certified zero",
+      "result": "PASS"
+    },
+    {
+      "case": "LB07",
+      "variant": "Snapshot cannot replace a request original expiry",
+      "result": "PASS"
+    },
+    {
+      "case": "LB07",
+      "variant": "Declared approved policy cannot validate an eight-day request",
+      "result": "PASS"
+    },
+    {
+      "case": "LB07",
+      "variant": "Stored cooldown without its original terminal anchor stays incomplete",
+      "result": "PASS"
+    },
+    {
+      "case": "LB16",
+      "variant": "Reverse pending request does not clear existing directional decline",
+      "result": "PASS"
+    },
+    {
+      "case": "LB26",
+      "variant": "Closed-history read deadline cannot be extended by snapshot",
+      "result": "PASS"
+    },
+    {
+      "case": "LB33",
+      "variant": "Only recipient may be the actual approval actor",
+      "result": "PASS"
+    },
+    {
+      "case": "LB33",
+      "variant": "Approval before creation cannot prove a valid transition",
+      "result": "PASS"
+    },
+    {
+      "case": "LB33",
+      "variant": "Contradictory decisions on same request are not reconciled by last writer",
+      "result": "PASS"
+    },
+    {
+      "case": "LB33",
+      "variant": "Unknown observation target supplies no private lookup or permission",
+      "result": "PASS"
+    },
+    {
+      "case": "LB16",
+      "variant": "Bare restoration action lacks both fresh consents and stays gated",
+      "result": "PASS"
+    },
+    {
+      "case": "LB16",
+      "variant": "Historical clearance action cannot stand in for current reviewer authority",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Computed count union is also bounded",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "NUL object property rejected without PHP property exception",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Node budget limits shallow but massive arrays",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Fact-list budget enforced before reconciliation",
+      "result": "PASS"
+    },
+    {
+      "case": "LB24",
+      "variant": "Actual CLI works with database classes and network/mail/process/mutation functions disabled",
+      "result": "PASS"
+    },
+    {
+      "case": "LB24",
+      "variant": "Actual repeat run byte-identical and input snapshot/catalogue unchanged",
+      "result": "PASS"
+    },
+    {
+      "case": "LB21",
+      "variant": "Actual CLI rejects apply/database/wrapper/duplicate options 0",
+      "result": "PASS"
+    },
+    {
+      "case": "LB21",
+      "variant": "Actual CLI rejects apply/database/wrapper/duplicate options 1",
+      "result": "PASS"
+    },
+    {
+      "case": "LB21",
+      "variant": "Actual CLI rejects apply/database/wrapper/duplicate options 2",
+      "result": "PASS"
+    },
+    {
+      "case": "LB21",
+      "variant": "Actual CLI rejects apply/database/wrapper/duplicate options 3",
+      "result": "PASS"
+    },
+    {
+      "case": "LB24",
+      "variant": "Offline bundle validation cannot certify absent destination",
+      "result": "PASS"
+    },
+    {
+      "case": "LB26",
+      "variant": "Closed deadline snapshot remains unchanged by planner",
+      "result": "PASS"
+    },
+    {
+      "case": "LB23",
+      "variant": "Actual CLI checks raw bytes separately from semantic bundle digest",
+      "result": "PASS"
+    },
+    {
+      "case": "LB08",
+      "variant": "Separately catalogued layout change has same semantic projection",
+      "result": "PASS"
+    },
+    {
+      "case": "LB22",
+      "variant": "Actual local reader rejects wrappers before file access",
+      "result": "PASS"
+    },
+    {
+      "case": "LB24",
+      "variant": "Observed child has zero PDO drivers and no pdo_mysql/curl/mysqli modules",
+      "result": "PASS"
+    }
+  ],
+  "sources_lf_sha256": {
+    "php/legacy_history.php": "e415496bfbdd98d476f798eab932844bb8d1785ec84353ed2aa8989b2216eb49",
+    "bin/legacy_history.php": "e52d570fbc059701770d86056d886f6796612d345b1a657f4d04830248c13a8f",
+    "tests/support/legacy_history_fixture.php": "001467e6d04bbef0b25fb1e334539a5becf29de28c8f639bcccfc06b78f064f5",
+    "tests/unit_legacy_history.php": "d7878b0c921db0ca09a69f6d72b41821e732c35e193ec97e106c3c573ce5ad15",
+    ".github/workflows/ci.yml": "740c025278b717aac4bd088532cd87d995827506a501f91ae67b5f9c535b6449"
+  },
+  "contract_case_status": {
+    "LB01": "PASS",
+    "LB02": "PASS",
+    "LB03": "PASS",
+    "LB04": "PASS",
+    "LB05": "PASS",
+    "LB06": "PASS",
+    "LB07": "PASS",
+    "LB08": "PARTIAL",
+    "LB09": "PASS",
+    "LB10": "PASS",
+    "LB11": "NOT RUN",
+    "LB12": "NOT RUN",
+    "LB13": "PARTIAL",
+    "LB14": "PARTIAL",
+    "LB15": "PARTIAL",
+    "LB16": "PARTIAL",
+    "LB17": "PARTIAL",
+    "LB18": "PASS",
+    "LB19": "PARTIAL",
+    "LB20": "PARTIAL",
+    "LB21": "PARTIAL",
+    "LB22": "PASS",
+    "LB23": "PARTIAL",
+    "LB24": "PARTIAL",
+    "LB25": "PARTIAL",
+    "LB26": "PARTIAL",
+    "LB27": "NOT RUN",
+    "LB28": "NOT RUN",
+    "LB29": "NOT RUN",
+    "LB30": "NOT RUN",
+    "LB31": "PASS",
+    "LB32": "NOT RUN",
+    "LB33": "PASS"
+  },
+  "status_scope": "Synthetic validator/offline planner only. PARTIAL keeps application and real-world variants open.",
+  "planner_mode": "offline-synthetic",
+  "database_connections": 0,
+  "database_adapter": "ABSENT",
+  "observed_child_extensions": [
+    "Core",
+    "bcmath",
+    "calendar",
+    "ctype",
+    "date",
+    "hash",
+    "iconv",
+    "json",
+    "lexbor",
+    "uri",
+    "pcre",
+    "random",
+    "readline",
+    "Reflection",
+    "SPL",
+    "session",
+    "tokenizer",
+    "zlib",
+    "standard",
+    "filter",
+    "mysqlnd",
+    "Zend OPcache",
+    "PDO",
+    "Phar",
+    "libxml",
+    "SimpleXML",
+    "dom",
+    "xml",
+    "xmlreader",
+    "xmlwriter"
+  ],
+  "observed_pdo_drivers": [],
+  "isolation_ini_options": [
+    "-d",
+    "disable_functions=stream_socket_client,fsockopen,pfsockopen,mail,file_put_contents,mkdir,unlink,rename,copy,touch,chmod,exec,shell_exec,system,passthru,proc_open,dl",
+    "-d",
+    "disable_classes=PDO,mysqli"
+  ],
+  "input_files_sha256_before": [
+    "64105ef37c308f3f4d355701542e68b33b0afd96f15367b08e6c2b8af825efec",
+    "74d25c4271489281186ef0b928521afdac17ed476be9eb21127711d6d4a9b52f",
+    "5184e64afbfe3425094fce2de49b216e871019a1453231ee5c91a0b3d3b76748"
+  ],
+  "input_files_sha256_after": [
+    "64105ef37c308f3f4d355701542e68b33b0afd96f15367b08e6c2b8af825efec",
+    "74d25c4271489281186ef0b928521afdac17ed476be9eb21127711d6d4a9b52f",
+    "5184e64afbfe3425094fce2de49b216e871019a1453231ee5c91a0b3d3b76748"
+  ],
+  "overlap_claim": "NONE; no apply/HTTP workers",
+  "production_authenticity": "NOT_VERIFIED",
+  "baseline": "b4a041b067606437f43caa485eedb33768500d83",
+  "branch": "codex/l02c-offline-history-planner-20261016"
+}
