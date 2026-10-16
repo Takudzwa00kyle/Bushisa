@@ -39,6 +39,7 @@ jobs:
           php tests/unit_mail_configuration.php
           php tests/unit_disposable_database_guard.php
           php tests/unit_legacy_history.php
+          php -n -d disable_classes=PDO tests/unit_synthetic_import_guard.php
           node tests/unit_playwright_config_guard.js
           python3 tests/smtp_transport_test.py
 
@@ -73,7 +74,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: pdo_mysql, mbstring, fileinfo, openssl
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, curl
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
       - name: Bootstrap isolated test database
@@ -88,6 +89,10 @@ jobs:
           php tests/policy_safeguards_p0_flows.php
           php tests/integration_smtp_outbox.php
           php tests/overlap_db_p0_flows.php
+      - name: Guarded synthetic import transactions
+        env:
+          DB_NAME: bushisa_test_l02d_ci
+        run: php tests/integration_l02d_imports.php
 
   browser-route-session-overlap:
     runs-on: ubuntu-latest
