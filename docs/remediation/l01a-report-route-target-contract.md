@@ -1,5 +1,7 @@
 # L01a: report-route and target-authorization contract
 
+**Current L02a continuation:** [pair-history contract](l02a-pair-history-contract.md) and [individual A01–A45 execution status](l02a-implementation-evidence-2026-10-16.md#a01a45-current-status). Pair/restart/unblock integration is implemented locally; legacy provenance, unexecuted variants and qualified/operational release gates remain open. Earlier checkpoint and L01b statements below retain their original attribution.
+
 Design revision: 2026-10-16, Africa/Harare. Original source inspection capture:
 2026-10-15T22:02:14Z / 2026-10-16 00:02:14 Africa/Harare (UTC+02:00).
 This is a documentation timestamp, not a policy acceptance timestamp.
@@ -704,12 +706,7 @@ appointment is accepted through P1-P6.
 | Implementation and verification | The separately authorized L01b text/API slice is implemented and locally tested; complete remaining PARTIAL/NOT RUN variants and L02/L03 shared-history/replay integration. | Current results are in the L01b evidence; named independent engineering/security/safety/privacy acceptance remains open. |
 | Operations and release | Demonstrate real monitored recovery/support routes, case assignment, primary/backup/on-call coverage, due/overdue alerts and measured report/appeal capacity. Verify cleanup/copy/replay separately. | Owners/reviewers/backups UNASSIGNED; P6 staffing condition and D04/D05/D12/operational release gates remain open. |
 
-**Next bounded implementation task, L02a:** establish immutable pair/request/ending
-history and verified legacy backfill, then align already-approved eligible restart
-and immediate-chat unblock without clearing independent restrictions or lifetime
-cutoffs. Use guarded disposable systems and existing approvals. Human recovery,
-full sanctions/appeals, real MFA/staffing and L03 restore replay remain separate
-reviewed slices. No production operation follows from this local checkpoint.
+**Current next bounded task, L02b:** establish a guarded legacy-history evidence/import contract with synthetic complete/incomplete manifests, immutable provenance and repeat/concurrent import tests. [L02a evidence](l02a-implementation-evidence-2026-10-16.md) records the completed backend slice and all remaining gates; no missing history or qualified sign-off is inferred.
 
 ## Documentation checks
 

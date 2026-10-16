@@ -97,7 +97,7 @@ function bushisa_account_is_chat_eligible(PDO $pdo, int $userId): bool
 /**
  * @return array{ok: bool, error: string|null, status: int, match: array<string, mixed>|null, other_user_id: int|null}
  */
-function bushisa_authorize_match_action(PDO $pdo, int $matchId, int $currentUserId, bool $requireApprovedChat, bool $lock = false): array
+function bushisa_authorize_match_action(PDO $pdo, int $matchId, int $currentUserId, bool $requireApprovedChat, bool $lock = false, bool $allowReadOnly = false): array
 {
     ensure_operational_schema($pdo);
 
@@ -142,7 +142,12 @@ function bushisa_authorize_match_action(PDO $pdo, int $matchId, int $currentUser
     }
 
     if ($requireApprovedChat && !operational_has_message_approval($pdo, $matchId)) {
-        return ['ok' => false, 'error' => 'Chat permission has not been approved', 'status' => 403, 'match' => null, 'other_user_id' => null];
+        $readable=false;
+        if ($allowReadOnly && operational_table_exists($pdo,'pair_chat_segments')) {
+            $history=$pdo->prepare('SELECT 1 FROM pair_chat_segments WHERE match_id=? AND ended_at IS NOT NULL AND read_until>UTC_TIMESTAMP(6) LIMIT 1');
+            $history->execute([$matchId]); $readable=(bool)$history->fetchColumn();
+        }
+        if (!$readable) { return ['ok' => false, 'error' => 'Chat permission has not been approved', 'status' => 403, 'match' => null, 'other_user_id' => null]; }
     }
 
     return ['ok' => true, 'error' => null, 'status' => 200, 'match' => $match, 'other_user_id' => $otherUserId];
@@ -188,6 +193,11 @@ function bushisa_suppress_chat_notifications_for_match(PDO $pdo, int $matchId): 
 function bushisa_close_match_between(PDO $pdo, int $actorUserId, int $otherUserId, string $reason): void
 {
     ensure_operational_schema($pdo);
+    require_once __DIR__ . '/pair_history.php';
+    if (bushisa_pair_ready($pdo)) {
+        bushisa_pair_close_relationship($pdo,$actorUserId,$otherUserId,$reason);
+        return;
+    }
 
     $columns = operational_match_columns($pdo);
     $statement = $pdo->prepare(

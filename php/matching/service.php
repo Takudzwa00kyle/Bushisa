@@ -203,8 +203,9 @@ function matching_fetch_candidate_rows(PDO $pdo, int $viewerId, array $filters):
            )
            AND NOT EXISTS (
                SELECT 1 FROM matches m
-               WHERE (m.%7$s = :match_viewer_a AND m.%8$s = p.user_id)
-                  OR (m.%8$s = :match_viewer_b AND m.%7$s = p.user_id)
+               WHERE ((m.%7$s = :match_viewer_a AND m.%8$s = p.user_id)
+                  OR (m.%8$s = :match_viewer_b AND m.%7$s = p.user_id))
+                  %10$s
            )
            AND NOT EXISTS (
                SELECT 1 FROM blocks b
@@ -222,7 +223,11 @@ function matching_fetch_candidate_rows(PDO $pdo, int $viewerId, array $filters):
         $swipeColumns['target'],
         $matchColumns['user_a'],
         $matchColumns['user_b'],
-        $filterSql
+        $filterSql,
+        operational_table_exists($pdo,'pair_policy_history')
+            ? 'AND (m.match_status IN ("active","deleted_cleanup") OR NOT EXISTS (SELECT 1 FROM pair_policy_history ph WHERE ph.match_id=m.id)
+                OR EXISTS (SELECT 1 FROM pair_policy_history ph WHERE ph.match_id=m.id AND ph.unmatched_at>DATE_SUB(UTC_TIMESTAMP(6),INTERVAL 7 DAY)))'
+            : ''
     );
 
     $statement = $pdo->prepare($sql);

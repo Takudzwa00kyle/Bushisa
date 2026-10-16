@@ -11,11 +11,13 @@ require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/signup_verification.php';
 require_once __DIR__ . '/../php/report_intake.php';
+require_once __DIR__ . '/../php/pair_history.php';
 
 ensure_operational_schema($pdo);
 
 $expiredCodes = bushisa_cleanup_expired_signup_codes($pdo);
 $reportCleanup = bushisa_report_transaction($pdo, fn(): array => bushisa_report_cleanup($pdo));
+$pairCleanup = bushisa_pair_ready($pdo) ? bushisa_report_transaction($pdo,fn():array=>bushisa_pair_cleanup($pdo)) : [];
 
 $mail = $pdo->prepare(
     'UPDATE mail_outbox
@@ -46,5 +48,6 @@ fwrite(STDOUT, json_encode([
     'cleanup_rows_completed' => $cleanup->rowCount(),
     'report_intake_copies_purged' => $reportCleanup['intake_copies_purged'],
     'report_text_evidence_purged' => $reportCleanup['text_evidence_purged'] ?? 0,
+    'pair_cleanup' => $pairCleanup,
 ], JSON_UNESCAPED_SLASHES) . PHP_EOL);
 

@@ -1,5 +1,7 @@
 # L01b text-report implementation and local evidence
 
+**Historical implementation at 901ea76.** The [L02a continuation and current individual acceptance status](l02a-implementation-evidence-2026-10-16.md) supersede the current-task/status pointers below. All original run timestamps, source hashes, CI attribution and unexecuted claims in this record remain historical.
+
 This bounded slice continues f7e9f8c76e043a3dd3bc7bc3edc271ae3d584bbc on
 codex/l01b-report-intake-20261016. The starting checkout was clean.
 No applicable AGENTS.md was found in the checkout or ancestors. No work was reset.

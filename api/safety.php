@@ -78,9 +78,9 @@ try {
         }
         bushisa_http_test_barrier('chat_relationship_mutation_before_update');
         if ($action === 'block') {
-            block_user($pdo, $actor, $target, $version);
+            block_user($pdo, $actor, $target, $version, $payload);
         } else {
-            unblock_user($pdo, $actor, $target, $version);
+            unblock_user($pdo, $actor, $target, $version, $payload);
         }
         $data = null;
     } else {

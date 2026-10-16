@@ -72,6 +72,10 @@ function pair_l01(int $a, int $b, string $status = 'approved'): int {
             sql_l01('INSERT INTO message_request_sends (requester_id,recipient_id,request_id,created_at) VALUES (?, ?, ?, UTC_TIMESTAMP(6))',[$a,$b,$requestId]);
         }
     }
+    if ($pdo->query("SHOW TABLES LIKE 'pair_policy_history'")->fetchColumn()) {
+        // Complete fresh synthetic fixture only; this is not a legacy import path.
+        sql_l01('INSERT INTO pair_policy_history (user_low,user_high,match_id,history_state,genesis_account_id,generation,created_at) VALUES (?,?,?,"complete_from_genesis",?,1,UTC_TIMESTAMP(6))',[min($a,$b),max($a,$b),$id,$a]);
+    }
     return $id;
 }
 function message_l01(int $pair, int $author, string $body = 'Synthetic reported content'): int {
@@ -95,6 +99,16 @@ function session_l01(int $actor, bool $mfa = false): array {
     return ['cookie'=>'PHPSESSID=' . $id, 'csrf'=>$csrf];
 }
 function curl_l01(int $port, string $path, array $auth, ?array $payload = null, array $headers = []): CurlHandle {
+    // L02a API requires exact current pair intent on state-changing requests.
+    if ($payload !== null && !isset($payload['pair_version']) && ($path === '/api/message_requests.php' || ($path === '/api/safety.php' && in_array($payload['action']??'', ['block','unblock'], true)))) {
+        $lookup=isset($payload['match_id'])?'match_id='.$payload['match_id']:'user_id='.$payload['user_id'];
+        $prepared=http_l01('/api/pairs.php?'.$lookup,$auth,null,$port);
+        if ($prepared['code']===200) {
+            $payload['pair_version']=$prepared['json']['data']['pair_version'];
+            $payload['idempotency_key']=bin2hex(random_bytes(32));
+            if (($payload['action']??'')==='unblock') { $payload['block_id']=$prepared['json']['data']['own_block_id']; }
+        }
+    }
     $ch = curl_init('http://127.0.0.1:' . $port . $path);
     $base = ['Accept: application/json', 'Cookie: ' . ($auth['cookie'] ?? '')];
     if ($payload !== null) {
@@ -154,6 +168,7 @@ try {
     bushisa_bootstrap_disposable_database($root . '/database/bushisa.sql');
     $fresh = cli_l01([$root . '/bin/migrate.php']);
     check_l01(str_contains($fresh,'Applying 006_report_intake.sql'), 'M01 fresh migrations 001-006');
+    cli_l01([$root.'/tests/support/activate_pair_ledger.php','--writer-ref=synthetic:l01b-regression']);
     check_l01(str_contains(cli_l01([$root . '/bin/migrate.php']),'Skipping 006_report_intake.sql'), 'M02 migration rerun skips 006');
     $baseName = $settings['name'];
     putenv('DB_NAME=' . $baseName . '_upgrade');
@@ -485,9 +500,9 @@ try {
     $freshTargets=[];
     for($i=10;$i<14;$i++) { $u=user_l01($i,'female'); $freshTargets[]=pair_l01($B,$u,'none'); }
     $unknownRecipient=(int)sql_l01('SELECT user_b_id FROM matches WHERE id=?',[$freshTargets[0]])->fetchColumn();
-    sql_l01('UPDATE pair_request_counts SET history_verified_at=NULL WHERE requester_id=? AND recipient_id=?',[$B,$unknownRecipient]);
+    sql_l01('UPDATE pair_policy_history SET history_state="legacy_incomplete" WHERE match_id=?',[$freshTargets[0]]);
     ok_l01(http_l01('/api/message_requests.php',$b,['action'=>'request','match_id'=>$freshTargets[0]]),'A31 missing history proof cannot be treated as a fresh allowance',503);
-    sql_l01('UPDATE pair_request_counts SET history_verified_at=UTC_TIMESTAMP(6) WHERE requester_id=? AND recipient_id=?',[$B,$unknownRecipient]);
+    sql_l01('UPDATE pair_policy_history SET history_state="complete_from_genesis" WHERE match_id=?',[$freshTargets[0]]);
     for($i=0;$i<2;$i++) { ok_l01(http_l01('/api/message_requests.php',$b,['action'=>'request','match_id'=>$freshTargets[$i]]),'A31 probation successful send ' . $i); }
     $rr=concurrent_l01(['/api/message_requests.php',$b,['action'=>'request','match_id'=>$freshTargets[2]]],
         ['/api/message_requests.php',$b,['action'=>'request','match_id'=>$freshTargets[3]]],'message_request_before_mutation');
@@ -523,6 +538,8 @@ try {
         ok_l01(http_l01('/api/message_requests.php',$sx,['action'=>'request','match_id'=>$lifetimePair]),'A31 lifetime setup send '.$i);
         ok_l01(http_l01('/api/message_requests.php',$sx,['action'=>'cancel','match_id'=>$lifetimePair]),'A31 cancel without lifetime reset '.$i);
         sql_l01('UPDATE message_requests SET closed_at=DATE_SUB(UTC_TIMESTAMP(),INTERVAL 13 HOUR) WHERE match_id=?',[$lifetimePair]);
+        // Advance the independent synthetic cooldown clock as well.
+        sql_l01('UPDATE pair_request_counts c JOIN message_requests mr ON mr.requester_id=c.requester_id AND mr.recipient_id=c.recipient_id SET c.retry_not_before=DATE_SUB(UTC_TIMESTAMP(6),INTERVAL 1 HOUR) WHERE mr.match_id=?',[$lifetimePair]);
     }
     sql_l01('UPDATE message_request_sends SET created_at=DATE_SUB(UTC_TIMESTAMP(6),INTERVAL 25 HOUR) WHERE requester_id=?',[$senderX]);
     bushisa_report_transaction($pdo,fn()=>bushisa_report_cleanup($pdo));
@@ -536,6 +553,8 @@ try {
     ok_l01(http_l01('/api/message_requests.php',$dr,['action'=>'request','match_id'=>$declinePair]),'A31 approved reverse direction remains available');
     ok_l01(http_l01('/api/message_requests.php',$dr,['action'=>'cancel','match_id'=>$declinePair]),'A31 reverse requester may cancel');
     sql_l01('UPDATE message_requests SET closed_at=DATE_SUB(UTC_TIMESTAMP(),INTERVAL 13 HOUR) WHERE match_id=?',[$declinePair]);
+    // Advance the independent synthetic cooldown clock as well.
+    sql_l01('UPDATE pair_request_counts c JOIN message_requests mr ON mr.requester_id=c.requester_id AND mr.recipient_id=c.recipient_id SET c.retry_not_before=DATE_SUB(UTC_TIMESTAMP(6),INTERVAL 1 HOUR) WHERE mr.match_id=?',[$declinePair]);
     ok_l01(http_l01('/api/message_requests.php',$sy,['action'=>'request','match_id'=>$declinePair]),'A31 reverse request cannot erase original directional decline',409);
 
     // Unmatch alone preserves approval; reporting makes no relationship mutation.

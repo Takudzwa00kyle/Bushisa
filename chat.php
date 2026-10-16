@@ -13,6 +13,7 @@ require_once __DIR__ . '/php/logger.php';
 require_once __DIR__ . '/php/function.php';
 require_once __DIR__ . '/php/frontend.php';
 require_once __DIR__ . '/php/operational.php';
+require_once __DIR__ . '/php/pair_messages.php';
 
 require_login();
 ensure_operational_schema($pdo);
@@ -29,206 +30,31 @@ if ($matchId === null || $matchId <= 0) {
     redirect('matches.php');
 }
 
-$matchColumnsStatement = $pdo->query('SHOW COLUMNS FROM matches');
-$matchColumns = $matchColumnsStatement !== false ? $matchColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
-$matchUserAColumn = in_array('user_a_id', $matchColumns, true) ? 'user_a_id' : 'user_one_id';
-$matchUserBColumn = in_array('user_b_id', $matchColumns, true) ? 'user_b_id' : 'user_two_id';
-
-$matchStatement = $pdo->prepare(
-    sprintf(
-    'SELECT m.id, m.%1$s AS user_a_id, m.%2$s AS user_b_id,
-            p.user_id AS other_user_id, p.display_name, p.profile_photo_path, p.faculty
-     FROM matches m
-     INNER JOIN profiles p
-         ON p.user_id = CASE
-             WHEN m.%1$s = :join_current_user_id THEN m.%2$s
-             ELSE m.%1$s
-         END
-     WHERE m.id = :match_id
-       AND (m.%1$s = :where_current_user_a_id OR m.%2$s = :where_current_user_b_id)
-     LIMIT 1',
-    $matchUserAColumn,
-    $matchUserBColumn
-    )
-);
-$matchStatement->execute([
-    ':match_id' => $matchId,
-    ':join_current_user_id' => $currentUserId,
-    ':where_current_user_a_id' => $currentUserId,
-    ':where_current_user_b_id' => $currentUserId,
-]);
-$matchRow = $matchStatement->fetch(PDO::FETCH_ASSOC);
-
-if ($matchRow === false) {
-    redirect('matches.php');
-}
-
-$other_user = [
-    'user_id' => (int) $matchRow['other_user_id'],
-    'display_name' => (string) $matchRow['display_name'],
-    'profile_photo_path' => $matchRow['profile_photo_path'] ?? null,
-    'faculty' => $matchRow['faculty'] ?? null,
-];
-
-$messageColumnsStatement = $pdo->query('SHOW COLUMNS FROM messages');
-$messageColumns = $messageColumnsStatement !== false ? $messageColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
-$messageBodyColumn = in_array('body', $messageColumns, true) ? 'body' : 'message_text';
-$messageTimeColumn = in_array('sent_at', $messageColumns, true) ? 'sent_at' : 'created_at';
-$selectUnsentAt = in_array('unsent_at', $messageColumns, true) ? 'unsent_at' : 'NULL AS unsent_at';
-$selectUnsentBy = in_array('unsent_by', $messageColumns, true) ? 'unsent_by' : 'NULL AS unsent_by';
-$permissionState = operational_message_request_status($pdo, $matchId, $currentUserId, (int) $other_user['user_id']);
-$chatApproved = $permissionState['status'] === 'approved';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $submittedToken = isset($_POST['csrf_token']) && is_string($_POST['csrf_token']) ? $_POST['csrf_token'] : '';
-
-    if ($submittedToken === '' || !validate_csrf_token($submittedToken)) {
-        $error = 'Invalid form submission. Please try again.';
-    } else {
-        $action = clean_enum((string) ($_POST['action'] ?? 'send_message'), ['send_message', 'request_chat', 'approve_chat', 'decline_chat', 'revoke_chat']);
-
-        if ($action === null) {
-            $error = 'Invalid conversation action.';
-        } elseif ($action === 'request_chat') {
-            $statement = $pdo->prepare(
-                'INSERT INTO message_requests (match_id, requester_id, recipient_id, status, requested_at)
-                 VALUES (:match_id, :requester_id, :recipient_id, "pending", NOW())
-                 ON DUPLICATE KEY UPDATE
-                    status = CASE WHEN status = "revoked" THEN "pending" ELSE status END,
-                    requested_at = CASE WHEN status = "revoked" THEN NOW() ELSE requested_at END,
-                    revoked_at = CASE WHEN status = "revoked" THEN NULL ELSE revoked_at END'
-            );
-            $statement->execute([
-                ':match_id' => $matchId,
-                ':requester_id' => $currentUserId,
-                ':recipient_id' => (int) $other_user['user_id'],
-            ]);
-            operational_write_notification(
-                $pdo,
-                (int) $other_user['user_id'],
-                'message_request',
-                'Message request',
-                'An established match requested permission to chat.',
-                'chat.php?match_id=' . $matchId,
-                'message_request:' . $matchId . ':' . (int) $other_user['user_id']
-            );
-            $success = 'Message request sent.';
-        } elseif ($action === 'approve_chat' || $action === 'decline_chat') {
-            if (!$permissionState['is_recipient'] || $permissionState['status'] !== 'pending') {
-                $error = 'No pending message request is available.';
-            } else {
-                $nextStatus = $action === 'approve_chat' ? 'approved' : 'declined';
-                $statement = $pdo->prepare(
-                    'UPDATE message_requests
-                     SET status = :status, responded_at = NOW(), revoked_at = NULL
-                     WHERE match_id = :match_id
-                       AND recipient_id = :current_user_id
-                       AND requester_id = :other_user_id
-                       AND status = "pending"'
-                );
-                $statement->execute([
-                    ':status' => $nextStatus,
-                    ':match_id' => $matchId,
-                    ':current_user_id' => $currentUserId,
-                    ':other_user_id' => (int) $other_user['user_id'],
-                ]);
-                $success = $nextStatus === 'approved' ? 'Chat permission approved.' : 'Chat request declined.';
-            }
-        } elseif ($action === 'revoke_chat') {
-            $statement = $pdo->prepare(
-                'UPDATE message_requests
-                 SET status = "revoked", revoked_at = NOW()
-                 WHERE match_id = :match_id
-                   AND status IN ("pending", "approved")'
-            );
-            $statement->execute([':match_id' => $matchId]);
-            $success = 'Chat permission revoked.';
-        } elseif (!$chatApproved) {
-            $error = 'Chat permission has not been approved yet.';
-        } else {
-            $rateLimitKey = (string) $currentUserId;
-            if (!check_rate_limit($pdo, 'message', $rateLimitKey, 30, 60)) {
-            $error = 'You are sending messages too quickly.';
-            } else {
-            $body = trim(clean((string) ($_POST['body'] ?? '')));
-            if ($body === '') {
-                $error = 'Message cannot be empty.';
-            } else {
-                try {
-                    record_attempt($pdo, 'message', $rateLimitKey);
-
-                    $insertMessage = $pdo->prepare(
-                        sprintf(
-                            'INSERT INTO messages (match_id, sender_id, %1$s, is_read, %2$s)
-                             VALUES (:match_id, :sender_id, :body, 0, NOW())',
-                            $messageBodyColumn,
-                            $messageTimeColumn
-                        )
-                    );
-                    $insertMessage->execute([
-                        ':match_id' => $matchId,
-                        ':sender_id' => $currentUserId,
-                        ':body' => $body,
-                    ]);
-
-                    log_action($pdo, $currentUserId, 'message_sent', $_SERVER['REMOTE_ADDR'] ?? null);
-                    log_to_file('User ' . $currentUserId . ' sent a message in match ' . $matchId, 'INFO');
-
-                    $success = 'Message sent.';
-                } catch (Throwable $throwable) {
-                    log_to_file('Message send failed for user ' . $currentUserId . ': ' . $throwable->getMessage(), 'ERROR');
-                    $error = 'Unable to send your message right now.';
-                }
-            }
-        }
+$sessionVersion=(int)$_SESSION['session_version'];
+try {
+    $permissionState=bushisa_pair_request($pdo,$currentUserId,$sessionVersion,$matchId,'read');
+    $other_user=bushisa_pair_chat_profile($pdo,$currentUserId,$sessionVersion,$matchId);
+    if ($_SERVER['REQUEST_METHOD']==='POST') {
+        $token=$_POST['csrf_token']??'';
+        if (!is_string($token)||!validate_csrf_token($token)) { throw new BushisaReportError(403,'Invalid form submission'); }
+        $map=['request_chat'=>'request','approve_chat'=>'approve','decline_chat'=>'decline','revoke_chat'=>'revoke'];
+        $formAction=$_POST['action']??'';
+        if (isset($map[$formAction])) {
+            $intent=['action'=>$map[$formAction],'match_id'=>$matchId,'pair_version'=>(int)($_POST['pair_version']??-1),'idempotency_key'=>$_POST['idempotency_key']??''];
+            bushisa_pair_request($pdo,$currentUserId,$sessionVersion,$matchId,$map[$formAction],$intent);
+        } elseif ($formAction==='send_message') {
+            bushisa_pair_messages($pdo,$currentUserId,$sessionVersion,$matchId,'send',['body'=>$_POST['body']??'']);
+        } else { throw new BushisaReportError(400,'Invalid conversation action'); }
+        $success='Conversation updated.';
     }
-
-    $permissionState = operational_message_request_status($pdo, $matchId, $currentUserId, (int) $other_user['user_id']);
-    $chatApproved = $permissionState['status'] === 'approved';
-    }
+    $permissionState=bushisa_pair_request($pdo,$currentUserId,$sessionVersion,$matchId,'read');
+    $chatApproved=operational_has_message_approval($pdo,$matchId);
+    try { $messages=bushisa_pair_messages($pdo,$currentUserId,$sessionVersion,$matchId,'read'); }
+    catch (BushisaReportError $e) { if ($e->status!==403) { throw $e; } $messages=[]; }
+} catch (BushisaReportError $e) {
+    $error=$e->getMessage(); $messages=[]; $chatApproved=false;
+    if (!isset($other_user) || !is_array($other_user)) { redirect('matches.php'); }
 }
-
-$messages = [];
-if ($chatApproved) {
-    $messageStatement = $pdo->prepare(
-        sprintf(
-        'SELECT id, match_id, sender_id, %1$s AS body, %2$s AS sent_at, is_read, %3$s, %4$s
-         FROM messages
-         WHERE match_id = :match_id
-         ORDER BY %2$s ASC, id ASC',
-        $messageBodyColumn,
-        $messageTimeColumn,
-        $selectUnsentAt,
-        $selectUnsentBy
-        )
-    );
-    $messageStatement->execute([':match_id' => $matchId]);
-    $messages = $messageStatement->fetchAll(PDO::FETCH_ASSOC) ?: [];
-    foreach ($messages as &$message) {
-        if (!empty($message['unsent_at'])) {
-            $message['body'] = 'Message unsent';
-            $message['is_unsent'] = true;
-        } else {
-            $message['is_unsent'] = false;
-        }
-    }
-    unset($message);
-}
-
-if ($chatApproved) {
-    $markReadStatement = $pdo->prepare(
-        'UPDATE messages
-         SET is_read = 1
-         WHERE match_id = :match_id
-           AND sender_id <> :current_user_id
-           AND is_read = 0'
-    );
-    $markReadStatement->execute([
-        ':match_id' => $matchId,
-        ':current_user_id' => $currentUserId,
-    ]);
-}
-
 $csrfToken = generate_csrf_token();
 
 render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conversation'), $csrfToken, $currentUserId, false, 'Approved conversation state');
@@ -260,6 +86,8 @@ render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conver
                 <p>Send a message request first. The other person can approve or decline without pressure.</p>
                 <form method="post" action="chat.php?match_id=<?= e($matchId) ?>">
                     <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
+                    <input type="hidden" name="pair_version" value="<?= e($permissionState['pair']['pair_version'] ?? -1) ?>">
+                    <input type="hidden" name="idempotency_key" value="<?= e(bin2hex(random_bytes(32))) ?>">
                     <input type="hidden" name="action" value="request_chat">
                     <button class="button" type="submit" disabled title="Service under development">Request message permission</button>
                 </form>
@@ -268,6 +96,8 @@ render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conver
                 <p>Your match has not approved chat permission yet.</p>
                 <form method="post" action="chat.php?match_id=<?= e($matchId) ?>">
                     <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
+                    <input type="hidden" name="pair_version" value="<?= e($permissionState['pair']['pair_version'] ?? -1) ?>">
+                    <input type="hidden" name="idempotency_key" value="<?= e(bin2hex(random_bytes(32))) ?>">
                     <input type="hidden" name="action" value="revoke_chat">
                     <button class="button-secondary" type="submit" disabled title="Service under development">Cancel request</button>
                 </form>
@@ -277,11 +107,15 @@ render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conver
                 <div class="card-actions">
                     <form method="post" action="chat.php?match_id=<?= e($matchId) ?>">
                         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
+                    <input type="hidden" name="pair_version" value="<?= e($permissionState['pair']['pair_version'] ?? -1) ?>">
+                    <input type="hidden" name="idempotency_key" value="<?= e(bin2hex(random_bytes(32))) ?>">
                         <input type="hidden" name="action" value="approve_chat">
                         <button class="button" type="submit" disabled title="Service under development">Approve</button>
                     </form>
                     <form method="post" action="chat.php?match_id=<?= e($matchId) ?>">
                         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
+                    <input type="hidden" name="pair_version" value="<?= e($permissionState['pair']['pair_version'] ?? -1) ?>">
+                    <input type="hidden" name="idempotency_key" value="<?= e(bin2hex(random_bytes(32))) ?>">
                         <input type="hidden" name="action" value="decline_chat">
                         <button class="button-secondary" type="submit" disabled title="Service under development">Decline</button>
                     </form>
@@ -308,6 +142,8 @@ render_page_shell_start('chat', (string) ($other_user['display_name'] ?? 'Conver
 
     <form class="chat-composer" method="post" action="chat.php?match_id=<?= e($matchId) ?>">
         <input type="hidden" name="csrf_token" value="<?= e($csrfToken) ?>">
+                    <input type="hidden" name="pair_version" value="<?= e($permissionState['pair']['pair_version'] ?? -1) ?>">
+                    <input type="hidden" name="idempotency_key" value="<?= e(bin2hex(random_bytes(32))) ?>">
         <input type="hidden" name="action" value="send_message">
         <label class="sr-only" for="message-body">Message</label>
         <textarea id="message-body" name="body" rows="2" maxlength="1000" required placeholder="Service under development..." disabled></textarea>

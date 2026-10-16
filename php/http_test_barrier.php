@@ -17,6 +17,10 @@ function bushisa_http_test_barrier(string $point): void
     ) {
         throw new RuntimeException('HTTP test barrier is not enabled for this environment.');
     }
+    // Guarded synthetic suites can rendezvous different route kinds at the
+    // same pre-transaction point. This is unreachable without all test flags.
+    $override=$_SERVER['HTTP_X_BUSHISA_TEST_BARRIER_POINT']??null;
+    if (is_string($override) && preg_match('/\A[a-z0-9_]{1,80}\z/',$override)) { $point=$override; }
 
     $expected = isset($_SERVER['HTTP_X_BUSHISA_TEST_BARRIER_EXPECTED'])
         ? max(2, min(8, (int) $_SERVER['HTTP_X_BUSHISA_TEST_BARRIER_EXPECTED']))

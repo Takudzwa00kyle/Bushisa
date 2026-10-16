@@ -98,17 +98,18 @@ function bushisa_report_open(string $token, int $reporter, array $ring): array
 }
 
 /** Only called for an item actually returned by an already-authorized reader. */
-function bushisa_report_context_for_response(PDO $pdo, int $reporter, string $type, int $id, ?string $observedBody = null): ?string
+function bushisa_report_context_for_response(PDO $pdo, int $reporter, string $type, int $id, ?string $observedBody = null, ?string $event = null): ?string
 {
     if (!bushisa_report_available($pdo)) {
         return null;
     }
-    $source = bushisa_report_source($pdo, $reporter, $type, $id, $pdo->inTransaction());
+    $source = bushisa_report_source($pdo, $reporter, $type, $id, $pdo->inTransaction(),null,true,$event);
     if ($source === null || !$source['visible'] || ($observedBody !== null && $source['capturable'] && $source['body'] !== $observedBody)) {
         return null;
     }
     $now = bushisa_report_now($pdo);
     $expires = $source['expires'];
+    if ($expires!==null && $now>=$expires) { return null; }
     if ($type === 'user') {
         $expires = bushisa_report_time($now)->modify('+30 days')->format('Y-m-d H:i:s.u');
     }
@@ -125,7 +126,7 @@ function bushisa_report_context_for_response(PDO $pdo, int $reporter, string $ty
  * Scoped source loader. Metadata membership is checked before any private body.
  * Issuance callers must already have applied their ordinary read predicate.
  */
-function bushisa_report_source(PDO $pdo, int $reporter, string $type, int $id, bool $lock, ?string $expectedVersion = null, bool $captureAllowed = true): ?array
+function bushisa_report_source(PDO $pdo, int $reporter, string $type, int $id, bool $lock, ?string $expectedVersion = null, bool $captureAllowed = true, ?string $expectedEvent = null): ?array
 {
     $suffix = $lock ? ' FOR UPDATE' : '';
     $row = null;
@@ -220,12 +221,34 @@ function bushisa_report_source(PDO $pdo, int $reporter, string $type, int $id, b
         $stmt = $pdo->prepare('SELECT id, requester_id, recipient_id, status, requested_at, responded_at, expires_at, generation_key, purge_due_at FROM message_requests WHERE match_id = ? ORDER BY id DESC LIMIT 1' . $suffix);
         $stmt->execute([$id]);
         $event = $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
+        if (($event['status']??'')==='pending' && empty($event['expires_at'])) { return null; }
+        if (in_array($event['status']??'',['expired','cancelled','declined','revoked'],true) && empty($event['purge_due_at']) && $expectedEvent===null) { return null; }
         $expires = $event['purge_due_at'] ?? null;
         $eventIdentity = $event === [] ? 'pair-only' : ($event['id'] . ':' . $event['requested_at']);
+        if ($expectedEvent!==null && preg_match('/\A([0-9]+):(.+)\z/',$expectedEvent,$oldIdentity)
+            && (int)$oldIdentity[1]===(int)($event['id']??0)
+            && bushisa_report_time($oldIdentity[2])==bushisa_report_time($event['requested_at'])) {
+            $eventIdentity=$expectedEvent; // Same observed instant across precision widening.
+        }
         if ($expires === null && ($event['status'] ?? '') === 'pending' && !empty($event['expires_at'])) {
             $expires = bushisa_report_time($event['expires_at'])->modify('+30 days')->format('Y-m-d H:i:s.u');
         }
         $revision = json_encode([$row['match_status'], $event], JSON_THROW_ON_ERROR);
+        if (operational_table_exists($pdo,'pair_request_events')) {
+            $eventKey=null;
+            if ($expectedEvent!==null && str_starts_with($expectedEvent,'ledger:')) { $eventKey=substr($expectedEvent,7); }
+            elseif ($expectedEvent===null) {
+                $current=$pdo->prepare('SELECT current_request_event_key FROM pair_policy_history WHERE match_id=?');
+                $current->execute([$id]); $eventKey=$current->fetchColumn()?:null;
+            }
+            if ($eventKey!==null) {
+                $stored=$pdo->prepare('SELECT * FROM pair_request_events WHERE match_id=? AND event_key=?'.$suffix);
+                $stored->execute([$id,$eventKey]); $historical=$stored->fetch(PDO::FETCH_ASSOC);
+                if (!is_array($historical)) { return null; }
+                $eventIdentity='ledger:'.$eventKey; $expires=$historical['purge_due_at'];
+                $revision=json_encode($historical,JSON_THROW_ON_ERROR);
+            }
+        }
     } elseif ($type === 'user') {
         $stmt = $pdo->prepare('SELECT id, created_at AS created, deleted_at FROM users WHERE id = ?' . $suffix);
         $stmt->execute([$id]);
@@ -388,7 +411,7 @@ function bushisa_report_resolve(PDO $pdo, int $reporter, array $intent, array $r
             || !in_array($id, $proof['participants'] ?? [], true) || $id === $reporter) {
             throw new BushisaReportError(404);
         }
-        $original = bushisa_report_source($pdo, $reporter, $proof['type'], (int) $proof['id'], true, $proof['version'], false);
+        $original = bushisa_report_source($pdo, $reporter, $proof['type'], (int) $proof['id'], true, $proof['version'], false,$proof['event']??null);
         if ($original === null || $original['created'] !== $proof['created']) {
             throw new BushisaReportError(404);
         }
@@ -419,7 +442,7 @@ function bushisa_report_resolve(PDO $pdo, int $reporter, array $intent, array $r
             }
         }
     }
-    $source = bushisa_report_source($pdo, $reporter, $type, $id, true, $proof['version'], $capture);
+    $source = bushisa_report_source($pdo, $reporter, $type, $id, true, $proof['version'], $capture,$proof['event']??null);
     if ($source === null || $source['created'] !== $proof['created']
         || $source['container'] !== $proof['container']
         || ($type === 'match' && ($proof['event'] ?? null) !== $source['event'])

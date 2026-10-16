@@ -107,6 +107,10 @@ foreach ($files as $file) {
         require_once __DIR__ . '/../php/report_migration.php';
         bushisa_migrate_report_revisions($pdo);
     }
+    if ($name === '007_pair_history.sql') {
+        require_once __DIR__ . '/../php/pair_migration.php';
+        bushisa_migrate_pair_history($pdo);
+    }
     mark_migration_applied($pdo, $version);
 }
 

@@ -151,7 +151,8 @@ assert_policy((string) $messageExists->fetchColumn() === 'case evidence body', '
 
 $revoked = $pdo->prepare('SELECT status FROM message_requests WHERE match_id = :match_id ORDER BY id DESC LIMIT 1');
 $revoked->execute([':match_id' => $matchId]);
-assert_policy((string) $revoked->fetchColumn() === 'revoked', 'block should revoke approved chat grant');
+assert_policy((string) $revoked->fetchColumn() === 'approved', 'block preserves approval history without manufacturing an explicit chat ending');
+assert_policy(!bushisa_authorize_match_action($pdo,$matchId,$leftUserId,true)['ok'], 'actual block independently denies the preserved grant');
 
 $deleteUserId = policy_create_user($pdo, 'male', 'female');
 $otherUserId = policy_create_user($pdo, 'female', 'male');
