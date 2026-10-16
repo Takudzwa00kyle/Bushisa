@@ -135,10 +135,12 @@ slice does not authorize indefinite history after account deletion. Conditional
 7-day live erase +35-day backup +7-day recovery margin remains 49 days only under
 those assumptions, not a universal setting.
 
-The next bounded engineering task is **L02b: guarded legacy-history evidence and
-import contract**, using synthetic complete/incomplete manifests, explicit
-provenance, no guessed events and repeat/concurrent import tests. UI/manual
-restoration/block projections and remaining matrix variants need later evidence.
+The [L02b evidence/import contract](l02b-legacy-history-import-contract.md) is now
+prepared, with LB01–LB33 all NOT RUN. It separates evidence completeness from
+runtime eligibility; no imported fact can enable a legacy pair. The next bounded
+implementation is **L02c: offline validation and a guarded read-only synthetic
+planner**, without apply or legacy activation. Later synthetic apply/schema,
+UI/manual restoration/block projections and remaining matrix variants need evidence.
 No settled owner policy requires reapproval. Qualified reviewers, real MFA,
 accepted operators/coverage, production writer capture and L03 replay remain
 release gates, not fictional appointments. No push, merge, deployment, live
