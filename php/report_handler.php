@@ -17,79 +17,9 @@ require_once __DIR__ . '/sanitize.php';
  */
 function submit_report(PDO $pdo, int $reporter_id, int $reported_user_id, string $reason, ?string $evidence_path = null): array
 {
-    if ($reporter_id === $reported_user_id) {
-        return [
-            'success' => false,
-            'error' => 'You cannot report yourself.',
-        ];
-    }
-
-    $reason = clean($reason);
-    $reason = function_exists('mb_substr') ? mb_substr($reason, 0, 255) : substr($reason, 0, 255);
-    if ($reason === '') {
-        return [
-            'success' => false,
-            'error' => 'Please provide a report reason.',
-        ];
-    }
-
-    $userStatement = $pdo->prepare('SELECT id FROM users WHERE id = :id LIMIT 1');
-    $userStatement->execute([':id' => $reported_user_id]);
-    if ($userStatement->fetchColumn() === false) {
-        return [
-            'success' => false,
-            'error' => 'The reported user does not exist.',
-        ];
-    }
-
-    $duplicateStatement = $pdo->prepare(
-        'SELECT id FROM reports
-         WHERE reporter_id = :reporter_id
-           AND reported_user_id = :reported_user_id
-           AND status = :status
-         LIMIT 1'
-    );
-    $duplicateStatement->execute([
-        ':reporter_id' => $reporter_id,
-        ':reported_user_id' => $reported_user_id,
-        ':status' => 'pending',
-    ]);
-
-    if ($duplicateStatement->fetchColumn() !== false) {
-        return [
-            'success' => false,
-            'error' => 'You have already submitted a pending report against this user.',
-        ];
-    }
-
-    try {
-        $insertStatement = $pdo->prepare(
-            'INSERT INTO reports (reporter_id, reported_user_id, reason, evidence_path, status, created_at)
-             VALUES (:reporter_id, :reported_user_id, :reason, :evidence_path, :status, NOW())'
-        );
-        $insertStatement->execute([
-            ':reporter_id' => $reporter_id,
-            ':reported_user_id' => $reported_user_id,
-            ':reason' => $reason,
-            ':evidence_path' => $evidence_path,
-            ':status' => 'pending',
-        ]);
-
-        log_action($pdo, $reporter_id, 'report_user:' . $reported_user_id, $_SERVER['REMOTE_ADDR'] ?? null);
-        log_to_file('User ' . $reporter_id . ' reported user ' . $reported_user_id, 'INFO');
-
-        return [
-            'success' => true,
-            'error' => null,
-        ];
-    } catch (Throwable $throwable) {
-        log_to_file('Report submission failed for user ' . $reporter_id . ': ' . $throwable->getMessage(), 'ERROR');
-
-        return [
-            'success' => false,
-            'error' => 'Unable to submit report right now.',
-        ];
-    }
+    // Legacy ID-only intake cannot prove authorized exposure or deduplicate
+    // intent. No callers may bypass the shared text-report contract.
+    return ['success' => false, 'error' => 'Use authorized report intake with a report context and submission key.'];
 }
 
 /**

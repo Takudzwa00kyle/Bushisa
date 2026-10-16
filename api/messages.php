@@ -12,6 +12,7 @@ require_once __DIR__ . '/../php/rate_limit.php';
 require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
+require_once __DIR__ . '/../php/report_intake.php';
 require_once __DIR__ . '/../php/policy_safeguards.php';
 require_once __DIR__ . '/../php/http_test_barrier.php';
 
@@ -67,6 +68,9 @@ $selectUnsentAt = $hasUnsentAt ? 'unsent_at' : 'NULL AS unsent_at';
 $selectUnsentBy = $hasUnsentBy ? 'unsent_by' : 'NULL AS unsent_by';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $pdo->beginTransaction();
+    $authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, true, true);
+    if (!$authorization['ok']) { $pdo->rollBack(); json_response(['error' => 'Conversation unavailable'], 403); }
     $afterId = clean_int($_GET['after_id'] ?? null);
     if ($afterId === null || $afterId < 0) {
         $afterId = 0;
@@ -79,7 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
              FROM messages
              WHERE match_id = :match_id
                AND id > :after_id
-             ORDER BY id ASC',
+               AND unsent_at IS NULL AND ordinary_body_purged_at IS NULL
+               AND (evidence_purge_due_at IS NULL OR evidence_purge_due_at > UTC_TIMESTAMP(6))
+             ORDER BY id ASC FOR UPDATE',
             $messageBodyColumn,
             $messageTimeColumn,
             $selectUnsentAt,
@@ -92,12 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     ]);
     $messages = $messagesStatement->fetchAll(PDO::FETCH_ASSOC) ?: [];
     foreach ($messages as &$message) {
-        if (!empty($message['unsent_at'])) {
-            $message['body'] = 'Message unsent';
-            $message['is_unsent'] = true;
-        } else {
-            $message['is_unsent'] = false;
-        }
+        $message['is_unsent'] = false;
+        $message['report_context'] = bushisa_report_context_for_response($pdo, $currentUserId, 'message', (int) $message['id']);
     }
     unset($message);
 
@@ -116,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         ]);
     }
 
+    $pdo->commit();
     json_response([
         'success' => true,
         'data' => $messages,
@@ -142,55 +145,63 @@ if ($action === 'unsend') {
     }
 
     try {
-        $statement = $pdo->prepare(
-            sprintf(
-                'UPDATE messages
-                 SET moderation_body = NULL,
-                     %1$s = "",
-                     unsent_at = NOW(),
-                    unsent_by = :unsent_by_user_id,
-                     unsent_reason = "sender_unsend",
-                     ordinary_body_purged_at = UTC_TIMESTAMP()
-                 WHERE id = :message_id
-                   AND match_id = :match_id
-                   AND sender_id = :sender_user_id
-                   AND unsent_at IS NULL
-                   AND %2$s >= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 15 MINUTE)',
-                $messageBodyColumn
-                ,
-                $messageTimeColumn
-            )
-        );
-        $statement->execute([
-            ':message_id' => $messageId,
-            ':match_id' => $matchId,
-            ':unsent_by_user_id' => $currentUserId,
-            ':sender_user_id' => $currentUserId,
-        ]);
-
-        if ($statement->rowCount() < 1) {
-            $already = $pdo->prepare(
-                'SELECT id FROM messages
-                 WHERE id = :message_id
-                   AND match_id = :match_id
-                   AND sender_id = :current_user_id
-                   AND unsent_at IS NOT NULL
-                 LIMIT 1'
+        session_write_close();
+        bushisa_http_test_barrier('report_before_transaction');
+        bushisa_report_transaction($pdo, function () use ($pdo, $messageBodyColumn, $messageTimeColumn, $currentUserId, $matchId, $messageId): void {
+            $authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, true, true);
+            if (!$authorization['ok']) { throw new BushisaReportError(403, 'Conversation unavailable'); }
+            $statement = $pdo->prepare(
+                sprintf(
+                    'UPDATE messages
+                     SET moderation_body = NULL,
+                         %1$s = "",
+                         unsent_at = NOW(),
+                        unsent_by = :unsent_by_user_id,
+                         unsent_reason = "sender_unsend",
+                         ordinary_body_purged_at = UTC_TIMESTAMP()
+                     WHERE id = :message_id
+                       AND match_id = :match_id
+                       AND sender_id = :sender_user_id
+                       AND unsent_at IS NULL
+                       AND %2$s >= DATE_SUB(UTC_TIMESTAMP(), INTERVAL 15 MINUTE)',
+                    $messageBodyColumn
+                    ,
+                    $messageTimeColumn
+                )
             );
-            $already->execute([
+            $statement->execute([
                 ':message_id' => $messageId,
                 ':match_id' => $matchId,
-                ':current_user_id' => $currentUserId,
+                ':unsent_by_user_id' => $currentUserId,
+                ':sender_user_id' => $currentUserId,
             ]);
-            if ($already->fetchColumn() === false) {
-                json_response(['error' => 'Message cannot be unsent'], 403);
-            }
-        }
 
+            if ($statement->rowCount() < 1) {
+                $already = $pdo->prepare(
+                    'SELECT id FROM messages
+                     WHERE id = :message_id
+                       AND match_id = :match_id
+                       AND sender_id = :current_user_id
+                       AND unsent_at IS NOT NULL
+                     LIMIT 1'
+                );
+                $already->execute([
+                    ':message_id' => $messageId,
+                    ':match_id' => $matchId,
+                    ':current_user_id' => $currentUserId,
+                ]);
+                if ($already->fetchColumn() === false) {
+                    json_response(['error' => 'Message cannot be unsent'], 403);
+                }
+            }
+
+        });
         log_action($pdo, $currentUserId, 'message_unsent:' . $messageId, $_SERVER['REMOTE_ADDR'] ?? null);
-        json_response(['success' => true, 'data' => ['id' => $messageId, 'is_unsent' => true, 'body' => 'Message unsent']]);
+        json_response(['success' => true, 'data' => ['id' => $messageId, 'is_unsent' => true]]);
+    } catch (BushisaReportError $error) {
+        json_response(['error' => $error->getMessage()], $error->status);
     } catch (Throwable $throwable) {
-        log_to_file('Message unsend failed for user ' . $currentUserId . ': ' . $throwable->getMessage(), 'ERROR');
+        log_to_file('Message unsend failed: ' . get_class($throwable), 'ERROR');
         json_response(['error' => 'Unable to unsend message'], 500);
     }
 }
@@ -208,8 +219,9 @@ if ($body === '') {
 $body = function_exists('mb_substr') ? mb_substr($body, 0, 1000) : substr($body, 0, 1000);
 
 try {
-    $pdo->beginTransaction();
+    session_write_close();
     bushisa_http_test_barrier('chat_relationship_mutation_before_update');
+    $pdo->beginTransaction();
     $authorization = bushisa_authorize_match_action($pdo, $matchId, $currentUserId, true, true);
     if (!$authorization['ok']) {
         $pdo->rollBack();
@@ -218,6 +230,15 @@ try {
 
     record_attempt($pdo, 'message', $rateLimitKey);
 
+    $segment = null;
+    if (operational_column_exists($pdo, 'messages', 'report_segment_key')) {
+        $grant = $pdo->prepare('SELECT id, responded_at FROM message_requests WHERE match_id = ? AND status = "approved" AND revoked_at IS NULL FOR UPDATE');
+        $grant->execute([$matchId]);
+        $grantRow = $grant->fetch(PDO::FETCH_ASSOC);
+        if ($grantRow && $grantRow['responded_at'] !== null) {
+            $segment = hash('sha256', $matchId . ':' . $grantRow['id'] . ':' . $grantRow['responded_at']);
+        }
+    }
     $insertStatement = $pdo->prepare(
         sprintf(
             'INSERT INTO messages (match_id, sender_id, %1$s, %2$s, is_read)
@@ -233,6 +254,10 @@ try {
     ]);
 
     $messageId = (int) $pdo->lastInsertId();
+    if ($segment !== null) {
+        $segmentStmt = $pdo->prepare('UPDATE messages SET report_segment_key = ? WHERE id = ?');
+        $segmentStmt->execute([$segment, $messageId]);
+    }
 
     $messageFetchStatement = $pdo->prepare(
         sprintf(

@@ -103,7 +103,7 @@ function bushisa_authorize_match_action(PDO $pdo, int $matchId, int $currentUser
 
     $columns = operational_match_columns($pdo);
     $statusFilter = operational_column_exists($pdo, 'matches', 'match_status')
-        ? ' AND match_status = "active"'
+        ? ($requireApprovedChat ? ' AND match_status IN ("active", "unmatched")' : ' AND match_status = "active"')
         : '';
     $lockSql = $lock ? ' FOR UPDATE' : '';
 
@@ -228,12 +228,14 @@ function bushisa_close_match_between(PDO $pdo, int $actorUserId, int $otherUserI
             ]);
         }
 
-        bushisa_revoke_match_requests($pdo, $matchId, $reason);
-        bushisa_enqueue_cleanup($pdo, 'closed_conversation_cleanup', 'match', $matchId, [
-            'policy_status' => 'proposed',
-            'purge_due_sql' => 'closed_conversation_plus_90_days',
-            'reason' => $reason,
-        ]);
+        if ($reason !== 'unmatched') {
+            bushisa_revoke_match_requests($pdo, $matchId, $reason);
+            bushisa_enqueue_cleanup($pdo, 'closed_conversation_cleanup', 'match', $matchId, [
+                'policy_status' => 'proposed',
+                'purge_due_sql' => 'closed_conversation_plus_90_days',
+                'reason' => $reason,
+            ]);
+        }
         bushisa_record_protective_event($pdo, 'match_closed', 'match', $matchId, $actorUserId, [
             'reason' => $reason,
             'other_user_id' => $otherUserId,
@@ -337,6 +339,15 @@ function bushisa_capture_case_evidence(PDO $pdo, int $caseId, string $targetType
 
 function bushisa_case_evidence_for_viewer(PDO $pdo, int $caseId, int $viewerUserId, string $reason): array
 {
+    // New intake never inherits the legacy administrator/reason bypass.
+    if (operational_column_exists($pdo, 'moderation_cases', 'intake_contract_version')) {
+        $newCase = $pdo->prepare('SELECT 1 FROM moderation_cases WHERE id = ? AND intake_contract_version = 1 LIMIT 1');
+        $newCase->execute([$caseId]);
+        if ($newCase->fetchColumn()) {
+            require_once __DIR__ . '/report_intake.php';
+            return bushisa_report_review_evidence($pdo, $caseId, $viewerUserId, $_SESSION ?? []);
+        }
+    }
     $roleStatement = $pdo->prepare('SELECT role FROM users WHERE id = :viewer_user_id LIMIT 1');
     $roleStatement->execute([':viewer_user_id' => $viewerUserId]);
     $role = (string) ($roleStatement->fetchColumn() ?: '');

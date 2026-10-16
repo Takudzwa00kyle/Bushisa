@@ -2,6 +2,23 @@
 
 Updated: 2026-10-16, Africa/Harare.
 
+## Current L01b local implementation checkpoint
+
+Continued f7e9f8c on codex/l01b-report-intake-20261016 with a clean starting tree.
+The [implementation/evidence record](l01b-implementation-evidence-2026-10-16.md)
+records authorized text-target proof, actual/ambiguous attribution, idempotent
+receipts/addenda, atomic fixed probation/renewal, request allowance integration
+and report-linked clearance plus creator removal. Forward migration 006 preserves
+existing rows; no old report gets retrospective probation. Local verification:
+**245 assertions, eight distinct-worker overlap scenarios, fresh/upgrade migrations**.
+Current A01–A45 statuses distinguish PASS, PARTIAL and NOT RUN. Old CI and the
+38-link documentation check are not evidence for this implementation.
+
+No P1–P6 owner answer is outstanding. Qualified privacy/security/safety review,
+real MFA, named operators/backups, human recovery, sanctions/appeals, coverage,
+L02 legacy pair-history/grant alignment and full L03 cleanup/replay remain gates.
+No production configuration, real mail, live database, push, merge or deployment.
+
 ## Latest P1-P6 owner decisions
 
 The [register approval record](decisions.md#p1-p6-explicit-owner-decisions) now
@@ -42,7 +59,7 @@ both before restoration; permit temporary unset Reply-To until monitored-inbox
 verification under the new D11 amendment. Both named conflicts are resolved;
 never broaden decline-only recreated-match clearance. New active-chat/copy/metadata/default values introduced as proposals
 remain proposed. See L01-L07 below for later work; no code/configuration work
-is authorized or performed in this checkpoint.
+was authorized or performed in that owner-policy documentation checkpoint; the separately authorized L01b continuation is recorded above.
 
 ## Historical initial finding snapshot
 
@@ -134,23 +151,26 @@ remain incomplete. D04/D05 approval and P0/P1 gates remain open.
 
 ## Q01-Q48 implementation backlog
 
-These are **later bounded prompts**, not work implemented in this documentation
-turn. L01-L07 avoid the existing B00/B01 baseline task identifiers. Product
+These began as **later bounded prompts** in the owner-policy documentation
+turn; L01b progress below now has separately authorized local evidence. L01-L07 avoid the existing B00/B01 baseline task identifiers. Product
 reviewer is Takudzwa Hondova; every named operational/qualified implementer,
 reviewer and backup remains UNASSIGNED until actually accepted. Public service
 deadlines stay gated by ownership, overdue alerts and measured capacity.
 
 | Task | Policy dependency / scope | Current gap and later bounded output | Evidence needed / release gate |
 |---|---|---|---|
-| L01 Report routes and roles | Q01-Q05/Q18-Q20 plus D04 Decisions 28-33: P1-P6 approved, service targets conditional on staffing | Use the mapped safety/report/confession/admin surfaces and reviewed L01a contract. Implement authorized text-first targets, actual actor attribution, accepted ambiguous cases, rejected self-primary reports, human recovery interface, case/receipt dedupe, once-only fixed probation/renewal and report-attached block clearance. Apply approved severity findings/independent appeals in later reviewed workflow; gate uploads and public targets by real controls/coverage. | A01-A45 remain NOT RUN; later guarded proof/authorization/duplicate/overlap/renewal/clearance and reviewer-workflow evidence required. Engineering/security/privacy/safety sign-off, real roles/capacity, H03/H10 and release acceptance remain open; no whole D04 approval. |
-| L02 Terminal pair state, undo and projections | Existing D04 Decisions 1-26 plus Q06-Q10/Q17/Q25; Decision 27 fresh mutual restoration agreement approved | Align `api/message_requests.php` from 24h cancel/expiry, 30d decline and 20/hour provisional behavior to approved clocks/budgets. Split active match, chat grant, own unmatch/undo, pending requests, decline-only new-match clearance, lifetime counts/endings and old/new history segments. Add immediate own-undo attempts with fresh agreement from both before restoration under Decision 27, and one successful pair restoration per rolling 24h; preserve chat on unmatch, pending expiry, pause functions, 7d rediscovery exclusion, cache visibility and unsend projection deadlines. | Later real-route/atomic-overlap/boundary/authorization and projection checks, without reusing old CI as evidence for new semantics. Confirm overlapping-unmatch event representation and exact unsend edge. Product/engineering/safety sign-off and D04 gates remain open. |
-| L03 Cleanup, evidence clocks and independent replay | Q10-Q27/Q32; D05 partial; Q12 anti-replay/Q16 active chat/Q23 metadata/Q26 copy settings still proposed | Inventory all fields/media/derivatives/caches/logs/exports/copies; additive immutable deadlines and old/new history segmentation; scoped hold authority/release; original-text evidence exception; either-account cleanup and confession erasure. `bin/cleanup_policy.php` only handles limited signup/synthetic categories; provisional helpers still have 30d account/90d closed-chat/24-month case deadlines, some derived at creation. Build full idempotent bounded workers and independently durable replay with real object-completion proof. | Later expiry/no-reset/hold/retry/object-index/failure tests; actual copy/purge watermarks and independently witnessed isolated restore under separate authorization. Calculate latest copy +7d; conditional 7+35+7=49d, never universal. H03/H08, privacy and named cleanup/backup operators open. |
+| L01 Report routes and roles | Decisions 28–33 and Q01–Q05/Q18–Q20; service targets conditional | L01b text/API resolver, actual/ambiguous actor attribution, self-primary rejection, deduplicated private receipts/addenda, atomic probation/renewal and block clearance are implemented locally. See exact evidence. Human recovery, full sanctions/appeals, real MFA and staffed queues remain later slices. | [Current A01–A45 results](l01b-implementation-evidence-2026-10-16.md#a01a45-current-status): PASS/PARTIAL/NOT RUN, not whole acceptance. Qualified review, legacy pair-state/replay, real roles/capacity, H03/H10 and release gates remain open. |
+| L02 Terminal pair state, undo and projections | Existing D04 Decisions 1–33, including decline-only new-match clearance and Decision 27 fresh mutual restoration | L01b aligns fresh request clocks/allowances, preserves unmatch grants/pending state and stores minimal counts/directional declines. New requests fail closed without verified pair provenance; migration never certifies old history. L02 must verify old history and supply immutable events/ending counts, original-ender 12h restart, second-ending cutoff across rematches, genuine-new-match decline clearance and eligible immediate-chat unblock. Undo needs both fresh agreements, own-unmatch control and rolling pair cap; it is never a new match. Complete visibility/cache/history projections separately. | Actual route/overlap/boundary/projection tests for remaining variants and verified legacy backfill; never assume absent history is clean. Qualified review and D04 acceptance remain open. |
+| L03 Cleanup, evidence clocks and independent replay | Q10-Q27/Q32; D05 partial; Q12 anti-replay/Q16 active chat/Q23 metadata/Q26 copy settings still proposed | Inventory all fields/media/derivatives/caches/logs/exports/copies; additive immutable deadlines and old/new history segmentation; scoped hold authority/release; original-text evidence exception; either-account cleanup and confession erasure. `bin/cleanup_policy.php` now also handles L01b new-intake/text expiry, but not full legacy/object/hold-authority/replay categories; provisional helpers still have 30d account/90d closed-chat/24-month case deadlines, some derived at creation. Build full idempotent bounded workers and independently durable replay with real object-completion proof. | Later expiry/no-reset/hold/retry/object-index/failure tests; actual copy/purge watermarks and independently witnessed isolated restore under separate authorization. Calculate latest copy +7d; conditional 7+35+7=49d, never universal. H03/H08, privacy and named cleanup/backup operators open. |
 | L04 Consent and coarse geography | Q28-Q34; D12 partial; source combination/catalogue widths/bonus bands still proposed; D03 full geography scope preserved | Build reviewed catalogue contract without invented points; current coarse area/version/time/consent only; optional opt-in/refusal/withdrawal; 7d freshness/24h purge; >=10-user cohort suppression; atomic 2 changes/24h; <=5-point soft ranking with zero fallback; cursor invalidation/live safety checks. `profiles.campus_zone` is legacy and authoritative matcher currently lacks geographic ranking. | Local catalogue/point acceptance, normalization/fairness/probing/query/load evidence and Android/iOS grant/refuse/withdraw/expiry/paging witnesses. Privacy/H13, final notice and actual catalogue reviewers UNASSIGNED; no production collection before acceptance. |
 | L05 Telemetry allowlist | Q13/Q23/Q43-Q44; provider/sampling/metadata defaults and funding remain proposed | Map every server/browser/provider destination. Prepare pre-transmission fixed-field redaction/allowlist, optional browser consent/withdrawal gate, random expiring visitor reference, separate app-side totals and suppressed aggregates. Inventory table minimums/export/archive paths against retention; no session replay, message/location/answer/token collection. | Later consent/redaction/retention/source-count tests, priced region/configuration review and named privacy/security acceptance. D10 stays pending; US$5 is not an approved spend. |
 | L06 Reset challenge, outbox and sessions | Q11/Q22/Q40/Q45-Q47; sender/15m token controls selected; signup/reset resend values and session redesign still proposed; temporary unset Reply-To approved; actual inbox/header verification open | Extend signup-specific `php/mail_delivery.php`/dispatcher with separate reset purpose and >=256-bit random/hash-only challenge, atomic supersession/consume, trusted configured HTTPS origin, existing password policy, no enumeration and all-session revocation. Queue redeemable bodies encrypted separately; deadline min(queue+5m, token expiry-60s), terminal erasure, code-free 7d metadata. No fabricated support inbox. Use the next genuinely free additive migration identifier; 005 is already precision migration, not available for password recovery. | Later guarded expiry/replay/concurrent-consume/enumeration/revocation/transport-failure tests; no live reset now. Real headers/inbox/DNS/consenting recipients only in separately authorized acceptance. Named mail/security/support owners and H06 remain open. |
 | L07 Monitoring and configuration hardening | Q05/Q24/Q26/Q35-Q44/Q46/Q48; appointment/budget/SLO/RPO/runtime/session/security proposals not adopted | Start with the read-only Azure/Namecheap checklist: actual resources/regions/versions/roles/session store, backup/provider minima, staged topology, priced cost worksheet, inbound support/provider DNS needs and accepted private role register. Prepare overdue cleanup/dispatch/queue/alert routing/capacity evidence, budget thresholds and rollback/restore checklist. No settings/DNS/secrets/billing/paid monitor mutation in documentation work. | Current configuration captures under later authorization, accepted names/backup/on-call/independent reviews and funding; actual staged compatibility, alert receipt and isolated restore. Required release gates stay open; 005 production application is unverified, restore NOT RUN. |
 
 ### L01a documentation checkpoint
+
+**Historical f7e9f8c checkpoint:** the documentation-only/NOT RUN statements in
+this section describe that checkpoint. Current L01b evidence is linked above.
 
 **Ready for review. Design and owner-policy recording are documentation only;
 implementation and independent review/sign-off have not occurred.** This
@@ -197,18 +217,15 @@ Reply-To, retention/copy proposals and unrelated release gates remain unchanged.
 
 ### Next bounded task
 
-**L01b: reviewed text-report resolver/intake slice.** Obtain engineering/security/
-safety/privacy review of the completed design, then implement only under separate
-authorization on guarded synthetic systems: canonical target/actor proof,
-accepted ambiguous cases, rejected self-primary cases, immutable accepted-report
-events, private receipts, retry/addendum dedupe, atomic fixed probation/renewal
-and report attachment to an existing block's clearance gate. Coordinate L02/L03
-shared locks, event identity and expiry/recovery. Execute the relevant A01-A45
-cases with persisted-state/disclosure/overlap assertions; obtain named review
-of the resulting evidence. Separate reviewed slices supply human recovery,
-full sanctions/appeals and staffed queues/targets. No uploads, live mail,
-production/config/database changes, merge or deployment in this documentation
-task; no runtime acceptance, staffing or go/no-go sign-off is claimed.
+**L02a: immutable pair-policy event ledger and eligible restart/unblock integration.**
+Verify legacy counts/declines/ending state before backfill; preserve original
+account-pair lifetime limits and the second-ending cutoff. Apply the existing
+12h original-ender restart and immediate-chat eligible blocker-unblock decisions.
+Only genuine fresh mutual matching clears decline restrictions; undo never does.
+Use guarded disposable databases, synthetic accounts and exact worker evidence.
+No P1–P6 reapproval is needed for this engineering work. Qualified independent
+review, human recovery/appeals/MFA/coverage and L03 replay still require their own
+evidence and named acceptance. No push, merge, deployment, live DB or real mail.
 
 ### Evidence boundaries for this checkpoint
 

@@ -627,7 +627,7 @@ function operational_has_message_approval(PDO $pdo, int $matchId): bool
          WHERE mr.match_id = :match_id
            AND mr.status = "approved"
            AND mr.revoked_at IS NULL
-           AND (' . (operational_column_exists($pdo, 'matches', 'match_status') ? 'm.match_status = "active"' : '1 = 1') . ')
+           AND (' . (operational_column_exists($pdo, 'matches', 'match_status') ? 'm.match_status IN ("active", "unmatched")' : '1 = 1') . ')
          LIMIT 1'
     );
     $statement->execute([':match_id' => $matchId]);

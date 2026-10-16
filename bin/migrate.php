@@ -51,9 +51,16 @@ function apply_operational_contract_migration(PDO $pdo): void
 $migrationDir = __DIR__ . '/../database/migrations';
 $files = glob($migrationDir . '/*.sql') ?: [];
 sort($files);
+$through = getopt('', ['through:'])['through'] ?? null;
+if ($through !== null && (!is_string($through) || !preg_match('/\A[0-9]{3}\z/', $through))) {
+    throw new InvalidArgumentException('--through requires a three-digit migration prefix');
+}
 
 foreach ($files as $file) {
     $name = basename($file);
+    if ($through !== null && substr($name, 0, 3) > $through) {
+        continue;
+    }
     $version = pathinfo($name, PATHINFO_FILENAME);
 
     if (migration_applied($pdo, $version)) {
@@ -96,6 +103,10 @@ foreach ($files as $file) {
 
     fwrite(STDOUT, "Applying {$name}\n");
     $pdo->exec($sql);
+    if ($name === '006_report_intake.sql') {
+        require_once __DIR__ . '/../php/report_migration.php';
+        bushisa_migrate_report_revisions($pdo);
+    }
     mark_migration_applied($pdo, $version);
 }
 

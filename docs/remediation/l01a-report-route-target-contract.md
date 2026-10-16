@@ -4,7 +4,9 @@ Design revision: 2026-10-16, Africa/Harare. Original source inspection capture:
 2026-10-15T22:02:14Z / 2026-10-16 00:02:14 Africa/Harare (UTC+02:00).
 This is a documentation timestamp, not a policy acceptance timestamp.
 
-Owner-decision continuation baseline: `237b7d1b5ebf88b7adb067c4c897fe51a72ed816`,
+**Current L01b continuation:** the separately authorized text/API implementation now has guarded local evidence. See [L01b implementation and exact A01–A45 status](l01b-implementation-evidence-2026-10-16.md). Qualified review, real MFA/staffing and the remaining release gates stay open. The historical L01a source map and documentation-only statements below describe their captured checkpoint, not current runtime evidence.
+
+Historical owner-decision continuation baseline: `237b7d1b5ebf88b7adb067c4c897fe51a72ed816`,
 on `codex/prompt03-owner-decisions-20261014`, initially clean and four local
 commits ahead of its tracking branch. The original route map was captured at `e0a0066`;
 relevant source paths are unchanged at this continuation baseline. No applicable AGENTS.md was found in the checkout
@@ -12,18 +14,19 @@ or parent folders. Source files were read, not executed; no HTTP, database,
 mail, production configuration, migration, merge, push or deployment action.
 
 **Design status: ready for review.** Independent review/sign-off has not occurred.
-L01 implementation and acceptance remain pending.
+The bounded L01b slice is implemented locally; remaining acceptance and independent review are recorded in the linked evidence.
 The requirements below trace existing product approvals. Wire vocabulary,
 idempotency/proof storage and the additive implementation slice are **engineering
-proposals for review**, not newly approved product rules or implemented features.
+proposals for review**, not new product approvals. Current locally implemented
+engineering choices are recorded in L01b evidence; production acceptance remains open.
 Takudzwa Hondova remains the product reviewer. Named safety/privacy/security/
 engineering operators and backups remain UNASSIGNED. L01a originally changed
 no approval status. Later Decision 27 and the D11 temporary-unset amendment
 below record explicit owner changes. Exact historical acceptance timestamps
 were not captured and remain unavailable; no drafting/inspection time is
 substituted and no already-approved choice is reopened. Qualified-review gates
-stay open. This continuation records P1-P6 in the decision register, this
-contract and backlog only; it performs no implementation or runtime acceptance.
+stay open. The historical documentation continuation recorded P1-P6 in the decision register,
+contract and backlog only; that checkpoint performed no implementation or runtime acceptance.
 The [P1-P6 approval record](decisions.md#p1-p6-explicit-owner-decisions) now
 governs the previously unresolved/proposed treatment of those choices.
 
@@ -52,6 +55,8 @@ permitted temporary-unset policy does not delay an in-app receipt design. This d
 the separate monitored support/privacy-contact or staffing release gates.
 
 ## Existing route and caller map
+
+Historical source map at e0a0066. The [L01b review](l01b-implementation-evidence-2026-10-16.md#engineering-review) records the implemented replacements; do not treat this old route observation as current test evidence.
 
 Line references describe the baseline source, not executed behavior or proof
 that a route is enabled safely in production.
@@ -588,13 +593,12 @@ This is an engineering proposal, not a migration or code change:
 
 ## Acceptance-test matrix for later execution
 
-Every row is **NOT RUN in this documentation task**. Use guarded disposable
-synthetic systems only under a later implementation/verification authorization.
-A and B are original participants; C is an outsider; R1/R2 are separate reporters.
-Seed valid and absent/expired actor-bound proof deliberately. Assert outward
-status/body, persisted rows and absence of unintended contact/evidence effects,
-not merely that a helper returned true. P1-P6 below are accepted policy; test
-implementation/evidence is still missing. All A01-A45 rows remain NOT RUN.
+At the f7e9f8c documentation checkpoint every row was NOT RUN. The separately
+authorized L01b continuation now records PASS, PARTIAL and NOT RUN by exact ID
+in the [current execution table](l01b-implementation-evidence-2026-10-16.md#a01a45-current-status).
+The fixtures/observations below remain the complete acceptance requirements;
+partial evidence never closes an unexecuted variant or qualified review gate.
+A and B are original participants, C an outsider, R1/R2 separate reporters.
 
 | ID | Fixture / operation | Acceptance observation |
 |---|---|---|
@@ -697,19 +701,15 @@ appointment is accepted through P1-P6.
 | Target proof and actor attribution | Review authorized-response/event proof, actual reference author versus source, selected conduct participant, accepted ambiguous cases, rejected self-primary cases and category/deletion deadlines. Define the restricted recovery route separately. | Engineering/security/privacy/safety reviewers UNASSIGNED; Takudzwa remains product reviewer. |
 | Idempotency and transactional effects | Review immutable logical-report identity versus informational update, actor/key uniqueness and rotation, per-reporter incident links, server receipt/activation ordering, simultaneous renewals and once-only effects. Validate source-erasure lock ordering and exact block/clearance linkage with L02/L03. | Named engineering/security/safety review not performed; source/schema compatibility and no-repeat-effect evidence required. |
 | Review/recovery and privacy workflows | Review evidence minimization/redaction, limited recovery authority, assignment/MFA, sanctions/notices/independent appeals and permanent-reversal second review. Raise only a specific genuinely new purpose/deadline if current approved categories are inadequate. | Qualified privacy/security/safety and independent appeal reviewers UNASSIGNED; H03/H10 open. |
-| Implementation and verification | Implement the reviewed L01b slice under separate authorization and execute A01-A45 with persisted state, access/disclosure and overlap assertions on guarded synthetic systems. | Engineering executes; named witnesses accept new evidence. Every matrix row is NOT RUN; no implementation acceptance. |
+| Implementation and verification | The separately authorized L01b text/API slice is implemented and locally tested; complete remaining PARTIAL/NOT RUN variants and L02/L03 shared-history/replay integration. | Current results are in the L01b evidence; named independent engineering/security/safety/privacy acceptance remains open. |
 | Operations and release | Demonstrate real monitored recovery/support routes, case assignment, primary/backup/on-call coverage, due/overdue alerts and measured report/appeal capacity. Verify cleanup/copy/replay separately. | Owners/reviewers/backups UNASSIGNED; P6 staffing condition and D04/D05/D12/operational release gates remain open. |
 
-**Next bounded implementation task, L01b:** review this contract, then implement
-only the shared text-report resolver/intake/own-receipt slice on separately
-authorized guarded synthetic systems. Include canonical target/actor proof,
-ambiguous-review and self-primary rejection, immutable accepted-report events,
-retry/addendum dedupe, atomic fixed probation/renewal and report attachment to
-an existing block's clearance gate. Coordinate L02/L03 interfaces. Human recovery,
-full sanctions/appeals/operational coverage need their own reviewed workflow
-slices; no public or operational readiness claim follows from L01b. No uploads,
-live mail, production/config/DNS/database operation, migration application,
-merge, push or deployment is authorized by this documentation checkpoint.
+**Next bounded implementation task, L02a:** establish immutable pair/request/ending
+history and verified legacy backfill, then align already-approved eligible restart
+and immediate-chat unblock without clearing independent restrictions or lifetime
+cutoffs. Use guarded disposable systems and existing approvals. Human recovery,
+full sanctions/appeals, real MFA/staffing and L03 restore replay remain separate
+reviewed slices. No production operation follows from this local checkpoint.
 
 ## Documentation checks
 

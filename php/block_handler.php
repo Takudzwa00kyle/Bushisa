@@ -25,46 +25,41 @@ CREATE TABLE IF NOT EXISTS blocks (
  * @param int $blocked_id
  * @return bool
  */
-function block_user(PDO $pdo, int $blocker_id, int $blocked_id): bool
+function block_user(PDO $pdo, int $blocker_id, int $blocked_id, ?int $sessionVersion = null): bool
 {
-    ensure_operational_schema($pdo);
-    $pdo->beginTransaction();
-
-    try {
-        $statement = $pdo->prepare('INSERT IGNORE INTO blocks (blocker_id, blocked_id) VALUES (:blocker_id, :blocked_id)');
-        $statement->execute([
-            ':blocker_id' => $blocker_id,
-            ':blocked_id' => $blocked_id,
-        ]);
-
-        bushisa_close_match_between($pdo, $blocker_id, $blocked_id, 'blocked');
-
-        $pdo->commit();
-        return true;
-    } catch (Throwable $throwable) {
-        if ($pdo->inTransaction()) {
-            $pdo->rollBack();
+    require_once __DIR__ . '/report_intake.php';
+    return bushisa_report_transaction($pdo, function () use ($pdo, $blocker_id, $blocked_id, $sessionVersion): bool {
+        if ($blocker_id === $blocked_id || !bushisa_report_actor_ok($pdo, $blocker_id, $sessionVersion)) {
+            throw new BushisaReportError(403, 'This action is unavailable');
         }
-        throw $throwable;
-    }
+        $statement = $pdo->prepare('INSERT IGNORE INTO blocks (blocker_id, blocked_id) SELECT ?, id FROM users WHERE id = ?');
+        $statement->execute([$blocker_id, $blocked_id]);
+        bushisa_close_match_between($pdo, $blocker_id, $blocked_id, 'blocked');
+        return true;
+    });
 }
 
-/**
- * Remove a block relationship.
- *
- * @param PDO $pdo
- * @param int $blocker_id
- * @param int $blocked_id
- * @return bool
- */
-function unblock_user(PDO $pdo, int $blocker_id, int $blocked_id): bool
+/** Only the creator can remove their own cleared personal block. */
+function unblock_user(PDO $pdo, int $blocker_id, int $blocked_id, ?int $sessionVersion = null): bool
 {
-    ensure_operational_schema($pdo);
-    $statement = $pdo->prepare('DELETE FROM blocks WHERE blocker_id = :blocker_id AND blocked_id = :blocked_id');
-    return $statement->execute([
-        ':blocker_id' => $blocker_id,
-        ':blocked_id' => $blocked_id,
-    ]);
+    require_once __DIR__ . '/report_intake.php';
+    return bushisa_report_transaction($pdo, function () use ($pdo, $blocker_id, $blocked_id, $sessionVersion): bool {
+        if (!bushisa_report_actor_ok($pdo, $blocker_id, $sessionVersion)) {
+            throw new BushisaReportError(403, 'This action is unavailable');
+        }
+        $statement = $pdo->prepare('SELECT id FROM blocks WHERE blocker_id = ? AND blocked_id = ? FOR UPDATE');
+        $statement->execute([$blocker_id, $blocked_id]);
+        $block = $statement->fetchColumn();
+        if ($block === false) {
+            return true; // No other person's block is changed.
+        }
+        bushisa_report_guard_unblock($pdo, (int) $block);
+        $statement = $pdo->prepare('DELETE FROM blocks WHERE id = ? AND blocker_id = ?');
+        $statement->execute([(int) $block, $blocker_id]);
+        // Does not erase another block, ban, consent restriction or safety history.
+        // Broader approved chat-restart/cutoff alignment remains L02.
+        return true;
+    });
 }
 
 /**

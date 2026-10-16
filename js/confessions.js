@@ -317,6 +317,7 @@
       created_at: toText(raw.created_at ?? raw.createdAt ?? raw.sent_at ?? raw.sentAt ?? ''),
       anonymous_username: ANONYMOUS_NAME,
       is_flagged: Boolean(raw.is_flagged ?? raw.isFlagged),
+      report_context: toText(raw.report_context ?? ''),
       expanded: false
     };
   };
@@ -405,10 +406,10 @@
     reasonSelect.className = 'confession-card__reason';
     reasonSelect.setAttribute('aria-label', 'Flag reason');
 
-    const reasons = ['Harassment', 'Hate Speech', 'Explicit Content', 'Spam', 'Other'];
-    for (const reason of reasons) {
+    const reasons = [['harassment', 'Harassment'], ['hate_speech', 'Hate Speech'], ['explicit_content', 'Explicit Content'], ['spam', 'Spam'], ['other', 'Other']];
+    for (const [code, reason] of reasons) {
       const option = document.createElement('option');
-      option.value = reason;
+      option.value = code;
       option.textContent = reason;
       reasonSelect.appendChild(option);
     }
@@ -418,7 +419,12 @@
     flagSubmit.className = 'confession-card__flag-submit';
     flagSubmit.textContent = 'Report';
 
-    flagMenu.append(reasonSelect, flagSubmit);
+    const explanation = document.createElement('textarea');
+    explanation.maxLength = 2000;
+    explanation.setAttribute('aria-label', 'Report explanation (required for Other or Explicit Content)');
+    explanation.placeholder = 'Optional details (up to 2,000 characters)';
+    flagMenu.append(reasonSelect, explanation, flagSubmit);
+    flagSubmit.disabled = !confession.report_context;
     card.append(header, body, flagButton, flagMenu);
 
     flagButton.addEventListener('click', () => {
@@ -438,7 +444,7 @@
 
     flagSubmit.addEventListener('click', (event) => {
       event.stopPropagation();
-      void submitFlag(confession, reasonSelect.value);
+      void submitFlag(confession, reasonSelect.value, explanation.value, flagSubmit);
     });
 
     return card;
@@ -664,7 +670,7 @@
    * @param {string} reason
    * @returns {Promise<void>}
    */
-  const submitFlag = async (confession, reason) => {
+  const submitFlag = async (confession, reason, explanation, button) => {
     const apiFetch = getApiFetch();
     if (!apiFetch) {
       getToast()('Flagging is unavailable.', 'error');
@@ -676,24 +682,46 @@
       return;
     }
 
+    if (['other', 'explicit_content'].includes(reason) && !explanation.trim()) {
+      getToast()('Add a short explanation for this reason.', 'error');
+      return;
+    }
+    if (confession.reportPending || !confession.report_context) return;
+    if (!window.crypto?.getRandomValues) {
+      getToast()('Reporting is unavailable in this browser.', 'error');
+      return;
+    }
+    // Keep one key for retries of this deliberate intent. No storage/URL/log copy.
+    const intent = JSON.stringify([reason, explanation]);
+    if (confession.reportIntent !== intent) {
+      const bytes = window.crypto.getRandomValues(new Uint8Array(32));
+      confession.reportKey = Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+      confession.reportIntent = intent;
+    }
+    confession.reportPending = true;
+    button.disabled = true;
+
     try {
-      await apiFetch(CONFESSIONS_ENDPOINT, {
+      const response = await apiFetch(CONFESSIONS_ENDPOINT, {
         method: 'POST',
         body: {
           confession_id: toText(confession.id),
           reason,
+          explanation,
+          context: confession.report_context,
+          idempotency_key: confession.reportKey,
           action: 'flag'
         }
       });
 
-      const card = ensureFeed().querySelector(`[data-confession-id="${CSS.escape(toText(confession.id))}"]`);
-      if (card instanceof HTMLElement) {
-        card.classList.add('is-flagged');
-      }
-
-      getToast()('Thanks for reporting this confession.', 'success');
+      confession.reportReceipt = response?.data?.receipt_id ?? null;
+      button.textContent = 'Report received';
+      getToast()('Report received for review.', 'success');
     } catch (error) {
       getToast()(error instanceof Error ? error.message : 'Could not flag confession.', 'error');
+    } finally {
+      confession.reportPending = false;
+      button.disabled = false;
     }
   };
 
