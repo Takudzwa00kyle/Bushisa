@@ -1,5 +1,13 @@
 # L03: repository category, clock and writer inventory
 
+Current continuation: [L03a implementation and case evidence](l03a-text-evidence-lifecycle-evidence-2026-10-17.md)
+implements the bounded new-intake text/hold core from `b521b67`, with LC01–LC18
+now **13 PASS / 5 PARTIAL / 0 wholly NOT RUN**. Its eleven additive tables,
+trusted-provider fail-closed boundary, scoped holds, bounded purge and synthetic
+recovery interfaces are recorded there. The inventory, initial NOT RUN plan and
+documentation validation below retain their **b521b67 baseline** attribution;
+they are not current implementation/test totals. A/LB evidence is unchanged.
+
 Repository checkpoint: `631e0d82ba7f2ce63cd18f28e80820be88a4e272`.
 Branch: `codex/l03-category-clock-inventory-20261017`. The starting tree/index
 were clean; no applicable AGENTS.md was found in the checkout or ancestors.

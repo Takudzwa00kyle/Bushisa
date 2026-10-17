@@ -45,6 +45,9 @@ function bushisa_report_available(PDO $pdo): bool
 
 function bushisa_report_now(PDO $pdo): string
 {
+    if (function_exists('Bushisa\\Evidence\\synthetic_enabled') && \Bushisa\Evidence\synthetic_enabled()) {
+        return \Bushisa\Evidence\now($pdo);
+    }
     return (string) $pdo->query('SELECT UTC_TIMESTAMP(6)')->fetchColumn();
 }
 
@@ -741,6 +744,8 @@ function bushisa_report_intake(PDO $pdo, int $reporter, array $payload, ?int $se
             VALUES (?, ?, ?, ?, 1, ?, ?, UTC_TIMESTAMP(6))');
         $stmt->execute([$reporter, bushisa_report_mac('operation-key', $intent['idempotency_key'], $ring['keys'][$keyId]),
             $keyId, $intent['action'], bushisa_report_mac('intent', $canonical, $ring['keys'][$keyId]), (int) $submission]);
+        require_once __DIR__ . '/evidence_lifecycle.php';
+        \Bushisa\Evidence\register_case($pdo, $caseId);
         return bushisa_report_receipt($pdo, $reporter, (int) $submission);
     };
     for ($attempt = 0; ; $attempt++) {
@@ -916,58 +921,20 @@ function bushisa_report_record_send(PDO $pdo, int $sender, int $recipient, int $
     $stmt->execute([$sender, $recipient, $request]);
 }
 
-/** Erases ordinary intake copies at immutable final-resolution deadlines.
- * Private evidence holds/full L03 object cleanup are a separate release gate. */
+/** New-intake text only. Raw historical final_resolution_at is not authority
+ * for destructive cleanup. Missing anchors remain explicit review obligations. */
 function bushisa_report_cleanup(PDO $pdo): array
 {
-    if (!operational_table_exists($pdo, 'report_incidents')) {
+    if (!operational_table_exists($pdo, 'evidence_case_clocks')) {
         return ['intake_copies_purged' => 0];
     }
-    $pdo->exec('UPDATE report_incidents i JOIN moderation_cases c ON c.id = i.case_id
-        SET i.expires_at = CASE WHEN i.expires_at IS NULL THEN
-            DATE_ADD(c.final_resolution_at, INTERVAL (CASE WHEN c.report_resolution_class IN ("unrelated", "accidental") THEN 30 ELSE 180 END) DAY)
-            ELSE LEAST(i.expires_at, DATE_ADD(c.final_resolution_at, INTERVAL (CASE WHEN c.report_resolution_class IN ("unrelated", "accidental") THEN 30 ELSE 180 END) DAY)) END
-        WHERE c.final_resolution_at IS NOT NULL');
-    $stmt = $pdo->prepare('UPDATE report_submissions s JOIN report_incidents i ON i.id = s.incident_id
-        SET s.explanation = NULL, s.information_hash = SHA2(CONCAT("expired:", s.id), 256),
-            s.purged_at = COALESCE(s.purged_at, UTC_TIMESTAMP(6)), s.expires_at = i.expires_at
-        WHERE i.expires_at <= UTC_TIMESTAMP(6) AND s.purged_at IS NULL');
-    $stmt->execute();
-    $count = $stmt->rowCount();
-    $pdo->exec('UPDATE moderation_evidence e JOIN moderation_cases c ON c.id = e.case_id
-        SET e.purge_due_at = CASE WHEN e.purge_due_at IS NULL THEN
-            DATE_ADD(c.final_resolution_at, INTERVAL (CASE WHEN c.report_resolution_class IN ("unrelated", "accidental") THEN 30 ELSE 180 END) DAY)
-            ELSE LEAST(e.purge_due_at, DATE_ADD(c.final_resolution_at, INTERVAL (CASE WHEN c.report_resolution_class IN ("unrelated", "accidental") THEN 30 ELSE 180 END) DAY)) END
-        WHERE c.intake_contract_version = 1 AND c.final_resolution_at IS NOT NULL');
-    $evidence = $pdo->prepare('UPDATE moderation_evidence e JOIN moderation_cases c ON c.id = e.case_id
-        SET e.evidence_excerpt = NULL, e.evidence_hash = NULL, e.purged_at = COALESCE(e.purged_at, UTC_TIMESTAMP(6))
-        WHERE c.intake_contract_version = 1 AND e.purge_due_at <= UTC_TIMESTAMP(6) AND e.purged_at IS NULL
-        AND NOT EXISTS (SELECT 1 FROM report_evidence_holds h WHERE h.evidence_id = e.id AND h.case_id = e.case_id
-            AND h.starts_at <= UTC_TIMESTAMP(6) AND h.expires_at > UTC_TIMESTAMP(6) AND h.released_at IS NULL)');
-    $evidence->execute();
-    $evidenceCount = $evidence->rowCount();
-    $pdo->exec('UPDATE report_operations o JOIN report_submissions s ON s.id = o.submission_id
-        SET o.intent_hash = NULL, o.expires_at = s.expires_at WHERE s.purged_at IS NOT NULL');
+    require_once __DIR__ . '/evidence_lifecycle.php';
+    $result = \Bushisa\Evidence\cleanup($pdo);
+    // Existing approved access-audit bound; broader metadata schedules stay open.
     $pdo->exec('DELETE FROM report_action_audit WHERE expires_at <= UTC_TIMESTAMP(6)');
-    // Only the longest approved rolling window needs timestamps. The smaller
-    // pair ledger preserves the lifetime total independently of this purge.
+    $pdo->exec('DELETE FROM evidence_lifecycle_events WHERE audit_expires_at <= UTC_TIMESTAMP(6)');
+    // Preserve the existing approved rolling-counter cleanup. Lifetime totals
+    // remain in their separate original-pair ledger.
     $pdo->exec('DELETE FROM message_request_sends WHERE created_at <= DATE_SUB(UTC_TIMESTAMP(6), INTERVAL 24 HOUR)');
-    $pdo->exec('DELETE l FROM report_case_links l JOIN moderation_cases a ON a.id = l.from_case_id
-        JOIN moderation_cases b ON b.id = l.to_case_id
-        WHERE DATE_ADD(a.final_resolution_at, INTERVAL 365 DAY) <= UTC_TIMESTAMP(6)
-           OR DATE_ADD(b.final_resolution_at, INTERVAL 365 DAY) <= UTC_TIMESTAMP(6)');
-    // Content-free decision/idempotency references have their own 365-day
-    // final-resolution bound. Active block protections are independent rows.
-    $pdo->exec('DELETE o FROM report_operations o JOIN report_submissions s ON s.id = o.submission_id
-        JOIN report_incidents i ON i.id = s.incident_id JOIN moderation_cases c ON c.id = i.case_id
-        WHERE DATE_ADD(c.final_resolution_at, INTERVAL 365 DAY) <= UTC_TIMESTAMP(6)');
-    $pdo->exec('DELETE p FROM report_probation_periods p JOIN report_submissions s ON s.id = p.trigger_submission_id
-        JOIN report_incidents i ON i.id = s.incident_id JOIN moderation_cases c ON c.id = i.case_id
-        WHERE p.expires_at <= UTC_TIMESTAMP(6) AND DATE_ADD(c.final_resolution_at, INTERVAL 365 DAY) <= UTC_TIMESTAMP(6)');
-    $pdo->exec('DELETE s FROM report_submissions s JOIN report_incidents i ON i.id = s.incident_id
-        JOIN moderation_cases c ON c.id = i.case_id
-        WHERE DATE_ADD(c.final_resolution_at, INTERVAL 365 DAY) <= UTC_TIMESTAMP(6)');
-    $pdo->exec('DELETE i FROM report_incidents i JOIN moderation_cases c ON c.id = i.case_id
-        WHERE DATE_ADD(c.final_resolution_at, INTERVAL 365 DAY) <= UTC_TIMESTAMP(6)');
-    return ['intake_copies_purged' => $count, 'text_evidence_purged' => $evidenceCount];
+    return $result;
 }

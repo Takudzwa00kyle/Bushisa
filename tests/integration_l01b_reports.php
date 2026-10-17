@@ -42,6 +42,18 @@ function sql_l01(string $sql, array $args = []): PDOStatement {
 function count_l01(string $table, string $where = '1=1', array $args = []): int {
     return (int) sql_l01('SELECT COUNT(*) FROM ' . $table . ' WHERE ' . $where, $args)->fetchColumn();
 }
+function cleanup_text_l01(): array {
+    global $pdo;
+    // L03a now drains bounded units. This synthetic compatibility fixture walks
+    // a full scan; production scheduler installation/cadence is not inferred.
+    $totals=['intake_copies_purged'=>0,'text_evidence_purged'=>0];
+    $batches=(int)ceil(count_l01('evidence_lifecycle_items','purged_at IS NULL')/25)+2;
+    for($n=0;$n<$batches;$n++) {
+        $r=bushisa_report_transaction($pdo,fn()=>bushisa_report_cleanup($pdo));
+        foreach($totals as $k=>$v) { $totals[$k]+=$r[$k]??0; }
+    }
+    return $totals;
+}
 function user_l01(int $n, string $gender = 'male', string $role = 'user'): int {
     sql_l01('INSERT INTO users (nust_student_id,email,password_hash,role,is_verified,is_suspended,is_active,account_status,session_version)
         VALUES (?, ?, ?, ?, 1, 0, 1, "active", 0)',
@@ -637,27 +649,32 @@ try {
     // Receipt/capture expiry is independent of delayed physical jobs.
     $expCase=(int)sql_l01('SELECT case_id FROM report_incidents WHERE receipt_id=?',[$receipt['receipt_id']])->fetchColumn();
     sql_l01('UPDATE moderation_cases SET final_resolution_at=DATE_SUB(UTC_TIMESTAMP(),INTERVAL 181 DAY) WHERE id=?',[$expCase]);
+    require_once __DIR__.'/support/l03a_fixture.php';
+    // Explicit synthetic anchor setup only. A raw old final_resolution_at is no
+    // longer destructive authority; real notice/appeal proof remains gated.
+    \Bushisa\EvidenceFixture\expiry_fixture($pdo,$expCase,(string)sql_l01('SELECT final_resolution_at FROM moderation_cases WHERE id=?',[$expCase])->fetchColumn());
     sql_l01('UPDATE moderation_case_assignments SET revoked_at=NULL WHERE case_id=? AND assigned_user_id=?',[$expCase,$M]);
     $heldEvidence=(int)sql_l01('SELECT id FROM moderation_evidence WHERE case_id=? ORDER BY id LIMIT 1',[$expCase])->fetchColumn();
     sql_l01('INSERT INTO report_evidence_holds (case_id,evidence_id,authorized_record_ref,starts_at,expires_at)
         VALUES (?, ?, "synthetic-hold-fixture-only", UTC_TIMESTAMP(6), DATE_ADD(UTC_TIMESTAMP(6),INTERVAL 1 HOUR))',[$expCase,$heldEvidence]);
     ok_l01(http_l01('/api/safety.php',$a,$input),'A30 expired receipt unavailable',404);
-    $purged=bushisa_report_transaction($pdo,fn()=>bushisa_report_cleanup($pdo));
+    $purged=cleanup_text_l01();
     check_l01($purged['intake_copies_purged']>0 &&
         count_l01('report_submissions','incident_id IN (SELECT id FROM report_incidents WHERE case_id=?) AND explanation IS NOT NULL',[$expCase])===0,'A30 intake copies physically purged at final-resolution bound');
     check_l01($purged['text_evidence_purged']>0 &&
         count_l01('moderation_evidence','case_id=? AND evidence_excerpt IS NOT NULL',[$expCase])===1,'A36 only specifically held text survives ordinary purge');
     check_l01(bushisa_report_review_evidence($pdo,$expCase,$M,$reviewAuth)===[],'A36 hold does not restore ordinary expired evidence access');
     sql_l01('UPDATE report_evidence_holds SET released_at=UTC_TIMESTAMP(6) WHERE case_id=?',[$expCase]);
-    bushisa_report_transaction($pdo,fn()=>bushisa_report_cleanup($pdo));
+    cleanup_text_l01();
     check_l01(count_l01('moderation_evidence','case_id=? AND evidence_excerpt IS NOT NULL',[$expCase])===0,'A36 released already-expired evidence purged without a new clock');
     $beforeExpiry=sql_l01('SELECT expires_at FROM report_incidents WHERE case_id=? LIMIT 1',[$expCase])->fetchColumn();
-    bushisa_report_transaction($pdo,fn()=>bushisa_report_cleanup($pdo));
+    cleanup_text_l01();
     check_l01(sql_l01('SELECT expires_at FROM report_incidents WHERE case_id=? LIMIT 1',[$expCase])->fetchColumn()===$beforeExpiry,'A29/A30 cleanup does not renew expiry');
 
     $accidental=(int)sql_l01('SELECT case_id FROM report_incidents WHERE receipt_id=?',[$qr['receipt_id']])->fetchColumn();
     sql_l01('UPDATE moderation_cases SET status="dismissed", report_resolution_class="accidental", final_resolution_at=DATE_SUB(UTC_TIMESTAMP(),INTERVAL 31 DAY) WHERE id=?',[$accidental]);
-    bushisa_report_transaction($pdo,fn()=>bushisa_report_cleanup($pdo));
+    \Bushisa\EvidenceFixture\expiry_fixture($pdo,$accidental,(string)sql_l01('SELECT final_resolution_at FROM moderation_cases WHERE id=?',[$accidental])->fetchColumn(),'accidental');
+    cleanup_text_l01();
     check_l01(count_l01('moderation_evidence','case_id=? AND evidence_excerpt IS NOT NULL',[$accidental])===0,'A30 final accidental case uses 30-day evidence deadline');
 
     check_l01(count_l01('mail_outbox')===0,'No real or synthetic mail queued');
@@ -673,6 +690,7 @@ try {
     $manifestPaths=['api/safety.php','api/confessions.php','api/discover.php','api/messages.php','api/message_requests.php',
         'bin/migrate.php','bin/cleanup_policy.php','database/migrations/006_report_intake.sql','php/report_intake.php',
         'php/report_migration.php','php/block_handler.php','php/report_handler.php','php/policy_safeguards.php','php/operational.php',
+        'php/evidence_lifecycle.php','php/evidence_recovery.php','database/migrations/010_text_evidence_lifecycle.sql','tests/support/l03a_fixture.php',
         'js/confessions.js','tests/integration_l01b_reports.php'];
     foreach($manifestPaths as $path) {
         $evidence['sources_lf_sha256'][$path]=hash('sha256',str_replace("\r\n","\n",file_get_contents($root.'/'.$path)));
