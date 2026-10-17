@@ -2,7 +2,31 @@
 
 Updated: 2026-10-17, Africa/Harare.
 
-## Current L02d synthetic transaction checkpoint
+## Current L02e mixed-writer and compatibility checkpoint
+
+Continued from `734cc34d6be7eff697fb675761d447aa1d20e6a0` on
+`codex/l02e-mixed-import-races-20261017`, preserving a clean starting tree/index.
+The [focused implementation/evidence](l02e-mixed-races-compatibility-evidence-2026-10-17.md)
+records **17 mixed HTTP/importer races and four genuine engine trials per profile**
+on Windows PHP 8.5.11/MySQL 9.6.0 and Linux PHP 8.4.26/MySQL 8.0.45. Distinct PIDs,
+SQL connections and engine-observed waits prove overlap. Real 1213 deadlocks,
+1205 row timeouts and advisory waits are distinguished; bounded retries roll back
+atomically and leave duplicate-free receipts/events. Restricted-role checks and
+additive migration 009 fix live trigger-health visibility without runtime DDL.
+The offline planner stays offline and synthetic imports never enable legacy pairs.
+
+Current separate LB01–LB33 totals: **21 PASS, 12 PARTIAL, 0 wholly NOT RUN**.
+Only LB13/LB29 become PASS; remaining variants stay individually open. A01–A45
+remains **24 PASS, 19 PARTIAL, 2 NOT RUN**. Pair/report regressions pass on both
+profiles; exact final-source runs, counts, grants and validation are linked above.
+No known defect remains in the bounded supported L02 synthetic path. Next is
+the independent **L03 cleanup and recovery replay** inventory/implementation;
+authentic sources/cutover, actual production runtime/roles/TLS, qualified review,
+staffing and independent restore proof remain external gates. No settled owner
+decision needs reapproval; no whole D-number, production migration or real import
+is accepted by this checkpoint.
+
+## Historical L02d synthetic transaction checkpoint
 
 Continued from `12b8ff70301fbad8c8eb8da20bd0f7982a7ba5ae` on
 `codex/l02d-synthetic-import-20261016`, preserving a clean starting tree/index.
@@ -19,10 +43,10 @@ commit pair-atomically; current state/expiry, retry/conflict, rollback and lost-
 checks preserve restrictions. It never certifies legacy history, grants access,
 modifies sessions or clears blocks/bans. The offline planner remains offline.
 
-Current separate LB01–LB33 totals: **19 PASS, 14 PARTIAL, 0 wholly NOT RUN**;
+Historical L02d LB01–LB33 totals: **19 PASS, 14 PARTIAL, 0 wholly NOT RUN**;
 PARTIAL rows explicitly retain unexecuted variants. The A01–A45 matrix remains
-**24 PASS, 19 PARTIAL, 2 NOT RUN**. Next L02e engineering work is mixed HTTP/importer
-concurrency, real-deadlock and lock/privilege portability verification. Authentic
+**24 PASS, 19 PARTIAL, 2 NOT RUN**. L02e subsequently executes mixed HTTP/importer
+concurrency, genuine deadlocks and lock/privilege compatibility checks. Authentic
 sources/observed writer cutover, qualified review/named roles and full L03 lifecycle/
 independent recovery remain separate gates. No settled owner answer needs reapproval.
 
@@ -218,7 +242,7 @@ deadlines stay gated by ownership, overdue alerts and measured capacity.
 | Task | Policy dependency / scope | Current gap and later bounded output | Evidence needed / release gate |
 |---|---|---|---|
 | L01 Report routes and roles | Decisions 28–33 and Q01–Q05/Q18–Q20; service targets conditional | L01b text/API resolver, actual/ambiguous actor attribution, self-primary rejection, deduplicated private receipts/addenda, atomic probation/renewal and block clearance are implemented locally. See exact evidence. Human recovery, full sanctions/appeals, real MFA and staffed queues remain later slices. | [Current A01–A45 results](l02a-implementation-evidence-2026-10-16.md#a01a45-current-status): PASS/PARTIAL/NOT RUN, not whole acceptance. Qualified review, legacy pair-state/replay, real roles/capacity, H03/H10 and release gates remain open. |
-| L02 Terminal pair state, undo and projections | Existing D04 Decisions 1–33, including decline-only new-match clearance and Decision 27 fresh mutual restoration | [L02a](l02a-pair-history-contract.md) is implemented locally: canonical original-pair ledger, positive post-cutover genesis versus incomplete legacy history, retained request events, original-ender 12h restart, second-ending cutoff, fresh mutual restoration/own undos/rolling cap and eligible creator-unblock chat. Shared route/page/preview authorization and immutable closed-text segmentation are integrated. New requests/grants remain fail-closed without necessary provenance; migration never certifies old accounts. [L02b](l02b-legacy-history-import-contract.md), [L02c offline planning](l02c-offline-history-planner.md) and [L02d guarded synthetic transactions](l02d-synthetic-import-evidence-2026-10-17.md) define/test the non-enabling evidence/import path. No legacy eligibility adapter or real-data importer exists. | [A01–A45 evidence](l02a-implementation-evidence-2026-10-16.md): 24 PASS, 19 PARTIAL, 2 NOT RUN unchanged. Separate LB01–LB33 current totals: 19 PASS, 14 PARTIAL, 0 wholly NOT RUN, with listed NOT RUN variants. L02e mixed-writer/deadlock/portability work, actual source/cutover evidence, qualified review/named roles, UI/manual variants and full L03 lifecycle/independent replay stay open. No production activation or whole D04 acceptance. |
+| L02 Terminal pair state, undo and projections | Existing D04 Decisions 1–33, including decline-only new-match clearance and Decision 27 fresh mutual restoration | [L02a](l02a-pair-history-contract.md) is implemented locally: canonical original-pair ledger, positive post-cutover genesis versus incomplete legacy history, retained request events, original-ender 12h restart, second-ending cutoff, fresh mutual restoration/own undos/rolling cap and eligible creator-unblock chat. Shared route/page/preview authorization and immutable closed-text segmentation are integrated. New requests/grants remain fail-closed without necessary provenance; migration never certifies old accounts. [L02b](l02b-legacy-history-import-contract.md), [L02c offline planning](l02c-offline-history-planner.md) and [L02d guarded synthetic transactions](l02d-synthetic-import-evidence-2026-10-17.md) define/test the non-enabling evidence/import path. [L02e mixed-writer/restricted-role evidence](l02e-mixed-races-compatibility-evidence-2026-10-17.md) closes the bounded synthetic concurrency/engine checks and adds migration 009 read-only trigger health. No legacy eligibility adapter or real-data importer exists. | [A01–A45 evidence](l02a-implementation-evidence-2026-10-16.md): 24 PASS, 19 PARTIAL, 2 NOT RUN unchanged. Separate LB01–LB33 current totals: 21 PASS, 12 PARTIAL, 0 wholly NOT RUN, with listed NOT RUN variants. Bounded local L02 is complete; actual source/cutover evidence, qualified review/named roles, UI/manual variants and full L03 lifecycle/independent replay stay open. No production activation or whole D04 acceptance. |
 | L03 Cleanup, evidence clocks and independent replay | Q10-Q27/Q32; D05 partial; Q12 anti-replay/Q16 active chat/Q23 metadata/Q26 copy settings still proposed | Inventory all fields/media/derivatives/caches/logs/exports/copies; additive immutable deadlines and old/new history segmentation; scoped hold authority/release; original-text evidence exception; either-account cleanup and confession erasure. `bin/cleanup_policy.php` now also handles L01b new-intake/text expiry, but not full legacy/object/hold-authority/replay categories; provisional helpers still have 30d account/90d closed-chat/24-month case deadlines, some derived at creation. L02a additionally supplies terminal-event/request and per-message closed-text cleanup, preserving later sessions; media/account/hold-authority/recovery work remains. Build full idempotent bounded workers and independently durable replay with real object-completion proof. | Later expiry/no-reset/hold/retry/object-index/failure tests; actual copy/purge watermarks and independently witnessed isolated restore under separate authorization. Calculate latest copy +7d; conditional 7+35+7=49d, never universal. H03/H08, privacy and named cleanup/backup operators open. |
 | L04 Consent and coarse geography | Q28-Q34; D12 partial; source combination/catalogue widths/bonus bands still proposed; D03 full geography scope preserved | Build reviewed catalogue contract without invented points; current coarse area/version/time/consent only; optional opt-in/refusal/withdrawal; 7d freshness/24h purge; >=10-user cohort suppression; atomic 2 changes/24h; <=5-point soft ranking with zero fallback; cursor invalidation/live safety checks. `profiles.campus_zone` is legacy and authoritative matcher currently lacks geographic ranking. | Local catalogue/point acceptance, normalization/fairness/probing/query/load evidence and Android/iOS grant/refuse/withdraw/expiry/paging witnesses. Privacy/H13, final notice and actual catalogue reviewers UNASSIGNED; no production collection before acceptance. |
 | L05 Telemetry allowlist | Q13/Q23/Q43-Q44; provider/sampling/metadata defaults and funding remain proposed | Map every server/browser/provider destination. Prepare pre-transmission fixed-field redaction/allowlist, optional browser consent/withdrawal gate, random expiring visitor reference, separate app-side totals and suppressed aggregates. Inventory table minimums/export/archive paths against retention; no session replay, message/location/answer/token collection. | Later consent/redaction/retention/source-count tests, priced region/configuration review and named privacy/security acceptance. D10 stays pending; US$5 is not an approved spend. |
@@ -277,9 +301,9 @@ Reply-To, retention/copy proposals and unrelated release gates remain unchanged.
 
 **L02a local checkpoint:** [implementation/evidence](l02a-implementation-evidence-2026-10-16.md) and [pair contract](l02a-pair-history-contract.md). Approved policy is unchanged. The migration leaves production writer certification inactive and every real legacy pair incomplete until actual evidence establishes provenance. No local fixture attests production history.
 
-**L02b/L02c/L02d checkpoint:** the [evidence/import contract](l02b-legacy-history-import-contract.md), [offline implementation](l02c-offline-history-planner.md) and [synthetic transaction evidence](l02d-synthetic-import-evidence-2026-10-17.md) record 19 PASS, 14 PARTIAL, 0 wholly NOT RUN for the separate LB01–LB33 matrix; listed NOT RUN variants remain open. Synthetic private fact import never confers runtime eligibility. No real-data importer or legacy activation adapter exists.
+**L02b/L02c/L02d/L02e checkpoint:** the [evidence/import contract](l02b-legacy-history-import-contract.md), [offline implementation](l02c-offline-history-planner.md), [synthetic transactions](l02d-synthetic-import-evidence-2026-10-17.md) and [mixed-writer/engine evidence](l02e-mixed-races-compatibility-evidence-2026-10-17.md) record 21 PASS, 12 PARTIAL, 0 wholly NOT RUN for the separate LB01–LB33 matrix. Listed NOT RUN variants stay open; no A-case changes. Synthetic private fact import never confers runtime eligibility. No real-data importer or legacy activation adapter exists.
 
-**Next bounded task, L02e:** mixed-writer concurrency and lock/retry verification using guarded synthetic fixtures: importer plus two actual HTTP workers for request/block/review/unmatch/end variants; genuine engine deadlock versus forced retry and advisory timeout; current-state row/range coverage and runtime privilege/engine portability. L03 separately owns privacy-reviewed staging/receipt expiry, safe frontier compaction, physical purge and independent replay. Unsupported proof families remain incomplete. Actual sources/cutover, qualified reviews/named staff/MFA/coverage, UI/manual gates and real recovery remain separate. No production adapter/import, legacy activation or settled-policy reapproval follows.
+**Next independent main-backlog task, L03:** inventory category/clock precedence, writers, object indexes and independent recovery ownership; then implement bounded cleanup/replay using already approved rules. Explicitly retain proposed retention values as proposed. L03 owns staging/receipt expiry, safe frontier compaction, physical purge, hold/release authority and independent replay. No known bounded L02 implementation defect remains. Unsupported real-source proof families remain incomplete. Authentic sources/cutover, actual production runtime/roles/TLS, qualified reviews, named staff/MFA/coverage, UI/manual variants and real recovery are separate evidence/release gates. No new owner answer is required for the approved engineering inventory.
 
 No push, merge, deployment, live DB, production writer activation or real mail is authorized by this checkpoint.
 

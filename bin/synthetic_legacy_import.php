@@ -13,19 +13,23 @@ try {
     if (!in_array($mode,['import','status'],true)) { throw new InvalidInput('SYNTHETIC_IMPORT_OR_STATUS_ONLY'); }
     $options=[];
     foreach(array_slice($argv,2) as $arg) {
-        if(!preg_match('/\A--(permit|bundle|snapshot|catalog|plan|key|pair|fault|barrier)=(.+)\z/D',$arg,$m)||isset($options[$m[1]])) { throw new InvalidInput('CLI_OPTION'); }
+        if(!preg_match('/\A--(permit|bundle|snapshot|catalog|plan|key|pair|fault|barrier|test-id|test-mode)=(.+)\z/D',$arg,$m)||isset($options[$m[1]])) { throw new InvalidInput('CLI_OPTION'); }
         $options[$m[1]]=$m[2];
     }
     $required=$mode==='import'?['permit','bundle','snapshot','catalog','plan','key']:['permit','pair','key'];
-    $allowed=$mode==='import'?array_merge($required,['fault','barrier']):$required;
+    $allowed=$mode==='import'?array_merge($required,['fault','barrier','test-id','test-mode']):$required;
     if(array_diff($required,array_keys($options))!==[]||array_diff(array_keys($options),$allowed)!==[]) { throw new InvalidInput('CLI_REQUIRED_OPTIONS'); }
     $permit=read_artifact($options['permit'])['value']; guards($permit); // Before reading any connecting application configuration (none is loaded).
     if($mode==='status') { $result=status($permit,$options['pair'],$options['key']); }
     else {
-        $test=array_intersect_key($options,array_flip(['fault','barrier']));
+        $test=array_intersect_key($options,array_flip(['fault','barrier','test-id','test-mode']));
         if($test!==[] && (!$permit->test_controls || getenv('BUSHISA_SYNTHETIC_IMPORT_TEST_CONTROLS')!=='true')) { throw new InvalidInput('TEST_CONTROLS_DISABLED'); }
         if(isset($test['fault'])&&!in_array($test['fault'],['after_facts','after_counts','after_receipt','after_key','after_commit_exit','retry_once_after_facts'],true)) { throw new InvalidInput('TEST_FAULT_NAME'); }
         if(isset($test['barrier'])&&!preg_match('/\Al02d-[a-f0-9]{32}\z/',$test['barrier'])) { throw new InvalidInput('TEST_BARRIER_ID'); }
+        if(isset($test['test-id']) || isset($test['test-mode'])) {
+            if(!preg_match('/\Al02e_[a-f0-9]{32}\z/D',$test['test-id']??'') || !in_array($test['test-mode']??'', ['mixed','mixed_hold','deadlock_once','deadlock_exhaust','row_timeout_once','row_timeout_exhaust'],true)
+                || isset($test['fault']) || isset($test['barrier'])) { throw new InvalidInput('TEST_SCENARIO'); }
+        }
         $bundle=read_artifact($options['bundle']); $snapshot=read_artifact($options['snapshot']); $catalog=read_artifact($options['catalog']); $plan=read_artifact($options['plan']);
         foreach([$bundle,$snapshot,$catalog,$plan] as $artifact) { if(!$artifact['value'] instanceof stdClass) { throw new InvalidInput('SCHEMA_OBJECT'); } }
         $result=execute($permit,$bundle['value'],$snapshot['value'],$catalog['value'],$plan['value'],$options['key'],['bundle'=>$bundle['raw_sha256'],'snapshot'=>$snapshot['raw_sha256']],$test);

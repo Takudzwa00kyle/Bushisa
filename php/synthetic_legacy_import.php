@@ -144,8 +144,14 @@ function preflight(stdClass $b, stdClass $s, stdClass $a, stdClass $plan, array 
 /** Test hook is gated by the permit AND a second explicit test flag. */
 function control(stdClass $permit, string $point, array $test, PDO $pdo): void
 {
-    if ($test === []) { return; }
+    // Internal observation metadata does not opt an ordinary import into test
+    // controls. Only explicit selectors can request a guarded test hook.
+    if (array_diff_key($test, array_flip(['attempt','sqlstate','errno'])) === []) { return; }
     if (!$permit->test_controls || getenv('BUSHISA_SYNTHETIC_IMPORT_TEST_CONTROLS') !== 'true') { throw new InvalidInput('TEST_CONTROLS_DISABLED'); }
+    if (isset($test['test-id'])) {
+        require_once __DIR__ . '/../tests/support/l02e_import_control.php';
+        \bushisa_l02e_import_control($permit, $point, $test, $pdo);
+    }
     if (($test['fault'] ?? '') === $point) { throw new InvalidInput('INJECTED_' . strtoupper($point)); }
     static $retried = false;
     if (($test['fault'] ?? '') === 'retry_once_after_facts' && $point === 'after_facts' && !$retried) {
@@ -156,7 +162,8 @@ function control(stdClass $permit, string $point, array $test, PDO $pdo): void
         if (!is_string($id) || !preg_match('/\Al02d-[a-f0-9]{32}\z/', $id)) { throw new InvalidInput('TEST_BARRIER_ID'); }
         $dir = rtrim(sys_get_temp_dir(), '/\\') . '/bushisa-l02d-barriers';
         if (!is_dir($dir) && !@mkdir($dir, 0700, true) && !is_dir($dir)) { throw new InvalidInput('TEST_BARRIER_IO'); }
-        file_put_contents($dir . '/' . $id . '-' . getmypid() . '.json', encode(['pid' => getmypid(), 'connection_id' => (int) $pdo->query('SELECT CONNECTION_ID()')->fetchColumn(), 'entered_at' => now($pdo)]));
+        require_once __DIR__.'/http_test_barrier.php';
+        \bushisa_write_test_record($dir . '/' . $id . '-' . getmypid() . '.json', ['pid' => getmypid(), 'connection_id' => (int) $pdo->query('SELECT CONNECTION_ID()')->fetchColumn(), 'entered_at' => now($pdo)]);
         $until = microtime(true) + 10;
         do { if (count(glob($dir . '/' . $id . '-*.json') ?: []) >= 2) { return; } usleep(20000); } while (microtime(true) < $until);
         throw new InvalidInput('TEST_BARRIER_TIMEOUT');
@@ -174,8 +181,12 @@ function transaction(PDO $pdo, stdClass $permit, callable $work, array $test = [
         } catch (Throwable $e) {
             if ($pdo->inTransaction()) { $pdo->rollBack(); }
             if ($e instanceof PDOException && in_array((int) ($e->errorInfo[1] ?? 0), [1205,1213], true)) {
+                control($permit, 'engine_error', $test + ['attempt'=>$attempt+1, 'sqlstate'=>(string)($e->errorInfo[0]??''), 'errno'=>(int)($e->errorInfo[1]??0)], $pdo);
                 if($attempt<2) { continue; }
                 throw new InvalidInput('IMPORT_RETRY_EXHAUSTED','REPLAN_REQUIRED');
+            }
+            if ($e instanceof PDOException && in_array((int)($e->errorInfo[1]??0), [1142,1143,1227], true)) {
+                throw new InvalidInput('IMPORT_PRIVILEGE_DENIED','REJECT_DESTINATION');
             }
             throw $e;
         } finally {
@@ -261,7 +272,7 @@ function execute(stdClass $permit, stdClass $b, stdClass $s, stdClass $a, stdCla
             if ($old !== false && $old !== $proof) { throw new InvalidInput('STORED_EQUIVALENCE_CONFLICT','CONFLICT_NO_APPLY'); }
             if ($old === false) { query($pdo,'INSERT INTO synthetic_import_equivalences VALUES (?,?,?,?,?)',[$b->pair_ref,$left,$right,$proof,sql_time($expiry)]); $addedEquiv++; }
         }
-        control($permit,'after_facts',$test,$pdo);
+        control($permit,'after_facts',$test+['attempt'=>$attempt],$pdo);
         foreach (['low_to_high','high_to_low'] as $i => $direction) {
             $from = (int)$bound[$i===0?'user_low':'user_high']; $to=(int)$bound[$i===0?'user_high':'user_low'];
             query($pdo,'UPDATE pair_request_counts SET request_count=? WHERE requester_id=? AND recipient_id=?',[$valid['request_union'][$direction],$from,$to]);

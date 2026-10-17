@@ -43,7 +43,11 @@ function bushisa_pair_complete(PDO $pdo,array $pair): void
     $proof=$pdo->prepare('SELECT 1 FROM pair_account_genesis g JOIN pair_ledger_epoch e ON e.singleton=1
         WHERE g.account_id=? AND g.recorded_at<=? AND g.recorded_at>=e.activated_at AND e.writer_reference IS NOT NULL');
     $proof->execute([$pair['genesis_account_id'],$pair['created_at']]);
-    $trigger=$pdo->query("SELECT 1 FROM information_schema.triggers WHERE trigger_schema=DATABASE() AND trigger_name='bushisa_pair_account_genesis'")->fetchColumn();
+    // information_schema.TRIGGERS hides rows from a least-privilege runtime
+    // without TRIGGER rights. The migration-owned fixed-schema routine exposes
+    // only current health, preserving fail-closed behavior without granting DDL.
+    try { $health=$pdo->query('CALL bushisa_pair_trigger_health()'); $trigger=(int)$health->fetchColumn()===1; $health->closeCursor(); }
+    catch (PDOException) { $trigger=false; }
     if ($pair['history_state'] !== 'complete_from_genesis' || !$proof->fetchColumn() || !$trigger
         || !in_array((int)$pair['genesis_account_id'],[(int)$pair['user_low'],(int)$pair['user_high']],true)) {
         throw new BushisaReportError(503, 'Verified original pair history is required');

@@ -7,9 +7,10 @@ in the checkout or its ancestors. The starting tree and index were clean.
 No importer, schema change, import, legacy activation or production inspection
 was performed in L02b; every case was NOT RUN at b4a041b. The subsequent
 [L02c offline implementation and exact results](l02c-offline-history-planner.md)
-and [L02d synthetic transactions/evidence](l02d-synthetic-import-evidence-2026-10-17.md)
-now update only the applicable synthetic case scopes below. L02d's separate
-executor cannot enable pairs; production provenance is unverified.
+and [L02d synthetic transactions/evidence](l02d-synthetic-import-evidence-2026-10-17.md),
+supplemented by [L02e mixed-writer/engine evidence](l02e-mixed-races-compatibility-evidence-2026-10-17.md),
+update only the applicable synthetic case scopes below. The separate executor
+cannot enable pairs; production provenance is unverified.
 
 Authority: the current [decisions](decisions.md), including Decision 27's scoped
 supersession and Decisions 28–33, the [48-answer reconciliation](owner-policy-reconciliation-2026-10-15.md),
@@ -444,15 +445,18 @@ coverage, state fingerprint and write-set fields in section 6:
 }
 ```
 
-**Current combined L02c/L02d scope: 19 PASS, 14 PARTIAL, 0 wholly NOT RUN.**
-Fourteen PARTIAL cases retain explicitly NOT RUN or UNVERIFIED variants; this
+**Current combined L02c/L02d/L02e scope: 21 PASS, 12 PARTIAL, 0 wholly NOT RUN.**
+Twelve PARTIAL cases retain explicitly NOT RUN or UNVERIFIED variants; this
 is not a completed matrix. The operations and expected
 observations below remain the original contract requirements. See the
-[individual execution/remainder table](l02d-synthetic-import-evidence-2026-10-17.md#current-lb01lb33-results)
+[current execution/remainder table](l02e-mixed-races-compatibility-evidence-2026-10-17.md#case-updates-and-remaining-requirements)
 for what actually ran. PASS is limited to the stated synthetic validation/planning/transaction observation;
 PARTIAL leaves its listed application/real-world variants unexecuted. No L02a
 assertion is relabelled as an import test. L02c's historical offline-only totals
-remain 13/13/7 in its unchanged evidence; current results include L02d separately.
+remain 13/13/7 in its unchanged evidence; L02d's historical 19/14/0 is unchanged.
+L02e executes mixed HTTP/importer orderings and genuine engine retries on two
+local profiles. Only LB13 and LB29 change from PARTIAL to PASS; other partial
+scopes retain their unexecuted variants in the current linked evidence.
 
 | ID | Synthetic operation | Required observation | Status |
 |---|---|---|---|
@@ -468,7 +472,7 @@ remain 13/13/7 in its unchanged evidence; current results include L02d separatel
 | LB10 | Destination count 4 but F explains only 3; or count 5 explains a proved larger disjoint tail. | Unexplained excess is conflict and never reduced; explained larger union stays 5, not clamped to lifetime budget 3. | PASS |
 | LB11 | Failure after fact insertion/before floor update, or after floor update/before receipt. | Entire pair rolls back; no torn count, unreceipted apply or success. Retry revalidates fresh state. | PASS |
 | LB12 | Commit succeeds but process/HTTP-equivalent response is lost. | Durable receipt resolves uncertainty; retry applies no second effects and rechecks destination/authority. | PASS |
-| LB13 | New native request/ending occurs between read-only plan and apply. | REPLAN_REQUIRED, no overwriting native tail or decrementing any count/version. | PARTIAL |
+| LB13 | New native request/ending occurs between read-only plan and apply. | REPLAN_REQUIRED, no overwriting native tail or decrementing any count/version. | PASS |
 | LB14 | New block/report attachment/clearance/cleanup occurs with unchanged pair version. | Full fingerprint detects the change; no removal, stale clearance or recreated event after purge. | PARTIAL |
 | LB15 | Account deletion, ban, consent withdrawal or session_version increment overlaps apply. | Reviewed account/range protocol serializes or rejects; sessions/status/restrictions never restored or decremented. | PARTIAL |
 | LB16 | Old approved/never-approved chat, two-ending cutoff, one-sided undo and historical clearance supplied as import facts. | No reopened grant, like, restored consent, cleared block/suppression or cutoff bypass. Clearance still needs exact live review and creator action. | PARTIAL |
@@ -484,7 +488,7 @@ remain 13/13/7 in its unchanged evidence; current results include L02d separatel
 | LB26 | Imported ending/retry clocks plus a live newer segment and old deletion job. | Original deadlines unchanged, old body stays erased and later segment preserved; no restore of text/media/report proof. | PARTIAL |
 | LB27 | Receipt/detail purged or a stale restored import registry lacks counted-prefix frontier/independent deletion record. | Fail closed; no recount, old block/consent rollback, traffic opening or pretend restore success. | PARTIAL |
 | LB28 | Two distinct CLI importer processes apply the same pair/bundle; two different bundles share facts. | Record both CLI PIDs and a rendezvous proving overlap. Unique receipts/facts and canonical locking yield one effect per identity; conflicting concurrent intent rejected/replanned. This alone is not HTTP-worker coverage. | PASS |
-| LB29 | Importer overlaps two actual HTTP workers across request, block/review, unmatch and explicit-end variants; also exercise real deadlock/timeout separately. | Record importer CLI PID, distinct HTTP worker PIDs, pre-lock rendezvous and actual commit outcomes; exclude session serialization. A forced retry exception is not evidence of a real InnoDB deadlock. | PARTIAL |
+| LB29 | Importer overlaps two actual HTTP workers across request, block/review, unmatch and explicit-end variants; also exercise real deadlock/timeout separately. | Record importer CLI PID, distinct HTTP worker PIDs, pre-lock rendezvous and actual commit outcomes; exclude session serialization. A forced retry exception is not evidence of a real InnoDB deadlock. | PASS |
 | LB30 | One pair in a multi-pair run conflicts; another is already committed. | No partially applied pair or misleading whole-batch success; earlier committed pair preserved and rejected pair unchanged. | PASS |
 | LB31 | Evidence attempts to label a legacy pair complete_from_genesis, write epoch or target a native-genesis pair. | Domain/allowlist rejection; no fabricated birth/certification or activation adapter. | PASS |
 | LB32 | Rollback/recovery operator retries an old plan after newer safety events or proposes inverse SQL/full snapshot recovery. | Existing committed receipt or replan/gate; no inverse restoration of old budgets, sessions, grants or cleared restrictions. | PARTIAL |
@@ -497,21 +501,24 @@ remain 13/13/7 in its unchanged evidence; current results include L02d separatel
 | Owner product policy | Settled rules preserved; no new policy answer requested. Historical acceptance instant remains unavailable. |
 | Production legacy sources and original identities | UNVERIFIED; authorized minimal source inventory/custody, actual gaps and admissible mapping/coverage. L02b read repository files only; L02d inspected only owned synthetic test data. |
 | Snapshot, all-writer cutover and native tail | UNVERIFIED; actual B/W/H/C, deployments/jobs/direct-access inventory, capture-method compatibility and independent observation. |
-| Import implementation | L02c offline parser/planner and L02d guarded synthetic schema/facts/receipts/transactions implemented/tested locally. SQL planner inspection adapter and legacy eligibility adapter remain absent. Mixed-writer/real-deadlock and lifecycle variants stay open. |
+| Import implementation | L02c offline parser/planner, L02d guarded synthetic transactions and L02e mixed-writer/genuine engine-retry/restricted-role checks implemented/tested locally. No known defect remains in this bounded supported path. SQL planner inspection and legacy eligibility adapters remain absent; L03 lifecycle/independent replay variants stay open. |
 | Qualified review/roles | REVIEW GATE: named engineering/security/privacy/safety reviewers, operators/backup and lawful purpose/retention/access review. No staffing, coverage, DPO appointment or legal conclusion is supplied. |
-| Recovery and operations | Full L03 independent replay/erasure, actual restore and scheduling/alerts remain open. Migration 005/007/008 production application is unverified; actual isolated restore remains NOT RUN. |
+| Recovery and operations | Full L03 independent replay/erasure, actual restore and scheduling/alerts remain open. Migration 005/007/008/009 production application is unverified; actual isolated restore remains NOT RUN. |
 
-**L02d local checkpoint:** [synthetic transaction evidence](l02d-synthetic-import-evidence-2026-10-17.md)
-records 100 import assertions, 34 pure guard assertions, the 105-assertion offline
-rerun and current 19/14/0 scoped LB statuses. **Next bounded task, L02e:** guarded
-mixed-writer concurrency and lock/retry verification, including LB29's actual
-HTTP/importer and real-deadlock variants. Actual production sources/cutover,
+**Current L02e checkpoint:** [mixed-writer and compatibility evidence](l02e-mixed-races-compatibility-evidence-2026-10-17.md)
+records 17 mixed races and four genuine engine trials per profile, restricted
+HTTP/importer grants, migration 009 fresh/upgrade/retry checks, affected regressions
+and current 21/12/0 scoped LB statuses. L02d's 100-import/34-guard evidence and
+L02c's 105 offline assertions remain individually attributed.
+**Next independent main-backlog task: L03 cleanup and independent recovery replay.**
+Begin with approved category/clock precedence and writer/replay inventory; proposed
+retention values still need their recorded approval/review. Actual sources/cutover,
 legacy eligibility, qualified review and independent recovery remain separate.
 
 The [backlog](backlog.md#next-bounded-task) links this contract. Historical L02a
 results remain **24 PASS, 19 PARTIAL, 2 NOT RUN**, with the exact 396/245 assertions,
 run times, worker PIDs and source hashes in its [JSON evidence](evidence/l02a-2026-10-16.json).
-They do not execute LB01–LB33; the separately linked L02c/L02d runs update those cases. Historical candidate CI remains head
+They do not execute LB01–LB33; the separately linked L02c/L02d/L02e runs update those cases. Historical candidate CI remains head
 `e30dcf844abaf499bcc657172c2c9aa1f4b4986d`, push `38546846225`, PR `38546851035`;
 none is L02b implementation evidence. The old 38-link check is documentation only.
 

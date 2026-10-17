@@ -40,6 +40,7 @@ jobs:
           php tests/unit_disposable_database_guard.php
           php tests/unit_legacy_history.php
           php -n -d disable_classes=PDO tests/unit_synthetic_import_guard.php
+          php -n -d disable_classes=PDO tests/unit_l02e_controls.php
           node tests/unit_playwright_config_guard.js
           python3 tests/smtp_transport_test.py
 
@@ -93,6 +94,10 @@ jobs:
         env:
           DB_NAME: bushisa_test_l02d_ci
         run: php tests/integration_l02d_imports.php
+      - name: Mixed HTTP and importer races, real engine retries, restricted roles
+        env:
+          DB_NAME: bushisa_test_l02d_e_ci
+        run: php tests/integration_l02e_races.php
 
   browser-route-session-overlap:
     runs-on: ubuntu-latest

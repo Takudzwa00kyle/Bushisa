@@ -12,6 +12,7 @@ require_once __DIR__ . '/../php/password_policy.php';
 require_once __DIR__ . '/../php/anonymiser.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
+require_once __DIR__ . '/../php/http_test_barrier.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -51,6 +52,7 @@ if ($user === null || !isset($user['password_hash']) || !is_string($user['passwo
     json_response(['error' => 'Password confirmation failed'], 403);
 }
 
+bushisa_http_test_barrier('account_delete_before_transaction');
 if (!anonymise_user($pdo, $currentUserId, $currentUserId)) {
     json_response(['error' => 'Unable to delete account right now'], 500);
 }

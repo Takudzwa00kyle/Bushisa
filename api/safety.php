@@ -68,6 +68,7 @@ try {
             if (isset($payload['review_version']) && !is_string($payload['review_version'])) {
                 throw new BushisaReportError(400, 'Invalid review version');
             }
+            bushisa_http_test_barrier('report_review_before_transaction');
             bushisa_report_clear_block($pdo, $actor, $case, $block, $auth, $payload['review_version'] ?? '');
             $data = ['status' => 'clearance_recorded'];
         }
