@@ -2,6 +2,8 @@
 
 Updated: 2026-10-18, Africa/Harare.
 
+Whole-roadmap reconciliation at candidate `d381e56`: [P0–P2 status and critical path](p0-p2-status-2026-10-18.md). This is a documentation audit; it preserves historical evidence and leaves the existing acceptance matrices and release gates unchanged.
+
 ## Current Q11 synthetic physical session-copy consumer checkpoint
 
 Continued from `5e7c5a5` on
