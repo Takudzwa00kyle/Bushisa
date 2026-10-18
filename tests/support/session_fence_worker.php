@@ -7,7 +7,7 @@ require_once __DIR__.'/../../php/managed_session.php';
 $options=getopt('',['job:']);
 function sf_fixture_path(string $path): string {
     $real=realpath($path); $base=realpath(dirname(__DIR__,2).'/.tmp');
-    if ($real===false || $base===false || is_link($path) || !str_starts_with(str_replace('\\','/',$real),str_replace('\\','/',$base).'/sf-') || filesize($real)>16384) { throw new RuntimeException('SESSION_FIXTURE_REFUSED'); }
+    if ($real===false || $base===false || is_link($path) || (!str_starts_with(str_replace('\\','/',$real),str_replace('\\','/',$base).'/sf-')&&!str_starts_with(str_replace('\\','/',$real),str_replace('\\','/',$base).'/sc-run-')) || filesize($real)>16384) { throw new RuntimeException('SESSION_FIXTURE_REFUSED'); }
     return $real;
 }
 $job=json_decode((string)file_get_contents(sf_fixture_path((string)($options['job']??''))),true,8,JSON_THROW_ON_ERROR);
@@ -58,10 +58,10 @@ try {
         $until=microtime(true)+15;
         while(!is_file($job['ready'].'.release')) { if(microtime(true)>$until) { throw new RuntimeException('SESSION_FIXTURE_TIMEOUT'); } usleep(10000); }
     }
-    $result=true;
+    $result=true;$loginError=null;
     switch($job['action']) {
         case 'login':
-            $result=attempt_login($p,$job['email'],'Synthet1c!Fixture','sf_'.bin2hex(random_bytes(8)))['success']; break;
+            $login=attempt_login($p,$job['email'],'Synthet1c!Fixture','sf_'.bin2hex(random_bytes(8)));$result=$login['success'];$loginError=$login['error'];break;
         case 'write': case 'implicit':
             $_SESSION['last_activity']=time(); break;
         case 'lazy': break;
@@ -85,5 +85,5 @@ try {
         file_put_contents($job['capsule'],json_encode(['sid'=>session_id(),'csrf'=>$_SESSION['csrf_token']??null],JSON_THROW_ON_ERROR));
     }
     if ($job['action']!=='implicit' && session_status()===PHP_SESSION_ACTIVE) { @session_write_close(); }
-    echo json_encode(['result'=>$result,'snapshot'=>$snapshot,'identity'=>$h->testIdentity(),'failed'=>$h->failed,'error'=>$h->error],JSON_THROW_ON_ERROR);
+    echo json_encode(['result'=>$result,'snapshot'=>$snapshot,'identity'=>$h->testIdentity(),'failed'=>$h->failed,'error'=>$h->error,'login_error'=>$loginError],JSON_THROW_ON_ERROR);
 } catch(Throwable) { http_response_code(503); echo '{"error":"SESSION_FIXTURE_FAILED"}'; exit(1); }

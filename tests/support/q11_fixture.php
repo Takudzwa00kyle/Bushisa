@@ -52,7 +52,7 @@ function q11_worker_user(PDO $root,string $database): array
     }
     $root->exec("GRANT DELETE ON $db.rate_limits TO $account");
     if (operational_table_exists($root,'rate_limit_attempts')) { $root->exec("GRANT INSERT,UPDATE,DELETE ON $db.rate_limit_attempts TO $account"); }
-    foreach(['session_bindings','session_copy_manifests','session_lineage','session_handoffs','session_copy_obligations'] as $table) {
+    foreach(['session_bindings','session_copy_manifests','session_lineage','session_handoffs','session_copy_obligations','session_copy_coverage'] as $table) {
         if (operational_table_exists($root,$table)) { $root->exec("GRANT INSERT,UPDATE ON $db.$table TO $account"); }
     }
     return compact('user','password','account');

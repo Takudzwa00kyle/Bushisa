@@ -85,6 +85,8 @@ function bushisa_signup_record_creation(PDO $pdo,int $id): void
         require_once __DIR__.'/signup_attempt_erasure.php';
         \Bushisa\AttemptErasure\bind_creation($pdo,$id);
     }
+    require_once __DIR__.'/managed_session.php';
+    \Bushisa\ManagedSession\record_creation($pdo,$id);
 }
 function bushisa_signup_user_live(array $u): bool
 {

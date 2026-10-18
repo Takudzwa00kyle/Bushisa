@@ -8,11 +8,26 @@ use RuntimeException;
 use Throwable;
 
 require_once __DIR__.'/signup_lifecycle.php';
+require_once __DIR__.'/session_copy_store.php';
 
 /** This is deliberately NOT an operational session-handler selector. */
 function requested(): bool { return getenv('BUSHISA_SESSION_SYNTHETIC')==='true'; }
 function ref(): string { return bin2hex(random_bytes(32)); }
 function q(PDO $p,string $sql,array $args=[]): \PDOStatement { return \bushisa_signup_query($p,$sql,$args); }
+
+/** The actual new-registration transaction alone records positive synthetic
+ * writer coverage. Upgrades never certify old attempts, bindings or objects. */
+function record_creation(PDO $p,int $id): void
+{
+    if(!requested() || !\operational_table_exists($p,'session_copy_coverage')) { return; }
+    $config=configuration();
+    if(!$p->inTransaction()) { throw new RuntimeException('SESSION_CREATION_TRANSACTION_REQUIRED'); }
+    $u=q($p,'SELECT * FROM users WHERE id=? FOR UPDATE',[$id])->fetch();
+    $g=q($p,'SELECT * FROM signup_attempt_identities WHERE account_id=?',[$id])->fetch();
+    if(!$u || !$g || $u['signup_attempt_key']!==$g['attempt_key'] || $u['account_status']!=='pending_email' || $g['registered_at']!==\bushisa_signup_time($u['created_at'])) { throw new RuntimeException('SESSION_NEW_GENERATION_REQUIRED'); }
+    q($p,'INSERT INTO session_copy_coverage (account_key,namespace_id,account_id,registered_at,root_version,writer_contract,recorded_at) VALUES (?,?,?,?,?,"synthetic_bound_v2",?)',
+        [$g['attempt_key'],$config['namespace'],$id,$g['registered_at'],(new Store($config))->version(),\bushisa_signup_now($p)]);
+}
 
 /** All guards run before the handler opens a connection. Never create a root. */
 function configuration(): array
@@ -73,8 +88,15 @@ function expire_locked(PDO $p,array $u,string $receipt,string $effective,string 
 {
     if (!\operational_table_exists($p,'session_copy_obligations') || empty($u['signup_attempt_key'])) { return; }
     $id=hash('sha256','session_copies_v1|'.$receipt.'|'.$u['signup_attempt_key']);
-    q($p,'INSERT IGNORE INTO session_copy_obligations (event_ref,account_id,account_key,source_receipt,effective_at,purge_due_at,policy_ref) VALUES (?,?,?,?,?,?,"Q11")',
-        [$id,$u['id'],$u['signup_attempt_key'],$receipt,$effective,$due]);
+    if(\operational_column_exists($p,'session_copy_obligations','account_version')) {
+        $clock=q($p,'SELECT * FROM signup_lifecycle WHERE account_id=?',[$u['id']])->fetch();
+        $current=q($p,'SELECT session_version FROM users WHERE id=?',[$u['id']])->fetchColumn();
+        q($p,'INSERT IGNORE INTO session_copy_obligations (event_ref,account_id,account_key,source_receipt,effective_at,purge_due_at,policy_ref,account_version,clock_version,registered_at) VALUES (?,?,?,?,?,?,"Q11",?,?,?)',
+            [$id,$u['id'],$u['signup_attempt_key'],$receipt,$effective,$due,$current,$clock['version'],$clock['registered_at']]);
+    } else {
+        q($p,'INSERT IGNORE INTO session_copy_obligations (event_ref,account_id,account_key,source_receipt,effective_at,purge_due_at,policy_ref) VALUES (?,?,?,?,?,?,"Q11")',
+            [$id,$u['id'],$u['signup_attempt_key'],$receipt,$effective,$due]);
+    }
     $o=q($p,'SELECT * FROM session_copy_obligations WHERE event_ref=? FOR UPDATE',[$id])->fetch();
     if (!$o || (int)$o['account_id']!==(int)$u['id'] || $o['account_key']!==$u['signup_attempt_key']
         || $o['source_receipt']!==$receipt || $o['effective_at']!==$effective || $o['purge_due_at']!==$due) { throw new RuntimeException('SESSION_OBLIGATION_CONFLICT'); }
@@ -131,6 +153,10 @@ final class Handler implements \SessionHandlerInterface, \SessionUpdateTimestamp
     {
         // Never acquire a session-file mutex before this ordering.
         $u=authority($this->p,$expected);
+        if($u!==null && \operational_table_exists($this->p,'session_copy_coverage')) {
+            $coverage=q($this->p,'SELECT sealed_at,root_version FROM session_copy_coverage WHERE account_key=? AND namespace_id=?',[$expected['account_key'],$this->config['namespace']])->fetch();
+            if($coverage && ($coverage['sealed_at']!==null || !hash_equals($coverage['root_version'],(new Store($this->config))->version()))) { throw new RuntimeException('SESSION_GENERATION_SEALED'); }
+        }
         $b=q($this->p,'SELECT * FROM session_bindings WHERE session_ref=? FOR UPDATE',[$expected['session_ref']])->fetch();
         if (!$b || $b['namespace_id']!==$this->config['namespace'] || $b['key_version']!=1 || $b['state']!=='live'
             || $b['account_key']!==$expected['account_key'] || $b['account_id']!==$expected['account_id']
@@ -190,8 +216,12 @@ final class Handler implements \SessionHandlerInterface, \SessionUpdateTimestamp
         $m=q($this->p,'SELECT * FROM session_copy_manifests WHERE copy_ref=?',[$b['current_copy']])->fetch();
         if (!$m || $m['session_ref']!==$b['session_ref'] || $m['binding_epoch']!==$b['binding_epoch'] || $m['state']!=='published'
             || (int)$m['expected_revision']+1!==(int)$b['revision']
-            || $m['namespace_id']!==$this->config['namespace'] || $m['adapter_version']!=='synthetic_local_v1') { throw new RuntimeException('SESSION_MANIFEST_REQUIRED'); }
+            || $m['namespace_id']!==$this->config['namespace'] || !in_array($m['adapter_version'],['synthetic_local_v1','synthetic_local_v2'],true)) { throw new RuntimeException('SESSION_MANIFEST_REQUIRED'); }
         $sealed=@file_get_contents($this->path($m['copy_ref'],true));
+        if($m['adapter_version']==='synthetic_local_v2') {
+            if(!is_string($sealed) || !is_string($m['object_generation']) || substr($sealed,0,37)!==Store::MAGIC.hex2bin($m['object_generation'])) { throw new RuntimeException('SESSION_COPY_INVALID'); }
+            $sealed=substr($sealed,37);
+        }
         if (!is_string($sealed) || strlen($sealed)<28) { throw new RuntimeException('SESSION_COPY_INVALID'); }
         $plain=openssl_decrypt(substr($sealed,28),'aes-256-gcm',$this->payloadKey(),OPENSSL_RAW_DATA,substr($sealed,0,12),substr($sealed,12,16),$m['copy_ref']);
         if (!is_string($plain)) { throw new RuntimeException('SESSION_COPY_INVALID'); } return $plain;
@@ -213,26 +243,35 @@ final class Handler implements \SessionHandlerInterface, \SessionUpdateTimestamp
     {
         try {
             if ($this->failed || !$this->context || !hash_equals($this->context['sid_hmac'],$this->hmac($id))) { throw new RuntimeException('SESSION_BINDING_REQUIRED'); }
-            $b=$this->context; $copy=ref(); $input=$this->decode($data);
+            $b=$this->context; $copy=ref(); $generation=ref(); $input=$this->decode($data);
             \bushisa_signup_test_point($this->p,'session_write');
             // Intent commits BEFORE any object exists. A crash never hides a copy.
-            $this->tx(function()use($b,$copy,$input) {
+            $v2=\operational_column_exists($this->p,'session_copy_manifests','object_generation');
+            $this->tx(function()use($b,$copy,$input,$generation,$v2) {
                 [$current,$u]=$this->locked($b); $this->payload($input,$current,$u);
+                if($v2) {
+                    q($this->p,'INSERT INTO session_copy_manifests (copy_ref,session_ref,binding_epoch,expected_revision,namespace_id,adapter_version,instance_id,state,created_at,scope_class,account_id,account_key,auth_version,object_generation) VALUES (?,?,?,?,?,"synthetic_local_v2","fixture_shared","reserved",?,?,?,?,?,?)',
+                        [$copy,$b['session_ref'],$b['binding_epoch'],$b['revision'],$this->config['namespace'],\bushisa_signup_now($this->p),$b['account_id']===null?'anonymous':'account',$b['account_id'],$b['account_key'],$b['auth_version'],$generation]);
+                    return;
+                }
                 q($this->p,'INSERT INTO session_copy_manifests (copy_ref,session_ref,binding_epoch,expected_revision,namespace_id,adapter_version,instance_id,state,created_at) VALUES (?,?,?,?,?,"synthetic_local_v1","fixture_shared","reserved",?)',
                     [$copy,$b['session_ref'],$b['binding_epoch'],$b['revision'],$this->config['namespace'],\bushisa_signup_now($this->p)]);
             });
             $this->fault('after_intent');
-            $this->tx(function()use($b,$copy,$input) {
+            \bushisa_signup_test_point($this->p,'session_after_intent');
+            $this->tx(function()use($b,$copy,$input,$generation,$v2) {
                 [$current,$u]=$this->locked($b);
                 $plain=serialize($this->payload($input,$current,$u));
                 $iv=random_bytes(12); $tag='';
                 $cipher=openssl_encrypt($plain,'aes-256-gcm',$this->payloadKey(),OPENSSL_RAW_DATA,$iv,$tag,$copy);
                 if (!is_string($cipher)) { throw new RuntimeException('SESSION_STORE_FAILED'); }
                 $this->fault('storage_failure');
+                \bushisa_signup_test_point($this->p,'session_object_io');
                 $f=@fopen($this->path($copy),'xb');
                 if (!$f) { throw new RuntimeException('SESSION_STORE_FAILED'); }
                 try {
-                    @chmod($this->path($copy),0600); $sealed=$iv.$tag.$cipher;
+                    if(!@flock($f,LOCK_EX|LOCK_NB)) { throw new RuntimeException('SESSION_OBJECT_LOCKED'); }
+                    @chmod($this->path($copy),0600); $sealed=($v2?Store::MAGIC.hex2bin($generation):'').$iv.$tag.$cipher;
                     if (@fwrite($f,$sealed)!==strlen($sealed) || !@fflush($f)) { throw new RuntimeException('SESSION_STORE_FAILED'); }
                 } finally { @fclose($f); }
                 $this->fault('after_object');
@@ -296,6 +335,7 @@ final class Handler implements \SessionHandlerInterface, \SessionUpdateTimestamp
             q($this->p,'UPDATE session_bindings SET state="retired",revision=revision+1,retired_at=?,reason_code="REGENERATED" WHERE session_ref=?',[\bushisa_signup_now($this->p),$old['session_ref']]);
             return $new;
         });
+        $this->fault('after_rotation_reservation');
         $this->context=$new; $payload=$this->tx(fn()=>$this->identity($new)); $this->seed=serialize($payload); return $payload;
     }
     public function resume(int $id,int $old,int $new): bool

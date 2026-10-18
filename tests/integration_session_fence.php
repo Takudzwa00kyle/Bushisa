@@ -306,12 +306,25 @@ try {
         \Bushisa\ManagedSession\q($root,'UPDATE session_bindings SET current_copy=? WHERE session_ref=?',[$b['current_copy'],$b['session_ref']]);
         \Bushisa\ManagedSession\q($root,'DELETE FROM session_copy_manifests WHERE copy_ref=?',[$locator]);
     }
-    \Bushisa\ManagedSession\q($root,'UPDATE session_copy_manifests SET binding_epoch=binding_epoch+1 WHERE copy_ref=?',[$b['current_copy']]);
-    sc('SC31','stale manifest epoch cannot expose another copy',str_contains(sf_run(['action'=>'read','capsule'=>$c],$env)['stdout'],'Session service unavailable'));
-    \Bushisa\ManagedSession\q($root,'UPDATE session_copy_manifests SET binding_epoch=? WHERE copy_ref=?',[$b['binding_epoch'],$b['current_copy']]);
+    $immutable=false;
+    try { \Bushisa\ManagedSession\q($root,'UPDATE session_copy_manifests SET binding_epoch=binding_epoch+1 WHERE copy_ref=?',[$b['current_copy']]); }
+    catch(PDOException $e) { $immutable=$e->getCode()==='45000'; }
+    sc('SC31','immutable manifest epoch refuses attempted retargeting',$immutable && (sf_run(['action'=>'read','capsule'=>$c],$env)['json']['snapshot']['authenticated']??false));
+    // Reading through PHP can publish a fresh CSRF/session copy. Resolve the
+    // authoritative binding only after that read so the hard-link probe hits
+    // the exact currently published object, not a stale test snapshot.
+    $b=\Bushisa\ManagedSession\q($root,'SELECT * FROM session_bindings WHERE sid_hmac=?',[$index->hmac($capsule['sid'])])->fetch();
+    $m=\Bushisa\ManagedSession\q($root,'SELECT * FROM session_copy_manifests WHERE copy_ref=?',[$b['current_copy']])->fetch();
     $object=$store.DIRECTORY_SEPARATOR.$b['current_copy'].'.sealed';$link=$store.DIRECTORY_SEPARATOR.'synthetic-hardlink';
     if (@link($object,$link)) {
-        sc('SC30','hardlinked fixture object refused',str_contains(sf_run(['action'=>'read','capsule'=>$c],$env)['stdout'],'Session service unavailable'));unlink($link);
+        $sourceStat=@lstat($object);$linkStat=@lstat($link);
+        $direct=new \Bushisa\ManagedSession\Handler(\Bushisa\ManagedSession\connection());$private=$direct->read($capsule['sid']);
+        $directDenied=$private===false&&$direct->failed&&$direct->error==='SESSION_OBJECT_REFUSED';
+        $storeProbe='not-run';
+        try { $o=(new \Bushisa\ManagedSession\Store(\Bushisa\ManagedSession\configuration()))->probe($b['current_copy'],$m['object_generation']);$storeProbe='accepted';if(is_resource($o['handle']))fclose($o['handle']); }
+        catch(Throwable $e) { $storeProbe=$e->getMessage(); }
+        $visible=(int)($sourceStat['nlink']??0).'/'.(int)($linkStat['nlink']??0);
+        sc('SC30','hardlink refusal: links='.$visible.' direct='.($direct->error).' current_manifest=1 store='.$storeProbe,($sourceStat['nlink']??0)>1&&($linkStat['nlink']??0)>1&&$directDenied&&$storeProbe==='SESSION_OBJECT_REFUSED');unlink($link);
     } else { $environment['hardlink_variant']='NOT RUN: platform fixture creation unavailable'; }
     if (PHP_OS_FAMILY!=='Windows') {
         $original=$object.'.original';rename($object,$original);

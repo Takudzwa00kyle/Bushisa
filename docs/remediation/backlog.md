@@ -2,7 +2,47 @@
 
 Updated: 2026-10-18, Africa/Harare.
 
-## Current new-attempt session binding / write-fence checkpoint
+## Current Q11 synthetic physical session-copy consumer checkpoint
+
+Continued from `5e7c5a5` on
+`codex/q11-synthetic-session-copy-consumer-20261018`. The
+[implementation/evidence](session-copy-consumer-evidence-2026-10-18.md),
+[binding/write-fence foundation](session-binding-write-fence-evidence-2026-10-18.md)
+and [SC01-SC40 contract](account-session-copy-contract.md#7-planned-acceptance-matrix)
+record only the Q11 `session_copies_v1` physical consumer for positively covered
+new attempts in an isolated synthetic filesystem store. It uses the original
+Q11 expiry +24h boundary and exact generation/version manifests. Bounded stages
+seal, capture, persist per-object intent, delete and verify exact absence, then
+write a scoped receipt. Retries reconcile missing objects; unknown/changed
+objects and incomplete coverage fail closed. Filesystem and SQL receipt updates
+are separate failure domains.
+
+Current SC status: **15 PASS / 19 PARTIAL / 6 NOT RUN**. The focused consumer
+suite is 36/36 on Linux and 35 PASS / 1 NOT RUN on Windows (symlink/reparse
+creation); affected Windows binding/Q11/Q22/erasure regressions and Linux
+consumer results are linked in the evidence document. CI configuration adds
+the guarded consumer job; hosted CI is **NOT RUN**. Historical A/LB/LC/QS/QE/QM
+results and candidate CI attribution remain unchanged.
+
+No anonymous, legacy, Q14 or production copies are consumed. The production
+handler, scheduler, independent recovery publisher and witnessed restore remain
+gated. Real handler/root/instance inventory, cutover/provenance, qualified
+privacy/security/safety review, accepted operators/backup/alerts, recovery
+durability and witnessed restore remain open. No real data, production database,
+email or production session store was accessed; no production scheduling, push,
+merge or deployment occurred.
+
+Next existing bounded backlog task: **L06 reset challenge, outbox and sessions**
+as scoped in the table below. Reuse the recorded Q47 approval on guarded
+disposable systems; keep real inbox/header checks, named mail/security/support
+operators and unresolved Q40 settings as separate gates. This does not close
+L03's remaining production/recovery scope.
+
+Exact historical owner-acceptance UTC/Harare timestamps were not captured. No
+drafting or run time is substituted as an approval time; settled decisions and
+unrelated release gates remain unchanged.
+
+## Previous checkpoint: new-attempt session binding / write-fence
 
 Continued from `077b8c78b0b556c887b241b9666ce24efc1eebfe` on
 `codex/session-binding-write-fence-20261018`. The
@@ -412,7 +452,7 @@ deadlines stay gated by ownership, overdue alerts and measured capacity.
 |---|---|---|---|
 | L01 Report routes and roles | Decisions 28–33 and Q01–Q05/Q18–Q20; service targets conditional | L01b text/API resolver, actual/ambiguous actor attribution, self-primary rejection, deduplicated private receipts/addenda, atomic probation/renewal and block clearance are implemented locally. See exact evidence. Human recovery, full sanctions/appeals, real MFA and staffed queues remain later slices. | [Current A01–A45 results](l02a-implementation-evidence-2026-10-16.md#a01a45-current-status): PASS/PARTIAL/NOT RUN, not whole acceptance. Qualified review, legacy pair-state/replay, real roles/capacity, H03/H10 and release gates remain open. |
 | L02 Terminal pair state, undo and projections | Existing D04 Decisions 1–33, including decline-only new-match clearance and Decision 27 fresh mutual restoration | [L02a](l02a-pair-history-contract.md) is implemented locally: canonical original-pair ledger, positive post-cutover genesis versus incomplete legacy history, retained request events, original-ender 12h restart, second-ending cutoff, fresh mutual restoration/own undos/rolling cap and eligible creator-unblock chat. Shared route/page/preview authorization and immutable closed-text segmentation are integrated. New requests/grants remain fail-closed without necessary provenance; migration never certifies old accounts. [L02b](l02b-legacy-history-import-contract.md), [L02c offline planning](l02c-offline-history-planner.md) and [L02d guarded synthetic transactions](l02d-synthetic-import-evidence-2026-10-17.md) define/test the non-enabling evidence/import path. [L02e mixed-writer/restricted-role evidence](l02e-mixed-races-compatibility-evidence-2026-10-17.md) closes the bounded synthetic concurrency/engine checks and adds migration 009 read-only trigger health. No legacy eligibility adapter or real-data importer exists. | [A01–A45 evidence](l02a-implementation-evidence-2026-10-16.md): 24 PASS, 19 PARTIAL, 2 NOT RUN unchanged. Separate LB01–LB33 current totals: 21 PASS, 12 PARTIAL, 0 wholly NOT RUN, with listed NOT RUN variants. Bounded local L02 is complete; actual source/cutover evidence, qualified review/named roles, UI/manual variants and full L03 lifecycle/independent replay stay open. No production activation or whole D04 acceptance. |
-| L03 Cleanup, evidence clocks and independent replay | Q10-Q27/Q32; D05 partial; Q12 anti-replay/Q16 active chat/Q23 metadata/Q26 copy settings still proposed | [Baseline inventory](l03-category-clock-writer-inventory.md) maps 32 categories/25 writers/G01–G14. [L03a](l03a-text-evidence-lifecycle-evidence-2026-10-17.md) implements new-intake immutable text clocks, item/version holds, release obligations, bounded atomic purge/receipts and synthetic publication/replay interfaces. Production authority/journal integration remains unavailable/fail-closed. No broad account/media/legacy/import cleanup or scheduling is enabled. [Q11](q11-signup-expiry-evidence-2026-10-18.md) now adds original attempt/onboarding clocks and atomic challenge/mail cancellation (QS01–QS24: 24 local PASS). [The bounded attempt consumer](q11-attempt-erasure-evidence-2026-10-18.md) now implements that local scope (QE01–QE28: 27 PASS/1 PARTIAL); operational providers remain unavailable. [Q22 terminal cleanup](q22-terminal-mail-cleanup-evidence-2026-10-18.md) now implements original new-writer detail/payload/seven-day metadata clocks, bounded SQL cleanup and late carrier receipts. Operational recovery integration is still unavailable; [The session-copy inventory/contract](account-session-copy-contract.md) is now prepared (SC01–SC40 all NOT RUN); first bounded implementation is new-attempt binding and managed write-fence foundation, with operational/legacy/retention gates preserved. | Current LC01–LC18: 13 PASS/5 PARTIAL/0 wholly NOT RUN; exact per-profile assertions and unexecuted variants linked in L03a. Historical A/LB unchanged. Real copy inventory/durability, startup/mail replay and witnessed restore, lawful purpose/qualified review and named operators remain open. Latest actual copy +7d; conditional7+35+7=49d, never universal. |
+| L03 Cleanup, evidence clocks and independent replay | Q10-Q27/Q32; D05 partial; Q12 anti-replay/Q16 active chat/Q23 metadata/Q26 copy settings still proposed | [Baseline inventory](l03-category-clock-writer-inventory.md) maps 32 categories/25 writers/G01–G14. [L03a](l03a-text-evidence-lifecycle-evidence-2026-10-17.md) implements new-intake immutable text clocks, item/version holds, release obligations, bounded atomic purge/receipts and synthetic publication/replay interfaces. Production authority/journal integration remains unavailable/fail-closed. No broad account/media/legacy/import cleanup or scheduling is enabled. [Q11](q11-signup-expiry-evidence-2026-10-18.md) now adds original attempt/onboarding clocks and atomic challenge/mail cancellation (QS01–QS24: 24 local PASS). [The bounded attempt consumer](q11-attempt-erasure-evidence-2026-10-18.md) now implements that local scope (QE01–QE28: 27 PASS/1 PARTIAL); operational providers remain unavailable. [Q22 terminal cleanup](q22-terminal-mail-cleanup-evidence-2026-10-18.md) now implements original new-writer detail/payload/seven-day metadata clocks, bounded SQL cleanup and late carrier receipts. Operational recovery integration is still unavailable. [The session-copy inventory/contract](account-session-copy-contract.md) now records SC01–SC40 at 15 PASS/19 PARTIAL/6 NOT RUN, including the Q11-only synthetic physical consumer; production handler integration and independent recovery remain gated. | Current LC01–LC18: 13 PASS/5 PARTIAL/0 wholly NOT RUN; exact per-profile assertions and unexecuted variants linked in L03a. Historical A/LB unchanged. Real copy inventory/durability, startup/mail replay and witnessed restore, lawful purpose/qualified review and named operators remain open. Latest actual copy +7d; conditional7+35+7=49d, never universal. |
 | L04 Consent and coarse geography | Q28-Q34; D12 partial; source combination/catalogue widths/bonus bands still proposed; D03 full geography scope preserved | Build reviewed catalogue contract without invented points; current coarse area/version/time/consent only; optional opt-in/refusal/withdrawal; 7d freshness/24h purge; >=10-user cohort suppression; atomic 2 changes/24h; <=5-point soft ranking with zero fallback; cursor invalidation/live safety checks. `profiles.campus_zone` is legacy and authoritative matcher currently lacks geographic ranking. | Local catalogue/point acceptance, normalization/fairness/probing/query/load evidence and Android/iOS grant/refuse/withdraw/expiry/paging witnesses. Privacy/H13, final notice and actual catalogue reviewers UNASSIGNED; no production collection before acceptance. |
 | L05 Telemetry allowlist | Q13/Q23/Q43-Q44; provider/sampling/metadata defaults and funding remain proposed | Map every server/browser/provider destination. Prepare pre-transmission fixed-field redaction/allowlist, optional browser consent/withdrawal gate, random expiring visitor reference, separate app-side totals and suppressed aggregates. Inventory table minimums/export/archive paths against retention; no session replay, message/location/answer/token collection. | Later consent/redaction/retention/source-count tests, priced region/configuration review and named privacy/security acceptance. D10 stays pending; US$5 is not an approved spend. |
 | L06 Reset challenge, outbox and sessions | Q11/Q22/Q40/Q45-Q47; sender/15m token controls selected; signup/reset resend values and session redesign still proposed; temporary unset Reply-To approved; actual inbox/header verification open | Extend signup-specific `php/mail_delivery.php`/dispatcher with separate reset purpose and >=256-bit random/hash-only challenge, atomic supersession/consume, trusted configured HTTPS origin, existing password policy, no enumeration and all-session revocation. Queue redeemable bodies encrypted separately; deadline min(queue+5m, token expiry-60s), terminal erasure, code-free 7d metadata. No fabricated support inbox. Use the next genuinely free additive migration identifier; 005 is already precision migration, not available for password recovery. | Later guarded expiry/replay/concurrent-consume/enumeration/revocation/transport-failure tests; no live reset now. Real headers/inbox/DNS/consenting recipients only in separately authorized acceptance. Named mail/security/support owners and H06 remain open. |

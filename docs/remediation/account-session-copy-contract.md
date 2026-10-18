@@ -5,12 +5,20 @@ Branch: `codex/account-session-copy-contract-20261018`. Inspection date:
 2026-10-18, Africa/Harare. Starting HEAD matched the requested checkpoint and
 the index/tree were clean. No AGENTS.md was found in the checkout or ancestors.
 
-**Current continuation from `077b8c7`:** the new-attempt binding/write-fence
-foundation is implemented behind a guarded synthetic handler. See the
-[focused engineering evidence](session-binding-write-fence-evidence-2026-10-18.md)
-for supported boundaries, exact checks and remaining gates. The current matrix
-is **12 PASS / 18 PARTIAL / 10 NOT RUN**; no physical cleanup, production handler
-activation, independent review or restore acceptance is claimed.
+**Current continuation from `5e7c5a5`:** the Q11-only physical consumer now
+handles only positively covered `session_copies_v1` copies in the guarded
+synthetic store, using the original Q11 expiry +24h deadline, generation-bound
+manifests, current-version checks and resumable verified-absence receipts. The
+[focused consumer evidence](session-copy-consumer-evidence-2026-10-18.md) records
+case-level results and platform limits. SC01–SC40 now stand at **15 PASS / 19
+PARTIAL / 6 NOT RUN**, limited to synthetic fixtures; production-handler
+activation, independent recovery durability, witnessed restore and qualified
+review/operational gates remain open.
+
+The [new-attempt binding/write-fence foundation](session-binding-write-fence-evidence-2026-10-18.md)
+remains prerequisite implementation evidence. No general session retention,
+anonymous-session cleanup, legacy mapping, production integration or Q40 policy
+is introduced by the consumer.
 
 The original documentation checkpoint was design-complete and ready for
 engineering review. At that checkpoint no PHP, database/session-store access or
@@ -28,7 +36,8 @@ The [Q11 clock evidence](q11-signup-expiry-evidence-2026-10-18.md),
 [attempt-erasure scope](q11-attempt-erasure-evidence-2026-10-18.md) and
 [Q22 cleanup evidence](q22-terminal-mail-cleanup-evidence-2026-10-18.md)
 explicitly exclude physical PHP session copies. This contract addresses that
-gap without changing their receipts or results. Reviewer: Takudzwa Hondova;
+gap without changing their receipts or results. The physical-consumer
+continuation is separately evidenced below. Reviewer: Takudzwa Hondova;
 qualified reviewers/operators remain unassigned. Exact historical acceptance
 UTC/Harare timestamps were not captured; this inspection date is not approval.
 
@@ -362,8 +371,9 @@ from restricted runtime/cleanup identities. Use original server-owned Q11/Q14
 events. Where a general policy is unresolved, test rejection of the unsupported
 operation rather than invent a production retention value.
 
-Statuses below reflect the [new synthetic execution](session-binding-write-fence-evidence-2026-10-18.md),
-with each unexecuted variant still open: **12 PASS / 18 PARTIAL / 10 NOT RUN**.
+Statuses below combine the [binding/write-fence execution](session-binding-write-fence-evidence-2026-10-18.md)
+and [Q11 physical-consumer execution](session-copy-consumer-evidence-2026-10-18.md),
+with each unexecuted variant still open: **15 PASS / 19 PARTIAL / 6 NOT RUN**.
 Existing browser/QS/QE/QM results are not relabelled as session erasure. For concurrency,
 record distinct HTTP/CLI PIDs, handler instances and SQL connections plus actual
 engine/provider overlap; two tabs or simulated exceptions alone do not prove it.
@@ -385,7 +395,7 @@ engine/provider overlap; two tabs or simulated exceptions alone do not prove it.
 | SC13 | Future Q47 reset request versus successful reset with two A sessions | Request changes no auth; success revokes all relevant sessions and requires ordinary login; Q47 integration dependency. | NOT RUN |
 | SC14 | Login A after prior different principal/privileged session; regenerate | Old identity/MFA/capability/CSRF material cannot leak into new binding; old alias denied. | PASS |
 | SC15 | Polling/read versus intentional activity; unsupported timeout configuration | Polling cannot renew approved idle semantics; no proposed numerical lifetime silently adopted. | PARTIAL |
-| SC16 | Expired A/G1 session-copy obligation at expiry +24h boundaries | Eligible owned copies gone by original deadline; late retries alert without extension. | NOT RUN |
+| SC16 | Expired A/G1 session-copy obligation at expiry +24h boundaries | Eligible owned copies gone by original deadline; late retries alert without extension. | PASS |
 | SC17 | Verified Q14 deletion with copies on two declared stores, seven-day boundaries | Access denied immediately; ordinary copies purged by original +7d; other categories unchanged. | NOT RUN |
 | SC18 | Missing/contradictory event timestamp and unresolved logout retention | Known denial remains; unresolved deadline/cleanup obligation explicit, no invented time or false completion. | PARTIAL |
 | SC19 | Scoped held evidence plus A session containing obsolete sensitive fields | Authorized evidence survives independently; no whole-session hold or raw secret copied to case. | NOT RUN |
@@ -394,10 +404,10 @@ engine/provider overlap; two tabs or simulated exceptions alone do not prove it.
 | SC22 | Old logout-all/expiry job versus legitimate fresh S2/G2 login | Exact session/epoch/generation scope preserves authorized later binding and unrelated B. | PARTIAL |
 | SC23 | Regeneration overlaps cleanup; crash between old/new reservations | Both provisional copies remain tracked; no old alias resurrection or deletion of valid new binding. | PARTIAL |
 | SC24 | Actual verification/onboarding response versus concurrent logout and newer revocation | Only still-current handoff can publish; late response cannot recreate session or invent next version. | PASS |
-| SC25 | Two cleanup workers claim/process same event with observed overlap | One stable component receipt; no duplicate effect or lost deadline. | NOT RUN |
-| SC26 | Expired technical lease and stalled old writer/cleanup claimant | Old token/CAS rejected; lease expiry alone cannot assert writer quiescence. | NOT RUN |
+| SC25 | Two cleanup workers claim/process same event with observed overlap | One stable component receipt; no duplicate effect or lost deadline. | PASS |
+| SC26 | Expired technical lease and stalled old writer/cleanup claimant | Old token/CAS rejected; lease expiry alone cannot assert writer quiescence. | PARTIAL |
 | SC27 | Crash after committed write/purge intent before storage action | Resumption finds original manifest and deadline; no false completion or untracked new copy. | PARTIAL |
-| SC28 | Crash after object deletion before SQL acknowledgment; client loses final reply | Verify exact absence on retry; stable status/receipt; no deletion of replacement object. | NOT RUN |
+| SC28 | Crash after object deletion before SQL acknowledgment; client loses final reply | Verify exact absence on retry; stable status/receipt; no deletion of replacement object. | PASS |
 | SC29 | One instance succeeds, second returns partial failure/unavailable | Per-copy progress retained; original deadline/overdue alert; no global success. | PARTIAL |
 | SC30 | Traversal/absolute/UNC/null locator, symlink/reparse/hardlink and root mismatch | Refuse unsafe target without touching B/outside storage; actual platform variants recorded separately. | PARTIAL |
 | SC31 | Replace locator's object version/identity between selection and delete | Conditional operation preserves replacement; conflict remains explicit. | PARTIAL |
@@ -444,11 +454,13 @@ post-012 account generations and a guarded synthetic managed-handler adapter:
 
 This foundation used settled Q11/Q14/current-version protections;
 P01/P02 need resolution before their corresponding broader operational scope.
-A later bounded physical consumer depends on a proven manifest, writer cutover
-and safe adapter; it is not implemented or enabled by this contract. The original documentation checkpoint changed no live configuration, account
-permission, session payload, scheduler, database or mail. The continuation
-executes only the separately authorized guarded synthetic implementation/tests;
-no production access, scheduling, push, merge or deployment is authorized.
+At the foundation checkpoint, a later bounded physical consumer depended on
+proven manifests and a safe adapter and had not yet been implemented; the
+current Q11-only synthetic consumer is documented in section 10. The original
+documentation checkpoint changed no live configuration, account permission,
+session payload, scheduler, database or mail. The later implementation executes
+only the separately authorized guarded synthetic scope; no production access,
+scheduling, push, merge or deployment is authorized.
 
 ## 9. Historical documentation validation at 077b8c7
 
@@ -463,6 +475,41 @@ or performed for them.
 
 
 Current continuation validation and exact local execution artifacts are recorded
-in the [focused evidence](session-binding-write-fence-evidence-2026-10-18.md).
+in the [focused binding evidence](session-binding-write-fence-evidence-2026-10-18.md)
+and [physical-consumer evidence](session-copy-consumer-evidence-2026-10-18.md).
 The preceding 102-link/heading/declaration check remains historical documentation
 validation; it is not functional testing or a new CI run.
+
+## 10. Q11-only synthetic physical consumer continuation
+
+The [consumer implementation evidence](session-copy-consumer-evidence-2026-10-18.md)
+records the bounded `session_copies_v1` path. It accepts only an original Q11
+expiry obligation with immutable registration/first-approval anchors, matching
+attempt identity and account/lifecycle versions, positive synthetic writer
+coverage, the current guarded store identity, and exact account-generation
+manifests. It waits until the existing expiry +24h deadline; it does not create
+or renew that clock. A bounded claim seals the generation and one-use handoffs,
+captures exact manifests, persists a per-object deletion intent, removes only a
+validated object in the private fixture root, verifies absence, then records a
+component receipt. Retries reconcile a prior unlink without a false early
+receipt. Missing/contradictory history, unknown writer coverage, changed state
+or an unsafe/changed object remains fail-closed.
+
+The consumer does not remove anonymous copies, adopt pre-migration/native
+handler copies, broaden to Q14 or other deletion policy, schedule production
+work, reactivate access, or claim independent recovery publication. Filesystem
+unlink and SQL receipts are separate failure domains, not one atomic operation.
+The persistent recovery instruction remains unpublished with unverified copy
+inventory and no computed expiry; local verified absence is only a scoped
+synthetic result.
+
+SC16, SC25 and SC28 now pass for the executed synthetic variants; SC26 is
+PARTIAL because expired-claim fencing was tested without proving that a stalled
+old process had stopped all physical activity. Other SC statuses retain their
+broader gates. Local runs were native Windows PHP 8.5.11/MySQL 9.6.0 and the
+Linux PHP 8.4/MySQL 8.0 container profile, against disposable MySQL databases
+and isolated synthetic stores. The Windows symlink/reparse fixture was NOT RUN;
+Linux exercised symlink escape rejection. Hosted CI is NOT RUN. Production
+handler/root/instance coverage, real legacy provenance, qualified privacy/
+security/safety review, named operational coverage, independent recovery
+durability and witnessed restore remain open.

@@ -137,6 +137,16 @@ jobs:
           BUSHISA_ATTEMPT_ERASURE_SYNTHETIC: "true"
           BUSHISA_TEST_HTTP_OVERLAP: "true"
         run: php tests/integration_session_fence.php
+      - name: Q11-only synthetic session-copy physical consumer
+        env:
+          DB_NAME: bushisa_test_q11_session_cleanup_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_ATTEMPT_ERASURE_ENABLED: "true"
+          BUSHISA_ATTEMPT_ERASURE_SYNTHETIC: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_session_copy_cleanup.php
 
   browser-route-session-overlap:
     runs-on: ubuntu-latest
