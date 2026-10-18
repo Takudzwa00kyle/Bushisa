@@ -13,5 +13,6 @@ try {
     $result=isset($options['status'])?['status'=>\Bushisa\SessionCopies\status($p,$options['status'])]
         :(isset($options['recovery-after'])?['recovery'=>\Bushisa\SessionCopies\recovery_instructions($p,$options['recovery-after'],(int)$limit)]
         :(isset($options['event'])?['result'=>\Bushisa\SessionCopies\attempt($p,$options['event'],(int)$steps)]:['counts'=>\Bushisa\SessionCopies\run($p,(int)$limit,(int)$steps)]));
+    if(($result['result']??null)==='busy') { $result['diagnostic']='SESSION_CLEANUP_BUSY';$result['action']='retry after the active local worker exits; ownership was not transferred'; }
     echo json_encode($result,JSON_THROW_ON_ERROR).PHP_EOL;
 } catch(Throwable $e) { fwrite(STDERR,json_encode(['error'=>\Bushisa\SessionCopies\reason($e)]).PHP_EOL);exit(1); }

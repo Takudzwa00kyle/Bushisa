@@ -405,7 +405,7 @@ engine/provider overlap; two tabs or simulated exceptions alone do not prove it.
 | SC23 | Regeneration overlaps cleanup; crash between old/new reservations | Both provisional copies remain tracked; no old alias resurrection or deletion of valid new binding. | PARTIAL |
 | SC24 | Actual verification/onboarding response versus concurrent logout and newer revocation | Only still-current handoff can publish; late response cannot recreate session or invent next version. | PASS |
 | SC25 | Two cleanup workers claim/process same event with observed overlap | One stable component receipt; no duplicate effect or lost deadline. | PASS |
-| SC26 | Expired technical lease and stalled old writer/cleanup claimant | Old token/CAS rejected; lease expiry alone cannot assert writer quiescence. | PARTIAL |
+| SC26 | Expired technical lease and stalled old writer/cleanup claimant | Local synthetic subcase: non-expiring OS process fence blocks B takeover while A may still do physical I/O; resumed A rechecks current SQL claim and cannot unlink or publish a receipt; safe retry after A exits completes once. | PARTIAL overall: production/shared-store fencing and handler coverage remain unverified. |
 | SC27 | Crash after committed write/purge intent before storage action | Resumption finds original manifest and deadline; no false completion or untracked new copy. | PARTIAL |
 | SC28 | Crash after object deletion before SQL acknowledgment; client loses final reply | Verify exact absence on retry; stable status/receipt; no deletion of replacement object. | PASS |
 | SC29 | One instance succeeds, second returns partial failure/unavailable | Per-copy progress retained; original deadline/overdue alert; no global success. | PARTIAL |
@@ -503,13 +503,19 @@ The persistent recovery instruction remains unpublished with unverified copy
 inventory and no computed expiry; local verified absence is only a scoped
 synthetic result.
 
-SC16, SC25 and SC28 now pass for the executed synthetic variants; SC26 is
-PARTIAL because expired-claim fencing was tested without proving that a stalled
-old process had stopped all physical activity. Other SC statuses retain their
-broader gates. Local runs were native Windows PHP 8.5.11/MySQL 9.6.0 and the
-Linux PHP 8.4/MySQL 8.0 container profile, against disposable MySQL databases
-and isolated synthetic stores. The Windows symlink/reparse fixture was NOT RUN;
-Linux exercised symlink escape rejection. Hosted CI is NOT RUN. Production
+SC16, SC25 and SC28 pass for the executed synthetic variants. SC26's local
+synthetic physical-I/O subcase now passes: with distinct workers, A was paused
+after the object probe, its SQL connection was severed after lease expiry, B
+was refused without claim/version or file/receipt changes, A resumed and did
+not mutate, and a retry after A exited completed with one receipt. SC26 remains
+PARTIAL overall because this non-expiring `flock` fence only covers the tested
+local filesystem; it has no proven remote/shared-store, multi-host or
+power-loss recovery semantics. A wedged local owner remains fail-closed and
+requires operator repair. Other SC statuses retain their broader gates. The
+repair run used native Windows PHP 8.5.11/MySQL 9.6.0 and Linux PHP 8.4/MySQL
+8.0, against disposable MySQL databases and isolated synthetic stores. The
+Windows symlink/reparse fixture was NOT RUN; Linux exercised symlink escape
+rejection. Hosted CI is NOT RUN. Production
 handler/root/instance coverage, real legacy provenance, qualified privacy/
 security/safety review, named operational coverage, independent recovery
 durability and witnessed restore remain open.

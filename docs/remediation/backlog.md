@@ -4,6 +4,11 @@ Updated: 2026-10-18, Africa/Harare.
 
 Whole-roadmap reconciliation at candidate `d381e56`: [P0–P2 status and critical path](p0-p2-status-2026-10-18.md). This is a documentation audit; it preserves historical evidence and leaves the existing acceptance matrices and release gates unchanged.
 
+SC26 follow-up on `codex/sc26-physical-io-fence-20261018`, based on audit
+`774547cf`: the local synthetic physical-I/O race is now reproduced and
+fail-closed under a process fence. See the [SC consumer evidence](session-copy-consumer-evidence-2026-10-18.md)
+and [roadmap addendum](p0-p2-status-2026-10-18.md#sc26-follow-up-after-774547cf).
+
 ## Current Q11 synthetic physical session-copy consumer checkpoint
 
 Continued from `5e7c5a5` on
@@ -19,11 +24,14 @@ write a scoped receipt. Retries reconcile missing objects; unknown/changed
 objects and incomplete coverage fail closed. Filesystem and SQL receipt updates
 are separate failure domains.
 
-Current SC status: **15 PASS / 19 PARTIAL / 6 NOT RUN**. The focused consumer
-suite is 36/36 on Linux and 35 PASS / 1 NOT RUN on Windows (symlink/reparse
-creation); affected Windows binding/Q11/Q22/erasure regressions and Linux
-consumer results are linked in the evidence document. CI configuration adds
-the guarded consumer job; hosted CI is **NOT RUN**. Historical A/LB/LC/QS/QE/QM
+Current SC status: **15 PASS / 19 PARTIAL / 6 NOT RUN**. Only the local SC26
+physical-I/O subcase advanced to PASS; SC26 remains PARTIAL overall for
+production/shared-store fencing and handler evidence. The repair consumer ran
+37/37 on Linux and 36 PASS / 1 NOT RUN on Windows (symlink/reparse creation).
+Windows regressions: binding 104/104, Q11 74/74, Q22 75/75, erasure 57/57;
+Linux: 105/105, 74/74, 75/75, 58/58 respectively. Exact commands/times and
+two-process ordering are linked in the evidence document. Hosted CI is
+**NOT RUN**. Historical A/LB/LC/QS/QE/QM
 results and candidate CI attribution remain unchanged.
 
 No anonymous, legacy, Q14 or production copies are consumed. The production

@@ -179,10 +179,50 @@ try {
         cc('SC29','locked object failure boundary has a documented result: '.$locked.'/'.($lockResult['json']['result']??'unknown'),false);
     }
     $u=fresh($root,$env,'duplicates');call_worker(['action'=>'write','capsule'=>$u['capsule']],$env,true);$o=sc_expire($root,$db,$u);due_clock($root,$o);duplicate_race($root,$u,$o,$env);
-    $u=fresh($root,$env,'staletoken');$o=sc_expire($root,$db,$u);due_clock($root,$o);$a=bin2hex(random_bytes(32));$b=bin2hex(random_bytes(32));claim($db,$o['event_ref'],$a);retry_ready($root,$o['event_ref']);
-    cc('SC26','new claim fences expired claimant rather than assuming quiescence',claim($db,$o['event_ref'],$b)&&step($db,$o['event_ref'],$a)==='stale_claim'&&!absent_copies($root,$u));
-    // Release the fixture claim through its immutable technical lease, not clocks.
-    retry_ready($root,$o['event_ref']);cc('SC26','fresh claimant resumes original obligation',finish_event($db,$o['event_ref'])==='complete');
+    $phase='SC26-stalled-worker-fence';$u=fresh($root,$env,'stalled-worker');$o=sc_expire($root,$db,$u);due_clock($root,$o);
+    $copy=copies($root,$u)[0]['copy_ref'];$gate=$dir.'/gate-'.bin2hex(random_bytes(16)).'.json';
+    $shortLease=array_merge($env,['BUSHISA_SESSION_TEST_CLAIM_SECONDS'=>'2','BUSHISA_SESSION_CLEANUP_GATE_AT'=>'before_unlink','BUSHISA_SESSION_CLEANUP_GATE_PATH'=>$gate]);
+    $workerA=worker(['action'=>'attempt','event'=>$o['event_ref']],$shortLease);until(fn()=>is_file($gate));
+    $aGate=json_decode(file_get_contents($gate),true);$atPause=job($root,$o['event_ref']);
+    $intentAtPause=sc_q($root,'SELECT state,expected_identity FROM session_copy_purge_items WHERE event_ref=? AND copy_ref=?',[$o['event_ref'],$copy])->fetch();
+    $manifestAtPause=sc_q($root,'SELECT state,object_generation FROM session_copy_manifests WHERE copy_ref=?',[$copy])->fetch();
+    // The Q11 fixture clock is authoritative for DB lease checks. Advance it,
+    // then sever A's SQL session while its process still holds the physical
+    // fence. This releases the row lock and exposes the lease-takeover race.
+    q11_clock($root,bushisa_signup_time($atPause['claim_until'],'+1 second'));
+    if(!isset($aGate['connection_id'])||!ctype_digit((string)$aGate['connection_id']))throw new RuntimeException('SESSION_FIXTURE_CONNECTION_REQUIRED');
+    $root->exec('KILL CONNECTION '.(int)$aGate['connection_id']);$beforeB=job($root,$o['event_ref']);
+    $workerB=call_worker(['action'=>'attempt','event'=>$o['event_ref']],array_merge($env,['BUSHISA_SESSION_TEST_CLAIM_SECONDS'=>'2']));
+    $bIdentity=$workerB['json']['identity']??[];$afterB=job($root,$o['event_ref']);
+    $manifestAfterB=sc_q($root,'SELECT state,object_generation FROM session_copy_manifests WHERE copy_ref=?',[$copy])->fetch();
+    $receiptsAfterB=(int)sc_q($root,'SELECT COUNT(*) FROM session_copy_purge_receipts WHERE event_ref=?',[$o['event_ref']])->fetchColumn();
+    $objectExistsAfterB=file_exists(object_path($copy));
+    $cliBusy=cli([$repo.'/bin/cleanup_session_copies.php','--event='.$o['event_ref']],$env);
+    $bRefused=$workerB['exit']===0&&($workerB['json']['result']??null)==='busy'
+        &&isset($aGate['pid'],$bIdentity['pid'],$aGate['connection_id'],$bIdentity['connection_id'])
+        &&$aGate['pid']!==$bIdentity['pid']&&$aGate['connection_id']!==$bIdentity['connection_id']
+        &&$afterB['claim_hash']===$atPause['claim_hash']&&$afterB['claim_version']===$atPause['claim_version']
+        &&$objectExistsAfterB&&$intentAtPause['state']==='deleting'
+        &&$manifestAfterB===$manifestAtPause&&$receiptsAfterB===0
+        &&($cliBusy['json']['diagnostic']??null)==='SESSION_CLEANUP_BUSY';
+    touch($gate.'.release');$resultA=ce($workerA);$afterA=job($root,$o['event_ref']);
+    $manifestAfterA=sc_q($root,'SELECT state,object_generation FROM session_copy_manifests WHERE copy_ref=?',[$copy])->fetch();
+    $objectExistsAfterA=file_exists(object_path($copy));
+    $receiptsAfterA=(int)sc_q($root,'SELECT COUNT(*) FROM session_copy_purge_receipts WHERE event_ref=?',[$o['event_ref']])->fetchColumn();
+    $aDidNotMutate=$resultA['exit']===0&&($resultA['json']['result']??null)==='incomplete'
+        &&$objectExistsAfterA&&$afterA['state']==='claimed'&&$afterA['claim_hash']===$atPause['claim_hash']
+        &&$afterA['claim_version']===$atPause['claim_version']&&$afterA['claim_until']<=$beforeB['claim_until']
+        &&$manifestAfterA===$manifestAtPause
+        &&sc_q($root,'SELECT state FROM session_copy_purge_items WHERE event_ref=? AND copy_ref=?',[$o['event_ref'],$copy])->fetchColumn()==='deleting'
+        &&$receiptsAfterA===0;
+    retry_ready($root,$o['event_ref']);$retry=call_worker(['action'=>'attempt','event'=>$o['event_ref']],$env);$finalJob=job($root,$o['event_ref']);
+    $retrySafe=$retry['exit']===0&&($retry['json']['result']??null)==='complete'&&!file_exists(object_path($copy))
+        &&$finalJob['state']==='complete'&&sc_q($root,'SELECT COUNT(*) FROM session_copy_purge_receipts WHERE event_ref=?',[$o['event_ref']])->fetchColumn()==1
+        &&sc_q($root,'SELECT state FROM session_copy_manifests WHERE copy_ref=?',[$copy])->fetchColumn()==='erased';
+    $races[]=['case'=>'SC26','ordering'=>'A pauses after object probe and pre-ownership check; fixture clock expires lease; root kills A SQL connection, releasing its row lock while A retains the physical fence; B takeover and CLI refuse without claim change; A resumes and its lost-connection recheck prevents unlink; after A exits B retries and commits one receipt','worker_a_pid'=>$aGate['pid']??null,'worker_a_connection_id'=>$aGate['connection_id']??null,'worker_b_pid'=>$bIdentity['pid']??null,'worker_b_connection_id'=>$bIdentity['connection_id']??null,'claim_version_before'=>$atPause['claim_version']??null,'claim_version_busy_retry'=>$afterB['claim_version']??null,'manifest_pause'=>$manifestAtPause,'manifest_after_b'=>$manifestAfterB,'manifest_after_a'=>$manifestAfterA,'object_exists_after_b'=>$objectExistsAfterB,'object_exists_after_a'=>$objectExistsAfterA,'receipts_after_b'=>$receiptsAfterB,'receipts_after_a'=>$receiptsAfterA,'worker_b_first_result'=>$workerB['json']['result']??null,'worker_a_resume_result'=>$resultA['json']['result']??null,'retry_result'=>$retry['json']['result']??null];
+    cc('SC26','lease-expired competing process cannot transfer ownership during physical-I/O fence; claim/version and object remain unchanged',$bRefused);
+    cc('SC26','resumed stalled worker rechecks server-time claim and does not unlink or receipt',$aDidNotMutate);
+    cc('SC26','retry after old process releases fence reconciles same generation and writes one receipt',$retrySafe);
     // Physical store failure leaves exact objects and the original deadline
     // intact; retry occurs only after the bounded technical backoff.
     $u=fresh($root,$env,'unlinkfail');$o=sc_expire($root,$db,$u);due_clock($root,$o);

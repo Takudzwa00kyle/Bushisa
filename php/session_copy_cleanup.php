@@ -100,6 +100,9 @@ function claim(PDO $p,string $event,string $token): bool
         $r=locked($p,$event);if(!$r)return false;enqueue_locked($p,$r,$config);$r=locked($p,$event);$j=$r['j'];
         if($j['state']==='complete' || $j['state']==='blocked')return false;
         if(($j['state']==='claimed' && $j['claim_until']>now($p)) || ($j['next_attempt_at']!==null && $j['next_attempt_at']>now($p)))return false;
+        $takeover=$j['state']==='claimed';
+        if($takeover&&!fence_enter($config))throw new Failure('SESSION_CLEANUP_BUSY');
+        try {
         try { validate($p,$r,$config); } catch(Throwable $e) { fail_locked($p,$r,reason($e),true);return false; }
         // Expiry denies access at effective_at; physical copy removal is due
         // only at the independently approved expiry + 24h boundary. A worker
@@ -111,7 +114,8 @@ function claim(PDO $p,string $event,string $token): bool
         }
         overdue($p,$r['o']);
         q($p,'UPDATE session_copy_cleanup_jobs SET state="claimed",claim_hash=?,claim_version=claim_version+1,claim_until=?,next_attempt_at=NULL,attempts=attempts+1,error_code=NULL,updated_at=? WHERE event_ref=?',
-            [hash('sha256',$token),stamp(now($p),'+60 seconds'),now($p),$event]);return true;
+            [hash('sha256',$token),claim_deadline($p),now($p),$event]);return true;
+        } finally { if($takeover)fence_leave(); }
     });
 }
 function owned(array $r,string $token): bool
@@ -128,6 +132,34 @@ function test_pause(PDO $p,string $point): void
     \bushisa_write_test_record($path,['pid'=>getmypid(),'connection_id'=>(int)$p->query('SELECT CONNECTION_ID()')->fetchColumn(),'point'=>$point]);
     $until=microtime(true)+15;
     while(!is_file($path.'.release')) { if(microtime(true)>$until)throw new Failure('SESSION_TEST_GATE_TIMEOUT');usleep(10000); }
+}
+/** Reentrant within one worker so nested protected phases share the same
+ * handle if they are invoked under one guarded caller. */
+function fence_enter(array $config): bool
+{
+    $state=$GLOBALS['bushisa_session_copy_fence']??null;
+    if(is_array($state)&&is_resource($state['handle']??null)) { $GLOBALS['bushisa_session_copy_fence']['depth']++;return true; }
+    $handle=(new Store($config))->acquireConsumerFence();if($handle===null)return false;
+    $GLOBALS['bushisa_session_copy_fence']=['handle'=>$handle,'depth'=>1];return true;
+}
+function fence_leave(): void
+{
+    $state=$GLOBALS['bushisa_session_copy_fence']??null;if(!is_array($state)||!is_resource($state['handle']??null))return;
+    $state['depth']--;if($state['depth']>0){$GLOBALS['bushisa_session_copy_fence']=$state;return;}
+    @flock($state['handle'],LOCK_UN);@fclose($state['handle']);unset($GLOBALS['bushisa_session_copy_fence']);
+}
+function claim_deadline(PDO $p): string
+{
+    $seconds=getenv('BUSHISA_SESSION_TEST_CLAIM_SECONDS');
+    if($seconds===false)return stamp(now($p),'+60 seconds');
+    if(getenv('BUSHISA_SESSION_SYNTHETIC')!=='true'||!str_starts_with((string)getenv('DB_NAME'),'bushisa_test_')||!ctype_digit($seconds)||(int)$seconds<1||(int)$seconds>5)throw new Failure('SESSION_TEST_LEASE_REFUSED');
+    return stamp(now($p),'+'.(int)$seconds.' seconds');
+}
+function assert_live_claim(PDO $p,string $event,string $token): void
+{
+    $j=q($p,'SELECT state,claim_hash,claim_until FROM session_copy_cleanup_jobs WHERE event_ref=? FOR UPDATE',[$event])->fetch();
+    if(!$j||!owned(['j'=>$j],$token))throw new Failure('SESSION_CLAIM_STALE');
+    if($j['claim_until']===null||$j['claim_until']<=now($p))throw new Failure('SESSION_CLAIM_EXPIRED');
 }
 function fail_locked(PDO $p,array $r,string $code,bool $blocked=false): void
 {
@@ -172,7 +204,7 @@ function capture(PDO $p,array $r,array $config): void
     if($rows)q($p,'UPDATE session_copy_cleanup_jobs SET cursor_ref=? WHERE event_ref=?',[end($rows)['copy_ref'],$o['event_ref']]);
     else q($p,'UPDATE session_copy_cleanup_jobs SET stage="erase",cursor_ref="" WHERE event_ref=?',[$o['event_ref']]);
 }
-function erase(PDO $p,array $r,array $config): void
+function erase(PDO $p,array $r,array $config,string $token): void
 {
     $o=$r['o'];$item=q($p,'SELECT * FROM session_copy_purge_items WHERE event_ref=? AND state<>"erased" ORDER BY copy_ref LIMIT 1 FOR UPDATE',[$o['event_ref']])->fetch();
     if(!$item) { q($p,'UPDATE session_copy_cleanup_jobs SET stage="verify",cursor_ref="" WHERE event_ref=?',[$o['event_ref']]);return; }
@@ -185,7 +217,15 @@ function erase(PDO $p,array $r,array $config): void
     }
     if($item['state']!=='deleting' || $item['expected_identity']===null) { throw new Failure('SESSION_PURGE_INTENT_REQUIRED'); }
     fault('before_unlink');
-    $store->erase($item['copy_ref'],$item['object_generation'],$item['expected_identity'],static function()use($p): void { test_pause($p,'before_unlink');fault('unlink_failure'); });
+    if(!fence_enter($config))throw new Failure('SESSION_CLEANUP_BUSY');
+    try { $store->erase($item['copy_ref'],$item['object_generation'],$item['expected_identity'],static function()use($p,$o,$token): void {
+        assert_live_claim($p,$o['event_ref'],$token);
+        test_pause($p,'before_unlink');
+        // Recheck after the controllable boundary. An expired/stolen claim must
+        // not mutate the path even when preliminary selection and probe passed.
+        assert_live_claim($p,$o['event_ref'],$token);
+        fault('unlink_failure');
+    }); } finally { fence_leave(); }
     fault('after_unlink');
     q($p,'UPDATE session_copy_purge_items SET state="erased",verified_at=COALESCE(verified_at,?) WHERE event_ref=? AND copy_ref=?',[now($p),$o['event_ref'],$item['copy_ref']]);
     q($p,'UPDATE session_copy_manifests SET state="erased",error_code=NULL WHERE copy_ref=?',[$item['copy_ref']]);
@@ -218,9 +258,10 @@ function step(PDO $p,string $event,string $token): string
     $result=tx($p,function()use($p,$event,$token,$config) {
         $r=locked($p,$event);if(!$r)return 'absent';if($r['j']['state']==='complete')return 'complete';
         if(!live_claim($p,$r,$token))return 'stale_claim';validate($p,$r,$config);overdue($p,$r['o']);
-        match($r['j']['stage']) {'seal'=>seal($p,$r,$config),'capture'=>capture($p,$r,$config),'erase'=>erase($p,$r,$config),'verify'=>verify($p,$r,$config),default=>throw new Failure('SESSION_STAGE_UNKNOWN')};
-        // A lease is not a file fence. If it elapsed during bounded I/O, SQL
-        // acknowledgment rolls back and a later worker reconciles exact absence.
+        match($r['j']['stage']) {'seal'=>seal($p,$r,$config),'capture'=>capture($p,$r,$config),'erase'=>erase($p,$r,$config,$token),'verify'=>verify($p,$r,$config),default=>throw new Failure('SESSION_STAGE_UNKNOWN')};
+        // The local process fence prevents reassignment during physical I/O.
+        // An elapsed lease still prevents SQL acknowledgment; retry reconciles
+        // the immutable object only after the old process releases its fence.
         if(!live_claim($p,$r,$token)) { throw new Failure('SESSION_CLAIM_EXPIRED'); }
         return $r['j']['stage'];
     });
@@ -233,7 +274,8 @@ function attempt(PDO $p,string $event,int $steps=25): string
 {
     enter($p);if($steps<1||$steps>25||!key_ok($event))throw new Failure('SESSION_BATCH_LIMIT_REFUSED');
     $token=\Bushisa\ManagedSession\ref();
-    if(!claim($p,$event,$token)) { return q($p,'SELECT state FROM session_copy_cleanup_jobs WHERE event_ref=?',[$event])->fetchColumn()==='complete'?'complete':'skipped'; }
+    try { $claimed=claim($p,$event,$token); } catch(Failure $e) { if($e->reason==='SESSION_CLEANUP_BUSY')return 'busy';throw $e; }
+    if(!$claimed) { return q($p,'SELECT state FROM session_copy_cleanup_jobs WHERE event_ref=?',[$event])->fetchColumn()==='complete'?'complete':'skipped'; }
     try {
         for($n=0;$n<$steps;$n++) {
             $s=step($p,$event,$token);if(in_array($s,['complete','absent','stale_claim'],true))return $s;

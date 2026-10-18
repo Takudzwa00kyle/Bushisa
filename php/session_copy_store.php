@@ -19,6 +19,33 @@ final class Store
         if(!$s || !$marker || $s['ino']<=0 || $marker['ino']<=0 || $marker['nlink']!==1) { throw new RuntimeException('SESSION_STORE_IDENTITY_REQUIRED'); }
         return hash_hmac('sha256',implode('|',[$current['root'],$current['namespace'],$s['dev'],$s['ino'],$marker['dev'],$marker['ino']]),$current['key']);
     }
+    /** A local-filesystem process fence for the supported synthetic consumer.
+     * The lock is intentionally non-expiring: a stalled owner blocks takeover
+     * until it exits. Remote/shared stores need their own proven fence. */
+    public function acquireConsumerFence()
+    {
+        $version=$this->version();$path=$this->config['root'].DIRECTORY_SEPARATOR.'.session-copy-consumer.lock';
+        clearstatcache(true,$path);$before=@lstat($path);
+        if($before===false) {
+            $handle=@fopen($path,'x+b');
+            if($handle===false) { clearstatcache(true,$path);$before=@lstat($path); }
+        } else { $handle=false; }
+        if($handle===false) {
+            if(!$before || ($before['mode']&0170000)!==0100000 || $before['nlink']!==1 || realpath($path)!==$path) { throw new RuntimeException('SESSION_CONSUMER_FENCE_REFUSED'); }
+            $handle=@fopen($path,'r+b');
+        }
+        if(!$handle) { throw new RuntimeException('SESSION_CONSUMER_FENCE_UNAVAILABLE'); }
+        $stat=@fstat($handle);clearstatcache(true,$path);$pathStat=@lstat($path);
+        if(!$stat || !$pathStat || ($stat['mode']&0170000)!==0100000 || $stat['nlink']!==1 || $stat['dev']!==$pathStat['dev'] || $stat['ino']!==$pathStat['ino'] || realpath($path)!==$path) {
+            @fclose($handle);throw new RuntimeException('SESSION_CONSUMER_FENCE_REFUSED');
+        }
+        if(!@flock($handle,LOCK_EX|LOCK_NB)) { @fclose($handle);return null; }
+        try {
+            clearstatcache(true,$path);$current=@lstat($path);
+            if(!$current || $current['dev']!==$stat['dev'] || $current['ino']!==$stat['ino'] || !hash_equals($version,$this->version())) { throw new RuntimeException('SESSION_CONSUMER_FENCE_CHANGED'); }
+            return $handle;
+        } catch(\Throwable $e) { @flock($handle,LOCK_UN);@fclose($handle);throw $e; }
+    }
     public function path(string $copy): string
     {
         $this->version();
