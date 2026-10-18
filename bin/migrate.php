@@ -102,6 +102,12 @@ foreach ($files as $file) {
     }
 
     fwrite(STDOUT, "Applying {$name}\n");
+    if ($name === '013_challenge_mail_retention.sql') {
+        require_once __DIR__.'/../php/verification_retention_migration.php';
+        bushisa_migrate_verification_retention($pdo,$sql);
+        mark_migration_applied($pdo,$version);
+        continue;
+    }
     if ($name === '012_signup_attempt_erasure.sql') {
         require_once __DIR__.'/../php/attempt_erasure_migration.php';
         bushisa_migrate_attempt_erasure($pdo,$sql);

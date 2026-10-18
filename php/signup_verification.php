@@ -8,6 +8,7 @@ require_once __DIR__ . '/operational.php';
 require_once __DIR__ . '/policy_safeguards.php';
 require_once __DIR__ . '/mail_delivery.php';
 require_once __DIR__ . '/signup_lifecycle.php';
+require_once __DIR__ . '/verification_retention.php';
 
 function bushisa_student_email_domain_allowlist(): array
 {
@@ -113,7 +114,7 @@ function bushisa_issue_signup_code(PDO $pdo, int $userId, string $email): string
                  code_hash = NULL,
                  purged_at = COALESCE(purged_at, :purged)
              WHERE user_id = :user_id
-               AND consumed_at IS NULL'
+               AND consumed_at IS NULL AND terminal_at IS NULL'
         );
         $expireExisting->execute([':user_id' => $userId,':used'=>$now,':terminal'=>$now,':purged'=>$now]);
         bushisa_signup_cancel_material_locked($pdo,$userId,'superseded');
@@ -132,6 +133,7 @@ function bushisa_issue_signup_code(PDO $pdo, int $userId, string $email): string
         $insertCode->bindValue(':expires',bushisa_signup_time($issued,'+'.$ttl.' seconds'),PDO::PARAM_STR);
         $insertCode->execute();
         $codeId = (int) $pdo->lastInsertId();
+        \Bushisa\VerificationRetention\register_code($pdo,$codeId);
 
         bushisa_queue_signup_email($pdo, $email, $code, $ttl, $codeId);
         $finalExpiry=bushisa_signup_expire_locked($pdo,$user);
@@ -207,7 +209,7 @@ function bushisa_terminalize_signup_code(PDO $pdo, int $codeId, int $userId, str
     $at=bushisa_signup_now($pdo);
     $statement = $pdo->prepare(
         'UPDATE student_email_approval_codes
-         SET consumed_at = CASE WHEN :consume = 1 THEN COALESCE(consumed_at, :consumed) ELSE consumed_at END,
+         SET consumed_at = CASE WHEN :consume = 1 AND terminal_at IS NULL AND code_hash IS NOT NULL THEN COALESCE(consumed_at, :consumed) ELSE consumed_at END,
              terminal_at = COALESCE(terminal_at, :terminal),
              code_hash = NULL,
              purged_at = COALESCE(purged_at, :purged)

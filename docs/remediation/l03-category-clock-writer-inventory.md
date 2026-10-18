@@ -1,13 +1,24 @@
 # L03: repository category, clock and writer inventory
 
-Current consumer continuation: [ordinary attempt erasure](q11-attempt-erasure-evidence-2026-10-18.md)
+Current Q22 continuation: [terminal challenge/mail cleanup](q22-terminal-mail-cleanup-evidence-2026-10-18.md)
+implements original new-writer terminal clocks, <=24h challenge detail cleanup,
+immediate body erasure and seven-day code-free mail metadata deletion from
+`1c3f587`. For C06/C07 and W02/W03/W18, migration 013 binds immutable source
+identities; bounded transactions preserve replacement challenges, pending
+carrier receipts, rate budgets, Q11/QE anchors and minimal recovery obligations.
+Legacy anchors, operational recovery/provider/copy inventory, session copies,
+qualified review, scheduling and coverage remain open. The separate QM01–QM32
+evidence does not relabel historical A/LB/LC/QS/QE variants. Next bounded work:
+account/generation-to-PHP-session copy inventory and cleanup/revocation contract.
+
+Earlier consumer continuation: [ordinary attempt erasure](q11-attempt-erasure-evidence-2026-10-18.md)
 implements the generation-bound Q11 scope from `455f1fc`: ordinary fields and
 child rows, linked mail contact copies and staged fixture objects, with durable
 claims/cursors/receipts and minimal recovery intents. Users/safety/consent/pair
 references are retained; unknown schema/cascades/legacy generations block work.
 Separate QE01–QE28: **27 PASS / 1 PARTIAL / 0 wholly NOT RUN**; the Windows
 symlink variant is unexecuted. Operational recovery/storage providers remain
-unavailable/fail-closed. Next independent slice: Q22 residual detail/metadata
+unavailable/fail-closed. Next independent slice at that checkpoint: Q22 residual detail/metadata
 clocks. The underlying baseline inventory and historical A/LB/LC/QS evidence
 retain their original attribution and are not relabelled.
 

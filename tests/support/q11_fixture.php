@@ -19,6 +19,12 @@ function q11_install(PDO $root): void
 }
 function q11_clock(PDO $root,string $at): void
 { bushisa_signup_query($root,'UPDATE q11_fixture_clock SET clock_at=? WHERE singleton=1',[$at]); }
+function q11_cancel_earlier_fixture_jobs(PDO $root,PDO $worker,int $before): void
+{
+    // Exercise real cancellation instead of rewriting immutable source expiry.
+    $rows=bushisa_signup_query($root,'SELECT DISTINCT c.id,c.user_id,c.email FROM mail_outbox m JOIN student_email_approval_codes c ON c.id=m.approval_code_id WHERE m.id<? AND m.status="pending" ORDER BY c.id',[$before])->fetchAll(PDO::FETCH_ASSOC);
+    foreach($rows as $r) { bushisa_terminalize_signup_code($worker,(int)$r['id'],(int)$r['user_id'],$r['email'],false); }
+}
 function q11_user(PDO $root,string $tag,bool $anchored=true): array
 {
     $student='n025'.str_pad((string)random_int(0,99999),5,'0',STR_PAD_LEFT).chr(random_int(97,122));
@@ -41,7 +47,7 @@ function q11_worker_user(PDO $root,string $database): array
     // This DDL grammar does not accept native prepared placeholders.
     $root->exec("CREATE USER $account IDENTIFIED BY ".$root->quote($password));
     $root->exec("GRANT SELECT ON $db.* TO $account");
-    foreach(['users','profiles','preferences','student_email_approval_codes','mail_outbox','signup_lifecycle','signup_mail_jobs','signup_expiry_obligations','signup_lifecycle_alerts','cleanup_outbox','audit_log','rate_limits','signup_attempt_identities','signup_attempt_erasure_jobs'] as $table) {
+    foreach(['users','profiles','preferences','student_email_approval_codes','mail_outbox','signup_lifecycle','signup_mail_jobs','signup_expiry_obligations','signup_lifecycle_alerts','cleanup_outbox','audit_log','rate_limits','signup_attempt_identities','signup_attempt_erasure_jobs','verification_retention','verification_cleanup_receipts','verification_recovery_obligations','verification_late_results','verification_cleanup_alerts'] as $table) {
         if (operational_table_exists($root,$table)) { $root->exec("GRANT INSERT,UPDATE ON $db.$table TO $account"); }
     }
     $root->exec("GRANT DELETE ON $db.rate_limits TO $account");

@@ -16,6 +16,8 @@ function bushisa_signup_register_mail_job(PDO $pdo,int $mail,int $code,string $s
     $until=min(bushisa_signup_time($queued,'+5 minutes'),bushisa_signup_time($r['code_expires'],'-60 seconds'),$r['unverified_expires_at'],bushisa_signup_time($r['expires_at']));
     bushisa_signup_query($pdo,'INSERT INTO signup_mail_jobs (mail_id,account_id,code_id,queued_at,useful_until,state) VALUES (?,?,?,?,?,?)',[$mail,$r['user_id'],$code,$queued,$until,$state]);
     bushisa_signup_query($pdo,'UPDATE mail_outbox SET expires_at=? WHERE id=?',[$until,$mail]);
+    require_once __DIR__.'/verification_retention.php';
+    \Bushisa\VerificationRetention\register_mail($pdo,$mail,$code);
 }
 function bushisa_queue_q11_fake_email(PDO $pdo,int $codeId,string $email,string $code): void
 {
@@ -35,6 +37,8 @@ function bushisa_signup_mail_terminal(PDO $pdo,array $m,string $state,string $re
         [$state,$at,$accepted?1:0,$at,bushisa_signup_time($at,'+7 days'),$reason,$m['id']]);
     bushisa_signup_query($pdo,'UPDATE mail_outbox SET status=?,body=NULL,payload_erased_at=COALESCE(payload_erased_at,?),sent_at=IF(?=1,COALESCE(sent_at,?),sent_at),next_attempt_at=NULL,metadata_json=JSON_OBJECT("result",?) WHERE id=?',
         [$accepted?'sent':'failed',$at,$accepted?1:0,$at,$reason,$m['id']]);
+    require_once __DIR__.'/verification_retention.php';
+    \Bushisa\VerificationRetention\terminal_mail($pdo,(int)$m['id'],$state,$at);
 }
 function bushisa_signup_mail_rows_locked(PDO $pdo,int $mail): ?array
 {
@@ -106,7 +110,12 @@ function bushisa_signup_finish_delivery(PDO $pdo,int $id,string $token,?Throwabl
 {
     return bushisa_signup_transaction($pdo,function()use($pdo,$id,$token,$error):string {
         $r=bushisa_signup_mail_rows_locked($pdo,$id);
-        if (!$r) { throw new RuntimeException('Delivery receipt scope unavailable'); }
+        if (!$r) {
+            require_once __DIR__.'/verification_retention.php';
+            $late=\Bushisa\VerificationRetention\late_result($pdo,$id,$token,$error);
+            if ($late!==null) { return $late; }
+            throw new RuntimeException('Delivery receipt scope unavailable');
+        }
         ['m'=>$m,'j'=>$j,'at'=>$at]=$r;
         if (!hash_equals((string)$j['claim_hash'],hash('sha256',$token)) || !in_array($j['state'],['inflight','uncertain'],true)) { return 'discarded'; }
         if ($error===null) {

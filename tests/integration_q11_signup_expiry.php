@@ -171,7 +171,7 @@ try {
     $c=bushisa_signup_query($root,'SELECT * FROM student_email_approval_codes WHERE user_id=? ORDER BY id DESC LIMIT 1',[$f['id']])->fetch(PDO::FETCH_ASSOC);
     qs('QS13','immutable useful deadline is min(queue+5m, challenge-60s, account deadline)',$job['useful_until']===min(bushisa_signup_time($job['queued_at'],'+5 minutes'),bushisa_signup_time($c['expires_at'],'-60 seconds'),qs_row($root,'signup_lifecycle',$f['id'])['unverified_expires_at']));
     // Remove earlier ready jobs without transport; these are only test fixtures.
-    bushisa_signup_query($root,'UPDATE mail_outbox SET expires_at=? WHERE id<? AND status="pending"',[bushisa_signup_now($root),$mail]);bushisa_signup_cleanup_mail($db);
+    q11_cancel_earlier_fixture_jobs($root,$db,$mail);bushisa_signup_cleanup_mail($db);
     $out=bushisa_dispatch_mail($db,30,fn()=>throw new BushisaMailTransportException('synthetic_transient',true));
     qs('QS14','known non-acceptance retries within original deadline',$out['retried']===1 && qs_row($root,'signup_mail_jobs',$mail,'mail_id')['useful_until']===$job['useful_until']);
     qs_clock($root,$job['useful_until']);$count=0;bushisa_dispatch_mail($db,30,function()use(&$count){$count++;});
@@ -217,7 +217,7 @@ try {
     // Actual HTTP resend while a separate dispatcher is in its fake transport.
     foreach(['resend','expiry'] as $mode) {
         qs_reset_clock($root);$f=q11_user($root,'inflight'.$mode);$l=qs_row($root,'signup_lifecycle',$f['id']);qs_clock($root,bushisa_signup_time($l['unverified_expires_at'],'-2 minutes'));$old=qs_code($db,$f);$mail=(int)$root->query('SELECT MAX(id) FROM mail_outbox')->fetchColumn();
-        bushisa_signup_query($root,'UPDATE mail_outbox SET expires_at=? WHERE id<? AND status="pending"',[bushisa_signup_now($root),$mail]);bushisa_signup_cleanup_mail($db);
+        q11_cancel_earlier_fixture_jobs($root,$db,$mail);bushisa_signup_cleanup_mail($db);
         $gate=$dir.'/inflight-'.bin2hex(random_bytes(6)).'.json';[$worker,$ready]=qs_worker(['action'=>'dispatch','inflight'=>$gate],$env);
         qs_until(fn()=>is_file($gate));$sender=json_decode(file_get_contents($gate),true,16,JSON_THROW_ON_ERROR);
         if($mode==='expiry')qs_clock($root,$l['unverified_expires_at']);

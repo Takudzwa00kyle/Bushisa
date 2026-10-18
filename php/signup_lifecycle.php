@@ -118,6 +118,8 @@ function bushisa_signup_cancel_material_locked(PDO $pdo,int $id,string $reason,b
         if (!$all && $c['consumed_at']===null && $c['terminal_at']===null && $c['expires_at']>$at) { continue; }
         $q=bushisa_signup_query($pdo,'UPDATE student_email_approval_codes SET code_hash=NULL,terminal_at=COALESCE(terminal_at,?),purged_at=COALESCE(purged_at,?) WHERE id=? AND (code_hash IS NOT NULL OR terminal_at IS NULL OR purged_at IS NULL)',[$at,$at,$c['id']]);
         $codes+=$q->rowCount();
+        require_once __DIR__.'/verification_retention.php';
+        \Bushisa\VerificationRetention\terminal_code($pdo,(int)$c['id'],$reason,$at);
         $mail=bushisa_signup_query($pdo,'SELECT * FROM mail_outbox WHERE approval_code_id=? ORDER BY id FOR UPDATE',[$c['id']])->fetchAll(PDO::FETCH_ASSOC);
         foreach($mail as $m) {
             $j=bushisa_signup_query($pdo,'SELECT * FROM signup_mail_jobs WHERE mail_id=? FOR UPDATE',[$m['id']])->fetch(PDO::FETCH_ASSOC);
@@ -130,6 +132,7 @@ function bushisa_signup_cancel_material_locked(PDO $pdo,int $id,string $reason,b
                 status=CASE WHEN status="pending" AND ?=0 THEN "failed" ELSE status END,metadata_json=JSON_OBJECT("result",?)
                 WHERE id=? AND (body IS NOT NULL OR payload_erased_at IS NULL)',[$at,$inflight?1:0,$inflight?'cancellation_inflight':$reason,$m['id']]);
             $mails+=$q->rowCount();
+            \Bushisa\VerificationRetention\terminal_mail($pdo,(int)$m['id'],$inflight?'cancelled_inflight_unknown':$reason,$at);
         }
     }
     return ['challenges'=>$codes,'mail'=>$mails];

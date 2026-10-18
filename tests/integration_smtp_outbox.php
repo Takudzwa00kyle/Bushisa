@@ -119,8 +119,12 @@ check_smtp(bushisa_dispatch_mail($pdo, 10, fn () => throw new RuntimeException('
 [$expiredUser, $expiredEmail] = smtp_test_user($pdo);
 bushisa_issue_signup_code($pdo, $expiredUser, $expiredEmail);
 $expired = smtp_test_mail($pdo, $expiredEmail);
-$pdo->exec('UPDATE mail_outbox SET expires_at = DATE_SUB(UTC_TIMESTAMP(), INTERVAL 1 SECOND) WHERE id = ' . (int) $expired['id']);
-$result = bushisa_dispatch_mail($pdo, 10, fn () => throw new RuntimeException('Expired code must not be sent'));
+// Disposable fixture clock affects only this SQL session. Source expiry is
+// immutable; never rewrite it merely to simulate elapsed server time.
+$expiredClock=(new DateTimeImmutable($expired['expires_at'],new DateTimeZone('UTC')))->getTimestamp()+1;
+$pdo->exec('SET timestamp='.$expiredClock);
+try { $result = bushisa_dispatch_mail($pdo, 10, fn () => throw new RuntimeException('Expired code must not be sent')); }
+finally { $pdo->exec('SET timestamp=DEFAULT'); }
 check_smtp($result['discarded'] === 1 && smtp_test_mail($pdo, $expiredEmail)['body'] === null, 'expired payloads must be discarded');
 
 [$failedUser, $failedEmail] = smtp_test_user($pdo);

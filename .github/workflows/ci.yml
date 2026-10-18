@@ -116,6 +116,16 @@ jobs:
           BUSHISA_ATTEMPT_ERASURE_SYNTHETIC: "true"
           BUSHISA_TEST_HTTP_OVERLAP: "true"
         run: php tests/integration_attempt_erasure.php
+      - name: Terminal verification and code-free mail retention
+        env:
+          DB_NAME: bushisa_test_q11_retention_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_Q22_CLEANUP_ENABLED: "true"
+          BUSHISA_Q22_SYNTHETIC: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_verification_retention.php
 
   browser-route-session-overlap:
     runs-on: ubuntu-latest
