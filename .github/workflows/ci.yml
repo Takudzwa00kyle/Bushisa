@@ -106,6 +106,16 @@ jobs:
           BUSHISA_Q11_QUEUE_FAKE: "true"
           BUSHISA_TEST_HTTP_OVERLAP: "true"
         run: php tests/integration_q11_signup_expiry.php
+      - name: Guarded ordinary signup-attempt erasure
+        env:
+          DB_NAME: bushisa_test_q11_erasure_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_ATTEMPT_ERASURE_ENABLED: "true"
+          BUSHISA_ATTEMPT_ERASURE_SYNTHETIC: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_attempt_erasure.php
 
   browser-route-session-overlap:
     runs-on: ubuntu-latest

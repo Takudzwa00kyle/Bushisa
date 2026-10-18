@@ -102,6 +102,12 @@ foreach ($files as $file) {
     }
 
     fwrite(STDOUT, "Applying {$name}\n");
+    if ($name === '012_signup_attempt_erasure.sql') {
+        require_once __DIR__.'/../php/attempt_erasure_migration.php';
+        bushisa_migrate_attempt_erasure($pdo,$sql);
+        mark_migration_applied($pdo,$version);
+        continue;
+    }
     if ($name === '009_pair_trigger_health.sql') {
         // Bind the routine to its own schema; an invoker's USE/connection database
         // must not redirect the definer's metadata check to another schema.

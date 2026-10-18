@@ -1,6 +1,17 @@
 # L03: repository category, clock and writer inventory
 
-Current Q11 continuation: [signup-expiry implementation/evidence](q11-signup-expiry-evidence-2026-10-18.md)
+Current consumer continuation: [ordinary attempt erasure](q11-attempt-erasure-evidence-2026-10-18.md)
+implements the generation-bound Q11 scope from `455f1fc`: ordinary fields and
+child rows, linked mail contact copies and staged fixture objects, with durable
+claims/cursors/receipts and minimal recovery intents. Users/safety/consent/pair
+references are retained; unknown schema/cascades/legacy generations block work.
+Separate QE01–QE28: **27 PASS / 1 PARTIAL / 0 wholly NOT RUN**; the Windows
+symlink variant is unexecuted. Operational recovery/storage providers remain
+unavailable/fail-closed. Next independent slice: Q22 residual detail/metadata
+clocks. The underlying baseline inventory and historical A/LB/LC/QS evidence
+retain their original attribution and are not relabelled.
+
+Earlier Q11 continuation: [signup-expiry implementation/evidence](q11-signup-expiry-evidence-2026-10-18.md)
 implements new pending-email/onboarding anchors and atomic challenge/mail
 cancellation from `be91e06`. For baseline C01/C02/C05–C07, W01–W03 and G01/G04/G05,
 original deadlines now persist, first approval is one-time, expiry rechecks the

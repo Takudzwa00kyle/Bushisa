@@ -196,7 +196,9 @@ try {
     $before=$pdo->query('SELECT * FROM users ORDER BY id')->fetchAll();
     $requestEpoch=(float)sql_l01('SELECT UNIX_TIMESTAMP(requested_at) FROM message_requests WHERE match_id=?',[$legacy])->fetchColumn();
     cli_l01([$root.'/bin/migrate.php']);
-    check_l01($before===$pdo->query('SELECT * FROM users ORDER BY id')->fetchAll(),'M03 upgrade preserves user values');
+    $upgradedUsers=$pdo->query('SELECT * FROM users ORDER BY id')->fetchAll();
+    check_l01($before===array_map(static fn($u)=>array_diff_key($u,['signup_attempt_key'=>0]),$upgradedUsers)
+        && count(array_filter($upgradedUsers,static fn($u)=>($u['signup_attempt_key']??null)!==null))===0,'M03 upgrade preserves original user values; no generation backfill');
     check_l01(count_l01('messages','body="Retained legacy synthetic"')===1,'M04 upgrade preserves ordinary text');
     check_l01((float)sql_l01('SELECT UNIX_TIMESTAMP(requested_at) FROM message_requests WHERE match_id=?',[$legacy])->fetchColumn()===$requestEpoch,'M04 precision widening preserves the existing request instant');
     check_l01(count_l01('pair_policy_history','history_state="legacy_incomplete"')===1 && count_l01('pair_account_genesis')===0,'M05 old accounts/pairs never certified, including old verified marker');

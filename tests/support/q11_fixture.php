@@ -41,7 +41,7 @@ function q11_worker_user(PDO $root,string $database): array
     // This DDL grammar does not accept native prepared placeholders.
     $root->exec("CREATE USER $account IDENTIFIED BY ".$root->quote($password));
     $root->exec("GRANT SELECT ON $db.* TO $account");
-    foreach(['users','profiles','preferences','student_email_approval_codes','mail_outbox','signup_lifecycle','signup_mail_jobs','signup_expiry_obligations','signup_lifecycle_alerts','cleanup_outbox','audit_log','rate_limits'] as $table) {
+    foreach(['users','profiles','preferences','student_email_approval_codes','mail_outbox','signup_lifecycle','signup_mail_jobs','signup_expiry_obligations','signup_lifecycle_alerts','cleanup_outbox','audit_log','rate_limits','signup_attempt_identities','signup_attempt_erasure_jobs'] as $table) {
         if (operational_table_exists($root,$table)) { $root->exec("GRANT INSERT,UPDATE ON $db.$table TO $account"); }
     }
     $root->exec("GRANT DELETE ON $db.rate_limits TO $account");

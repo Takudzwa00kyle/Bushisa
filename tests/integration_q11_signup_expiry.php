@@ -245,7 +245,8 @@ try {
     // Migration from an existing 010 schema never certifies legacy rows.
     $base=$settings['name'];putenv('DB_NAME='.$base.'_upgrade');bushisa_bootstrap_disposable_database($repo.'/database/bushisa.sql');$pre=qs_cli([$repo.'/bin/migrate.php','--through=010']);$up=q11_connect();q11_install($up);$legacy=q11_user($up,'upgrade',false);$snap=qs_row($up,'users',$legacy['id'],'id');
     $m=qs_cli([$repo.'/bin/migrate.php']);$again=qs_cli([$repo.'/bin/migrate.php']);
-    qs('QS03','010 upgrade/repeat preserves rows and has no anchor backfill',$pre['exit']===0 && $m['exit']===0 && $again['exit']===0 && $snap===qs_row($up,'users',$legacy['id'],'id') && qs_row($up,'signup_lifecycle',$legacy['id'])===[]);
+    $upgradedUser=qs_row($up,'users',$legacy['id'],'id');
+    qs('QS03','010 upgrade/repeat preserves original fields and has no anchor/generation backfill',$pre['exit']===0 && $m['exit']===0 && $again['exit']===0 && $snap===array_intersect_key($upgradedUser,$snap) && ($upgradedUser['signup_attempt_key']??null)===null && qs_row($up,'signup_lifecycle',$legacy['id'])===[]);
     $migration[]=['kind'=>'010-upgrade-repeat','results'=>[$pre['exit'],$m['exit'],$again['exit']]];putenv('DB_NAME='.$base);
     // Synthetic execution has no permissions to change clocks or schema.
     $denied=0;foreach(['UPDATE q11_fixture_clock SET clock_at=clock_at','CREATE TABLE q11_forbidden (id INT)'] as $sql){try{$db->exec($sql);}catch(PDOException){$denied++;}}

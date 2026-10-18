@@ -197,7 +197,9 @@ try {
     $legacyBefore=sql_l01('SELECT id,reporter_id,target_type,target_id,reported_user_id,reason,status,evidence_purge_due_at FROM moderation_cases WHERE id=?',[$legacyCase])->fetch();
     $before = $pdo->query('SELECT * FROM users ORDER BY id')->fetchAll();
     cli_l01([$root . '/bin/migrate.php']);
-    check_l01($before === $pdo->query('SELECT * FROM users ORDER BY id')->fetchAll(), 'M04 upgrade preserves all user values');
+    $upgradedUsers=$pdo->query('SELECT * FROM users ORDER BY id')->fetchAll();
+    check_l01($before === array_map(static fn($u)=>array_diff_key($u,['signup_attempt_key'=>0]),$upgradedUsers)
+        && count(array_filter($upgradedUsers,static fn($u)=>($u['signup_attempt_key']??null)!==null))===0, 'M04 upgrade preserves all original user values; no generation backfill');
     check_l01(sql_l01('SELECT body FROM messages WHERE id=?',[$upMsg])->fetchColumn()==='Upgrade retained synthetic', 'M05 upgrade preserves message body');
     check_l01(count_l01('message_request_sends')===1, 'M06 existing request event backfilled once');
     check_l01(count_l01('pair_request_counts','history_verified_at IS NOT NULL')===0,'M06 migration never certifies unknown older pair history');

@@ -81,6 +81,10 @@ function bushisa_signup_record_creation(PDO $pdo,int $id): void
     $created=bushisa_signup_time($u['created_at']);
     bushisa_signup_query($pdo,'INSERT INTO signup_lifecycle (account_id,registered_at,unverified_expires_at,anchor_status,observed_at) VALUES (?,?,?,"recorded_creation",?)',
         [$id,$created,bushisa_signup_time($created,'+72 hours'),bushisa_signup_now($pdo)]);
+    if (operational_table_exists($pdo,'signup_attempt_identities')) {
+        require_once __DIR__.'/signup_attempt_erasure.php';
+        \Bushisa\AttemptErasure\bind_creation($pdo,$id);
+    }
 }
 function bushisa_signup_user_live(array $u): bool
 {
@@ -158,6 +162,10 @@ function bushisa_signup_expire_locked(PDO $pdo,array $u): array
     $receipt=hash('sha256','signup-expiry-v1|'.$id.'|'.$u['account_status'].'|'.$due);
     bushisa_signup_query($pdo,'INSERT INTO signup_expiry_obligations (receipt_id,account_id,stage,expires_at,denied_at,live_purge_due_at,account_version,challenges_invalidated,mail_copies_erased) VALUES (?,?,?,?,?,?,?,?,?)',
         [$receipt,$id,$u['account_status'],$due,$at,$purgeDue,(int)$u['session_version']+1,$counts['challenges'],$counts['mail']]);
+    if (operational_table_exists($pdo,'signup_attempt_erasure_jobs')) {
+        require_once __DIR__.'/signup_attempt_erasure.php';
+        \Bushisa\AttemptErasure\enqueue($pdo,$id,$receipt);
+    }
     if ($at>=$purgeDue) { bushisa_signup_alert($pdo,$id,'SIGNUP_LIVE_CLEANUP_OVERDUE',$purgeDue); }
     bushisa_signup_fault('before_commit');
     return ['state'=>'expired','receipt'=>$receipt,'expires_at'=>$due,'live_purge_due_at'=>$purgeDue];
