@@ -41,21 +41,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($user === null) {
         $error = 'No pending account was found for that email.';
     } else {
+        $authenticated = (int) ($_SESSION['user_id'] ?? 0) === (int) $user['id'];
+        $oldVersion = $authenticated ? (int) ($_SESSION['session_version'] ?? 0) : null;
+        session_write_close();
         $action = isset($_POST['action']) && is_string($_POST['action']) ? clean_enum($_POST['action'], ['verify', 'resend']) : 'verify';
         if ($action === 'resend') {
             try {
                 bushisa_issue_signup_code($pdo, (int) $user['id'], (string) $user['email']);
-                $success = 'Your new approval email is on its way. Check your student mailbox shortly.';
+                $success = 'New approval mail has been queued. Resending does not extend your signup deadline.';
             } catch (Throwable $exception) {
                 log_to_file('Approval-code resend failed; check database and mail configuration.', 'ERROR');
                 $error = 'We could not request a new approval code. Please try again.';
             }
         } else {
             $code = isset($_POST['approval_code']) && is_string($_POST['approval_code']) ? $_POST['approval_code'] : '';
-            $result = bushisa_verify_signup_code($pdo, (int) $user['id'], $code);
+            $result = bushisa_verify_signup_code($pdo, (int) $user['id'], $code, $oldVersion);
             if (!empty($result['success'])) {
-                if (isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $user['id']) {
-                    $_SESSION['session_version'] = (int) ($_SESSION['session_version'] ?? 0) + 1;
+                if ($authenticated && bushisa_resume_transition_session($pdo, (int) $user['id'], $oldVersion, (int) $result['session_version'])) {
                     redirect('onboarding.php');
                 }
 
@@ -67,12 +69,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Exact account deadlines are shown only to its authenticated owner.
+$deadline = (int) ($_SESSION['user_id'] ?? 0) === (int) ($user['id'] ?? -1) ? bushisa_signup_deadline($pdo, (int) $user['id']) : null;
+
 render_auth_start('Approve student email', $csrfToken);
 ?>
 <section class="auth-card" aria-labelledby="verify-title">
     <span class="brand-mark" aria-hidden="true">B</span>
     <h1 id="verify-title">Approve student email</h1>
     <p class="auth-card__lead">Enter the approval code sent to your NUST student mailbox.</p>
+    <p>Unverified signup expires 72 hours after creation. After email approval, finish adult onboarding within 7 days. Resends and visits do not extend either deadline.</p>
+    <?php if ($deadline !== null): ?><p>Current deadline: <?= e($deadline) ?> UTC.</p><?php endif; ?>
+    <p>An expired signup is disabled and scheduled for cleanup. A fresh signup after cleanup requires email approval and adult onboarding again.</p>
 
     <?php render_flash($error, $success); ?>
 

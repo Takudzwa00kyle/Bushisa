@@ -168,6 +168,22 @@ function bushisa_current_account(PDO $pdo, int $userId): ?array
     return is_array($row) ? $row : null;
 }
 
+/** Resume only the same, still-current authenticated session after a transition.
+ * A concurrent logout/revocation must not be overwritten by the response. */
+function bushisa_resume_transition_session(PDO $pdo, int $userId, int $oldVersion, int $newVersion): bool
+{
+    start_secure_session();
+    $account = bushisa_current_account($pdo, $userId);
+    if ((int) ($_SESSION['user_id'] ?? 0) !== $userId
+        || (int) ($_SESSION['session_version'] ?? -1) !== $oldVersion
+        || $account === null || !bushisa_account_can_use_session($account)
+        || (int) $account['session_version'] !== $newVersion) {
+        return false;
+    }
+    $_SESSION['session_version'] = $newVersion;
+    return true;
+}
+
 /**
  * @param array<string, mixed> $account
  */
@@ -249,6 +265,15 @@ function require_login(): void
 
     $userId = (int) $_SESSION['user_id'];
     $account = bushisa_current_account($pdo, $userId);
+    if ($account !== null && in_array($account['account_status'] ?? '', ['pending_email', 'pending_onboarding'], true)) {
+        require_once __DIR__ . '/signup_lifecycle.php';
+        bushisa_signup_test_point($pdo, 'q11_mixed');
+        $expiry = bushisa_signup_check_account($pdo, $userId);
+        if ($expiry['state'] !== 'live') {
+            bushisa_auth_fail(401, bushisa_signup_expiry_message($expiry['state']));
+        }
+        $account = bushisa_current_account($pdo, $userId);
+    }
     if ($account === null || !bushisa_account_can_use_session($account)) {
         bushisa_auth_fail(401, 'Your session is no longer valid.');
     }

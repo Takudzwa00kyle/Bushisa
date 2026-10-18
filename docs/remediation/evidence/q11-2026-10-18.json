@@ -1,0 +1,2002 @@
+{
+  "task": "Q11 bounded signup expiry/cancellation",
+  "parent_commit": "be91e06004552004311f5bc6c312f20dbad04091",
+  "branch": "codex/q11-signup-onboarding-expiry-20261017",
+  "approval_timestamp": "historical acceptance instant not captured; no date substituted",
+  "scope": "guarded disposable databases, synthetic accounts, fake mail; no production/scheduling/push/merge/deploy",
+  "status_totals": {
+    "PASS": 24,
+    "PARTIAL": 0,
+    "NOT RUN": 0
+  },
+  "cases": [
+    {
+      "id": "QS01",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "pre-connection guard rejects APP_ENV",
+          "pre-connection guard rejects DB_NAME",
+          "pre-connection guard rejects DB_HOST",
+          "pre-connection guard rejects MAIL_TRANSPORT",
+          "pre-connection guard rejects BUSHISA_TEST_DATABASE"
+        ],
+        "linux": [
+          "pre-connection guard rejects APP_ENV",
+          "pre-connection guard rejects DB_NAME",
+          "pre-connection guard rejects DB_HOST",
+          "pre-connection guard rejects MAIL_TRANSPORT",
+          "pre-connection guard rejects BUSHISA_TEST_DATABASE"
+        ]
+      }
+    },
+    {
+      "id": "QS02",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "fresh 011 and repeat"
+        ],
+        "linux": [
+          "fresh 011 and repeat"
+        ]
+      }
+    },
+    {
+      "id": "QS03",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "010 upgrade/repeat preserves rows and has no anchor backfill"
+        ],
+        "linux": [
+          "010 upgrade/repeat preserves rows and has no anchor backfill"
+        ]
+      }
+    },
+    {
+      "id": "QS04",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "registration persists original creation+72h in the creation transaction",
+          "queue failure rolls back account and creation anchor"
+        ],
+        "linux": [
+          "registration persists original creation+72h in the creation transaction",
+          "queue failure rolls back account and creation anchor"
+        ]
+      }
+    },
+    {
+      "id": "QS05",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "72h -1 microsecond",
+          "72h +0 seconds",
+          "72h +1 microsecond"
+        ],
+        "linux": [
+          "72h -1 microsecond",
+          "72h +0 seconds",
+          "72h +1 microsecond"
+        ]
+      }
+    },
+    {
+      "id": "QS06",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "7d -1 microsecond",
+          "7d +0 seconds",
+          "7d +1 microsecond"
+        ],
+        "linux": [
+          "7d -1 microsecond",
+          "7d +0 seconds",
+          "7d +1 microsecond"
+        ]
+      }
+    },
+    {
+      "id": "QS07",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "resend preserves creation deadline and cancels old generation"
+        ],
+        "linux": [
+          "resend preserves creation deadline and cancels old generation"
+        ]
+      }
+    },
+    {
+      "id": "QS08",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "first email approval succeeds",
+          "reads, repeat verification and resend cannot renew first approval"
+        ],
+        "linux": [
+          "first email approval succeeds",
+          "reads, repeat verification and resend cannot renew first approval"
+        ]
+      }
+    },
+    {
+      "id": "QS09",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "unknown legacy anchors observed without deletion/backfill",
+          "unknown legacy anchors observed without deletion/backfill",
+          "unknown legacy continuation cannot manufacture approval",
+          "contradictory expiry is neither a deletion anchor nor a displayed deadline",
+          "legacy cleanup erases without inventing acceptance time"
+        ],
+        "linux": [
+          "unknown legacy anchors observed without deletion/backfill",
+          "unknown legacy anchors observed without deletion/backfill",
+          "unknown legacy continuation cannot manufacture approval",
+          "contradictory expiry is neither a deletion anchor nor a displayed deadline",
+          "legacy cleanup erases without inventing acceptance time"
+        ]
+      }
+    },
+    {
+      "id": "QS10",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "suspension survives cleanup and cannot be activated"
+        ],
+        "linux": [
+          "suspension survives cleanup and cannot be activated"
+        ]
+      }
+    },
+    {
+      "id": "QS11",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "atomic rollback at after_cancellation",
+          "atomic rollback at before_commit",
+          "retries preserve receipt, version and original overdue obligation",
+          "actual cleanup CLI keeps pending physical-erasure obligations honest"
+        ],
+        "linux": [
+          "atomic rollback at after_cancellation",
+          "atomic rollback at before_commit",
+          "retries preserve receipt, version and original overdue obligation",
+          "actual cleanup CLI keeps pending physical-erasure obligations honest"
+        ]
+      }
+    },
+    {
+      "id": "QS12",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "obligations stay pending/unpublished with no invented backup bound",
+          "preserves moderation_cases",
+          "preserves moderation_evidence",
+          "preserves evidence_lifecycle_holds",
+          "preserves protective_replay_events",
+          "preserves evidence_recovery_outbox",
+          "cleanup CLI preserves moderation_cases",
+          "cleanup CLI preserves moderation_evidence",
+          "cleanup CLI preserves evidence_lifecycle_holds",
+          "cleanup CLI preserves protective_replay_events",
+          "cleanup CLI preserves evidence_recovery_outbox"
+        ],
+        "linux": [
+          "obligations stay pending/unpublished with no invented backup bound",
+          "preserves moderation_cases",
+          "preserves moderation_evidence",
+          "preserves evidence_lifecycle_holds",
+          "preserves protective_replay_events",
+          "preserves evidence_recovery_outbox",
+          "cleanup CLI preserves moderation_cases",
+          "cleanup CLI preserves moderation_evidence",
+          "cleanup CLI preserves evidence_lifecycle_holds",
+          "cleanup CLI preserves protective_replay_events",
+          "cleanup CLI preserves evidence_recovery_outbox"
+        ]
+      }
+    },
+    {
+      "id": "QS13",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "immutable useful deadline is min(queue+5m, challenge-60s, account deadline)",
+          "exact useful deadline discards without sending",
+          "useful delivery boundary -1 microsecond",
+          "useful delivery boundary +1 microsecond"
+        ],
+        "linux": [
+          "immutable useful deadline is min(queue+5m, challenge-60s, account deadline)",
+          "exact useful deadline discards without sending",
+          "useful delivery boundary -1 microsecond",
+          "useful delivery boundary +1 microsecond"
+        ]
+      }
+    },
+    {
+      "id": "QS14",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "known non-acceptance retries within original deadline",
+          "ambiguous transport is terminal uncertain, never automatic resend"
+        ],
+        "linux": [
+          "known non-acceptance retries within original deadline",
+          "ambiguous transport is terminal uncertain, never automatic resend"
+        ]
+      }
+    },
+    {
+      "id": "QS15",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "expired claim cannot deliver after replacement",
+          "abandoned inflight becomes uncertain without resend"
+        ],
+        "linux": [
+          "expired claim cannot deliver after replacement",
+          "abandoned inflight becomes uncertain without resend"
+        ]
+      }
+    },
+    {
+      "id": "QS16",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "verification before expiry wins",
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "exact expiry prevents verification"
+        ],
+        "linux": [
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "verification before expiry wins",
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "exact expiry prevents verification"
+        ]
+      }
+    },
+    {
+      "id": "QS17",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "onboarding before expiry wins",
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "expiry prevents stale onboarding activation"
+        ],
+        "linux": [
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "onboarding before expiry wins",
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "expiry prevents stale onboarding activation"
+        ]
+      }
+    },
+    {
+      "id": "QS18",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "expiry versus resend leaves no live challenge or queued body"
+        ],
+        "linux": [
+          "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+          "HTTP and expiry workers complete",
+          "expiry versus resend leaves no live challenge or queued body"
+        ]
+      }
+    },
+    {
+      "id": "QS19",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "overlapping HTTP resend cancels inflight without pretending recall",
+          "overlapping HTTP expiry cancels inflight without pretending recall"
+        ],
+        "linux": [
+          "overlapping HTTP resend cancels inflight without pretending recall",
+          "overlapping HTTP expiry cancels inflight without pretending recall"
+        ]
+      }
+    },
+    {
+      "id": "QS20",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "HTTP supersession cancels an existing claim before delivery"
+        ],
+        "linux": [
+          "HTTP supersession cancels an existing claim before delivery"
+        ]
+      }
+    },
+    {
+      "id": "QS21",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "actual protected route revokes expired session",
+          "stale session version cannot activate"
+        ],
+        "linux": [
+          "actual protected route revokes expired session",
+          "stale session version cannot activate"
+        ]
+      }
+    },
+    {
+      "id": "QS22",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "runtime cannot fabricate clock or perform DDL"
+        ],
+        "linux": [
+          "runtime cannot fabricate clock or perform DDL"
+        ]
+      }
+    },
+    {
+      "id": "QS23",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "diagnostics contain no payload/code/token fields"
+        ],
+        "linux": [
+          "diagnostics contain no payload/code/token fields"
+        ]
+      }
+    },
+    {
+      "id": "QS24",
+      "status": "PASS",
+      "executed_checks_per_profile": {
+        "native": [
+          "challenge boundary -1 microsecond",
+          "challenge boundary +0 seconds",
+          "repeat code cleanup is idempotent",
+          "challenge boundary +1 microsecond",
+          "repeat code cleanup is idempotent"
+        ],
+        "linux": [
+          "challenge boundary -1 microsecond",
+          "challenge boundary +0 seconds",
+          "repeat code cleanup is idempotent",
+          "challenge boundary +1 microsecond",
+          "repeat code cleanup is idempotent"
+        ]
+      }
+    }
+  ],
+  "profiles": {
+    "native": {
+      "q11": {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1",
+        "php_command": "php tests/integration_q11_signup_expiry.php",
+        "execution": {
+          "suite": "Q11 synthetic signup expiry",
+          "started_utc": "2026-10-17T22:56:49+00:00",
+          "finished_utc": "2026-10-17T22:57:36+00:00",
+          "environment": {
+            "php": "8.5.11",
+            "os": "Windows",
+            "mysql": "9.6.0",
+            "mysqlnd": "mysqlnd 8.5.11",
+            "database": "bushisa_test_q11_native",
+            "host": "127.0.0.1",
+            "port": "3361",
+            "settings": {
+              "server_uuid": "a2177bcd-ca75-11f1-9bad-040e3ca062fa",
+              "time_zone": "+00:00",
+              "isolation_level": "REPEATABLE-READ",
+              "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+            },
+            "runtime_grants": [
+              "GRANT USAGE ON *.* TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT SELECT ON `bushisa_test_q11_native`.* TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`audit_log` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`cleanup_outbox` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`mail_outbox` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`preferences` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`profiles` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_native`.`rate_limits` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`signup_expiry_obligations` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`signup_lifecycle_alerts` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`signup_lifecycle` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`signup_mail_jobs` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`student_email_approval_codes` TO `q11_exec_d7e39b82`@`localhost`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_native`.`users` TO `q11_exec_d7e39b82`@`localhost`"
+            ]
+          },
+          "migration": [
+            {
+              "kind": "fresh-repeat",
+              "results": [
+                0,
+                0
+              ]
+            },
+            {
+              "kind": "010-upgrade-repeat",
+              "results": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "checks": [
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects APP_ENV",
+              "result": "PASS"
+            },
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects DB_NAME",
+              "result": "PASS"
+            },
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects DB_HOST",
+              "result": "PASS"
+            },
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects MAIL_TRANSPORT",
+              "result": "PASS"
+            },
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects BUSHISA_TEST_DATABASE",
+              "result": "PASS"
+            },
+            {
+              "case": "QS02",
+              "check": "fresh 011 and repeat",
+              "result": "PASS"
+            },
+            {
+              "case": "QS04",
+              "check": "registration persists original creation+72h in the creation transaction",
+              "result": "PASS"
+            },
+            {
+              "case": "QS04",
+              "check": "queue failure rolls back account and creation anchor",
+              "result": "PASS"
+            },
+            {
+              "case": "QS05",
+              "check": "72h -1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS05",
+              "check": "72h +0 seconds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS05",
+              "check": "72h +1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS06",
+              "check": "7d -1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS06",
+              "check": "7d +0 seconds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS06",
+              "check": "7d +1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS07",
+              "check": "resend preserves creation deadline and cancels old generation",
+              "result": "PASS"
+            },
+            {
+              "case": "QS08",
+              "check": "first email approval succeeds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS08",
+              "check": "reads, repeat verification and resend cannot renew first approval",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "unknown legacy anchors observed without deletion/backfill",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "unknown legacy anchors observed without deletion/backfill",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "unknown legacy continuation cannot manufacture approval",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "contradictory expiry is neither a deletion anchor nor a displayed deadline",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "legacy cleanup erases without inventing acceptance time",
+              "result": "PASS"
+            },
+            {
+              "case": "QS10",
+              "check": "suspension survives cleanup and cannot be activated",
+              "result": "PASS"
+            },
+            {
+              "case": "QS11",
+              "check": "atomic rollback at after_cancellation",
+              "result": "PASS"
+            },
+            {
+              "case": "QS11",
+              "check": "atomic rollback at before_commit",
+              "result": "PASS"
+            },
+            {
+              "case": "QS11",
+              "check": "retries preserve receipt, version and original overdue obligation",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "obligations stay pending/unpublished with no invented backup bound",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves moderation_cases",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves moderation_evidence",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves evidence_lifecycle_holds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves protective_replay_events",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves evidence_recovery_outbox",
+              "result": "PASS"
+            },
+            {
+              "case": "QS11",
+              "check": "actual cleanup CLI keeps pending physical-erasure obligations honest",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves moderation_cases",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves moderation_evidence",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves evidence_lifecycle_holds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves protective_replay_events",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves evidence_recovery_outbox",
+              "result": "PASS"
+            },
+            {
+              "case": "QS13",
+              "check": "immutable useful deadline is min(queue+5m, challenge-60s, account deadline)",
+              "result": "PASS"
+            },
+            {
+              "case": "QS14",
+              "check": "known non-acceptance retries within original deadline",
+              "result": "PASS"
+            },
+            {
+              "case": "QS13",
+              "check": "exact useful deadline discards without sending",
+              "result": "PASS"
+            },
+            {
+              "case": "QS14",
+              "check": "ambiguous transport is terminal uncertain, never automatic resend",
+              "result": "PASS"
+            },
+            {
+              "case": "QS15",
+              "check": "expired claim cannot deliver after replacement",
+              "result": "PASS"
+            },
+            {
+              "case": "QS15",
+              "check": "abandoned inflight becomes uncertain without resend",
+              "result": "PASS"
+            },
+            {
+              "case": "QS13",
+              "check": "useful delivery boundary -1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS13",
+              "check": "useful delivery boundary +1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "challenge boundary -1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "challenge boundary +0 seconds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "repeat code cleanup is idempotent",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "challenge boundary +1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "repeat code cleanup is idempotent",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "verification before expiry wins",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "exact expiry prevents verification",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "onboarding before expiry wins",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "expiry prevents stale onboarding activation",
+              "result": "PASS"
+            },
+            {
+              "case": "QS18",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS18",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS18",
+              "check": "expiry versus resend leaves no live challenge or queued body",
+              "result": "PASS"
+            },
+            {
+              "case": "QS19",
+              "check": "overlapping HTTP resend cancels inflight without pretending recall",
+              "result": "PASS"
+            },
+            {
+              "case": "QS19",
+              "check": "overlapping HTTP expiry cancels inflight without pretending recall",
+              "result": "PASS"
+            },
+            {
+              "case": "QS20",
+              "check": "HTTP supersession cancels an existing claim before delivery",
+              "result": "PASS"
+            },
+            {
+              "case": "QS21",
+              "check": "actual protected route revokes expired session",
+              "result": "PASS"
+            },
+            {
+              "case": "QS21",
+              "check": "stale session version cannot activate",
+              "result": "PASS"
+            },
+            {
+              "case": "QS03",
+              "check": "010 upgrade/repeat preserves rows and has no anchor backfill",
+              "result": "PASS"
+            },
+            {
+              "case": "QS22",
+              "check": "runtime cannot fabricate clock or perform DDL",
+              "result": "PASS"
+            },
+            {
+              "case": "QS23",
+              "check": "diagnostics contain no payload/code/token fields",
+              "result": "PASS"
+            }
+          ],
+          "races": [
+            {
+              "case": "QS16",
+              "participants": [
+                {
+                  "pid": 14228,
+                  "connection_id": 740,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:20+00:00",
+                  "uri": "/verify_email.php"
+                },
+                {
+                  "pid": 16712,
+                  "connection_id": 741,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:20+00:00",
+                  "uri": ""
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 740,
+                  "blocking_connection": 737
+                },
+                {
+                  "requesting_connection": 741,
+                  "blocking_connection": 737
+                }
+              ],
+              "first": "HTTP",
+              "http_status": 302,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "live",
+                "expires_at": "2026-10-27 22:57:19.999999"
+              }
+            },
+            {
+              "case": "QS16",
+              "participants": [
+                {
+                  "pid": 14228,
+                  "connection_id": 742,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:21+00:00",
+                  "uri": "/verify_email.php"
+                },
+                {
+                  "pid": 35080,
+                  "connection_id": 743,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:21+00:00",
+                  "uri": ""
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 743,
+                  "blocking_connection": 737
+                },
+                {
+                  "requesting_connection": 742,
+                  "blocking_connection": 737
+                }
+              ],
+              "first": "expiry",
+              "http_status": 200,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "expired",
+                "receipt": "94860b3d0867dea507dab0ebc278f923ef78afcd78ac2540272a517d2f8f02a2",
+                "expires_at": "2026-10-20 22:57:21.000000",
+                "live_purge_due_at": "2026-10-21 22:57:21.000000"
+              }
+            },
+            {
+              "case": "QS17",
+              "participants": [
+                {
+                  "pid": 34632,
+                  "connection_id": 745,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:22+00:00",
+                  "uri": ""
+                },
+                {
+                  "pid": 14228,
+                  "connection_id": 744,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:22+00:00",
+                  "uri": "/onboarding.php"
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 744,
+                  "blocking_connection": 737
+                },
+                {
+                  "requesting_connection": 745,
+                  "blocking_connection": 737
+                }
+              ],
+              "first": "HTTP",
+              "http_status": 302,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "live",
+                "expires_at": "2026-10-24 22:57:21.828180"
+              }
+            },
+            {
+              "case": "QS17",
+              "participants": [
+                {
+                  "pid": 14228,
+                  "connection_id": 746,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:23+00:00",
+                  "uri": "/onboarding.php"
+                },
+                {
+                  "pid": 37216,
+                  "connection_id": 747,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:23+00:00",
+                  "uri": ""
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 747,
+                  "blocking_connection": 737
+                },
+                {
+                  "requesting_connection": 746,
+                  "blocking_connection": 737
+                }
+              ],
+              "first": "expiry",
+              "http_status": 302,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "expired",
+                "receipt": "ff98e9eb5fdedd27390307e7899ad010d548ad96533d5171fa9fbdc06ac8c5b7",
+                "expires_at": "2026-10-24 22:57:22.746462",
+                "live_purge_due_at": "2026-10-25 22:57:22.746462"
+              }
+            },
+            {
+              "case": "QS18",
+              "participants": [
+                {
+                  "pid": 31032,
+                  "connection_id": 749,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:24+00:00",
+                  "uri": ""
+                },
+                {
+                  "pid": 14228,
+                  "connection_id": 748,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:57:24+00:00",
+                  "uri": "/verify_email.php"
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 749,
+                  "blocking_connection": 737
+                },
+                {
+                  "requesting_connection": 748,
+                  "blocking_connection": 737
+                }
+              ],
+              "first": "expiry",
+              "http_status": 200,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "expired",
+                "receipt": "12dbda2c21ede63043b5fdba3b6aa510dd4aff0f25cbe30c2c7be183a2f95e15",
+                "expires_at": "2026-10-20 22:57:24.000000",
+                "live_purge_due_at": "2026-10-21 22:57:24.000000"
+              }
+            },
+            {
+              "case": "QS19",
+              "variant": "resend",
+              "carrier": {
+                "pid": 12612,
+                "connection_id": 750,
+                "transaction_open": false
+              },
+              "http_server_pid": 34524,
+              "http_connection": 751,
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 751,
+                  "blocking_connection": 737
+                }
+              ],
+              "state": "accepted_after_cancel"
+            },
+            {
+              "case": "QS19",
+              "variant": "expiry",
+              "carrier": {
+                "pid": 34928,
+                "connection_id": 752,
+                "transaction_open": false
+              },
+              "http_server_pid": 34524,
+              "http_connection": 753,
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 753,
+                  "blocking_connection": 737
+                }
+              ],
+              "state": "accepted_after_cancel"
+            }
+          ],
+          "totals": {
+            "assertions": 74,
+            "passed": 74
+          },
+          "failure": null
+        }
+      },
+      "regressions": [
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode unit",
+          "suite": "unit",
+          "started_utc": "2026-10-17T22:12:03.5563786Z",
+          "finished_utc": "2026-10-17T22:12:04.5885289Z",
+          "exit": 0,
+          "summary": "unit_signup_verification PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode mailunit",
+          "suite": "mailunit",
+          "started_utc": "2026-10-17T22:12:04.9461830Z",
+          "finished_utc": "2026-10-17T22:12:05.6327532Z",
+          "exit": 0,
+          "summary": "unit_mail_configuration PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode signup",
+          "suite": "signup",
+          "started_utc": "2026-10-17T22:12:05.6428355Z",
+          "finished_utc": "2026-10-17T22:12:07.1154814Z",
+          "exit": 0,
+          "summary": "integration_p0_flows PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode smtp",
+          "suite": "smtp",
+          "started_utc": "2026-10-17T22:12:07.1172419Z",
+          "finished_utc": "2026-10-17T22:12:11.5559576Z",
+          "exit": 0,
+          "summary": "integration_smtp_outbox PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode core",
+          "suite": "core",
+          "started_utc": "2026-10-17T22:12:11.5602149Z",
+          "finished_utc": "2026-10-17T22:12:13.8432859Z",
+          "exit": 0,
+          "summary": "integration_core_p0_flows PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode policy",
+          "suite": "policy",
+          "started_utc": "2026-10-17T22:12:13.8466272Z",
+          "finished_utc": "2026-10-17T22:12:18.2235052Z",
+          "exit": 0,
+          "summary": "policy_safeguards_p0_flows PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode reports",
+          "suite": "reports",
+          "started_utc": "2026-10-17T22:12:18.2260801Z",
+          "finished_utc": "2026-10-17T22:13:09.1922621Z",
+          "exit": 0,
+          "summary": {
+            "result": "PASS",
+            "checks": 245,
+            "overlaps": 8
+          }
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode pairs",
+          "suite": "pairs",
+          "started_utc": "2026-10-17T22:13:09.1942696Z",
+          "finished_utc": "2026-10-17T22:13:43.1029255Z",
+          "exit": 0,
+          "summary": {
+            "result": "PASS",
+            "checks": 396,
+            "overlaps": 11
+          }
+        }
+      ],
+      "started_harare": "2026-10-18T00:56:49+02:00",
+      "finished_harare": "2026-10-18T00:57:36+02:00"
+    },
+    "linux": {
+      "q11": {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1",
+        "php_command": "php tests/integration_q11_signup_expiry.php",
+        "execution": {
+          "suite": "Q11 synthetic signup expiry",
+          "started_utc": "2026-10-17T22:57:19+00:00",
+          "finished_utc": "2026-10-17T22:58:49+00:00",
+          "environment": {
+            "php": "8.4.26",
+            "os": "Linux",
+            "mysql": "8.0.45",
+            "mysqlnd": "mysqlnd 8.4.26",
+            "database": "bushisa_test_q11_linux",
+            "host": "127.0.0.1",
+            "port": "3306",
+            "settings": {
+              "server_uuid": "b38c238d-ca75-11f1-8e17-a637479c97f8",
+              "time_zone": "+00:00",
+              "isolation_level": "REPEATABLE-READ",
+              "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+            },
+            "runtime_grants": [
+              "GRANT USAGE ON *.* TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT SELECT ON `bushisa_test_q11_linux`.* TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`audit_log` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`cleanup_outbox` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`mail_outbox` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`preferences` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`profiles` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_linux`.`rate_limits` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`signup_expiry_obligations` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`signup_lifecycle_alerts` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`signup_lifecycle` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`signup_mail_jobs` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`student_email_approval_codes` TO `q11_exec_b7f17ad2`@`127.0.0.1`",
+              "GRANT INSERT, UPDATE ON `bushisa_test_q11_linux`.`users` TO `q11_exec_b7f17ad2`@`127.0.0.1`"
+            ]
+          },
+          "migration": [
+            {
+              "kind": "fresh-repeat",
+              "results": [
+                0,
+                0
+              ]
+            },
+            {
+              "kind": "010-upgrade-repeat",
+              "results": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "checks": [
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects APP_ENV",
+              "result": "PASS"
+            },
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects DB_NAME",
+              "result": "PASS"
+            },
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects DB_HOST",
+              "result": "PASS"
+            },
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects MAIL_TRANSPORT",
+              "result": "PASS"
+            },
+            {
+              "case": "QS01",
+              "check": "pre-connection guard rejects BUSHISA_TEST_DATABASE",
+              "result": "PASS"
+            },
+            {
+              "case": "QS02",
+              "check": "fresh 011 and repeat",
+              "result": "PASS"
+            },
+            {
+              "case": "QS04",
+              "check": "registration persists original creation+72h in the creation transaction",
+              "result": "PASS"
+            },
+            {
+              "case": "QS04",
+              "check": "queue failure rolls back account and creation anchor",
+              "result": "PASS"
+            },
+            {
+              "case": "QS05",
+              "check": "72h -1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS05",
+              "check": "72h +0 seconds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS05",
+              "check": "72h +1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS06",
+              "check": "7d -1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS06",
+              "check": "7d +0 seconds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS06",
+              "check": "7d +1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS07",
+              "check": "resend preserves creation deadline and cancels old generation",
+              "result": "PASS"
+            },
+            {
+              "case": "QS08",
+              "check": "first email approval succeeds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS08",
+              "check": "reads, repeat verification and resend cannot renew first approval",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "unknown legacy anchors observed without deletion/backfill",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "unknown legacy anchors observed without deletion/backfill",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "unknown legacy continuation cannot manufacture approval",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "contradictory expiry is neither a deletion anchor nor a displayed deadline",
+              "result": "PASS"
+            },
+            {
+              "case": "QS09",
+              "check": "legacy cleanup erases without inventing acceptance time",
+              "result": "PASS"
+            },
+            {
+              "case": "QS10",
+              "check": "suspension survives cleanup and cannot be activated",
+              "result": "PASS"
+            },
+            {
+              "case": "QS11",
+              "check": "atomic rollback at after_cancellation",
+              "result": "PASS"
+            },
+            {
+              "case": "QS11",
+              "check": "atomic rollback at before_commit",
+              "result": "PASS"
+            },
+            {
+              "case": "QS11",
+              "check": "retries preserve receipt, version and original overdue obligation",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "obligations stay pending/unpublished with no invented backup bound",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves moderation_cases",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves moderation_evidence",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves evidence_lifecycle_holds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves protective_replay_events",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "preserves evidence_recovery_outbox",
+              "result": "PASS"
+            },
+            {
+              "case": "QS11",
+              "check": "actual cleanup CLI keeps pending physical-erasure obligations honest",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves moderation_cases",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves moderation_evidence",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves evidence_lifecycle_holds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves protective_replay_events",
+              "result": "PASS"
+            },
+            {
+              "case": "QS12",
+              "check": "cleanup CLI preserves evidence_recovery_outbox",
+              "result": "PASS"
+            },
+            {
+              "case": "QS13",
+              "check": "immutable useful deadline is min(queue+5m, challenge-60s, account deadline)",
+              "result": "PASS"
+            },
+            {
+              "case": "QS14",
+              "check": "known non-acceptance retries within original deadline",
+              "result": "PASS"
+            },
+            {
+              "case": "QS13",
+              "check": "exact useful deadline discards without sending",
+              "result": "PASS"
+            },
+            {
+              "case": "QS14",
+              "check": "ambiguous transport is terminal uncertain, never automatic resend",
+              "result": "PASS"
+            },
+            {
+              "case": "QS15",
+              "check": "expired claim cannot deliver after replacement",
+              "result": "PASS"
+            },
+            {
+              "case": "QS15",
+              "check": "abandoned inflight becomes uncertain without resend",
+              "result": "PASS"
+            },
+            {
+              "case": "QS13",
+              "check": "useful delivery boundary -1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS13",
+              "check": "useful delivery boundary +1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "challenge boundary -1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "challenge boundary +0 seconds",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "repeat code cleanup is idempotent",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "challenge boundary +1 microsecond",
+              "result": "PASS"
+            },
+            {
+              "case": "QS24",
+              "check": "repeat code cleanup is idempotent",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "verification before expiry wins",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS16",
+              "check": "exact expiry prevents verification",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "onboarding before expiry wins",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS17",
+              "check": "expiry prevents stale onboarding activation",
+              "result": "PASS"
+            },
+            {
+              "case": "QS18",
+              "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+              "result": "PASS"
+            },
+            {
+              "case": "QS18",
+              "check": "HTTP and expiry workers complete",
+              "result": "PASS"
+            },
+            {
+              "case": "QS18",
+              "check": "expiry versus resend leaves no live challenge or queued body",
+              "result": "PASS"
+            },
+            {
+              "case": "QS19",
+              "check": "overlapping HTTP resend cancels inflight without pretending recall",
+              "result": "PASS"
+            },
+            {
+              "case": "QS19",
+              "check": "overlapping HTTP expiry cancels inflight without pretending recall",
+              "result": "PASS"
+            },
+            {
+              "case": "QS20",
+              "check": "HTTP supersession cancels an existing claim before delivery",
+              "result": "PASS"
+            },
+            {
+              "case": "QS21",
+              "check": "actual protected route revokes expired session",
+              "result": "PASS"
+            },
+            {
+              "case": "QS21",
+              "check": "stale session version cannot activate",
+              "result": "PASS"
+            },
+            {
+              "case": "QS03",
+              "check": "010 upgrade/repeat preserves rows and has no anchor backfill",
+              "result": "PASS"
+            },
+            {
+              "case": "QS22",
+              "check": "runtime cannot fabricate clock or perform DDL",
+              "result": "PASS"
+            },
+            {
+              "case": "QS23",
+              "check": "diagnostics contain no payload/code/token fields",
+              "result": "PASS"
+            }
+          ],
+          "races": [
+            {
+              "case": "QS16",
+              "participants": [
+                {
+                  "pid": 10,
+                  "connection_id": 720,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:02+00:00",
+                  "uri": "/verify_email.php"
+                },
+                {
+                  "pid": 12,
+                  "connection_id": 721,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:02+00:00",
+                  "uri": ""
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 720,
+                  "blocking_connection": 717
+                },
+                {
+                  "requesting_connection": 721,
+                  "blocking_connection": 717
+                }
+              ],
+              "first": "HTTP",
+              "http_status": 302,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "live",
+                "expires_at": "2026-10-27 22:58:00.999999"
+              }
+            },
+            {
+              "case": "QS16",
+              "participants": [
+                {
+                  "pid": 10,
+                  "connection_id": 722,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:03+00:00",
+                  "uri": "/verify_email.php"
+                },
+                {
+                  "pid": 13,
+                  "connection_id": 723,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:03+00:00",
+                  "uri": ""
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 723,
+                  "blocking_connection": 717
+                },
+                {
+                  "requesting_connection": 722,
+                  "blocking_connection": 717
+                }
+              ],
+              "first": "expiry",
+              "http_status": 200,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "expired",
+                "receipt": "9c88d78979654406aedda703aea18258348921644fe18936124ea0d90bd99017",
+                "expires_at": "2026-10-20 22:58:03.000000",
+                "live_purge_due_at": "2026-10-21 22:58:03.000000"
+              }
+            },
+            {
+              "case": "QS17",
+              "participants": [
+                {
+                  "pid": 10,
+                  "connection_id": 724,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:04+00:00",
+                  "uri": "/onboarding.php"
+                },
+                {
+                  "pid": 14,
+                  "connection_id": 725,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:05+00:00",
+                  "uri": ""
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 724,
+                  "blocking_connection": 717
+                },
+                {
+                  "requesting_connection": 725,
+                  "blocking_connection": 717
+                }
+              ],
+              "first": "HTTP",
+              "http_status": 302,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "live",
+                "expires_at": "2026-10-24 22:58:03.922097"
+              }
+            },
+            {
+              "case": "QS17",
+              "participants": [
+                {
+                  "pid": 15,
+                  "connection_id": 727,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:06+00:00",
+                  "uri": ""
+                },
+                {
+                  "pid": 10,
+                  "connection_id": 726,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:06+00:00",
+                  "uri": "/onboarding.php"
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 727,
+                  "blocking_connection": 717
+                },
+                {
+                  "requesting_connection": 726,
+                  "blocking_connection": 717
+                }
+              ],
+              "first": "expiry",
+              "http_status": 302,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "expired",
+                "receipt": "e6fceb5ce3bb52b2c8a9604aa6c6c0157ff1ebc8dc4782f63a669270a338af5a",
+                "expires_at": "2026-10-24 22:58:05.188101",
+                "live_purge_due_at": "2026-10-25 22:58:05.188101"
+              }
+            },
+            {
+              "case": "QS18",
+              "participants": [
+                {
+                  "pid": 16,
+                  "connection_id": 729,
+                  "sapi": "cli",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:07+00:00",
+                  "uri": ""
+                },
+                {
+                  "pid": 10,
+                  "connection_id": 728,
+                  "sapi": "cli-server",
+                  "point": "q11_mixed",
+                  "entered_at": "2026-10-17T22:58:07+00:00",
+                  "uri": "/verify_email.php"
+                }
+              ],
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 729,
+                  "blocking_connection": 717
+                },
+                {
+                  "requesting_connection": 728,
+                  "blocking_connection": 717
+                }
+              ],
+              "first": "expiry",
+              "http_status": 200,
+              "worker_exit": 0,
+              "expiry_result": {
+                "state": "expired",
+                "receipt": "9a9dba92d5ce1d776ba4c1d80781a9a2d3451b7476f43b1b087605fb362c189a",
+                "expires_at": "2026-10-20 22:58:07.000000",
+                "live_purge_due_at": "2026-10-21 22:58:07.000000"
+              }
+            },
+            {
+              "case": "QS19",
+              "variant": "resend",
+              "carrier": {
+                "pid": 17,
+                "connection_id": 730,
+                "transaction_open": false
+              },
+              "http_server_pid": 11,
+              "http_connection": 731,
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 731,
+                  "blocking_connection": 717
+                }
+              ],
+              "state": "accepted_after_cancel"
+            },
+            {
+              "case": "QS19",
+              "variant": "expiry",
+              "carrier": {
+                "pid": 18,
+                "connection_id": 732,
+                "transaction_open": false
+              },
+              "http_server_pid": 11,
+              "http_connection": 733,
+              "observed_row_waits": [
+                {
+                  "requesting_connection": 733,
+                  "blocking_connection": 717
+                }
+              ],
+              "state": "accepted_after_cancel"
+            }
+          ],
+          "totals": {
+            "assertions": 74,
+            "passed": 74
+          },
+          "failure": null
+        }
+      },
+      "regressions": [
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode unit",
+          "suite": "unit",
+          "started_utc": "2026-10-17T22:49:43.4205986Z",
+          "finished_utc": "2026-10-17T22:49:49.6289572Z",
+          "exit": 0,
+          "summary": "unit_signup_verification PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode mailunit",
+          "suite": "mailunit",
+          "started_utc": "2026-10-17T22:49:50.1823905Z",
+          "finished_utc": "2026-10-17T22:49:52.3568280Z",
+          "exit": 0,
+          "summary": "unit_mail_configuration PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode signup",
+          "suite": "signup",
+          "started_utc": "2026-10-17T22:49:52.3619274Z",
+          "finished_utc": "2026-10-17T22:49:56.7339628Z",
+          "exit": 0,
+          "summary": "integration_p0_flows PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode smtp",
+          "suite": "smtp",
+          "started_utc": "2026-10-17T22:49:56.7374657Z",
+          "finished_utc": "2026-10-17T22:50:03.3070896Z",
+          "exit": 0,
+          "summary": "integration_smtp_outbox PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode core",
+          "suite": "core",
+          "started_utc": "2026-10-17T22:50:03.3096186Z",
+          "finished_utc": "2026-10-17T22:50:07.9435841Z",
+          "exit": 0,
+          "summary": "integration_core_p0_flows PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode policy",
+          "suite": "policy",
+          "started_utc": "2026-10-17T22:50:07.9450915Z",
+          "finished_utc": "2026-10-17T22:50:12.4768503Z",
+          "exit": 0,
+          "summary": "policy_safeguards_p0_flows PASS"
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode reports",
+          "suite": "reports",
+          "started_utc": "2026-10-17T22:50:12.4802961Z",
+          "finished_utc": "2026-10-17T22:51:46.3009590Z",
+          "exit": 0,
+          "summary": {
+            "result": "PASS",
+            "checks": 245,
+            "overlaps": 8
+          }
+        },
+        {
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode pairs",
+          "suite": "pairs",
+          "started_utc": "2026-10-17T22:51:46.3115834Z",
+          "finished_utc": "2026-10-17T22:53:49.3963047Z",
+          "exit": 0,
+          "summary": {
+            "result": "PASS",
+            "checks": 396,
+            "overlaps": 11
+          }
+        }
+      ],
+      "started_harare": "2026-10-18T00:57:19+02:00",
+      "finished_harare": "2026-10-18T00:58:49+02:00"
+    }
+  },
+  "source_hash_method": "SHA-256 of final source bytes normalized CRLF to LF; no commit/run attribution invented. The checkpoint contains these source versions.",
+  "source_sha256_lf": {
+    ".github/workflows/ci.yml": "b26d22880de30c0e5209b2e82dba00f5d01bcd00d0e24e5be5addc65b05ddc01",
+    "database/migrations/011_signup_lifecycle.sql": "1dfa9e8325bd8b61b7cb48307fda2756fe698eced109d3fa805f4fe3bec741f8",
+    "bin/cleanup_policy.php": "00af18a4ee61cf6aff42db1c2dba3226f14284247b012e6d7a990c9ce72fce95",
+    "onboarding.php": "2a2bcdd9b45920df5f89ae0f94d2ce95fd21df6bbf7d0ab4a5e2c6fe74b83c4d",
+    "verify_email.php": "357b7e415526af8d98396ea8aec34000b446e121a11216b6904e45b771054bef",
+    "php/auth.php": "090ce65885a1c5012039b5df6060d076c89f0ebff170549abd80b67622a4db95",
+    "php/session_manager.php": "3fb4053879949d20c36c6298087d4b386d168ff908feaf56ef71a107b4af3f87",
+    "php/signup_verification.php": "d5505ff72f3e4ec1de70d6d236666599cfcd832bf4b7992ea515e6deefdb520a",
+    "php/signup_lifecycle.php": "12fa2bbc038df8762bccbe31db2b7e37cc47a8691d276b5c18a38336706c64ca",
+    "php/signup_mail_jobs.php": "2be75ca873bcc30133d1c24a7cbe822fc43de2207f07ef507b4e47c619f37291",
+    "php/mail_delivery.php": "e683be4bc791a5b3d011e92921c52fe1c0c8590b15252441c302d43ddc77fcec",
+    "php/policy_safeguards.php": "7697635a104fe09b5917a8b1f8fddf0eb1de1e642578060eae7565673633eb19",
+    "php/http_test_barrier.php": "5b403e49026e5a50f9bcc7d4f7e9a6d69aff7a337c4247fbada4ac5346375830",
+    "tests/integration_q11_signup_expiry.php": "98c2dcd287d42ceebfb41f66917dafdc92fbbfbb470efcb99c5ffed50ce0c595",
+    "tests/support/q11_fixture.php": "5e93fb5897021ce598749e0908c488f21da4646f5c386e1e57968a379ca565b2",
+    "tests/support/q11_worker.php": "67a6bbc6aac0bfa0f0ae96e5b8b55e23c43bf5916ab1e766abfd3fdaa83dcc6a",
+    "tests/integration_p0_flows.php": "bf0db6aa30c5cda7c37c12b4c5fd2e34e6ce83b2aaec9d9d32716c6011bd3f04",
+    "tests/integration_smtp_outbox.php": "4b172b1e13ea51555b913faad5d3c5173f85b42f89910d88d583bcabb8f2c553",
+    "tests/policy_safeguards_p0_flows.php": "acabe7bc6b65d3f20f0a6b04b304785474ccef7e88ebae8c5b9673b257804e6d",
+    "tests/smtp_transport_test.py": "e67392474c9d841ff28b75b42ffea84b510f0b17d61f170da53aaa0938231ff0"
+  },
+  "regression_scope_note": "Auth/session/report/pair source remained unchanged after their regression runs; the final legacy mail timestamp fix was covered by QS09 and subsequent SMTP-outbox reruns. CI is NOT RUN.",
+  "additional_checks": {
+    "php_syntax": {
+      "files": 17,
+      "failures": 0
+    },
+    "native_smtp_after_legacy_fix": {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-native.ps1 -Mode smtp",
+      "exit": 0
+    },
+    "linux_smtp_after_legacy_fix": {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q11-run-linux.ps1 -Mode smtp",
+      "exit": 0
+    },
+    "localhost_smtp_transport": {
+      "command": "BUSHISA_PHP_BINARY=D:/php/php.exe APP_ENV=development D:/cygwin64/bin/python3.9.exe tests/smtp_transport_test.py",
+      "exit": 0,
+      "observed_utc": "2026-10-18T05:48:19.994629+00:00",
+      "scope": "synthetic localhost-only STARTTLS/AUTH acceptance, missing TLS and untrusted CA rejection; no real email or database",
+      "earlier_attempt": {
+        "exit": 1,
+        "result": "trusted fixture TLS failed before native Windows CA-file path conversion; corrected Cygwin/native argument and reran PASS"
+      },
+      "linux_variant": "NOT RUN (python3 unavailable in the tested cached image)"
+    }
+  },
+  "unexecuted_gates": [
+    "ordinary attempt-data live purge consumer",
+    "legacy provenance/cutover",
+    "independent durable recovery journal/copy inventory and witnessed restore",
+    "operational authority/staffing/scheduling/alert receipt",
+    "real SMTP/inbox/provider acceptance",
+    "candidate CI"
+  ],
+  "historical_totals_unchanged": {
+    "A01-A45": {
+      "PASS": 24,
+      "PARTIAL": 19,
+      "NOT RUN": 2
+    },
+    "LB01-LB33": {
+      "PASS": 21,
+      "PARTIAL": 12,
+      "NOT RUN": 0
+    },
+    "LC01-LC18": {
+      "PASS": 13,
+      "PARTIAL": 5,
+      "NOT RUN": 0
+    }
+  },
+  "documentation_validation": {
+    "result": "PASS",
+    "observed_utc": "2026-10-18T05:48:21.022326+00:00",
+    "local_links": 137,
+    "heading_targets": 4,
+    "cases": {
+      "PASS": 24,
+      "PARTIAL": 0,
+      "NOT RUN": 0
+    },
+    "schema_additive_tables": 4,
+    "source_hashes_verified": 20,
+    "clock_checks": "72h/168h, expiry+24h, conditional49d",
+    "kind": "documentation/static validation, not functional testing"
+  },
+  "test_resource_teardown": {
+    "native": {
+      "result": "identity-checked SHUTDOWN succeeded",
+      "server_uuid": "a2177bcd-ca75-11f1-9bad-040e3ca062fa",
+      "port": 3361,
+      "requested_utc": "2026-10-18T05:44:09+00:00"
+    },
+    "linux": {
+      "result": "recorded container ID and q11 label checked; docker stop succeeded",
+      "container": "bushisa-q11-mysql-20261017",
+      "observed_utc": "2026-10-18T05:49:09.467945+00:00"
+    }
+  },
+  "historical_evidence_check": {
+    "result": "git diff --exit-code HEAD -- selected decision/retention and A/LB/LC evidence paths returned 0",
+    "checkpoint": "be91e06004552004311f5bc6c312f20dbad04091"
+  }
+}

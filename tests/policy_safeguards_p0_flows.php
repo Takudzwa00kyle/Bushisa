@@ -188,6 +188,11 @@ $cleanup->execute([':user_id' => $deleteUserId]);
 assert_policy((int) $cleanup->fetchColumn() >= 1, 'account deletion should enqueue idempotent cleanup rows');
 
 $mailUserId = policy_create_user($pdo, 'male', 'female');
+$pdo->beginTransaction();
+$pdo->prepare('UPDATE users SET is_verified=0,account_status="pending_email" WHERE id=?')->execute([$mailUserId]);
+// Explicitly constructed NEW synthetic signup, never a legacy backfill path.
+bushisa_signup_record_creation($pdo,$mailUserId);
+$pdo->commit();
 $mailUser = find_user_by_id($pdo, $mailUserId);
 $mailEmail = (string) $mailUser['email'];
 $code = bushisa_issue_signup_code($pdo, $mailUserId, $mailEmail);

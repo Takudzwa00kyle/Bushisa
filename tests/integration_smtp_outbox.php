@@ -18,6 +18,7 @@ function check_smtp(bool $condition, string $message): void
 
 function smtp_test_user(PDO $pdo): array
 {
+    $pdo->beginTransaction();
     $student = 'n025' . str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT) . chr(random_int(97, 122));
     $email = $student . '@students.nust.ac.zw';
     $insert = $pdo->prepare(
@@ -26,7 +27,10 @@ function smtp_test_user(PDO $pdo): array
     );
     $insert->execute([':student' => $student, ':email' => $email, ':password' => password_hash('Synthetic-test-only', PASSWORD_DEFAULT)]);
 
-    return [(int) $pdo->lastInsertId(), $email];
+    $id=(int)$pdo->lastInsertId();
+    bushisa_signup_record_creation($pdo,$id);
+    $pdo->commit();
+    return [$id, $email];
 }
 
 function smtp_test_mail(PDO $pdo, string $email): array

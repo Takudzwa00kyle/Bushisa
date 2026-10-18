@@ -1,6 +1,16 @@
 # L03: repository category, clock and writer inventory
 
-Current continuation: [L03a implementation and case evidence](l03a-text-evidence-lifecycle-evidence-2026-10-17.md)
+Current Q11 continuation: [signup-expiry implementation/evidence](q11-signup-expiry-evidence-2026-10-18.md)
+implements new pending-email/onboarding anchors and atomic challenge/mail
+cancellation from `be91e06`. For baseline C01/C02/C05–C07, W01–W03 and G01/G04/G05,
+original deadlines now persist, first approval is one-time, expiry rechecks the
+locked account and delivery uses explicit claims/preflight/receipts. Separate
+QS01–QS24: **24 PASS / 0 PARTIAL / 0 NOT RUN** for the stated local variants.
+Ordinary attempt-data erasure remains a pending consumer; legacy anchors,
+code-free metadata cleanup, actual scheduling and independent recovery/review
+remain open. No baseline inventory or historic A/LB/LC evidence is relabelled.
+
+Earlier continuation: [L03a implementation and case evidence](l03a-text-evidence-lifecycle-evidence-2026-10-17.md)
 implements the bounded new-intake text/hold core from `b521b67`, with LC01–LC18
 now **13 PASS / 5 PARTIAL / 0 wholly NOT RUN**. Its eleven additive tables,
 trusted-provider fail-closed boundary, scoped holds, bounded purge and synthetic

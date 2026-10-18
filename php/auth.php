@@ -82,6 +82,17 @@ function attempt_login(PDO $pdo, string $email, string $password, ?string $ident
         ];
     }
 
+    if (in_array($user['account_status'] ?? '', ['pending_email', 'pending_onboarding'], true)) {
+        $expiry = bushisa_signup_check_account($pdo, (int) $user['id']);
+        if ($expiry['state'] !== 'live') {
+            return ['success' => false, 'error' => bushisa_signup_expiry_message($expiry['state']), 'redirect' => null];
+        }
+        $user = find_user_by_email($pdo, $email);
+        if ($user === null || !bushisa_signup_user_live($user)) {
+            return ['success' => false, 'error' => 'Your account is not available.', 'redirect' => null];
+        }
+    }
+
     clear_attempts($pdo, 'login', $rateLimitKey);
     regenerate_session();
     $_SESSION['user_id'] = (int) $user['id'];
@@ -265,6 +276,7 @@ function register_user(PDO $pdo, array $data): array
         ]);
 
         $userId = (int) $pdo->lastInsertId();
+        bushisa_signup_record_creation($pdo, $userId);
 
         $profileStatement = $pdo->prepare(
             'INSERT INTO profiles (user_id, display_name, anon_handle, bio, gender, date_of_birth, faculty, year_of_study, profile_photo_path) VALUES (:user_id, :display_name, :anon_handle, :bio, :gender, NULL, :faculty, :year_of_study, NULL)'
@@ -298,7 +310,7 @@ function register_user(PDO $pdo, array $data): array
         return [
             'success' => true,
             'error' => null,
-            'message' => 'Account created. Your approval email is on its way. Enter the code from your student mailbox.',
+            'message' => 'Account created. Approval mail has been queued. Approve your student email within 72 hours; resending a code does not extend that deadline.',
             'redirect' => 'verify_email.php?email=' . rawurlencode($email),
         ];
     } catch (Throwable $exception) {

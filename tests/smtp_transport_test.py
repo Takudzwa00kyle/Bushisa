@@ -6,12 +6,21 @@ from pathlib import Path
 import socket
 import ssl
 import subprocess
+import sys
 import tempfile
 import threading
 
 
 REPO = Path(__file__).resolve().parents[1]
 PHP = os.environ.get("BUSHISA_PHP_BINARY", "php")
+
+
+def php_path(path):
+    # Cygwin Python can read POSIX /tmp paths; native Windows PHP needs the
+    # corresponding Windows path for openssl.cafile. Linux CI is unchanged.
+    if sys.platform == "cygwin" and PHP.lower().endswith(".exe"):
+        return subprocess.check_output(["cygpath", "-w", str(path)], text=True).strip()
+    return str(path)
 
 
 def openssl(*args):
@@ -117,7 +126,7 @@ try {
 """
     command = [PHP]
     if trust_ca:
-        command += ["-d", "openssl.cafile=" + str(cert_dir / "ca.pem")]
+        command += ["-d", "openssl.cafile=" + php_path(cert_dir / "ca.pem")]
     command += ["-r", program]
     result = subprocess.run(command, cwd=REPO, env=environment, capture_output=True, text=True, timeout=15)
     thread.join(6)

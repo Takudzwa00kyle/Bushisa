@@ -98,6 +98,14 @@ jobs:
         env:
           DB_NAME: bushisa_test_l02d_e_ci
         run: php tests/integration_l02e_races.php
+      - name: Signup expiry anchors and HTTP mail-cancellation races
+        env:
+          DB_NAME: bushisa_test_q11_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_q11_signup_expiry.php
 
   browser-route-session-overlap:
     runs-on: ubuntu-latest

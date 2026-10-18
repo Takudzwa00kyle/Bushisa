@@ -533,39 +533,11 @@ function bushisa_soft_delete_owned_confessions(PDO $pdo, int $userId, int $initi
 
 function bushisa_erase_terminal_signup_material(PDO $pdo, int $userId, string $email): void
 {
-    ensure_operational_schema($pdo);
-
-    $codes = $pdo->prepare(
-        'UPDATE student_email_approval_codes
-         SET code_hash = NULL,
-             terminal_at = COALESCE(terminal_at, UTC_TIMESTAMP()),
-             purged_at = COALESCE(purged_at, UTC_TIMESTAMP())
-         WHERE user_id = :user_id
-           AND (consumed_at IS NOT NULL OR expires_at <= UTC_TIMESTAMP() OR terminal_at IS NOT NULL)'
-    );
-    $codes->execute([':user_id' => $userId]);
-
-    $outbox = $pdo->prepare(
-        'UPDATE mail_outbox
-         SET body = NULL,
-             status = CASE WHEN status = "pending" THEN "failed" ELSE status END,
-             next_attempt_at = NULL,
-             payload_erased_at = COALESCE(payload_erased_at, UTC_TIMESTAMP()),
-             metadata_json = JSON_OBJECT("policy_status", "proposed", "erased_reason", "terminal_signup_code")
-         WHERE recipient_email = :email
-           AND code_bearing = 1
-           AND payload_erased_at IS NULL
-           AND (approval_code_id IS NULL OR EXISTS (
-               SELECT 1 FROM student_email_approval_codes c
-               WHERE c.id = mail_outbox.approval_code_id
-                 AND (c.consumed_at IS NOT NULL OR c.terminal_at IS NOT NULL OR c.expires_at <= UTC_TIMESTAMP())
-           ))'
-    );
-    $outbox->execute([':email' => strtolower($email)]);
-
-    bushisa_enqueue_cleanup($pdo, 'signup_code_cleanup', 'user', $userId, [
-        'policy_status' => 'proposed',
-        'email' => strtolower($email),
-    ]);
+    require_once __DIR__.'/signup_lifecycle.php';
+    bushisa_signup_require_schema($pdo);
+    bushisa_signup_transaction($pdo,function()use($pdo,$userId):void {
+        bushisa_signup_query($pdo,'SELECT id FROM users WHERE id=? FOR UPDATE',[$userId])->fetchColumn();
+        // Identity is the account/code binding, not a caller-supplied address.
+        bushisa_signup_cancel_material_locked($pdo,$userId,'terminal_challenge');
+    });
 }
-

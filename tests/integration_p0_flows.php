@@ -93,6 +93,9 @@ $underageResult = register_user($pdo, [
 assert_test($underageResult['success'] === true, 'underage account can be created before DOB is known: ' . (string) ($underageResult['error'] ?? 'unknown error'));
 $underageUser = find_user_by_email($pdo, $underageEmail);
 assert_test(is_array($underageUser), 'underage fixture user should exist');
+$mail->execute([':email'=>$underageEmail]);
+preg_match('/approval code is ([0-9]{6,10})/', (string)$mail->fetchColumn(), $underageCode);
+assert_test(bushisa_verify_signup_code($pdo,(int)$underageUser['id'],$underageCode[1])['success'], 'underage DOB test first completes required email approval');
 $underage = bushisa_complete_adult_onboarding($pdo, (int) $underageUser['id'], (new DateTimeImmutable('today'))->modify('-17 years')->format('Y-m-d'));
 assert_test($underage['success'] === false, 'underage DOB should fail onboarding');
 $underageUser = find_user_by_email($pdo, $underageEmail);
