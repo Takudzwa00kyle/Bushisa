@@ -165,6 +165,8 @@ function bushisa_signup_expire_locked(PDO $pdo,array $u): array
     $receipt=hash('sha256','signup-expiry-v1|'.$id.'|'.$u['account_status'].'|'.$due);
     bushisa_signup_query($pdo,'INSERT INTO signup_expiry_obligations (receipt_id,account_id,stage,expires_at,denied_at,live_purge_due_at,account_version,challenges_invalidated,mail_copies_erased) VALUES (?,?,?,?,?,?,?,?,?)',
         [$receipt,$id,$u['account_status'],$due,$at,$purgeDue,(int)$u['session_version']+1,$counts['challenges'],$counts['mail']]);
+    require_once __DIR__.'/managed_session.php';
+    \Bushisa\ManagedSession\expire_locked($pdo,$u,$receipt,$due,$purgeDue);
     if (operational_table_exists($pdo,'signup_attempt_erasure_jobs')) {
         require_once __DIR__.'/signup_attempt_erasure.php';
         \Bushisa\AttemptErasure\enqueue($pdo,$id,$receipt);

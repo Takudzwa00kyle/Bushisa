@@ -5,11 +5,19 @@ Branch: `codex/account-session-copy-contract-20261018`. Inspection date:
 2026-10-18, Africa/Harare. Starting HEAD matched the requested checkpoint and
 the index/tree were clean. No AGENTS.md was found in the checkout or ancestors.
 
-**Design complete; ready for engineering review.** This is source inspection
-and contract preparation, not implementation, independent review or execution.
-No database, session store, real session files, cookies, session identifiers,
-provider account or effective runtime configuration was accessed. No PHP was executed.
-New SC01–SC40 acceptance cases are all **NOT RUN**.
+**Current continuation from `077b8c7`:** the new-attempt binding/write-fence
+foundation is implemented behind a guarded synthetic handler. See the
+[focused engineering evidence](session-binding-write-fence-evidence-2026-10-18.md)
+for supported boundaries, exact checks and remaining gates. The current matrix
+is **12 PASS / 18 PARTIAL / 10 NOT RUN**; no physical cleanup, production handler
+activation, independent review or restore acceptance is claimed.
+
+The original documentation checkpoint was design-complete and ready for
+engineering review. At that checkpoint no PHP, database/session-store access or
+functional execution occurred and all SC cases were NOT RUN. Sections 1–5
+preserve that original source inventory/design; the continuation below and
+linked evidence distinguish the new synthetic implementation. No real session
+files, user data, production configuration or provider account was accessed.
 
 Authority: [current decisions](decisions.md), especially
 [Q11/Q14/Q20/Q25/Q26/Q38/Q40/Q47](owner-policy-reconciliation-2026-10-15.md),
@@ -26,7 +34,8 @@ UTC/Harare timestamps were not captured; this inspection date is not approval.
 
 ## 1. Actual handler, fields and writer inventory
 
-The application calls PHP's configured session handler. No tracked application
+At the original contract checkpoint, the application called PHP's configured
+session handler. No tracked application
 `session_set_save_handler`, `session_module_name`, `session_save_path`, save
 handler/path INI setting, DB session table or explicit session GC scheduler was
 found. Therefore **the deployed handler is UNVERIFIED**, not certified as files
@@ -138,9 +147,11 @@ idle/absolute values, shared DB store, one-instance plan and Lax cookies remain
 
 ## 3. Minimum protected mapping and admission
 
-The following are required design fields/interfaces, **not existing tables or
-an approved production store choice**. Use a future free forward-migration
-identifier; do not edit historical migrations or manufacture legacy mappings.
+The following are required design fields/interfaces, not an approved
+production store choice. The bounded synthetic implementation now uses
+[migration 014](../../database/migrations/014_session_binding_fence.sql) and its
+linked evidence; the broader cleanup/recovery interfaces remain gated. No
+historical migration or legacy mapping is rewritten.
 
 | Planned record | Minimum required fields / authority | Secret/access restrictions |
 |---|---|---|
@@ -329,7 +340,7 @@ index or a stopped instance is not evidence that no session copies survive.
 |---|---|---|
 | Policy P01 — Q40 | Select production handler/topology and idle/absolute/privileged numerical settings; DB/one-instance/30m–12h/15m–4h/Lax remain proposals. | Needed before corresponding operational configuration/timeout changes. Keep current settings recorded; not required to build a guarded new-attempt mapping prototype. Product owner after security/operations review. |
 | Policy P02 — Q40/Q23 | Select physical retention for ordinary logout, idle expiry, login/regeneration and nondeletion reset/ban/privilege retirement; identify anonymous-session retention and any standalone mapping/receipt lifetime outside necessary recovery. | No approved generic duration was found. Do not adopt 24h/7d/30d/1,800s by analogy. Q11/Q14 deadlines for their own copies already apply. Product/privacy review. |
-| Engineering E01 | No generation-bound session mapping, copy manifest, guarded save handler, late-write fence or retirement lineage. | First bounded slice below; no owner reapproval of Q11/Q14 revocation/erasure needed. Engineering/security. |
+| Engineering E01 | New-attempt binding, minimal manifests, guarded synthetic save handler, late-write fence, handoff and retirement lineage implemented; physical consumer, operational handler and legacy mapping remain absent/gated. | [Current evidence](session-binding-write-fence-evidence-2026-10-18.md); next Q11-only synthetic physical consumer needs existing approval, not Q11/Q14 reapproval. Engineering/security. |
 | Engineering E02 | Current bootstrap/polling refresh, absent absolute/role-specific clocks, absent logout-all/reset, role/MFA integration and suspension without durable version revocation. | Separate bounded alignment using existing approved constraints; proposed numerical choices stay pending. Do not declare legacy moderation a reviewed ban/appeal system. |
 | Evidence V01 — VERIFY | Actual PHP handler/INI/serializer/GC, private roots/permissions and conditional-delete capabilities, instance/slot/mount coverage, clock/ingress behavior and provider backups/exports. | Authorized sanitized configuration capture later; never inspect real payloads to fill this table. Operations/security. |
 | Evidence V02 — VERIFY | Genuine generation/mapping provenance and all writer versions/cutover; disposition of existing unmapped sessions. | No backfill or claim of complete coverage from absence. Prepare a reviewed cutover/reauthentication plan separately; no live session transition authorized here. Engineering/operations. |
@@ -351,61 +362,67 @@ from restricted runtime/cleanup identities. Use original server-owned Q11/Q14
 events. Where a general policy is unresolved, test rejection of the unsupported
 operation rather than invent a production retention value.
 
-All cases below are **NOT RUN**. Existing two-session browser/QS/QE/QM evidence
-does not execute this new contract or prove physical erasure. For concurrency,
+Statuses below reflect the [new synthetic execution](session-binding-write-fence-evidence-2026-10-18.md),
+with each unexecuted variant still open: **12 PASS / 18 PARTIAL / 10 NOT RUN**.
+Existing browser/QS/QE/QM results are not relabelled as session erasure. For concurrency,
 record distinct HTTP/CLI PIDs, handler instances and SQL connections plus actual
 engine/provider overlap; two tabs or simulated exceptions alone do not prove it.
 
 | ID | Concrete fixture/action | Required observation | Status |
 |---|---|---|---|
-| SC01 | Anonymous registration/entered-code page versus authenticated pending A | Anonymous CSRF session never acquires A's identity by email; legitimate entered-code flow works without manufactured login. | NOT RUN |
-| SC02 | Login to new A/G1, then protected page/API and CSRF write | Current authoritative generation/version mapped before publication; payload excludes email/profile data; exact copies indexed. | NOT RUN |
-| SC03 | Missing generation, missing auth version and contradictory original creation | Supported authenticated binding fails closed; no zero-version assumption, backfill or legacy purge. | NOT RUN |
-| SC04 | Reuse numeric account ID/email with new G2 | G1 session cannot authenticate G2 or cause its deletion, even with matching numeric versions. | NOT RUN |
-| SC05 | Two A sessions; authoritative version/account revocation; all protected route groups | Both lose later access/actions; no stale snapshot or helper-only bypass. | NOT RUN |
-| SC06 | Pending-email creation +72h at −1µs/exact/+1µs; poll/resend | Deny at expiry; original event/deadline remains; no session-write renewal. | NOT RUN |
-| SC07 | First approval +7d at −1µs/exact/+1µs; repeated reads/verification | Original onboarding clock; stale versions cannot continue. | NOT RUN |
-| SC08 | Complete onboarding before expiry, then run selected stale pending job | New completed binding/copies survive; stale eligibility rejected. | NOT RUN |
-| SC09 | Same-session successful verification/onboarding handoff, plus unrelated old sessions | Only legitimate exact old-to-new handoff succeeds; others cannot guess/promote versions. | NOT RUN |
-| SC10 | Current-session logout while another A session exists; separate logout-all event | Logout fences only its binding; logout-all fences targeted old epochs, with no borrowed physical TTL. | NOT RUN |
-| SC11 | Ban/suspend A, lift reviewed restriction, replay old cookies/write | Old bindings remain revoked; lifting does not resurrect them or bypass other restrictions. | NOT RUN |
-| SC12 | Revoke reviewer role/assignment/MFA while review request waits | Current capability check denies; cached booleans/proof cannot restore privilege. | NOT RUN |
+| SC01 | Anonymous registration/entered-code page versus authenticated pending A | Anonymous CSRF session never acquires A's identity by email; legitimate entered-code flow works without manufactured login. | PASS |
+| SC02 | Login to new A/G1, then protected page/API and CSRF write | Current authoritative generation/version mapped before publication; payload excludes email/profile data; exact copies indexed. | PASS |
+| SC03 | Missing generation, missing auth version and contradictory original creation | Supported authenticated binding fails closed; no zero-version assumption, backfill or legacy purge. | PASS |
+| SC04 | Reuse numeric account ID/email with new G2 | G1 session cannot authenticate G2 or cause its deletion, even with matching numeric versions. | PARTIAL |
+| SC05 | Two A sessions; authoritative version/account revocation; all protected route groups | Both lose later access/actions; no stale snapshot or helper-only bypass. | PASS |
+| SC06 | Pending-email creation +72h at −1µs/exact/+1µs; poll/resend | Deny at expiry; original event/deadline remains; no session-write renewal. | PASS |
+| SC07 | First approval +7d at −1µs/exact/+1µs; repeated reads/verification | Original onboarding clock; stale versions cannot continue. | PASS |
+| SC08 | Complete onboarding before expiry, then run selected stale pending job | New completed binding/copies survive; stale eligibility rejected. | PASS |
+| SC09 | Same-session successful verification/onboarding handoff, plus unrelated old sessions | Only legitimate exact old-to-new handoff succeeds; others cannot guess/promote versions. | PASS |
+| SC10 | Current-session logout while another A session exists; separate logout-all event | Logout fences only its binding; logout-all fences targeted old epochs, with no borrowed physical TTL. | PARTIAL |
+| SC11 | Ban/suspend A, lift reviewed restriction, replay old cookies/write | Old bindings remain revoked; lifting does not resurrect them or bypass other restrictions. | PARTIAL |
+| SC12 | Revoke reviewer role/assignment/MFA while review request waits | Current capability check denies; cached booleans/proof cannot restore privilege. | PARTIAL |
 | SC13 | Future Q47 reset request versus successful reset with two A sessions | Request changes no auth; success revokes all relevant sessions and requires ordinary login; Q47 integration dependency. | NOT RUN |
-| SC14 | Login A after prior different principal/privileged session; regenerate | Old identity/MFA/capability/CSRF material cannot leak into new binding; old alias denied. | NOT RUN |
-| SC15 | Polling/read versus intentional activity; unsupported timeout configuration | Polling cannot renew approved idle semantics; no proposed numerical lifetime silently adopted. | NOT RUN |
+| SC14 | Login A after prior different principal/privileged session; regenerate | Old identity/MFA/capability/CSRF material cannot leak into new binding; old alias denied. | PASS |
+| SC15 | Polling/read versus intentional activity; unsupported timeout configuration | Polling cannot renew approved idle semantics; no proposed numerical lifetime silently adopted. | PARTIAL |
 | SC16 | Expired A/G1 session-copy obligation at expiry +24h boundaries | Eligible owned copies gone by original deadline; late retries alert without extension. | NOT RUN |
 | SC17 | Verified Q14 deletion with copies on two declared stores, seven-day boundaries | Access denied immediately; ordinary copies purged by original +7d; other categories unchanged. | NOT RUN |
-| SC18 | Missing/contradictory event timestamp and unresolved logout retention | Known denial remains; unresolved deadline/cleanup obligation explicit, no invented time or false completion. | NOT RUN |
+| SC18 | Missing/contradictory event timestamp and unresolved logout retention | Known denial remains; unresolved deadline/cleanup obligation explicit, no invented time or false completion. | PARTIAL |
 | SC19 | Scoped held evidence plus A session containing obsolete sensitive fields | Authorized evidence survives independently; no whole-session hold or raw secret copied to case. | NOT RUN |
-| SC20 | Missing mapping/root/retired instance, then supposedly empty result | Unknown coverage is blocked, not zero copies or successful erasure. | NOT RUN |
-| SC21 | Account expiry/logout versus late close, timestamp/lazy-write and implicit shutdown | Revoked writer cannot publish, recreate or renew a stored session/cookie. | NOT RUN |
-| SC22 | Old logout-all/expiry job versus legitimate fresh S2/G2 login | Exact session/epoch/generation scope preserves authorized later binding and unrelated B. | NOT RUN |
-| SC23 | Regeneration overlaps cleanup; crash between old/new reservations | Both provisional copies remain tracked; no old alias resurrection or deletion of valid new binding. | NOT RUN |
-| SC24 | Actual verification/onboarding response versus concurrent logout and newer revocation | Only still-current handoff can publish; late response cannot recreate session or invent next version. | NOT RUN |
+| SC20 | Missing mapping/root/retired instance, then supposedly empty result | Unknown coverage is blocked, not zero copies or successful erasure. | PARTIAL |
+| SC21 | Account expiry/logout versus late close, timestamp/lazy-write and implicit shutdown | Revoked writer cannot publish, recreate or renew a stored session/cookie. | PASS |
+| SC22 | Old logout-all/expiry job versus legitimate fresh S2/G2 login | Exact session/epoch/generation scope preserves authorized later binding and unrelated B. | PARTIAL |
+| SC23 | Regeneration overlaps cleanup; crash between old/new reservations | Both provisional copies remain tracked; no old alias resurrection or deletion of valid new binding. | PARTIAL |
+| SC24 | Actual verification/onboarding response versus concurrent logout and newer revocation | Only still-current handoff can publish; late response cannot recreate session or invent next version. | PASS |
 | SC25 | Two cleanup workers claim/process same event with observed overlap | One stable component receipt; no duplicate effect or lost deadline. | NOT RUN |
 | SC26 | Expired technical lease and stalled old writer/cleanup claimant | Old token/CAS rejected; lease expiry alone cannot assert writer quiescence. | NOT RUN |
-| SC27 | Crash after committed write/purge intent before storage action | Resumption finds original manifest and deadline; no false completion or untracked new copy. | NOT RUN |
+| SC27 | Crash after committed write/purge intent before storage action | Resumption finds original manifest and deadline; no false completion or untracked new copy. | PARTIAL |
 | SC28 | Crash after object deletion before SQL acknowledgment; client loses final reply | Verify exact absence on retry; stable status/receipt; no deletion of replacement object. | NOT RUN |
-| SC29 | One instance succeeds, second returns partial failure/unavailable | Per-copy progress retained; original deadline/overdue alert; no global success. | NOT RUN |
-| SC30 | Traversal/absolute/UNC/null locator, symlink/reparse/hardlink and root mismatch | Refuse unsafe target without touching B/outside storage; actual platform variants recorded separately. | NOT RUN |
-| SC31 | Replace locator's object version/identity between selection and delete | Conditional operation preserves replacement; conflict remains explicit. | NOT RUN |
-| SC32 | Unmanaged native handler/noncooperating writer or unsupported remote-store fence | Refuse cleanup/publication support; no inverse-lock deadlock, fallback or speculative GC. | NOT RUN |
-| SC33 | Secret-bearing old payload plus diagnostics/receipt/export capture | Scoped payload removed; no SID/cookie/CSRF/email/MFA/body/raw locator in retained diagnostics or receipts. | NOT RUN |
-| SC34 | Restore old session copies against current DB/revocation registry | Old authentication stays denied before payload exposure or session rewrite. | NOT RUN |
+| SC29 | One instance succeeds, second returns partial failure/unavailable | Per-copy progress retained; original deadline/overdue alert; no global success. | PARTIAL |
+| SC30 | Traversal/absolute/UNC/null locator, symlink/reparse/hardlink and root mismatch | Refuse unsafe target without touching B/outside storage; actual platform variants recorded separately. | PARTIAL |
+| SC31 | Replace locator's object version/identity between selection and delete | Conditional operation preserves replacement; conflict remains explicit. | PARTIAL |
+| SC32 | Unmanaged native handler/noncooperating writer or unsupported remote-store fence | Refuse cleanup/publication support; no inverse-lock deadlock, fallback or speculative GC. | PARTIAL |
+| SC33 | Secret-bearing old payload plus diagnostics/receipt/export capture | Scoped payload removed; no SID/cookie/CSRF/email/MFA/body/raw locator in retained diagnostics or receipts. | PARTIAL |
+| SC34 | Restore old session copies against current DB/revocation registry | Old authentication stays denied before payload exposure or session rewrite. | PASS |
 | SC35 | Restore old DB/index and files; independent journal newer, missing or truncated | Replay latest monotonic protection first; unknown continuity keeps reads/writes/mail gated. | NOT RUN |
 | SC36 | Restore old regeneration alias/privileged proof after valid new grant | No automatic lineage/capability restoration; current account/resource restrictions still dominate. | NOT RUN |
 | SC37 | Later purge/export/copy expiry and active protection outlive example day 43/49 | Computed latest-copy +7d/longer restriction wins; no universal timer or read-based renewal. | NOT RUN |
-| SC38 | Missing/rotated HMAC or locator key, ambiguous namespace | Resolve through protected versioned adapter or fail closed; no raw ID logging, blind deletion or lost-key erasure claim. | NOT RUN |
-| SC39 | Disabled consumer, unsafe fixture destination, missing runtime/adapter grants | Refuse before unsafe connection/action; atomic rollback and code-free error; no schema/user-delete privileges added. | NOT RUN |
-| SC40 | Two app instances, restart/GC and an unindexed older volume | Complete writer/copy coverage required; GC/restart alone cannot prove revocation or physical cleanup. | NOT RUN |
+| SC38 | Missing/rotated HMAC or locator key, ambiguous namespace | Resolve through protected versioned adapter or fail closed; no raw ID logging, blind deletion or lost-key erasure claim. | PARTIAL |
+| SC39 | Disabled consumer, unsafe fixture destination, missing runtime/adapter grants | Refuse before unsafe connection/action; atomic rollback and code-free error; no schema/user-delete privileges added. | PARTIAL |
+| SC40 | Two app instances, restart/GC and an unindexed older volume | Complete writer/copy coverage required; GC/restart alone cannot prove revocation or physical cleanup. | PARTIAL |
 
 Historical results remain A **24/19/2**, LB **21/12/0**, LC **13/5/0**, QS
 **24/0/0**, QE **27/1/0** and QM **32/0/0** (PASS/PARTIAL/wholly NOT RUN).
 Their original run/source attribution and unexecuted variants remain intact,
 including QE21's Windows symlink variant. No functional tests or new CI run
-were performed for this documentation change.
+were performed for the original documentation checkpoint; the current SC execution is linked above.
 
 ## 8. First bounded implementation slice
+
+**Continuation:** this foundation is implemented for the guarded synthetic
+handler only; [evidence and next slice](session-binding-write-fence-evidence-2026-10-18.md)
+record its limits. The original bounded requirements below remain the scope
+boundary, not a claim of physical cleanup or operational readiness.
 
 **New-attempt session binding and write-fence foundation**, limited to known
 post-012 account generations and a guarded synthetic managed-handler adapter:
@@ -425,14 +442,15 @@ post-012 account generations and a guarded synthetic managed-handler adapter:
    regressions. Keep the physical consumer, unsupported-handler/restore/other
    policy-dependent variants NOT RUN until their own implementation/evidence.
 
-This foundation can proceed using settled Q11/Q14/current-version protections;
+This foundation used settled Q11/Q14/current-version protections;
 P01/P02 need resolution before their corresponding broader operational scope.
 A later bounded physical consumer depends on a proven manifest, writer cutover
-and safe adapter; it is not implemented or enabled by this contract. No live
-configuration, account permission, session payload, scheduler, database, mail,
-push, merge or deployment change is part of this checkpoint.
+and safe adapter; it is not implemented or enabled by this contract. The original documentation checkpoint changed no live configuration, account
+permission, session payload, scheduler, database or mail. The continuation
+executes only the separately authorized guarded synthetic implementation/tests;
+no production access, scheduling, push, merge or deployment is authorized.
 
-## 9. Documentation validation
+## 9. Historical documentation validation at 077b8c7
 
 `git diff --check` and local source/reference checks pass: **102 local links,
 four heading targets, 22 current `require_login()` callers, 30 referenced
@@ -442,3 +460,9 @@ runtime/CI configuration remain unchanged from `9053428`. These are static
 documentation checks only. New functional acceptance and CI are **NOT RUN**;
 no database/session-store connection or session payload inspection is needed
 or performed for them.
+
+
+Current continuation validation and exact local execution artifacts are recorded
+in the [focused evidence](session-binding-write-fence-evidence-2026-10-18.md).
+The preceding 102-link/heading/declaration check remains historical documentation
+validation; it is not functional testing or a new CI run.

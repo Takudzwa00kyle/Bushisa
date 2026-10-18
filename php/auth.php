@@ -82,6 +82,11 @@ function attempt_login(PDO $pdo, string $email, string $password, ?string $ident
         ];
     }
 
+    // Preserve the identity for which the password was actually proven. A
+    // later pending-stage reload must not transfer that proof to a replacement.
+    $authenticatedIdentity=$user;
+    bushisa_signup_test_point($pdo,'session_login');
+
     if (in_array($user['account_status'] ?? '', ['pending_email', 'pending_onboarding'], true)) {
         $expiry = bushisa_signup_check_account($pdo, (int) $user['id']);
         if ($expiry['state'] !== 'live') {
@@ -94,11 +99,17 @@ function attempt_login(PDO $pdo, string $email, string $password, ?string $ident
     }
 
     clear_attempts($pdo, 'login', $rateLimitKey);
+    if (function_exists('bushisa_managed_handler') && bushisa_managed_handler()) {
+        if (!bushisa_managed_login($authenticatedIdentity,$passwordHash)) {
+            return ['success'=>false,'error'=>'Session service unavailable.','redirect'=>null];
+        }
+    } else {
     regenerate_session();
     $_SESSION['user_id'] = (int) $user['id'];
     $_SESSION['role'] = isset($user['role']) && is_string($user['role']) && $user['role'] !== '' ? $user['role'] : 'user';
     $_SESSION['email'] = $user['email'] ?? $email;
     $_SESSION['session_version'] = isset($user['session_version']) ? (int) $user['session_version'] : 0;
+    }
 
     log_action($pdo, (int) $user['id'], 'login', $rateLimitKey);
     log_to_file('User ' . (int) $user['id'] . ' logged in', 'INFO');

@@ -2,7 +2,41 @@
 
 Updated: 2026-10-18, Africa/Harare.
 
-## Current account/session-copy contract checkpoint
+## Current new-attempt session binding / write-fence checkpoint
+
+Continued from `077b8c78b0b556c887b241b9666ce24efc1eebfe` on
+`codex/session-binding-write-fence-20261018`. The
+[focused implementation/evidence](session-binding-write-fence-evidence-2026-10-18.md)
+and [SC01–SC40 contract](account-session-copy-contract.md#7-planned-acceptance-matrix)
+record trusted generation/version admission, minimized indexed copies,
+reservation-before-I/O, explicit/lazy/implicit write fences, regeneration and
+one-use verification/onboarding handoffs. The Q11 component retains its original
+receipt/expiry+24h deadline; neither QE nor Q22 completion means session erasure.
+
+SC status: **12 PASS / 18 PARTIAL / 10 NOT RUN**, limited to the supported
+synthetic adapter. Local native/Linux results and exact commands are linked;
+hosted candidate CI is **NOT RUN**. A/LB/LC/QS/QE/QM and historical CI attribution
+remain unchanged. No legacy mappings, production handler, physical consumer or
+operational recovery provider are enabled.
+
+Next bounded engineering: **Q11-only `session_copies_v1` physical consumer for
+the guarded synthetic namespace**. Add bounded durable claims and exact
+generation/copy/epoch fences, unpublished-intent/alias reconciliation,
+conditional absence verification, retries/component receipts and minimal
+recovery ordering. Execute the remaining physical/crash/duplicate-worker cases;
+preserve newer generations and original deadlines. Existing Q11 approval is
+sufficient; no new owner decision is needed for that bounded slice.
+
+P01 production handler/topology/proposed numerical Q40 settings and P02 general
+nondeletion/anonymous/mapping physical retention remain pending for their wider
+scope. Actual roots/permissions/instances, writer cutover/legacy provenance,
+key custody, ban/reset/privileged integration, independent current protection
+publication/replay and witnessed restore remain engineering/evidence gates.
+Qualified reviewers and operators/backup/alert coverage remain unassigned or
+unverified. No production/session-store access, real mail, production scheduling,
+push, merge or deployment occurred.
+
+## Historical account/session-copy contract checkpoint
 
 Continued from `9053428ad9622feddb7fe5b4d955cfe947a1f313` on
 `codex/account-session-copy-contract-20261018`. The

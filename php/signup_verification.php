@@ -340,6 +340,9 @@ function bushisa_verify_signup_code_locked(PDO $pdo, int $userId, string $code):
 
     bushisa_terminalize_signup_code($pdo, (int) $row['id'], $userId, (string) $row['email'], true);
 
+    require_once __DIR__.'/managed_session.php';
+    \Bushisa\ManagedSession\transition_locked($pdo,$userId,(int)$user['session_version'],(int)$user['session_version']+1,'email_approval');
+
     return ['success' => true, 'error' => null,'session_version'=>(int)$user['session_version']+1];
 }
 
@@ -402,6 +405,9 @@ function bushisa_complete_adult_onboarding(PDO $pdo, int $userId, string $dateOf
     );
     $activate->execute([':user_id' => $userId]);
     bushisa_signup_query($pdo,'UPDATE signup_lifecycle SET onboarding_completed_at=COALESCE(onboarding_completed_at,?),version=version+1 WHERE account_id=?',[$completedAt,$userId]);
+
+    require_once __DIR__.'/managed_session.php';
+    \Bushisa\ManagedSession\transition_locked($pdo,$userId,(int)$u['session_version'],(int)$u['session_version']+1,'adult_onboarding');
 
     return ['success' => true, 'error' => null,'session_version'=>(int)$u['session_version']+1];
     });

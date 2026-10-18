@@ -77,7 +77,9 @@ function bushisa_http_test_barrier(string $point, ?PDO $connection = null): void
             $l02e = preg_match('/\Al02e_[a-f0-9]{32}\z/D', $barrierId) && $point === 'l02e_mixed';
             $q11 = preg_match('/\Aq11_[a-f0-9]{32}\z/D', $barrierId) && in_array($point, ['q11_mixed', 'q11_claimed'], true)
                 && function_exists('bushisa_q11_synthetic_enabled') && bushisa_q11_synthetic_enabled();
-            if (!$l02e && !$q11) {
+            $sessionFence = preg_match('/\Asf_[a-f0-9]{32}\z/D',$barrierId) && in_array($point,['session_write','session_resume','session_login'],true)
+                && getenv('BUSHISA_SESSION_SYNTHETIC')==='true' && function_exists('bushisa_q11_synthetic_enabled') && bushisa_q11_synthetic_enabled();
+            if (!$l02e && !$q11 && !$sessionFence) {
                 throw new RuntimeException('Invalid guarded mixed-test gate.');
             }
             $release = $directory . DIRECTORY_SEPARATOR . $safeKey . '-' . getmypid() . '.release';

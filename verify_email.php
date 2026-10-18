@@ -33,6 +33,7 @@ function bushisa_verification_user(PDO $pdo, string $email): ?array
 }
 
 $user = bushisa_verification_user($pdo, $email);
+if (bushisa_managed_handler() && isset($_SESSION['user_id']) && $user!==null) { $email=(string)$user['email']; }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $submittedToken = isset($_POST['csrf_token']) && is_string($_POST['csrf_token']) ? $_POST['csrf_token'] : '';
