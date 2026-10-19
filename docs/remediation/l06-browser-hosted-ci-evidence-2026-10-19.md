@@ -170,6 +170,38 @@ three cases asserted distinct worker PIDs and database connection IDs; results
 are at `.tmp/l06-browser-overlap-20261019-083332/execution.log` with adjacent
 barrier records. The server container was stopped/removed after execution.
 
+## Verified implementation candidate
+
+Candidate **`e7501fecde630801018cded6b9247935eed59518`** passed all four jobs
+in both the [push run 39223978928](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223978928)
+and [PR run 39223983771](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223983771).
+The push checked out that exact source SHA. The PR checked out
+`82f692d96417449e5cae14025799349b9b709df2`, the synthetic merge of that source
+with base `0bf311fb6d6a298712fd4cd16d0722305516edd4`.
+
+| Job | Push | PR merge | Scope |
+|---|---|---|---|
+| `lint-and-unit` | SUCCESS | SUCCESS | PHP/JavaScript syntax, configuration/guard/policy unit checks and synthetic SMTP transport. |
+| `l06-recovery-acceptance` | SUCCESS | SUCCESS | 25 HTTP cases and B01-B06 rendered cases; fresh/upgrade/repeat migration; two-process single consume; fake mail only. |
+| `browser-route-session-overlap` | SUCCESS | SUCCESS | All 10 rendered signup/session/pair/report/chat cases, including three distinct-worker/connection overlap schedules. |
+| `smtp-outbox-integration` | SUCCESS | SUCCESS | Existing signup/outbox/policy/import/Q11/Q22/erasure/session-fence/session-copy regressions. |
+
+The [retrieved safe artifact summary](evidence/l06-hosted-ci-2026-10-19.json)
+records both runs, job URLs, artifact IDs/digests, every L06 case result and
+source/checkout identities. Both artifacts contain separate browser and HTTP
+JSON, inspected after download. Tested hosted profile: Ubuntu, PHP **8.4.26**,
+MySQL **8.0.46**, Node **20.20.2**, Playwright **1.64.0**, Chromium
+**156.0.8078.4**. These are observed synthetic runner versions, not Azure runtime
+verification. Historical failed candidates above remain failed.
+
+The final evidence/backlog checkpoint follows this implementation candidate
+with documentation/evidence changes only. Its exact head and subsequent checks
+are available on draft [PR 6](https://github.com/Takudzwa00kyle/Bushisa/pull/6);
+that later SHA is not retroactively attributed to the runs listed here.
+Documentation validation checks local link targets, JSON case totals and
+`git diff --check`; it is separate from functional acceptance. Unrelated
+A/LB/LC/Q11/Q22/SC evidence and external gates remain unchanged.
+
 ## Remaining release evidence
 
 Actual Android/iOS browsers, screen-reader/manual usability witnesses, inbox and
