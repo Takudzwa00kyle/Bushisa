@@ -29,6 +29,8 @@ Object.assign(process.env, {
 module.exports = defineConfig({
   testDir: './tests/browser', testMatch: 'l06-password-reset.spec.js',
   workers: 1, fullyParallel: false, timeout: 60000,
+  // Playwright clears its outputDir at start; keep the preceding HTTP JSON.
+  outputDir: './test-results/l06-browser-transient',
   reporter: [['./tests/support/l06_browser_reporter.js']],
   // Proofs appear in DOM and the intended POST. Never record those artifacts.
   use: { baseURL, trace: 'off', screenshot: 'off', video: 'off' },

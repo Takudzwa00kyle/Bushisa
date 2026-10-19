@@ -166,13 +166,18 @@ async function loginForApi(browser, student) {
   return { context, page, csrfToken };
 }
 
-async function api(page, pathName, csrfToken, body, barrier = null, pointExpected = 2) {
+async function prepareIntent(page, pathName, body) {
   if (pathName === '/api/message_requests.php' || (pathName === '/api/safety.php' && ['block', 'unblock'].includes(body.action))) {
     const query = body.match_id ? `match_id=${body.match_id}` : `user_id=${body.user_id}`;
     const current = await page.evaluate(async url => { const response=await fetch(url,{headers:{Accept:'application/json'}});return {status:response.status,body:await response.json()}; }, `/api/pairs.php?${query}`);
     body = { ...body, pair_version: current.status === 200 ? current.body.data.pair_version : 0,
       idempotency_key: require('node:crypto').randomBytes(32).toString('hex') };
   }
+  return body;
+}
+
+async function api(page, pathName, csrfToken, body, barrier = null, pointExpected = 2, prepared = false) {
+  if (!prepared) body = await prepareIntent(page, pathName, body);
   return page.evaluate(
     async ({ pathName: url, csrfToken: token, body: payload, barrier, pointExpected }) => {
       const headers = {
@@ -258,15 +263,13 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
     expect(request.status).toBe(200);
 
     const barrierId = `chat-request-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+    // Complete read preparation before either POST waits at the rendezvous.
+    // Otherwise php -S may queue the peer's GET behind the waiting POST.
+    const approveIntent = await prepareIntent(recipient.page, '/api/message_requests.php', { match_id: matchId, action: 'approve' });
+    const revokeIntent = await prepareIntent(requester.page, '/api/message_requests.php', { match_id: matchId, action: 'revoke' });
     const [approve, revoke] = await Promise.all([
-      api(recipient.page, '/api/message_requests.php', recipient.csrfToken, {
-        match_id: matchId,
-        action: 'approve',
-      }, barrierId),
-      api(requester.page, '/api/message_requests.php', requester.csrfToken, {
-        match_id: matchId,
-        action: 'revoke',
-      }, barrierId),
+      api(recipient.page, '/api/message_requests.php', recipient.csrfToken, approveIntent, barrierId, 2, true),
+      api(requester.page, '/api/message_requests.php', requester.csrfToken, revokeIntent, barrierId, 2, true),
     ]);
 
     expect([200, 409]).toContain(approve.status);
@@ -301,15 +304,13 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
     await approveChat(sender, blocker, matchId);
 
     const barrierId = `chat-block-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+    const blockIntent = await prepareIntent(blocker.page, '/api/safety.php', { action: 'block', user_id: senderStudent.id });
     const [send, block] = await Promise.all([
       api(sender.page, '/api/messages.php', sender.csrfToken, {
         match_id: matchId,
         body: 'overlap send body',
       }, barrierId),
-      api(blocker.page, '/api/safety.php', blocker.csrfToken, {
-        action: 'block',
-        user_id: senderStudent.id,
-      }, barrierId),
+      api(blocker.page, '/api/safety.php', blocker.csrfToken, blockIntent, barrierId, 2, true),
     ]);
 
     expect([200, 403]).toContain(send.status);

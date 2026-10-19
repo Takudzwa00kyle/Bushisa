@@ -158,9 +158,13 @@ async function loginForApi(browser, student) {
   return { context, page, csrfToken };
 }
 
-async function overlappingSwipe(page, csrfToken, targetId, barrierId) {
+async function swipeIntent(page, targetId) {
   const current = await page.evaluate(async target => { const response=await fetch(`/api/pairs.php?user_id=${target}`,{headers:{Accept:'application/json'}});return response.json(); }, targetId);
-  const intent = { pair_version: current.data.pair_version, idempotency_key: require('node:crypto').randomBytes(32).toString('hex') };
+  return { pair_version: current.data.pair_version, idempotency_key: require('node:crypto').randomBytes(32).toString('hex') };
+}
+
+async function overlappingSwipe(page, csrfToken, targetId, barrierId, preparedIntent = null) {
+  const intent = preparedIntent || await swipeIntent(page, targetId);
   return page.evaluate(
     async ({ csrfToken: token, targetId: target, barrierId: barrier, intent }) => {
       const startedAt = performance.now();
@@ -225,10 +229,12 @@ test.describe.serial('Prompt 02 HTTP overlap checks', () => {
       const first = await loginForApi(browser, firstStudent);
       const second = await loginForApi(browser, secondStudent);
       const barrierId = `swipe-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+      const firstIntent = await swipeIntent(first.page, secondStudent.id);
+      const secondIntent = await swipeIntent(second.page, firstStudent.id);
 
       const [firstResult, secondResult] = await Promise.all([
-        overlappingSwipe(first.page, first.csrfToken, secondStudent.id, barrierId),
-        overlappingSwipe(second.page, second.csrfToken, firstStudent.id, barrierId),
+        overlappingSwipe(first.page, first.csrfToken, secondStudent.id, barrierId, firstIntent),
+        overlappingSwipe(second.page, second.csrfToken, firstStudent.id, barrierId, secondIntent),
       ]);
 
       const participants = barrierParticipants(barrierId, 'swipe_after_transaction_begin');
