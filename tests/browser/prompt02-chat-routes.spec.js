@@ -50,6 +50,7 @@ function resetDatabase() {
   });
   run('mysql', mysqlArgs(false), { input: schema });
   run('php', ['bin/migrate.php']);
+  run('php', ['tests/support/activate_pair_ledger.php', '--writer-ref=synthetic:browser-regressions']);
 }
 
 function sqlString(value) {
@@ -88,7 +89,7 @@ async function registerStudent(page, student) {
   await page.getByLabel('Faculty').selectOption('Applied Sciences');
   await page.getByLabel('Year of study').selectOption('Part 2');
   await page.getByRole('button', { name: 'Create account' }).click();
-  await expect(page.getByRole('status')).toContainText('Account created. Your approval email is on its way.');
+  await expect(page.getByRole('status')).toContainText('Account created. Approval mail has been queued.');
 }
 
 function approvalCodeFor(email) {
@@ -277,8 +278,9 @@ test.describe.serial('Prompt 02 chat route checks', () => {
       target_type: 'message',
       target_id: messageId,
       reason: 'harassment',
+      idempotency_key: require('node:crypto').randomBytes(32).toString('hex'),
     });
-    expect(forgedReport.status).toBe(403);
+    expect(forgedReport.status).toBe(404);
     expect(Number(queryValue('SELECT COUNT(*) FROM reports'))).toBe(0);
 
     const report = await api(right.page, '/api/safety.php', right.csrfToken, {
@@ -286,9 +288,10 @@ test.describe.serial('Prompt 02 chat route checks', () => {
       target_type: 'message',
       target_id: messageId,
       reason: 'harassment',
+      idempotency_key: require('node:crypto').randomBytes(32).toString('hex'),
     });
     expect(report.status).toBe(200);
-    expect(report.body.data.status).toBe('pending');
+    expect(report.body.data.status).toBe('received');
     expect(Number(queryValue('SELECT COUNT(*) FROM reports'))).toBe(1);
     expect(queryValue('SELECT evidence_excerpt FROM moderation_evidence ORDER BY id DESC LIMIT 1')).toBe('route message body');
 

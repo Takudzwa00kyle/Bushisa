@@ -12,7 +12,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: pdo_mysql, mbstring, fileinfo, openssl
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, ctype
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
       - uses: actions/setup-node@v4
@@ -43,9 +43,9 @@ jobs:
           php tests/unit_mail_configuration.php
           php tests/unit_disposable_database_guard.php
           php tests/unit_legacy_history.php
-          php -n -d disable_classes=PDO tests/unit_synthetic_import_guard.php
-          php -n -d disable_classes=PDO tests/unit_l02e_controls.php
-          php -n -d disable_classes=PDO tests/unit_session_fence_guard.php
+          php -n -d extension=ctype -d disable_classes=PDO tests/unit_synthetic_import_guard.php
+          php -n -d extension=ctype -d disable_classes=PDO tests/unit_l02e_controls.php
+          php -n -d extension=ctype -d disable_classes=PDO tests/unit_session_fence_guard.php
           node tests/unit_playwright_config_guard.js
           python3 tests/smtp_transport_test.py
 

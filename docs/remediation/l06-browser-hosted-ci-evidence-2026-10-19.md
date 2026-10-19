@@ -58,8 +58,25 @@ suite plus all rendered cases; nonzero test exit fails the job. Existing lint,
 signup/outbox/Q11/Q22/erasure/session/import and browser regressions remain in
 their existing jobs. Only safe machine-readable L06 results are uploaded.
 
-Hosted candidate SHA, workflow URLs, job conclusions and draft-PR relationship
-will be recorded after the authorized push. No hosted PASS is claimed yet.
+Draft [PR 6](https://github.com/Takudzwa00kyle/Bushisa/pull/6) uses this task's
+feature branch against main. Initial candidate
+`ed5d6450c41a6467d1e18b760eabf4719a60a763` had a failed
+[push run 39216700556](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39216700556)
+and failed [PR run 39216784253](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39216784253).
+The PR's synthetic merge commit was `a0f93351c522a8e4c50b1e47a99914109ddfcd02`
+over base `0bf311fb6d6a298712fd4cd16d0722305516edd4`.
+All four jobs failed in those initial runs; the dedicated rendered L06 step
+itself passed. These runs are not green candidate evidence.
+
+| Hosted failure | Focused correction |
+|---|---|
+| L06 race fixture shared the preceding request's IP/cooldown on the faster Linux runner | Give the race its own synthetic subject through the existing fixture helper; preserve production throttles. |
+| Minimal `php -n` removed `ctype`, causing the pure guard test to fail before its assertions | Load only that dependency while retaining disabled PDO and no database driver. |
+| Old import upgrade test compared `SELECT *` before/after later additive migrations | Compare every original field and require the new legacy generation column to remain NULL. Linux disposable rerun: 100/100 PASS. |
+| Old rendered fixtures expected superseded signup wording, omitted synthetic writer genesis, and used the former report payload | Align with current Q11 messaging and L01/L02 contracts; explicitly activate only the guarded synthetic cohort and supply current report idempotency/receipt semantics. |
+
+Subsequent candidate results are recorded below when completed. Hosted failures
+are retained rather than reclassified as passing local evidence.
 
 ## Remaining release evidence
 

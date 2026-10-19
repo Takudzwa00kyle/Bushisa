@@ -1,4 +1,5 @@
 const { defineConfig } = require('@playwright/test');
+const crypto = require('node:crypto');
 const { disposableDatabaseSettings } = require('./tests/support/disposable-database');
 
 function requireFakeMail() {
@@ -42,6 +43,8 @@ const serverEnv = {
   DB_USER: settings.user,
   DB_PASSWORD: settings.password,
   DB_PASS: '',
+  REPORT_CONTEXT_KEYS: process.env.REPORT_CONTEXT_KEYS || JSON.stringify({ synthetic: crypto.randomBytes(32).toString('base64') }),
+  REPORT_CONTEXT_ACTIVE_KEY: 'synthetic',
 };
 if (process.env.BUSHISA_TEST_HTTP_OVERLAP === 'true') {
   if (process.platform === 'win32' && !externalServer) {

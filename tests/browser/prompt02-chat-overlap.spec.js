@@ -60,6 +60,7 @@ function resetDatabase() {
   });
   run('mysql', mysqlArgs(false), { input: schema });
   run('php', ['bin/migrate.php']);
+  run('php', ['tests/support/activate_pair_ledger.php', '--writer-ref=synthetic:browser-regressions']);
 }
 
 function sqlString(value) {
@@ -98,7 +99,7 @@ async function registerStudent(page, student) {
   await page.getByLabel('Faculty').selectOption('Applied Sciences');
   await page.getByLabel('Year of study').selectOption('Part 2');
   await page.getByRole('button', { name: 'Create account' }).click();
-  await expect(page.getByRole('status')).toContainText('Account created. Your approval email is on its way.');
+  await expect(page.getByRole('status')).toContainText('Account created. Approval mail has been queued.');
 }
 
 function approvalCodeFor(email) {

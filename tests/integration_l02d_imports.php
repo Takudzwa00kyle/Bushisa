@@ -75,7 +75,13 @@ try {
     query($up,'INSERT INTO blocks (blocker_id,blocked_id) VALUES (1,2)');
     query($up,'INSERT INTO messages (match_id,sender_id,body) VALUES (1,1,"Retained synthetic upgrade text")');
     $old=[];foreach(['users','matches','pair_policy_history','pair_request_counts','blocks','messages'] as $t)$old[$t]=$up->query('SELECT * FROM '.$t)->fetchAll();
-    $upgrade=migrate_ld();$same=true;foreach($old as $t=>$rows)$same=$same&&$rows===$up->query('SELECT * FROM '.$t)->fetchAll();
+    $upgrade=migrate_ld();$same=true;foreach($old as $t=>$rows) {
+        // Later additive migrations may append nullable columns. Verify every
+        // original field rather than treating an appended field as data loss.
+        $projection=implode(',',array_map('bushisa_quote_disposable_identifier',array_keys($rows[0])));
+        $same=$same&&$rows===$up->query('SELECT '.$projection.' FROM '.$t)->fetchAll();
+    }
+    $same=$same&&(int)$up->query('SELECT COUNT(*) FROM users WHERE signup_attempt_key IS NOT NULL')->fetchColumn()===0;
     check_ld('LD-M03','Upgrade preserves users, text, pair budgets, cutoff and blocks',str_contains($upgrade,'Applying 008_synthetic_legacy_import.sql')&&$same);
     check_ld('LD-M04','Upgrade repeat creates no marker or genesis',str_contains(migrate_ld(),'Skipping 008_synthetic_legacy_import.sql')&&(int)$up->query('SELECT COUNT(*) FROM synthetic_import_destination')->fetchColumn()===0&&(int)$up->query('SELECT COUNT(*) FROM pair_account_genesis')->fetchColumn()===0);
     $up=null;putenv('DB_NAME='.$database);$root=connect_ld();
