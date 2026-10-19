@@ -141,14 +141,7 @@ async function createActiveStudent(browser, prefix, gender) {
 }
 
 function createMatch(leftId, rightId) {
-  const userA = Math.min(leftId, rightId);
-  const userB = Math.max(leftId, rightId);
-  executeSql(
-    `INSERT INTO matches (user_a_id, user_b_id, matched_at, match_status)
-     VALUES (${userA}, ${userB}, UTC_TIMESTAMP(), 'active')
-     ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id), match_status = 'active', closed_at = NULL, closed_reason = NULL`
-  );
-  return Number(queryValue(`SELECT id FROM matches WHERE user_a_id = ${userA} AND user_b_id = ${userB} LIMIT 1`));
+  return JSON.parse(run('php', ['tests/support/browser_pair_fixture.php', String(leftId), String(rightId)])).match_id;
 }
 
 async function loginForApi(browser, student) {
@@ -164,6 +157,12 @@ async function loginForApi(browser, student) {
 }
 
 async function api(page, pathName, csrfToken, body, extraHeaders = {}) {
+  if (pathName === '/api/message_requests.php' || (pathName === '/api/safety.php' && ['block', 'unblock'].includes(body.action))) {
+    const query = body.match_id ? `match_id=${body.match_id}` : `user_id=${body.user_id}`;
+    const current = await getJson(page, `/api/pairs.php?${query}`);
+    body = { ...body, pair_version: current.status === 200 ? current.body.data.pair_version : 0,
+      idempotency_key: require('node:crypto').randomBytes(32).toString('hex') };
+  }
   return page.evaluate(
     async ({ pathName: url, csrfToken: token, body: payload, extraHeaders: headers }) => {
       const requestHeaders = {
@@ -251,7 +250,7 @@ test.describe.serial('Prompt 02 chat route checks', () => {
       match_id: matchId,
       action: 'approve',
     });
-    expect(forgedRequest.status).toBe(403);
+    expect(forgedRequest.status).toBe(404);
     expect(Number(queryValue('SELECT COUNT(*) FROM message_requests'))).toBe(1);
 
     const approve = await api(right.page, '/api/message_requests.php', right.csrfToken, {
@@ -278,6 +277,7 @@ test.describe.serial('Prompt 02 chat route checks', () => {
       target_type: 'message',
       target_id: messageId,
       reason: 'harassment',
+      context: read.body.data[0].report_context,
       idempotency_key: require('node:crypto').randomBytes(32).toString('hex'),
     });
     expect(forgedReport.status).toBe(404);
@@ -288,6 +288,7 @@ test.describe.serial('Prompt 02 chat route checks', () => {
       target_type: 'message',
       target_id: messageId,
       reason: 'harassment',
+      context: read.body.data[0].report_context,
       idempotency_key: require('node:crypto').randomBytes(32).toString('hex'),
     });
     expect(report.status).toBe(200);

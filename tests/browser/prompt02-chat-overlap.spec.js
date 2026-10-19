@@ -151,14 +151,7 @@ async function createActiveStudent(browser, prefix, gender) {
 }
 
 function createMatch(leftId, rightId) {
-  const userA = Math.min(leftId, rightId);
-  const userB = Math.max(leftId, rightId);
-  executeSql(
-    `INSERT INTO matches (user_a_id, user_b_id, matched_at, match_status)
-     VALUES (${userA}, ${userB}, UTC_TIMESTAMP(), 'active')
-     ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id), match_status = 'active', closed_at = NULL, closed_reason = NULL`
-  );
-  return Number(queryValue(`SELECT id FROM matches WHERE user_a_id = ${userA} AND user_b_id = ${userB} LIMIT 1`));
+  return JSON.parse(run('php', ['tests/support/browser_pair_fixture.php', String(leftId), String(rightId)])).match_id;
 }
 
 async function loginForApi(browser, student) {
@@ -174,6 +167,12 @@ async function loginForApi(browser, student) {
 }
 
 async function api(page, pathName, csrfToken, body, barrier = null, pointExpected = 2) {
+  if (pathName === '/api/message_requests.php' || (pathName === '/api/safety.php' && ['block', 'unblock'].includes(body.action))) {
+    const query = body.match_id ? `match_id=${body.match_id}` : `user_id=${body.user_id}`;
+    const current = await page.evaluate(async url => { const response=await fetch(url,{headers:{Accept:'application/json'}});return {status:response.status,body:await response.json()}; }, `/api/pairs.php?${query}`);
+    body = { ...body, pair_version: current.status === 200 ? current.body.data.pair_version : 0,
+      idempotency_key: require('node:crypto').randomBytes(32).toString('hex') };
+  }
   return page.evaluate(
     async ({ pathName: url, csrfToken: token, body: payload, barrier, pointExpected }) => {
       const headers = {
@@ -245,7 +244,7 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
     resetDatabase();
   });
 
-  test('P02-RACE-CHAT-01 overlapping approve and revoke leave no approved grant or obsolete approval notification', async ({ browser }, testInfo) => {
+  test('P02-RACE-CHAT-01 overlapping approve and revoke enforce versions and refreshed revoke removes the grant', async ({ browser }, testInfo) => {
     const requesterStudent = await createActiveStudent(browser, 'RaceReq', 'male');
     const recipientStudent = await createActiveStudent(browser, 'RaceRec', 'female');
     const matchId = createMatch(requesterStudent.id, recipientStudent.id);
@@ -271,7 +270,12 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
     ]);
 
     expect([200, 409]).toContain(approve.status);
-    expect(revoke.status).toBe(200);
+    expect([200, 409]).toContain(revoke.status);
+    expect([approve.status, revoke.status].filter(status => status === 200)).toHaveLength(1);
+    if (revoke.status === 409) {
+      const refreshedRevoke = await api(requester.page, '/api/message_requests.php', requester.csrfToken, { match_id: matchId, action: 'revoke' });
+      expect(refreshedRevoke.status).toBe(200);
+    }
     expect(queryValue(`SELECT status FROM message_requests WHERE match_id = ${matchId} ORDER BY id DESC LIMIT 1`)).toBe('revoked');
     expect(Number(queryValue(`SELECT COUNT(*) FROM notifications WHERE deep_link = 'chat.php?match_id=${matchId}'`))).toBe(0);
 

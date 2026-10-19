@@ -167,7 +167,11 @@ function upgrade_le(string $database): void
         query($p,'INSERT INTO matches (user_a_id,user_b_id) VALUES (1,2)');query($p,'INSERT INTO pair_policy_history (user_low,user_high,match_id,history_state,version,generation,ending_count,created_at) VALUES (1,2,1,"legacy_incomplete",7,2,2,UTC_TIMESTAMP(6))');
         query($p,'INSERT INTO pair_request_counts (requester_id,recipient_id,request_count) VALUES (1,2,3),(2,1,1)');query($p,'INSERT INTO blocks (blocker_id,blocked_id) VALUES (1,2)');query($p,'INSERT INTO messages (match_id,sender_id,body) VALUES (1,1,"Retained synthetic upgrade text")');
         $old=[];foreach(['users','matches','pair_policy_history','pair_request_counts','blocks','messages'] as $t)$old[$t]=$p->query('SELECT * FROM '.$t)->fetchAll();
-        $first=finish_le(child_le([$rootPath.'/bin/migrate.php']));$same=true;foreach($old as $t=>$rows)$same=$same&&$rows===$p->query('SELECT * FROM '.$t)->fetchAll();
+        $first=finish_le(child_le([$rootPath.'/bin/migrate.php']));$same=true;foreach($old as $t=>$rows){
+            $projection=implode(',',array_map('bushisa_quote_disposable_identifier',array_keys($rows[0])));
+            $same=$same&&$rows===$p->query('SELECT '.$projection.' FROM '.$t)->fetchAll();
+        }
+        $same=$same&&(int)$p->query('SELECT COUNT(*) FROM users WHERE signup_attempt_key IS NOT NULL')->fetchColumn()===0;
         check_le('LE-M02','Existing 008 schema upgrades through 009 preserving exact users/text/budgets/cutoff/blocks',$first['code']===0&&str_contains($first['stdout'],'Applying 009_pair_trigger_health.sql')&&$same);
         $second=finish_le(child_le([$rootPath.'/bin/migrate.php']));check_le('LE-M03','Second upgrade run skips 009 and creates no genesis/activation/import marker',$second['code']===0&&str_contains($second['stdout'],'Skipping 009_pair_trigger_health.sql')&&(int)$p->query('SELECT COUNT(*) FROM pair_account_genesis')->fetchColumn()===0&&$p->query('SELECT activated_at FROM pair_ledger_epoch')->fetchColumn()===null&&(int)$p->query('SELECT COUNT(*) FROM synthetic_import_destination')->fetchColumn()===0);
         $p->exec('DROP PROCEDURE bushisa_pair_trigger_health');$p->exec('CREATE PROCEDURE bushisa_pair_trigger_health() SQL SECURITY DEFINER READS SQL DATA SELECT 0 AS unrelated_fixture_object');

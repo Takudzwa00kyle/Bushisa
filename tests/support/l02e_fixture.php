@@ -23,7 +23,7 @@ function web_user(PDO $root,string $database): array
     }
     $write=[
         'INSERT,UPDATE'=>['pair_policy_history','pair_request_counts','pair_request_events','pair_chat_segments','message_requests','pair_decline_restrictions','matches','notifications','report_block_links'],
-        'INSERT'=>['pair_policy_operations','message_request_sends','blocks','moderation_cases','moderation_evidence','report_incidents','report_submissions','report_operations','report_probation_periods','report_case_links','report_action_audit','protective_replay_events','cleanup_outbox','audit_log'],
+        'INSERT'=>['pair_policy_operations','message_request_sends','blocks','moderation_cases','moderation_evidence','report_incidents','report_submissions','report_operations','report_probation_periods','report_case_links','report_action_audit','protective_replay_events','cleanup_outbox','audit_log','evidence_case_clocks','evidence_lifecycle_alerts','evidence_lifecycle_items'],
         'UPDATE'=>['users','profiles','consent_records','confessions','confession_references','student_email_approval_codes','mail_outbox','messages'],
         'DELETE'=>['swipes','notifications','blocks','preferences','find_match_answers','profile_images'],
     ];
@@ -34,6 +34,17 @@ function web_user(PDO $root,string $database): array
     // no table-wide UPDATE, cleanup execution, deletion or schema permission.
     $root->exec("GRANT UPDATE (payload_json,status,run_after,last_error) ON $db.cleanup_outbox TO $account");
     $grants['cleanup_outbox'][]='UPDATE(payload_json,status,run_after,last_error)';
+    // Current L06 account-deletion cancellation statements. These are HTTP
+    // fixture grants only; importer grants and production configuration stay
+    // untouched. No issuance, password change, purge, DDL or authority grants.
+    foreach([
+        'password_reset_challenges'=>['invalidated_at','token_hash','secret_purge_due_at','version'],
+        'password_reset_mail_jobs'=>['cancel_requested_at','encrypted_payload','payload_purge_due_at','terminal_at','reason_code','account_id','account_generation','recipient_hash','challenge_id','state','next_attempt_at','version'],
+    ] as $table=>$columns){
+        $root->exec('GRANT UPDATE (`'.implode('`,`',$columns).'`) ON '.$db.'.'.$table.' TO '.$account);
+        $grants[$table][]='UPDATE('.implode(',',$columns).')';
+    }
+    $root->exec('GRANT DELETE ON '.$db.'.password_reset_state TO '.$account);$grants['password_reset_state'][]='DELETE';
     $root->exec("GRANT LOCK TABLES ON $db.* TO $account");
     $root->exec("GRANT EXECUTE ON PROCEDURE $db.bushisa_pair_trigger_health TO $account");
     $grants['routine:bushisa_pair_trigger_health']=['EXECUTE'];

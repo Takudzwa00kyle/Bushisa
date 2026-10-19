@@ -78,6 +78,25 @@ itself passed. These runs are not green candidate evidence.
 Subsequent candidate results are recorded below when completed. Hosted failures
 are retained rather than reclassified as passing local evidence.
 
+Candidate `8b40e9e72c80cc54488c443a90ee81bf8c6aad70` passed both
+`l06-recovery-acceptance` (25 HTTP checks plus six browser cases) and
+`lint-and-unit` in the [push run 39218434123](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39218434123)
+and [PR run 39218438791](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39218438791).
+Its PR merge SHA was `d5c8cf3670d6eadd1966f7c7a7e8a14983e96bd0`.
+The overall runs remained failed due to older pair/browser and mixed-import
+fixtures. Follow-up aligns those tests with current pair CAS/idempotency,
+reporter-bound read proofs, and uniform inaccessible-target 404 responses.
+Conflicting transitions must reject stale intent; a later explicit refresh is
+tested separately. A new guarded fixture establishes only positively new
+synthetic pairs and refuses an existing/legacy relationship. No legacy history
+is certified or production epoch activated.
+
+The mixed-import HTTP fixture now includes only the current intake's three
+INSERT stores and the precise L06 account-cancellation UPDATE columns/state
+DELETE. Importer grants remain unchanged. This is a disposable test identity
+alignment to concrete SQL statements, not a production grant change or broader
+authority. Its missing-privilege/atomicity tests remain enabled.
+
 ## Remaining release evidence
 
 Actual Android/iOS browsers, screen-reader/manual usability witnesses, inbox and

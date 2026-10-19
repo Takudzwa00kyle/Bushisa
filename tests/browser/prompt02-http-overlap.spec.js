@@ -159,20 +159,21 @@ async function loginForApi(browser, student) {
 }
 
 async function overlappingSwipe(page, csrfToken, targetId, barrierId) {
+  const current = await page.evaluate(async target => { const response=await fetch(`/api/pairs.php?user_id=${target}`,{headers:{Accept:'application/json'}});return response.json(); }, targetId);
+  const intent = { pair_version: current.data.pair_version, idempotency_key: require('node:crypto').randomBytes(32).toString('hex') };
   return page.evaluate(
-    async ({ csrfToken: token, targetId: target, barrierId: barrier }) => {
+    async ({ csrfToken: token, targetId: target, barrierId: barrier, intent }) => {
       const startedAt = performance.now();
+      const barrierHeaders = barrier === null ? {} : { 'X-Bushisa-Test-Barrier': barrier, 'X-Bushisa-Test-Barrier-Expected': '2', 'X-Bushisa-Test-Barrier-Timeout-Ms': '10000' };
       const response = await fetch('/api/swipe.php', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
           'X-CSRF-Token': token,
-          'X-Bushisa-Test-Barrier': barrier,
-          'X-Bushisa-Test-Barrier-Expected': '2',
-          'X-Bushisa-Test-Barrier-Timeout-Ms': '10000',
+          ...barrierHeaders,
         },
-        body: JSON.stringify({ target_id: target, direction: 'like' }),
+        body: JSON.stringify({ target_id: target, direction: 'like', ...intent }),
       });
       const completedAt = performance.now();
       return {
@@ -182,7 +183,7 @@ async function overlappingSwipe(page, csrfToken, targetId, barrierId) {
         completedAt,
       };
     },
-    { csrfToken, targetId, barrierId }
+    { csrfToken, targetId, barrierId, intent }
   );
 }
 
@@ -234,19 +235,21 @@ test.describe.serial('Prompt 02 HTTP overlap checks', () => {
       const attemptEvidence = { attempt, barrierId, participants, firstResult, secondResult, firstStudent, secondStudent };
       lastAttempt = attemptEvidence;
 
-      await first.context.close();
-      await second.context.close();
-
       if (participants.length < 2 || new Set(participants.map((participant) => participant.pid)).size < 2) {
         await testInfo.attach(`http-overlap-barrier-miss-${attempt}`, {
           body: JSON.stringify(attemptEvidence, null, 2),
           contentType: 'application/json',
         });
+        await first.context.close(); await second.context.close();
         continue;
       }
 
-      expect([firstResult.status, secondResult.status]).toEqual([200, 200]);
-      expect([firstResult.body.match, secondResult.body.match].filter(Boolean)).toHaveLength(1);
+      expect([firstResult.status, secondResult.status].sort()).toEqual([200, 409]);
+      const refreshed = firstResult.status === 409
+        ? await overlappingSwipe(first.page, first.csrfToken, secondStudent.id, null)
+        : await overlappingSwipe(second.page, second.csrfToken, firstStudent.id, null);
+      expect(refreshed.status).toBe(200);
+      expect([firstResult.body.match, secondResult.body.match, refreshed.body.match].filter(Boolean)).toHaveLength(1);
 
       await testInfo.attach('http-overlap-barrier', {
         body: JSON.stringify({
@@ -287,6 +290,7 @@ test.describe.serial('Prompt 02 HTTP overlap checks', () => {
       expect(Math.max(firstResult.completedAt, secondResult.completedAt)).toBeGreaterThan(
         Math.min(firstResult.startedAt, secondResult.startedAt)
       );
+      await first.context.close(); await second.context.close();
       return;
     }
 
