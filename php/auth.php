@@ -174,10 +174,7 @@ function register_user(PDO $pdo, array $data): array
         ];
     }
 
-    $passwordErrors = validate_password($password);
-    if ($password !== '' && !preg_match('/[^A-Za-z0-9]/', $password)) {
-        $passwordErrors[] = 'Password must contain at least one special character.';
-    }
+    $passwordErrors = validate_account_password($password);
 
     if ($passwordErrors !== []) {
         return [

@@ -21,6 +21,9 @@ $reportCleanup = bushisa_report_transaction($pdo, fn(): array => bushisa_report_
 $pairCleanup = bushisa_pair_ready($pdo) ? bushisa_report_transaction($pdo,fn():array=>bushisa_pair_cleanup($pdo)) : [];
 
 $expiredMail = bushisa_signup_cleanup_mail($pdo);
+$resetMailCleanup = ['payloads'=>0,'challenge_hashes'=>0,'metadata'=>0,'rate_events'=>0];
+require_once __DIR__ . '/../php/password_reset_mail_jobs.php';
+if (bushisa_reset_schema_ready($pdo)) $resetMailCleanup = bushisa_reset_cleanup($pdo);
 // Q11 account-data obligations remain pending until a bounded live-cleanup
 // consumer verifies its work. Merely reaching run_after proves no erasure.
 
@@ -28,6 +31,7 @@ fwrite(STDOUT, json_encode([
     'expired_codes_terminalized' => $expiredCodes,
     'signup_expiry' => $signupExpiry,
     'code_bearing_payloads_erased' => $expiredMail,
+    'password_reset_cleanup' => $resetMailCleanup,
     'report_intake_copies_purged' => $reportCleanup['intake_copies_purged'],
     'report_text_evidence_purged' => $reportCleanup['text_evidence_purged'] ?? 0,
     'pair_cleanup' => $pairCleanup,

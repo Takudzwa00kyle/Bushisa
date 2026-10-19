@@ -409,6 +409,8 @@ function bushisa_case_evidence_for_viewer(PDO $pdo, int $caseId, int $viewerUser
 function bushisa_prepare_account_deletion(PDO $pdo, int $userId, int $initiatorId): void
 {
     ensure_operational_schema($pdo);
+    require_once __DIR__ . '/password_reset.php';
+    bushisa_reset_cancel_account($pdo, $userId);
 
     bushisa_record_protective_event($pdo, 'account_deleted', 'user', $userId, $initiatorId, [
         'policy_status' => 'proposed',

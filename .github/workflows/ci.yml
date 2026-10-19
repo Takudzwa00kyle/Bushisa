@@ -127,6 +127,19 @@ jobs:
           BUSHISA_Q22_SYNTHETIC: "true"
           BUSHISA_TEST_HTTP_OVERLAP: "true"
         run: php tests/integration_verification_retention.php
+      - name: Guarded synthetic password reset
+        env:
+          DB_NAME: bushisa_test_q11_l06_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_PASSWORD_RESET_SYNTHETIC: "true"
+          PASSWORD_RESET_ENABLED: "true"
+          PASSWORD_RESET_RESEND_COOLDOWN_SECONDS: "1"
+          PASSWORD_RESET_MAX_REQUESTS_PER_HOUR: "30"
+          PASSWORD_RESET_MAX_REQUESTS_PER_DAY: "60"
+          APP_BASE_URL: http://127.0.0.1
+        run: php tests/integration_l06_password_reset.php
       - name: New-attempt session binding and write fence
         env:
           DB_NAME: bushisa_test_q11_session_ci

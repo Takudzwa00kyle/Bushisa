@@ -166,6 +166,27 @@ function bushisa_send_smtp_payload(array $payload, int $outboxId, int $codeId): 
     }
 }
 
+/** Purpose-specific reset sender; signup Message-ID and envelope stay intact. */
+function bushisa_send_smtp_reset_payload(array $payload, string $mailId, string $purpose): void
+{
+    $settings = bushisa_smtp_settings();
+    if (($payload['from_address'] ?? null) !== $settings['from_address'] || !in_array($purpose, ['password_reset','password_changed'], true)) {
+        throw new BushisaMailTransportException('sender_configuration_changed', false);
+    }
+    $mail = bushisa_create_smtp_mailer($settings);
+    $mail->addAddress((string) $payload['recipient']);
+    $mail->Subject = (string) $payload['subject'];
+    $mail->Body = (string) $payload['body'];
+    $domain = substr($settings['from_address'], (int) strpos($settings['from_address'], '@') + 1);
+    $mail->MessageID = '<' . $purpose . '-' . $mailId . '@' . $domain . '>';
+    try { $mail->send(); }
+    catch (\PHPMailer\PHPMailer\Exception $exception) {
+        $smtpCode = (int) ($mail->getSMTPInstance()->getError()['smtp_code'] ?? 0);
+        $authentication = in_array($smtpCode, [530,535], true);
+        throw new BushisaMailTransportException($authentication ? 'smtp_authentication_failed' : 'smtp_send_failed', $smtpCode===0 || $smtpCode<500 || $authentication, $smtpCode===0);
+    } finally { $mail->smtpClose(); }
+}
+
 function bushisa_queue_smtp_signup_email(PDO $pdo, int $codeId, string $email, string $code): void
 {
     $settings = bushisa_smtp_settings();
@@ -220,5 +241,9 @@ function bushisa_finish_mail(PDO $pdo, int $id, string $status, string $reason):
  * across network I/O. Cancellation cannot recall an already in-flight send. */
 function bushisa_dispatch_mail(PDO $pdo, int $limit = 10, ?callable $transport = null): array
 {
-    return bushisa_dispatch_signup_jobs($pdo, $limit, $transport);
+    $signup = bushisa_dispatch_signup_jobs($pdo, $limit, $transport);
+    require_once __DIR__ . '/password_reset_mail_jobs.php';
+    $reset = bushisa_dispatch_reset_jobs($pdo, $limit, $transport);
+    foreach ($reset as $key => $value) $signup[$key] = ($signup[$key] ?? 0) + $value;
+    return $signup;
 }

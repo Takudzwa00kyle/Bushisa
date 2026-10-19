@@ -22,6 +22,28 @@ No additional sender-domain DNS is required solely by reusing the same verified
 sender for reset; any real repair/receiving-provider records need actual evidence.
 Do not run the historical mutation/deployment examples below for this task.
 
+## L06 local implementation handoff 2026-10-19
+
+The current `codex/l06-password-reset-20261019` branch adds the bounded reset
+flow and migration `016_password_reset.sql`. Its local evidence is in
+[`l06-password-reset-local.json`](remediation/evidence/l06-password-reset-local.json).
+The default remains `PASSWORD_RESET_ENABLED=false`. Enabling issuance also
+requires explicit `PASSWORD_RESET_RESEND_COOLDOWN_SECONDS`,
+`PASSWORD_RESET_MAX_REQUESTS_PER_HOUR`, and
+`PASSWORD_RESET_MAX_REQUESTS_PER_DAY` values: Q47's proposed numeric values
+remain pending and are not supplied as defaults. Synthetic HTTP origin
+exceptions require both synthetic guards; a non-synthetic origin is fixed to
+the trusted HTTPS `https://bushisa.me` origin.
+
+Compatible rollout ordering for a later separately authorized environment is:
+review/apply additive migration 016, deploy code with reset issuance disabled,
+verify the compatible dispatcher and cleanup worker, resolve throttle values
+and qualified review/readiness gates, then consider a separate explicit
+feature-enable change. This repository task did not alter Azure settings,
+secrets, DNS, mail scheduling, or production data. Reusing the already-approved
+sender does not itself require new sender-domain DNS records. Actual sender
+verification, inbound monitored support, headers and arrival remain unverified.
+
 The original application only captured fake development email. This change adds
 the SMTP provider, an encrypted transactional outbox, a CLI dispatcher and Azure
 MySQL environment-variable mapping with verified TLS. DNS and a connected Azure
