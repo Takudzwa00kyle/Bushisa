@@ -127,6 +127,49 @@ and the restored protective events. The seven non-overlap local browser cases
 passed across focused reruns (four signup/session, one report/chat, two
 deletion/role cases); the whole hosted browser job is still pending the repair.
 
+Candidate `5ebbaf1a0ebf82bc7b7d704680a203f893204149` then passed all four jobs in
+the [PR run 39221173151](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39221173151),
+on merge checkout `bf1af38c88e73939afb3d25ddd5ef1e4d4457bf8` over the same base.
+Its [push run 39221167164](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39221167164)
+passed lint, L06 and integration jobs but failed the older send/block overlap
+case: a prerequisite pair GET was queued on the same PHP worker as the waiting
+send POST, so the rendezvous timed out before the block POST arrived. This is
+not evidence of a successful overlapping schedule. The harness now prepares
+both intents before launching the POSTs, retaining the distinct-worker and
+final authorization/state assertions rather than accepting the 503.
+
+The post-hook Linux mixed-writer execution passed **180 assertions, 17 race
+schedules and four engine retry trials**, recorded at
+`.tmp/l02e-20261019-081115-514d7a/execution.json`. These assertion counts can vary
+with the observed schedules; they do not revise LB case totals.
+
+The `5ebbaf1` PR artifact independently confirms B01-B06 PASS on Linux PHP
+8.4.26, MySQL 8.0.46, Node 20.20.2, Playwright 1.64.0 and Chromium 156.0.8078.4.
+The HTTP step passed but its JSON was removed by Playwright's default output
+cleanup before upload. A separate browser transient output directory now
+preserves both result files. That historical artifact is not represented as
+containing the absent HTTP report.
+
+Candidate `e4e62f8d814c36582010f9d5805cf756be4c33a8` retained both L06 JSON files:
+25 HTTP PASS and six browser PASS, with source/checkout/run identity verified
+from the PR artifact. Its [push run 39222962701](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39222962701)
+and [PR run 39222967932](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39222967932)
+passed the other three jobs but failed older overlap schedules. PR checkout:
+`258d0cab92458a0bf2a80e98779e54210bee575c`. Prepared simultaneous POSTs can still
+queue on one PHP worker; the PR's final swipe attempt recorded the same PID
+twice, ten seconds apart. The follow-up waits for the first barrier arrival
+before dispatching its peer and requires two process IDs **and** two database
+connections. Neither same-worker serialization nor a timeout counts as overlap.
+
+The corrected schedule passed all three affected local rendered cases:
+`P02-RACE-CHAT-01`, `P02-RACE-CHAT-02` and reciprocal swipe overlap. Command:
+`node node_modules/@playwright/test/cli.js test tests/browser/prompt02-http-overlap.spec.js tests/browser/prompt02-chat-overlap.spec.js`.
+Windows Node/Chromium drove an owned Linux PHP 8.4 multi-worker container,
+disposable MySQL 8.0.45, isolated session/barrier storage and fake mail. All
+three cases asserted distinct worker PIDs and database connection IDs; results
+are at `.tmp/l06-browser-overlap-20261019-083332/execution.log` with adjacent
+barrier records. The server container was stopped/removed after execution.
+
 ## Remaining release evidence
 
 Actual Android/iOS browsers, screen-reader/manual usability witnesses, inbox and

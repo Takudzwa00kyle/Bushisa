@@ -3,6 +3,7 @@ const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { test, expect } = require('@playwright/test');
+const { overlapAfterArrival } = require('../support/browser_overlap');
 const {
   disposableDatabaseSettings,
   quoteIdentifier,
@@ -204,6 +205,7 @@ function barrierParticipants(barrierId, point) {
       const participant = JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'));
       return {
         pid: participant.pid,
+        connection_id: participant.connection_id,
         point: participant.point,
         entered_at: participant.entered_at,
         uri: participant.uri,
@@ -232,10 +234,11 @@ test.describe.serial('Prompt 02 HTTP overlap checks', () => {
       const firstIntent = await swipeIntent(first.page, secondStudent.id);
       const secondIntent = await swipeIntent(second.page, firstStudent.id);
 
-      const [firstResult, secondResult] = await Promise.all([
-        overlappingSwipe(first.page, first.csrfToken, secondStudent.id, barrierId, firstIntent),
-        overlappingSwipe(second.page, second.csrfToken, firstStudent.id, barrierId, secondIntent),
-      ]);
+      const [firstResult, secondResult] = await overlapAfterArrival(
+        () => overlappingSwipe(first.page, first.csrfToken, secondStudent.id, barrierId, firstIntent),
+        () => overlappingSwipe(second.page, second.csrfToken, firstStudent.id, barrierId, secondIntent),
+        () => barrierParticipants(barrierId, 'swipe_after_transaction_begin')
+      );
 
       const participants = barrierParticipants(barrierId, 'swipe_after_transaction_begin');
       const attemptEvidence = { attempt, barrierId, participants, firstResult, secondResult, firstStudent, secondStudent };
@@ -251,6 +254,7 @@ test.describe.serial('Prompt 02 HTTP overlap checks', () => {
       }
 
       expect([firstResult.status, secondResult.status].sort()).toEqual([200, 409]);
+      expect(new Set(participants.map(participant => participant.connection_id)).size).toBe(2);
       const refreshed = firstResult.status === 409
         ? await overlappingSwipe(first.page, first.csrfToken, secondStudent.id, null)
         : await overlappingSwipe(second.page, second.csrfToken, firstStudent.id, null);

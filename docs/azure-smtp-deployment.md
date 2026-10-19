@@ -44,6 +44,11 @@ secrets, DNS, mail scheduling, or production data. Reusing the already-approved
 sender does not itself require new sender-domain DNS records. Actual sender
 verification, inbound monitored support, headers and arrival remain unverified.
 
+The [rendered acceptance and hosted-CI evidence](remediation/l06-browser-hosted-ci-evidence-2026-10-19.md)
+separately records Windows/Linux synthetic results and exact GitHub source/merge
+checkouts. CI uses fake mail, disposable databases and explicit synthetic
+throttles; its success does not enable recovery or establish Azure compatibility.
+
 The original application only captured fake development email. This change adds
 the SMTP provider, an encrypted transactional outbox, a CLI dispatcher and Azure
 MySQL environment-variable mapping with verified TLS. DNS and a connected Azure

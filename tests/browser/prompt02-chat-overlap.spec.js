@@ -3,6 +3,7 @@ const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { test, expect } = require('@playwright/test');
+const { overlapAfterArrival } = require('../support/browser_overlap');
 const {
   disposableDatabaseSettings,
   quoteIdentifier,
@@ -221,6 +222,7 @@ function barrierParticipants(barrierId, point) {
     .map((name) => JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8')))
     .map((participant) => ({
       pid: participant.pid,
+      connection_id: participant.connection_id,
       point: participant.point,
       entered_at: participant.entered_at,
       uri: participant.uri,
@@ -267,10 +269,11 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
     // Otherwise php -S may queue the peer's GET behind the waiting POST.
     const approveIntent = await prepareIntent(recipient.page, '/api/message_requests.php', { match_id: matchId, action: 'approve' });
     const revokeIntent = await prepareIntent(requester.page, '/api/message_requests.php', { match_id: matchId, action: 'revoke' });
-    const [approve, revoke] = await Promise.all([
-      api(recipient.page, '/api/message_requests.php', recipient.csrfToken, approveIntent, barrierId, 2, true),
-      api(requester.page, '/api/message_requests.php', requester.csrfToken, revokeIntent, barrierId, 2, true),
-    ]);
+    const [approve, revoke] = await overlapAfterArrival(
+      () => api(recipient.page, '/api/message_requests.php', recipient.csrfToken, approveIntent, barrierId, 2, true),
+      () => api(requester.page, '/api/message_requests.php', requester.csrfToken, revokeIntent, barrierId, 2, true),
+      () => barrierParticipants(barrierId, 'message_request_before_mutation')
+    );
 
     expect([200, 409]).toContain(approve.status);
     expect([200, 409]).toContain(revoke.status);
@@ -285,6 +288,7 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
     const participants = barrierParticipants(barrierId, 'message_request_before_mutation');
     expect(participants).toHaveLength(2);
     expect(new Set(participants.map((participant) => participant.pid)).size).toBe(2);
+    expect(new Set(participants.map((participant) => participant.connection_id)).size).toBe(2);
     await testInfo.attach('chat-request-overlap-barrier', {
       body: JSON.stringify({ barrierId, participants, approve, revoke }, null, 2),
       contentType: 'application/json',
@@ -305,13 +309,14 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
 
     const barrierId = `chat-block-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
     const blockIntent = await prepareIntent(blocker.page, '/api/safety.php', { action: 'block', user_id: senderStudent.id });
-    const [send, block] = await Promise.all([
-      api(sender.page, '/api/messages.php', sender.csrfToken, {
+    const [send, block] = await overlapAfterArrival(
+      () => api(sender.page, '/api/messages.php', sender.csrfToken, {
         match_id: matchId,
         body: 'overlap send body',
       }, barrierId),
-      api(blocker.page, '/api/safety.php', blocker.csrfToken, blockIntent, barrierId, 2, true),
-    ]);
+      () => api(blocker.page, '/api/safety.php', blocker.csrfToken, blockIntent, barrierId, 2, true),
+      () => barrierParticipants(barrierId, 'chat_relationship_mutation_before_update')
+    );
 
     expect([200, 403]).toContain(send.status);
     expect(block.status).toBe(200);
@@ -332,6 +337,7 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
     const participants = barrierParticipants(barrierId, 'chat_relationship_mutation_before_update');
     expect(participants).toHaveLength(2);
     expect(new Set(participants.map((participant) => participant.pid)).size).toBe(2);
+    expect(new Set(participants.map((participant) => participant.connection_id)).size).toBe(2);
     await testInfo.attach('chat-block-overlap-barrier', {
       body: JSON.stringify({ barrierId, participants, send, block }, null, 2),
       contentType: 'application/json',

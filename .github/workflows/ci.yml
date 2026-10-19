@@ -36,6 +36,7 @@ jobs:
           node --check playwright.l06.config.js
           node --check tests/browser/l06-password-reset.spec.js
           node --check tests/support/l06_browser_server.js
+          node --check tests/support/browser_overlap.js
           node --check tests/support/l06_browser_reporter.js
       - name: Unit checks
         run: |
