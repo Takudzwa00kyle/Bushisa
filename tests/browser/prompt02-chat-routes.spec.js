@@ -281,7 +281,7 @@ test.describe.serial('Prompt 02 chat route checks', () => {
       idempotency_key: require('node:crypto').randomBytes(32).toString('hex'),
     });
     expect(forgedReport.status).toBe(404);
-    expect(Number(queryValue('SELECT COUNT(*) FROM reports'))).toBe(0);
+    expect(Number(queryValue('SELECT COUNT(*) FROM report_incidents'))).toBe(0);
 
     const report = await api(right.page, '/api/safety.php', right.csrfToken, {
       action: 'report',
@@ -293,7 +293,8 @@ test.describe.serial('Prompt 02 chat route checks', () => {
     });
     expect(report.status).toBe(200);
     expect(report.body.data.status).toBe('received');
-    expect(Number(queryValue('SELECT COUNT(*) FROM reports'))).toBe(1);
+    expect(Number(queryValue('SELECT COUNT(*) FROM report_incidents'))).toBe(1);
+    expect(Number(queryValue('SELECT COUNT(*) FROM report_submissions'))).toBe(1);
     expect(queryValue('SELECT evidence_excerpt FROM moderation_evidence ORDER BY id DESC LIMIT 1')).toBe('route message body');
 
     const forgedUnsend = await api(right.page, '/api/messages.php', right.csrfToken, {
@@ -332,7 +333,7 @@ test.describe.serial('Prompt 02 chat route checks', () => {
     await outsider.context.close();
   });
 
-  test('P02-CHAT-02 block and account deletion close chat grants, preserve scoped evidence and revoke sessions', async ({ browser }) => {
+  test('P02-CHAT-02 block and account deletion deny chat access, preserve history and revoke sessions', async ({ browser }) => {
     const leftStudent = await createActiveStudent(browser, 'BlockA', 'male');
     const rightStudent = await createActiveStudent(browser, 'BlockB', 'female');
     const matchId = createMatch(leftStudent.id, rightStudent.id);
@@ -360,7 +361,12 @@ test.describe.serial('Prompt 02 chat route checks', () => {
     });
     expect(block.status).toBe(200);
     expect(queryValue(`SELECT match_status FROM matches WHERE id = ${matchId}`)).toBe('blocked');
-    expect(queryValue(`SELECT status FROM message_requests WHERE match_id = ${matchId} ORDER BY id DESC LIMIT 1`)).toBe('revoked');
+    expect(queryValue(`SELECT status FROM message_requests WHERE match_id = ${matchId} ORDER BY id DESC LIMIT 1`)).toBe('approved');
+    expect(Number(queryValue(`SELECT chat_suppressed FROM pair_policy_history WHERE match_id = ${matchId}`))).toBe(1);
+    expect(Number(queryValue(`SELECT COUNT(*) FROM protective_replay_events WHERE event_type = 'match_closed' AND subject_id = ${matchId}`))).toBe(1);
+    const repeatedBlock = await api(right.page, '/api/safety.php', right.csrfToken, { action: 'block', user_id: leftStudent.id });
+    expect(repeatedBlock.status).toBe(200);
+    expect(Number(queryValue(`SELECT COUNT(*) FROM protective_replay_events WHERE event_type = 'match_closed' AND subject_id = ${matchId}`))).toBe(1);
     expect(Number(queryValue('SELECT COUNT(*) FROM messages'))).toBe(1);
     expect(Number(queryValue(`SELECT COUNT(*) FROM notifications WHERE deep_link = 'chat.php?match_id=${matchId}'`))).toBe(0);
 
@@ -405,7 +411,7 @@ test.describe.serial('Prompt 02 chat route checks', () => {
     await expect(first.page).toHaveURL(/\/discover\.php$/);
     await second.page.goto('/admin/reports.php');
     await expect(second.page).toHaveURL(/\/discover\.php$/);
-    expect(Number(queryValue('SELECT COUNT(*) FROM reports'))).toBe(0);
+    expect(Number(queryValue('SELECT COUNT(*) FROM report_incidents'))).toBe(0);
 
     await first.context.close();
     await second.context.close();

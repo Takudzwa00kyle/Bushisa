@@ -315,7 +315,9 @@ test.describe.serial('Prompt 02 chat HTTP overlap checks', () => {
     expect([200, 403]).toContain(send.status);
     expect(block.status).toBe(200);
     expect(queryValue(`SELECT match_status FROM matches WHERE id = ${matchId}`)).toBe('blocked');
-    expect(queryValue(`SELECT status FROM message_requests WHERE match_id = ${matchId} ORDER BY id DESC LIMIT 1`)).toBe('revoked');
+    expect(queryValue(`SELECT status FROM message_requests WHERE match_id = ${matchId} ORDER BY id DESC LIMIT 1`)).toBe('approved');
+    expect(Number(queryValue(`SELECT chat_suppressed FROM pair_policy_history WHERE match_id = ${matchId}`))).toBe(1);
+    expect(Number(queryValue(`SELECT COUNT(*) FROM protective_replay_events WHERE event_type = 'match_closed' AND subject_id = ${matchId}`))).toBe(1);
     expect(Number(queryValue(`SELECT COUNT(*) FROM messages WHERE match_id = ${matchId}`))).toBeLessThanOrEqual(1);
     expect(Number(queryValue(`SELECT COUNT(*) FROM notifications WHERE deep_link = 'chat.php?match_id=${matchId}'`))).toBe(0);
 

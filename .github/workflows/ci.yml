@@ -232,6 +232,7 @@ jobs:
       PASSWORD_RESET_MAX_REQUESTS_PER_HOUR: "100"
       PASSWORD_RESET_MAX_REQUESTS_PER_DAY: "200"
       L06_CI_REPORT: "true"
+      L06_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2

@@ -119,7 +119,9 @@ try {
 } catch(Throwable $e) { $failure=$e; }
 finally {
     if(is_resource($server)){proc_terminate($server);proc_close($server);}
-    $report=['suite'=>'L06 password reset','started_at_utc'=>$started,'environment'=>['PHP'=>PHP_VERSION,'OS'=>PHP_OS_FAMILY,'database'=>$settings['name'],'MySQL'=>$mysqlVersion,'execution'=>'guarded local disposable DB, synthetic user, fake mail'],'checks'=>$checks,'status'=>$failure?'FAIL':'PASS','failure'=>$failure?get_class($failure):null,'failure_case'=>$failure?($checks[count($checks)-1]['case']??null):null];
+    $report=['suite'=>'L06 password reset','started_at_utc'=>$started,'environment'=>['PHP'=>PHP_VERSION,'OS'=>PHP_OS_FAMILY,'database'=>$settings['name'],'MySQL'=>$mysqlVersion,'execution'=>'guarded local disposable DB, synthetic user, fake mail'],
+        'candidate'=>['source_sha'=>getenv('L06_SOURCE_SHA')?:null,'checkout_sha'=>getenv('GITHUB_SHA')?:null,'run_id'=>getenv('GITHUB_RUN_ID')?:null,'event'=>getenv('GITHUB_EVENT_NAME')?:null],
+        'checks'=>$checks,'status'=>$failure?'FAIL':'PASS','failure'=>$failure?get_class($failure):null,'failure_case'=>$failure?($checks[count($checks)-1]['case']??null):null];
     $relativeReport=getenv('L06_CI_REPORT')==='true'?'test-results/l06-http.json':'docs/remediation/evidence/l06-password-reset-local.json';
     $path=$repo.'/'.$relativeReport;@mkdir(dirname($path),0770,true);file_put_contents($path,json_encode($report,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES).PHP_EOL);
 }

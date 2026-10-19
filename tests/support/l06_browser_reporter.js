@@ -18,6 +18,8 @@ class Reporter {
     fs.mkdirSync(path.dirname(output), { recursive: true });
     fs.writeFileSync(output, JSON.stringify({ suite: 'L06 rendered browser acceptance', completed_at_utc: new Date().toISOString(),
       environment: { node: process.version, os: process.platform, playwright: require('@playwright/test/package.json').version },
+      candidate: { source_sha: process.env.L06_SOURCE_SHA || null, checkout_sha: process.env.GITHUB_SHA || null,
+        run_id: process.env.GITHUB_RUN_ID || null, event: process.env.GITHUB_EVENT_NAME || null },
       status: result.status, cases: this.cases }, null, 2) + '\n');
   }
 }

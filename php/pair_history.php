@@ -200,10 +200,22 @@ function bushisa_pair_close_relationship(PDO $pdo, int $actor, int $other, strin
     }
     $status=$reason==='deleted_cleanup'?'deleted_cleanup':($reason==='unmatched'?'unmatched':'blocked');
     $mc=operational_match_columns($pdo);
-    $stmt=$pdo->prepare(sprintf('SELECT id FROM matches WHERE (%1$s=? AND %2$s=?) OR (%1$s=? AND %2$s=?) FOR UPDATE',$mc['user_a'],$mc['user_b']));
+    $stmt=$pdo->prepare(sprintf('SELECT id,match_status,closed_reason,closed_by FROM matches WHERE (%1$s=? AND %2$s=?) OR (%1$s=? AND %2$s=?) FOR UPDATE',$mc['user_a'],$mc['user_b']));
     $stmt->execute([$actor,$other,$other,$actor]);
-    foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $alias) {
+    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $prior) {
+        $alias=(int)$prior['id'];
         $pdo->prepare('UPDATE matches SET match_status=?,closed_at=COALESCE(closed_at,?),closed_reason=?,closed_by=? WHERE id=?')->execute([$status,$now,$reason,$actor,$alias]);
+        // Preserve the existing protective-event hook when routing through the
+        // ledger. This is a local transactional record, not independent replay
+        // durability. A restriction never manufactures an explicit chat end.
+        if ($prior['match_status']!==$status || $prior['closed_reason']!==$reason || (int)$prior['closed_by']!==$actor) {
+            bushisa_record_protective_event($pdo,'match_closed','match',$alias,$actor,[
+                'contract'=>'pair-restriction-v1','reason'=>$reason,'other_user_id'=>$other,
+                'match_status'=>$status,'pair_generation'=>(int)$pair['generation'],
+                'resulting_pair_version'=>(int)$pair['version']+1,
+                'approved_chat_grant'=>'preserved_subject_to_independent_restrictions',
+            ]);
+        }
         if ($reason!=='unmatched' && (int)$alias!==$match) {
             $pdo->prepare('UPDATE message_requests SET status="revoked",revoked_at=?,closed_at=?,purge_due_at=DATE_ADD(?,INTERVAL 30 DAY) WHERE match_id=? AND status="pending"')->execute([$now,$now,$now,$alias]);
             bushisa_pair_request_terminal($pdo,(int)$alias,'revoked',$now);

@@ -97,6 +97,36 @@ DELETE. Importer grants remain unchanged. This is a disposable test identity
 alignment to concrete SQL statements, not a production grant change or broader
 authority. Its missing-privilege/atomicity tests remain enabled.
 
+The affected Linux mixed-writer regression subsequently passed **182/182
+assertions, 17 race schedules and four genuine engine retry trials** at
+`.tmp/l02e-20261019-075934-4d6032/execution.json`. This execution count is separate
+from the unchanged LB acceptance matrix and its external provenance/cutover
+gates. Current hosted L06 artifacts explicitly include source SHA, checkout SHA,
+event and run ID, distinguishing feature-push code from the PR merge checkout.
+
+The existing rendered deletion regression also exposed a lost protective-event
+hook when `bushisa_close_match_between` began delegating to the pair ledger.
+The bounded repair records content-free `match_closed` events with an explicit
+`pair-restriction-v1` payload in the same transaction, only for changed
+status/reason/actor. It preserves approved chat grants under independent block
+and account checks, never calls unmatch an explicit chat end, and does not reset
+retention clocks. Same-key retries remain covered by the pair operation receipt.
+This restores a local record only; external publication/replay, durability and
+witnessed restore are still unverified.
+
+Candidate `a4ed86ff70d292cdf913aeb5d29368c2beb4c121` completed with three successful
+jobs (`lint-and-unit`, `l06-recovery-acceptance`, `smtp-outbox-integration`) and
+the remaining browser fixture failures in both the
+[push run 39220214119](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39220214119)
+and [PR run 39220220967](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39220220967).
+PR merge SHA: `48a51e097b47f535f063d5f5d123c44e21fd4eb8`.
+The remaining assertions used the legacy report table and expected ordinary
+blocking to revoke an approved request row. They now check canonical intake
+rows, preserved approved state plus independent suppression/denied sending,
+and the restored protective events. The seven non-overlap local browser cases
+passed across focused reruns (four signup/session, one report/chat, two
+deletion/role cases); the whole hosted browser job is still pending the repair.
+
 ## Remaining release evidence
 
 Actual Android/iOS browsers, screen-reader/manual usability witnesses, inbox and
