@@ -63,13 +63,20 @@ try {
     $a=l06_form('login.php'); $b=l06_form('login.php');
     $oldSession=l06_http('POST','login.php',['csrf_token'=>$a['csrf'],'email'=>$u['email'],'password'=>'Synthet1c!Fixture'],$a['cookie']);
     $secondSession=l06_http('POST','login.php',['csrf_token'=>$b['csrf'],'email'=>$u['email'],'password'=>'Synthet1c!Fixture'],$b['cookie']);
+    foreach([['response'=>$oldSession,'which'=>'a'],['response'=>$secondSession,'which'=>'b']] as $loggedIn) {
+        if(preg_match('/PHPSESSID=([^;]+)/',(string)($loggedIn['response']['headers']['set-cookie']??''),$cookieMatch)) {
+            if($loggedIn['which']==='a')$a['cookie']='PHPSESSID='.$cookieMatch[1];else $b['cookie']='PHPSESSID='.$cookieMatch[1];
+        }
+    }
+    $beforeA=l06_http('GET','api/notifications.php',[],$a['cookie']);$beforeB=l06_http('GET','api/notifications.php',[],$b['cookie']);
+    l06_check('L06-AUTH-00','two distinct authenticated sessions have protected API access before reset',$a['cookie']!==$b['cookie']&&$beforeA['status']===200&&$beforeB['status']===200);
     $done=l06_http('POST','reset_password.php',['csrf_token'=>$rf['csrf'],'reset_token'=>$token,'new_password'=>'ChangedPass2!','confirm_password'=>'ChangedPass2!'],$rf['cookie']);
     $v=$pdo->prepare('SELECT password_hash,session_version FROM users WHERE id=?');$v->execute([$u['id']]);$account=$v->fetch(PDO::FETCH_ASSOC);
     l06_check('L06-HTTP-04','explicit proof POST changes password once and increments session version',str_contains($done['body'],'password has been changed')&&password_verify('ChangedPass2!',$account['password_hash'])&&(int)$account['session_version']>=2);
     l06_check('L06-AUTH-01','used proof replay is rejected',!bushisa_reset_consume($pdo,$token,'ReplayPass3!'));
+    $oldApi=l06_http('GET','api/notifications.php',[],$a['cookie']); $secondApi=l06_http('GET','api/notifications.php',[],$b['cookie']);
     $oldAccess=l06_http('GET','discover.php',[],$a['cookie']); $secondAccess=l06_http('GET','discover.php',[],$b['cookie']);
-    $oldApi=l06_http('GET','api/account.php',[],$a['cookie']); $secondApi=l06_http('GET','api/account.php',[],$b['cookie']);
-    l06_check('L06-AUTH-02','both pre-reset sessions lose protected page/API access',($oldAccess['status']>=300&&$oldAccess['status']<500)&&($secondAccess['status']>=300&&$secondAccess['status']<500)&&($oldApi['status']>=300&&$oldApi['status']<500)&&($secondApi['status']>=300&&$secondApi['status']<500));
+    l06_check('L06-AUTH-02','both previously authenticated sessions receive API 401 and protected page redirects',$oldAccess['status']===302&&$secondAccess['status']===302&&$oldApi['status']===401&&$secondApi['status']===401);
     $new=l06_form('login.php');$newSign=l06_http('POST','login.php',['csrf_token'=>$new['csrf'],'email'=>$u['email'],'password'=>'ChangedPass2!'],$new['cookie']);
     l06_check('L06-AUTH-03','normal login works after reset',$newSign['status']===302||str_contains((string)($newSign['headers']['location']??''),'discover.php'));
     $notify=bushisa_dispatch_reset_jobs($pdo,10,static function():void{throw new BushisaMailTransportException('synthetic_failure',false);});
@@ -113,7 +120,8 @@ try {
 finally {
     if(is_resource($server)){proc_terminate($server);proc_close($server);}
     $report=['suite'=>'L06 password reset','started_at_utc'=>$started,'environment'=>['PHP'=>PHP_VERSION,'OS'=>PHP_OS_FAMILY,'database'=>$settings['name'],'MySQL'=>$mysqlVersion,'execution'=>'guarded local disposable DB, synthetic user, fake mail'],'checks'=>$checks,'status'=>$failure?'FAIL':'PASS','failure'=>$failure?get_class($failure):null,'failure_case'=>$failure?($checks[count($checks)-1]['case']??null):null];
-    $path=$repo.'/docs/remediation/evidence/l06-password-reset-local.json';@mkdir(dirname($path),0770,true);file_put_contents($path,json_encode($report,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES).PHP_EOL);
+    $relativeReport=getenv('L06_CI_REPORT')==='true'?'test-results/l06-http.json':'docs/remediation/evidence/l06-password-reset-local.json';
+    $path=$repo.'/'.$relativeReport;@mkdir(dirname($path),0770,true);file_put_contents($path,json_encode($report,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES).PHP_EOL);
 }
 if($failure)throw $failure;
-fwrite(STDOUT,json_encode(['status'=>'PASS','checks'=>$checks,'evidence'=>'docs/remediation/evidence/l06-password-reset-local.json'],JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES).PHP_EOL);
+fwrite(STDOUT,json_encode(['status'=>'PASS','checks'=>$checks,'evidence'=>$relativeReport],JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES).PHP_EOL);

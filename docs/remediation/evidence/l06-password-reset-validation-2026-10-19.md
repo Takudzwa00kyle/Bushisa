@@ -8,7 +8,7 @@ changed.
 ## L06 cases
 
 The machine-readable case results are in
-[`l06-password-reset-local.json`](l06-password-reset-local.json): **24 PASS, 0
+[`l06-password-reset-local-77510f9.json`](l06-password-reset-local-77510f9.json): **24 PASS, 0
 FAIL**. The run used Windows, PHP 8.5.11 and a guarded disposable MySQL 8.0.45
 container at loopback, with synthetic users and fake mail. The integration suite
 rehearsed a fresh bootstrap, upgrade through migration 016 and repeat migration.
@@ -17,6 +17,13 @@ the test observed both waiting concurrently behind the lock, then exactly one
 successful proof consumption. The two existing authenticated sessions both
 lost protected access after the session-version increment, and normal login
 with the new password succeeded.
+
+**Historical limitation:** AUTH-02 in this original run accepted a 405 response
+from a POST-only API and did not prove authenticated pre-reset access after
+session-ID rotation. Its API-revocation claim is insufficient. The subsequent
+[browser/CI follow-up](../l06-browser-hosted-ci-evidence-2026-10-19.md) corrects
+that test: AUTH-00/02 and rendered B04 verify genuine pre-access and API 401
+after reset. Current HTTP results have 25 cases; browser results have six.
 
 Cases cover known/unknown/ineligible existence-neutral request responses;
 trusted origin allow/deny; reset-purpose intake and authenticated encrypted envelope; supersession; scanner-safe GET;

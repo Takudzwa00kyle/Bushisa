@@ -33,6 +33,10 @@ jobs:
           node --check tests/browser/prompt02-chat-routes.spec.js
           node --check tests/browser/prompt02-http-overlap.spec.js
           node --check tests/browser/prompt02-chat-overlap.spec.js
+          node --check playwright.l06.config.js
+          node --check tests/browser/l06-password-reset.spec.js
+          node --check tests/support/l06_browser_server.js
+          node --check tests/support/l06_browser_reporter.js
       - name: Unit checks
         run: |
           php tests/unit_signup_verification.php
@@ -127,19 +131,6 @@ jobs:
           BUSHISA_Q22_SYNTHETIC: "true"
           BUSHISA_TEST_HTTP_OVERLAP: "true"
         run: php tests/integration_verification_retention.php
-      - name: Guarded synthetic password reset
-        env:
-          DB_NAME: bushisa_test_q11_l06_ci
-          MAIL_TRANSPORT: fake
-          BUSHISA_Q11_SYNTHETIC: "true"
-          BUSHISA_Q11_QUEUE_FAKE: "true"
-          BUSHISA_PASSWORD_RESET_SYNTHETIC: "true"
-          PASSWORD_RESET_ENABLED: "true"
-          PASSWORD_RESET_RESEND_COOLDOWN_SECONDS: "1"
-          PASSWORD_RESET_MAX_REQUESTS_PER_HOUR: "30"
-          PASSWORD_RESET_MAX_REQUESTS_PER_DAY: "60"
-          APP_BASE_URL: http://127.0.0.1
-        run: php tests/integration_l06_password_reset.php
       - name: New-attempt session binding and write fence
         env:
           DB_NAME: bushisa_test_q11_session_ci
@@ -206,3 +197,66 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Browser, session and HTTP overlap regressions
         run: npx playwright test tests/browser/p0-rendered-flows.spec.js tests/browser/prompt02-session-routes.spec.js tests/browser/prompt02-chat-routes.spec.js tests/browser/prompt02-http-overlap.spec.js tests/browser/prompt02-chat-overlap.spec.js
+
+  l06-recovery-acceptance:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_test_q11_l06_http_ci
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      MAIL_TRANSPORT: fake
+      BUSHISA_Q11_SYNTHETIC: "true"
+      BUSHISA_Q11_QUEUE_FAKE: "true"
+      BUSHISA_PASSWORD_RESET_SYNTHETIC: "true"
+      PASSWORD_RESET_ENABLED: "true"
+      PASSWORD_RESET_RESEND_COOLDOWN_SECONDS: "1"
+      PASSWORD_RESET_MAX_REQUESTS_PER_HOUR: "100"
+      PASSWORD_RESET_MAX_REQUESTS_PER_DAY: "200"
+      L06_CI_REPORT: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, curl
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: composer install --no-interaction --prefer-dist
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: L06 guarded HTTP and concurrent-consume acceptance
+        run: php tests/integration_l06_password_reset.php
+      - name: L06 rendered password-reset acceptance
+        if: ${{ !cancelled() }}
+        env:
+          DB_NAME: bushisa_test_q11_l06_browser_ci
+        run: npx playwright test --config=playwright.l06.config.js
+      - name: L06 safe result artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: l06-recovery-results
+          path: |
+            test-results/l06-browser.json
+            test-results/l06-http.json
+          if-no-files-found: error
