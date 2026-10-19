@@ -1,0 +1,351 @@
+{
+  "source_checkpoint": "077b8c78b0b556c887b241b9666ce24efc1eebfe",
+  "branch": "codex/session-binding-write-fence-20261018",
+  "ci": "NOT RUN",
+  "source_files_sha256_lf": {
+    "php/managed_session.php": "2818318092fd385ba8fdf82e0d980bb265c37b1c1555688c897f4e6ceba00328",
+    "php/session_manager.php": "884aa37e61aa0f796dfdb3ccac692f8ffcdae86da801ef518cb580be124ced79",
+    "php/auth.php": "7f9066c15459a4ce93fce723bebc669971fec3078a563146e4232295fbd439cb",
+    "php/signup_lifecycle.php": "c55a42f2364837e4f7bb4dc729633b4fe6a9e83858663da97cf3a3d7784a3553",
+    "php/signup_verification.php": "05e77b402df95ed287bd0e64a28acc2b193579ebf23593ddae4d7f72f9afea94",
+    "php/http_test_barrier.php": "303edb9ac9829d54052c8e89a2463f08710126449448edd79b49e6d50c77d6e4",
+    "verify_email.php": "92e8478f6a93c7fe951423144be04708f4195974df8bb992f37538c75a5d5926",
+    "database/migrations/014_session_binding_fence.sql": "19ecc3fe6045492218b01adc39f0c253ce73a4bbfe0eeafd919d55b25dfd9bc5",
+    "tests/integration_session_fence.php": "6c9496532a9658b32672f188f27f22b35c0960f8d75f3c4d97dd1b9724573897",
+    "tests/unit_session_fence_guard.php": "afe68b24cca245442d629c5897f6f909c8c996326aafde9157651792bf80947f",
+    "tests/support/session_fence_worker.php": "5817a2b488f8045c1558da1c7f4222cccae55d8af7e895623d62ab22bd9dbc31",
+    "tests/support/session_fence_probe.php": "e4edc3c8cc6eb6df1ceaaefe7643cad6703017be07e904f701b03812fbf17aea",
+    "tests/support/q11_fixture.php": "e11430676068e91ef5a312d236409be7665720ea942424894d204f7a0c4b3633"
+  },
+  "reused_regressions": {
+    "native": [
+      {
+        "mode": "q11",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:20:09.2987039Z",
+        "finished_utc": "2026-10-18T14:20:42.7520482Z",
+        "log": ".tmp/sf-runtime/native-q11.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode q11",
+        "observed_result": "PASS",
+        "totals": {
+          "assertions": 74,
+          "passed": 74
+        },
+        "evidence": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/q11-20261018-142009-778ffe3d/evidence.json"
+      },
+      {
+        "mode": "q22",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:20:43.0533916Z",
+        "finished_utc": "2026-10-18T14:21:16.1147755Z",
+        "log": ".tmp/sf-runtime/native-q22.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode q22",
+        "observed_result": "PASS",
+        "totals": {
+          "assertions": 75,
+          "passed": 75
+        },
+        "evidence": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/q22-20261018-142043-97ef1af6/evidence.json"
+      },
+      {
+        "mode": "erasure",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:21:16.1193133Z",
+        "finished_utc": "2026-10-18T14:21:55.2521157Z",
+        "log": ".tmp/sf-runtime/native-erasure.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode erasure",
+        "observed_result": "PASS",
+        "totals": {
+          "assertions": 57,
+          "passed": 57
+        },
+        "evidence": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/qe-20261018-142116-2f4a76ac/evidence.json"
+      },
+      {
+        "mode": "unit",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:21:55.2521157Z",
+        "finished_utc": "2026-10-18T14:21:56.0739427Z",
+        "log": ".tmp/sf-runtime/native-unit.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode unit",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "mailunit",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:21:56.0755770Z",
+        "finished_utc": "2026-10-18T14:21:56.7331478Z",
+        "log": ".tmp/sf-runtime/native-mailunit.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode mailunit",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "signup",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:21:56.7351607Z",
+        "finished_utc": "2026-10-18T14:21:58.3771109Z",
+        "log": ".tmp/sf-runtime/native-signup.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode signup",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "smtp",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:21:58.3781237Z",
+        "finished_utc": "2026-10-18T14:22:02.8351461Z",
+        "log": ".tmp/sf-runtime/native-smtp.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode smtp",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "core",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:22:02.8351461Z",
+        "finished_utc": "2026-10-18T14:22:04.6602876Z",
+        "log": ".tmp/sf-runtime/native-core.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode core",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "policy",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:22:04.6620372Z",
+        "finished_utc": "2026-10-18T14:22:08.6536668Z",
+        "log": ".tmp/sf-runtime/native-policy.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode policy",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "reports",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:22:08.6562779Z",
+        "finished_utc": "2026-10-18T14:23:03.8971042Z",
+        "log": ".tmp/sf-runtime/native-reports.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode reports",
+        "observed_result": "PASS",
+        "checks": 245,
+        "overlaps": 8,
+        "evidence": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/l01b-20261018-142209-775902/results.json"
+      },
+      {
+        "mode": "pairs",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:23:03.8998522Z",
+        "finished_utc": "2026-10-18T14:23:46.6440735Z",
+        "log": ".tmp/sf-runtime/native-pairs.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode pairs",
+        "observed_result": "PASS",
+        "checks": 396,
+        "overlaps": 11,
+        "evidence": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/l02a-20261018-142304-dca562/results.json"
+      }
+    ],
+    "linux": [
+      {
+        "mode": "q11",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:39:24.9202069Z",
+        "finished_utc": "2026-10-18T14:40:28.6169246Z",
+        "log": ".tmp/sf-runtime/linux-q11.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode q11",
+        "observed_result": "PASS",
+        "totals": {
+          "assertions": 74,
+          "passed": 74
+        },
+        "evidence": "/workspace/.tmp/q11-20261018-143929-be2076cf/evidence.json"
+      },
+      {
+        "mode": "q22",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:40:28.8129223Z",
+        "finished_utc": "2026-10-18T14:41:22.8903528Z",
+        "log": ".tmp/sf-runtime/linux-q22.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode q22",
+        "observed_result": "PASS",
+        "totals": {
+          "assertions": 75,
+          "passed": 75
+        },
+        "evidence": "/workspace/.tmp/q22-20261018-144030-b3f0d234/evidence.json"
+      },
+      {
+        "mode": "erasure",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:41:22.8964438Z",
+        "finished_utc": "2026-10-18T14:42:27.8017394Z",
+        "log": ".tmp/sf-runtime/linux-erasure.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode erasure",
+        "observed_result": "PASS",
+        "totals": {
+          "assertions": 58,
+          "passed": 58
+        },
+        "evidence": "/workspace/.tmp/qe-20261018-144124-5c652670/evidence.json"
+      },
+      {
+        "mode": "unit",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:42:27.8037561Z",
+        "finished_utc": "2026-10-18T14:42:29.1853200Z",
+        "log": ".tmp/sf-runtime/linux-unit.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode unit",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "mailunit",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:42:29.1894602Z",
+        "finished_utc": "2026-10-18T14:42:30.8473361Z",
+        "log": ".tmp/sf-runtime/linux-mailunit.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode mailunit",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "signup",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:42:30.8503834Z",
+        "finished_utc": "2026-10-18T14:42:34.1862754Z",
+        "log": ".tmp/sf-runtime/linux-signup.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode signup",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "smtp",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:42:34.1930253Z",
+        "finished_utc": "2026-10-18T14:42:39.5767990Z",
+        "log": ".tmp/sf-runtime/linux-smtp.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode smtp",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "core",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:42:39.5825132Z",
+        "finished_utc": "2026-10-18T14:42:43.2457964Z",
+        "log": ".tmp/sf-runtime/linux-core.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode core",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "policy",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:42:43.2482287Z",
+        "finished_utc": "2026-10-18T14:42:51.3296430Z",
+        "log": ".tmp/sf-runtime/linux-policy.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode policy",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "reports",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:42:51.3327580Z",
+        "finished_utc": "2026-10-18T14:44:06.4513674Z",
+        "log": ".tmp/sf-runtime/linux-reports.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode reports",
+        "observed_result": "PASS",
+        "checks": 245,
+        "overlaps": 8,
+        "evidence": "/workspace/.tmp/l01b-20261018-144253-ddd979/results.json"
+      },
+      {
+        "mode": "pairs",
+        "exit": 0,
+        "started_utc": "2026-10-18T14:44:06.4554318Z",
+        "finished_utc": "2026-10-18T14:45:33.2674257Z",
+        "log": ".tmp/sf-runtime/linux-pairs.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode pairs",
+        "observed_result": "PASS",
+        "checks": 396,
+        "overlaps": 11,
+        "evidence": "/workspace/.tmp/l02a-20261018-144407-40574a/results.json"
+      }
+    ]
+  },
+  "post_login_fix_reruns": {
+    "native": [
+      {
+        "mode": "q11",
+        "exit": 0,
+        "started_utc": "2026-10-18T15:03:46.5241714Z",
+        "finished_utc": "2026-10-18T15:04:41.7992026Z",
+        "log": ".tmp/sf-runtime/native-auth-q11.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode q11",
+        "observed_result": "PASS",
+        "totals": {
+          "assertions": 74,
+          "passed": 74
+        },
+        "evidence": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/q11-20261018-150347-097768fa/evidence.json"
+      },
+      {
+        "mode": "signup",
+        "exit": 0,
+        "started_utc": "2026-10-18T15:04:42.1065959Z",
+        "finished_utc": "2026-10-18T15:04:44.3666176Z",
+        "log": ".tmp/sf-runtime/native-auth-signup.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode signup",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "core",
+        "exit": 0,
+        "started_utc": "2026-10-18T15:04:44.3718421Z",
+        "finished_utc": "2026-10-18T15:04:47.8389142Z",
+        "log": ".tmp/sf-runtime/native-auth-core.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-native.ps1 -Mode core",
+        "observed_result": "exit 0; plain-text PASS output"
+      }
+    ],
+    "linux": [
+      {
+        "mode": "q11",
+        "exit": 0,
+        "started_utc": "2026-10-18T15:03:55.4969962Z",
+        "finished_utc": "2026-10-18T15:05:45.4525056Z",
+        "log": ".tmp/sf-runtime/linux-auth-q11.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode q11",
+        "observed_result": "PASS",
+        "totals": {
+          "assertions": 74,
+          "passed": 74
+        },
+        "evidence": "/workspace/.tmp/q11-20261018-150400-0428441c/evidence.json"
+      },
+      {
+        "mode": "signup",
+        "exit": 0,
+        "started_utc": "2026-10-18T15:05:45.8967291Z",
+        "finished_utc": "2026-10-18T15:05:50.3641108Z",
+        "log": ".tmp/sf-runtime/linux-auth-signup.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode signup",
+        "observed_result": "exit 0; plain-text PASS output"
+      },
+      {
+        "mode": "core",
+        "exit": 0,
+        "started_utc": "2026-10-18T15:05:50.3812103Z",
+        "finished_utc": "2026-10-18T15:05:55.3743164Z",
+        "log": ".tmp/sf-runtime/linux-auth-core.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/sf-regression-linux.ps1 -Mode core",
+        "observed_result": "exit 0; plain-text PASS output"
+      }
+    ]
+  },
+  "unit_guard": {
+    "native": {
+      "command": "D:/php/php.exe -n -d disable_classes=PDO tests/unit_session_fence_guard.php",
+      "result": "PASS",
+      "pre_connection_refusals": 13,
+      "execution_instant": "not separately captured; not an approval timestamp"
+    },
+    "linux": {
+      "command": "cached bushisa-l02e-php84:local, network none: php -n -d disable_classes=PDO tests/unit_session_fence_guard.php",
+      "result": "PASS",
+      "pre_connection_refusals": 13,
+      "execution_instant": "not separately captured; not an approval timestamp"
+    }
+  },
+  "source_capture_note": "Hashes identify the final candidate. Earlier regression commands retain their actual timestamps and are reused for unchanged tested paths; the final startup-abort repair is covered by the final SC32 executions."
+}

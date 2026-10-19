@@ -75,6 +75,7 @@ render_auth_start('Sign in', $csrfToken);
     </form>
 
     <p class="auth-switch">New to Bushisa? <a href="register.php">Create your student account</a></p>
+    <p class="auth-switch"><a href="forgot_password.php">Forgot your password?</a></p>
     <p class="field-help">Verification depends on the active backend. Bushisa will not display identity as verified unless the server proves it.</p>
 </section>
 <?php

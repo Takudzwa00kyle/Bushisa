@@ -1,18 +1,195 @@
 # Bushisa Remediation Decision Register
 
-Updated: 2026-10-10, Africa/Harare.
+Updated: 2026-10-16, Africa/Harare.
+
+## P1-P6 explicit owner decisions
+
+Reviewer: **Takudzwa Hondova**. Source: the owner's message beginning `Record
+my decisions for P1-P6`, expressly adopting the six choices below. Recorded in
+the documentation continuation from `237b7d1`; this is policy acceptance only,
+not implementation, independent review, staffing or release evidence.
+
+The exact message acceptance instant was not captured. UTC and Africa/Harare
+acceptance timestamps remain unavailable; the documentation date is not used
+as an invented approval time. This limitation does not reopen these approvals.
+
+| Owner choice / register entry | Approved scope | Remaining implementation/evidence gate |
+|---|---|---|
+| P1 / D04 Decision 28: initial probation | Any accepted, authorized, non-self report with unambiguous attribution triggers the already-approved seven-day reduced sending allowance for its reported actor. Validation means valid submission/attribution, not a proven allegation. Message/confession/reference targets use their actual author; account targets use the reported account; match behavior uses the particular participant whose conduct is reported, never both automatically. Authorized ambiguous cases go to human review without guessed probation. | Canonical proof/attribution and once-only acceptance events; atomic subject probation integration. A duplicate retry is not another sanction. |
+| P2 / D04 Decision 29: renewal | A new qualifying report received after expiry starts a fresh seven-day probation. Reports received during an active period do not reset/extend its deadline; deduplicated retries cannot start a new period. No early restoration of normal allowance. | Immutable server receipt/event identity, boundary/order/concurrency checks and replay protection. Keep each period start/end, the approved UTC activation +168h duration and 3 requests/24h allowance; no lifetime-budget reset. |
+| P3 / D04 Decision 30: report attached to ordinary block | Once attached, require reviewer clearance before that block is eligible for removal. Clearance leaves it blocked; only its creator may explicitly remove it. Bans and all other restrictions remain independently enforced. | Case/block linkage and clearance version/authority; atomic attachment and removal guards. No contact restoration or pending-request/chat grant is implied by attaching a report. |
+| P4 / D04 Decision 31: self-content and recovery | Reject own-content primary reports. Own messages may be relevant supporting context about someone else's conduct. Provide a separate human-reviewed compromise/disputed-authorship support/recovery route, with no automatic self-probation. Impersonation/quotation reports target the other person's actual account/content. | Reviewed limited recovery authorization, safe attribution and real monitored support/recovery coverage. No invented inbox, identity check, account reactivation or self-probation. |
+| P5 / D04 Decision 32: severity bans | Adopt the proposed seven-day, 30-day and permanent severity defaults, with documented findings and human review. Preserve independent appeals, no reviewer deciding their own appeal and a second independent reviewer for permanent-ban reversal. | Named authorized reviewers, findings/notices/appeal/enforcement evidence. This is not automatic guilt or operational enforcement proof; Q18 long-lived identifier/privacy gates stay open. |
+| P6 / D04 Decision 33: service targets | Adopt the proposed report/appeal targets conditionally on demonstrated staffing and coverage. Do not advertise them as staffed or achieved. Existing approved appeal rights/clocks remain; operational/public-service readiness requires evidence. | Accepted real primary/backup/on-call reviewers, monitored queues, overdue alerts and measured capacity. The readiness gate remains open. |
+
+Decision 32's adopted severity defaults are: **7 days** for a substantiated,
+moderate first violation requiring more than a warning; **30 days** for repeated
+or more serious harassment or deliberate safety-limit evasion; **permanent** for
+substantiated severe exploitation, credible serious threats, persistent ban
+evasion or repeated serious abuse after previous sanctions. Severity can skip
+shorter stages. Temporary bans expire at their recorded UTC deadline unless a
+separately justified sanction intervenes; permanent means no automatic account
+reactivation. Bans are separate from reduced-sending probation.
+
+Decision 33's conditional calendar-time targets are: report acknowledgment
+**24h**; credible immediate-danger initial triage **1h** with actual on-call
+coverage; ordinary first review **72h**; ordinary decision **7d**, with one
+reasoned/safely notified complex extension to **14d total**. Appeals remain
+available **14d from effective notice**; acknowledgment **2d**, independent
+decision **14d from receipt**, with one documented/notified complex extension
+of **14d**. Escalate at the deadline to the safety lead/backup and urgent overdue
+cases also to the accountable owner. Overdue review never unblocks, lifts a ban
+or shortens probation. No coverage, reviewer appointment or achieved deadline
+is asserted here.
+
+These express selections resolve P1-P6. They supersede only the earlier
+unresolved/proposed treatment of these points in the
+[48-answer reconciliation](owner-policy-reconciliation-2026-10-15.md) and older
+policy/task records; those remain historical records of their original scope.
+The [L01a contract](l01a-report-route-target-contract.md#p1-p6-owner-decisions-recorded)
+and [L01 backlog](backlog.md#l01a-documentation-checkpoint) carry implementation
+requirements. No other proposal is adopted, no retention limit changes and no
+whole D-number or release gate closes. D03's full scope, Decision 27, Reply-To,
+request/chat/unsend rules, privacy reviews and production boundaries remain.
+
+## Earlier explicit owner amendments: restoration and Reply-To
+
+Reviewer Takudzwa Hondova answered `1. replace` and `2. permit temporary unset
+until monitored inbox is verified.` See the
+[acceptance and supersession record](owner-conflict-decisions-2026-10-16.md).
+**D04 Decision 27** now requires fresh affirmative agreement from both
+participants before restoring an existing unmatched relationship, superseding
+Decision 20's no-renewed-agreement clause. Each person's control of their own
+unmatch and both own undos when both unmatched remain, as does the one-successful-
+restoration-per-pair/rolling-24-hour cap. Existing approved chat continues after
+unmatch; restoration consent is not chat approval or a reset of any restriction.
+
+The **D11 Reply-To amendment** permits temporary unset Reply-To until a real
+monitored receiving inbox is verified. `support@bushisa.me`, operators and actual
+inbox/header verification remain pending. These two conflicts are resolved by
+express owner adoption. That earlier amendment adopted no other proposal; the
+new P1-P6 section above governs its later selections. No whole D-number
+or implementation/release gate is cleared. Exact acceptance UTC/Harare time is
+CONFIRM; the linked recording clock is not an invented approval timestamp.
+
+## Current Q01-Q48 acceptance supplement
+
+Reviewer: **Takudzwa Hondova**. The owner's 48-answer message is reconciled in
+[owner-policy-reconciliation-2026-10-15.md](owner-policy-reconciliation-2026-10-15.md).
+That linked acceptance record is part of this register. It records every
+answer's approved portion, proposed values, conflicts, implementation gap,
+required evidence, approver and release gate for that message. P1-P6 above
+expressly update the affected Q01-Q05 points; older proposed labels there do
+not undo these later approvals. **Exact actual acceptance UTC
+timestamp and Africa/Harare date/time remain CONFIRM**; the owner supplied the
+timezone only. Drafting/capture timestamps are not approval timestamps.
+
+| Entry | Current decision status after Q01-Q48 | Accepted scope and remaining gate |
+|---|---|---|
+| D01-D03 | Approved, unchanged | Preserve student eligibility, adult onboarding and the full next-production-ready feature scope, including geographic matching, with existing Azure hosting. No scope reduction is authorized. |
+| D04 | **Partial product selections; pending overall** | Decisions 1-26 remain recorded with Decision 20's no-renewed-agreement clause superseded by Decision 27. Decisions 28-33 now record P1-P6: attribution-valid non-self reports trigger fixed probation; new qualifying reports after expiry renew it; report-attached blocks require clearance plus creator choice; self-content primary reports are rejected with a separate human recovery route; severity ban defaults are adopted; report/appeal targets are conditional on demonstrated staffing. Existing chat, undo controls/cap, pending-request expiry/recipient approval, budgets and other safety limits remain. Implementation, qualified/named review, recovery-route design, staffing/capacity and release acceptance are open; no whole D04 approval. |
+| D05 | **Partial product selections; pending overall** | Q10-Q27/Q32 select category-specific access denial/live erasure, signup/deletion/confession/evidence/consent/export/hold/clock and recovery rules, subject to stated privacy gates. Q12's anti-replay value, Q13's candidate fields, Q16's linked active-chat schedule, Q23's metadata table and Q26's copy-retention values remain proposed. See the matrix; do not reuse older 30-day account, 90-day closed-history, 24-month case or indefinite-consent proposals as accepted values. |
+| D06 | Pending | Q35/Q36 funding/region proposals need actual ownership, credit/continuity, priced inventory, approved budget and qualified data-flow review. Cost-alert guardrails are selected, without a spending commitment or live change. |
+| D07 | Pending | Q37 99.5%/30-minute availability and Q38 RPO/RTO are proposals. Isolation, release-stop and protective-replay requirements are recorded; actual isolated restore remains NOT RUN. |
+| D08 | Pending | Q39 exact matrix requires capture/acceptance; Q40 session configuration and Q41 target security configuration remain proposals. Existing security guards are preserved; no production configuration changed. |
+| D09 | Pending | Q42 appointments/coverage and Q48 final go/no-go assignment remain proposals. Reviewer/backup/independent appeal/privacy/security/support/operations names are UNASSIGNED; product review by Takudzwa is not a DPO or on-call appointment. |
+| D10 | Pending | Q43 telemetry/provider/sampling and Q44 US$5/threshold/response values remain proposed, unfunded/unverified. Redaction and optional-consent protections apply; configuration, notice, staffing and evidence gates stay open. |
+| D11 | **Partial** | Q45 selects From `DoNotReply@bushisa.me`, display `Bushisa`; Q47 selects reuse and reset-token controls, not implementation. The owner now expressly permits temporary unset Reply-To until a real monitored inbox is verified; the fallback conflict is resolved. `support@bushisa.me`, its operator, actual receipt/monitoring and header verification remain proposals/missing evidence. Reset resend limits and session redesign remain proposed; delivery, roles, implementation and release gates remain open. |
+| D12 | **Partial product selections; pending overall** | Q29-Q34 select coarse catalogue structure, optional consent/withdrawal, current coarse state only, >=10-user disclosure cohort, 2 location changes/rolling 24h, 7-day freshness, <=24h purge, <=5-point soft bonus and cursor invalidation. Q28 source combination, Q29 widths and Q33 candidate distance bands remain proposed. Real catalogue/points, final wording, privacy/inference/mobile tests and H13 acceptance are missing. No production location collection/use is authorized by documentation alone. |
+
+The [single reconciliation/unknown table](owner-policy-reconciliation-2026-10-15.md#reconciliation-and-missing-information)
+records the explicit Decision 27 and D11 supersessions, preserving unrelated
+approvals for immediate chat on blocker unblock and entered-code signup.
+A genuinely recreated match clears
+decline restrictions only; undo of the existing relationship is not such a match.
+Pair budgets, fixed probation, independent restrictions and the second-ending
+cutoff never reset through this clarification.
+
+The [inventory/retention matrix](data-inventory-retention-matrix.md) separates
+access cutoff, live erasure and copy expiry. Its conditional recovery example
+is **7 +35 +7 =49 days from deletion**, not an unconditional timer or proof of
+actual backup settings. The [configuration checklist](configuration-impact-checklist-2026-10-15.md)
+and [bounded backlog](backlog.md#q01-q48-implementation-backlog) record later work.
+
+## Preserved record before the Q01-Q48 answers
+
+The narrative and table below preserve earlier Decisions 1-26 and their
+historical pending choices. Their unanswered-question and provisional-policy
+notes are supplemented by the current acceptance record above; they must not
+be read as undoing the Q01-Q48 selections or approving the remaining proposals.
+Decision 20's historical no-renewed-agreement text and D11's former unconditional
+matching-Reply-To requirement below are retained as history and are superseded
+only to the express scope of the latest amendments.
+
+Prompt 03 prepared the concrete owner decision packet for D03-D12 in
+`docs/remediation/prompt03-owner-decision-packet-2026-10-14.md`. That packet is
+review material. D03 is now approved by the reviewer named below. D04 Decisions
+1 through 26 are approved only for pending message-request expiry, the
+cancelled/expired request retry cooldown, declined same-direction retry denial,
+request budget ceilings, reported-sender probation behavior and
+reverse-direction/rematch behavior after decline. Decision 6 approves only
+restart by the person who ended an approved chat, using a fresh request that the
+other participant must approve. Decision 7 approves a 12-hour UTC cooldown from
+ending/revoking that approved chat before the fresh restart request. Decision 8
+approves that a second approved-chat end terminates re-request privileges for
+the rest of that match's lifetime. Decision 9 approves that this cutoff carries
+across rematches between the same two users; unmatching and matching again must
+not restore chat-request privileges after the second approved-chat ending.
+Decision 10 approves immediate, automatic pair chat privileges when the blocker
+unblocks in the reviewed scenario for a pair without that cutoff. Decision 11
+clarifies that this also applies when chat was never approved; prior approval
+is not required. Decision 12 approves that blocking an approved chat does not
+count toward the two-ending cutoff; repeated block/unblock cycles do not
+trigger it. The separately approved chat-ending cutoff remains in place.
+Decision 13 approves continuing an already-approved chat after unmatching;
+unmatching alone does not end that chat. Decision 14 approves keeping existing
+approved chats available while a profile is paused in discovery. Decision 15
+approves deleting unsent original text unless it has already been preserved as
+evidence for an existing safety report, and rejects blanket retention of every
+unsent original for moderation. Decision 16 approves a 15-minute unsend window
+measured from the message's server-recorded sending time; after that window,
+unsending is not allowed. Decision 17 approves removing the unsent message entry
+entirely from both participants' ordinary chat views, without a placeholder.
+Decision 18 approves that discovery pause does not affect matching, requesting,
+approving or chatting functionality; the normal independent restrictions still
+apply. Decision 19 approves preserving a pending chat request on unmatch, while
+denying approval until the pair is matched again. The original seven-day expiry
+and other request restrictions remain unchanged. Decision 20 approves that
+the person who unmatched may restore the match without additional agreement
+from the other participant. Restoration alone does not approve a pending chat
+request. Decision 21 approves that only the person who unmatched can restore
+that match in the reviewed case; the other participant cannot restore it.
+Decision 22 approves that, when both users unmatch, each must undo their own
+unmatch before the match can return; one person's undo is insufficient.
+Other restoration details remain pending. Decision 23 selects a combined
+`Block and report` option for reporting in conjunction with blocking. It clears
+pending requests between the pair and initially provides no unblock privilege;
+unblocking requires a safety reviewer's explicit approval under Decision 24.
+Completing review alone is insufficient. A safety reviewer may ban a user from
+the app for policy or ethical violations, but may also leave the pair blocked
+without a ban. Decision 25 approves that, after explicit reviewer approval,
+the blocker chooses whether to press `Unblock`; approval alone does not remove
+their block. Decision 26 approves immediate chat availability when the blocker
+chooses `Unblock` after explicit reviewer approval; no fresh request or new chat
+approval is required. Independent blocks/account restrictions and the recorded
+second-ending cutoff remain applicable. Ban criteria/duration, named role
+assignments and review timing remain pending. Ordinary block/unblock and unmatch
+approvals remain unchanged. Evidence access, retention deadlines, physical
+request-record deletion and backup deletion remain pending under D05. The remaining D04 choices, D05 and D12 remain pending until their
+specific questions are answered; this register does not mark
+those policies approved or the application production-ready.
 
 | ID | Status | Decision | Owner/date | Notes |
 |---|---|---|---|---|
 | D01 | Approved | Student email domain is `students.nust.ac.zw`. Student number format is `n` + three enrolment-year digits + five decimal digits + one lowercase letter, for example `n02531234f`. Alumni, graduated and inactive students are allowed. | Operator, 2026-10-09 | Implementation also requires the email local part to match the student number before sending an approval code. |
 | D02 | Approved | Adult eligibility is `age >= 18`. Date of birth is collected after student-email approval. Underage accounts may be created but are permanently blocked from onboarding. | Operator, 2026-10-09 | Current implementation sets `account_status = underage_blocked` after an underage DOB attempt. |
-| D03 | Pending | Launch product scope. | Pending | Needed before final P1 UI/API and optional-feature removal. |
-| D04 | Pending | Messaging and safety policy. | Pending | Revised proposal prepared in `docs/remediation/policy-proposals-d04-d05.md`. Unresolved choices: request expiry/cooldowns/budgets, rematch/unblock/account-pause behavior, unsend evidence model, closed-chat evidence access and reviewed user-facing wording. Synthetic-development safeguards may be tested, but production D04 remains unapproved. |
-| D05 | Pending | Data lifecycle and retention. | Pending | Revised proposal prepared in `docs/remediation/policy-proposals-d04-d05.md`. Unresolved choices: field-level retention, abandoned/underage signup expiry, confession deletion model, consent proof fields/deadline, restore ledger horizon, media/cache/log purge ownership and rights-request process. All durations remain proposed until owner/privacy review. |
+| D03 | Approved | Full feature scope for Bushisa's next production-ready release: signup, student-email approval, adult onboarding, discovery, reciprocal matching, geographic matching, approved chat, confession posting, safety/moderation workflows and account-management workflows. | Reviewer: Takudzwa Hondova, 2026-10-14 | Product scope only. Keep the full scope as the target and preserve the existing Azure deployment while preparing changes. D04, D05 and D12 remain pending and continue to block production readiness for their policy-specific areas. |
+| D04 | Pending | Messaging and safety policy. D04 Decision 1 approves pending message requests expiring seven days after creation, measured in UTC. D04 Decision 2 approves the same requester sending a fresh request to the same recipient after a 12-hour UTC cooldown following cancellation or expiry: cancellation is measured from the cancellation timestamp, and expiry is measured from the stored `expires_at` timestamp. D04 Decision 3 approves that after a recipient declines, the original requester cannot send a fresh request to that same recipient; allowed further attempts in that requester-recipient direction are `0`, and no cooldown automatically restores permission. D04 Decision 4 approves request budget ceilings: a sender may create at most 3 requests across all matches per 12 hours; a recipient may receive at most 10 incoming requests across all requesters per 12 hours; a requester-recipient pair may have at most 3 requests over the pair lifetime; a reported sender enters fixed 7-day probation lasting 168 hours from probation activation, measured in UTC, with a reduced allowance of 3 requests per 24 hours rather than a sending ban. No review or support appeal may restore the normal allowance early. After probation expires, restore the normal 3-requests-per-12-hours allowance, subject to other applicable account restrictions. Restoring the sending rate does not reset lifetime pair budgets or override declined-request, blocking or authorization rules. The sender may contact support and submit a written appeal explaining a mistaken report, but support handling must respect the no-early-restoration rule. Another report during the probation week leaves the active 168-hour probation period unchanged; it does not restart or extend that period. D04 Decision 5 approves that after a recipient declines a request, that recipient may later send a reverse-direction request to the original requester, and a recreated match clears prior decline restrictions. Recreating a match clears decline restrictions only; it does not reset lifetime pair budgets or override blocking, authorization or account restrictions. D04 Decision 6 approves that only the person who ended an approved chat may send a fresh restart request, which the other participant must approve before chat access resumes. D04 Decision 7 approves a 12-hour cooldown from ending/revoking the approved chat, measured in UTC, before that fresh restart request may be sent. D04 Decision 8 approves that a second approved-chat end terminates re-request privileges for the rest of that match's lifetime. Waiting or remaining request budget does not restore those privileges within that match. D04 Decision 9 approves that this cutoff carries across rematches between the same two users. Unmatching and matching again must not restore chat-request privileges after the second approved-chat ending. Decision 5's decline-restriction clearance does not clear this cutoff. No reset or exception to existing request budgets or contact restrictions is approved. D04 Decision 10 approves that, for the reviewed pair without the second-ending cutoff, the blocker's unblock automatically gives the pair chat privileges immediately, without requiring a fresh mutual match or new chat-request approval in that scenario. D04 Decision 11 approves that immediate chat on blocker unblock also applies when chat was never approved; prior chat approval is not required. D04 Decision 12 approves that blocking an approved chat does not count toward the two-ending cutoff. Repeated block/unblock cycles do not trigger it. Separately ending an approved chat remains governed by Decisions 6-9; blocking/unblocking does not reset those endings or clear an already-triggered cutoff. This does not approve overriding the second-ending cutoff, another participant's active block or account restrictions. D04 Decision 13 approves that a pair with an approved chat may keep chatting after unmatching. Unmatching alone does not close or revoke that approved chat and is not an approved-chat ending or restart; no fresh matching, chat request or restart cooldown is required merely to continue it. Other active block/account restrictions and separately ending the chat still apply. Decision 19 below separately settles a pending request on unmatch; other never-approved-chat unmatch details and retention remain pending. D04 Decision 14 approves that pausing a profile in discovery preserves the pair's existing approved chat for both participants. Discovery pause alone does not revoke that chat, constitute an approved-chat ending or require a new request or restart cooldown to continue it. Other active block/account restrictions and separately ending the chat still apply. Decision 18 below also settles matching, requesting and approving during discovery pause. D04 Decision 15 approves deleting the original text of unsent messages unless it has already been preserved as evidence for an existing safety report. Retaining every unsent original for moderation is rejected. The exception concerns an already-preserved report copy; it does not approve capturing every original on unsend. Evidence access, retention deadlines and backup deletion remain pending under D05. D04 Decision 16 approves a 15-minute unsend window measured from the message's server-recorded sending time; after that window, unsending is not allowed. D04 Decision 17 approves that an unsent message entry disappears entirely from both participants' ordinary chat views, with no `Message unsent` placeholder. D04 Decision 18 approves that pausing discovery must not affect any matching, requesting, approving or chatting functionality. Matching, sending/receiving chat requests, approving them and using approved chats remain available while paused, subject to the normal independent eligibility, block/account restrictions, request budgets, cooldowns, decline rules and second-ending cutoff. Pause does not itself approve a request or reset/bypass those rules. D04 Decision 19 approves that unmatching does not cancel a pending chat request, but the recipient may approve it only after the pair returns to a matched state and only if the request is still pending. The original seven-day UTC expiry from creation remains unchanged; unmatching or restoring the match does not pause/reset it or revive an expired request. Existing budgets, cooldowns, decline restrictions, blocks/account restrictions and the second-ending cutoff remain applicable. Decision 20 below approves restoration by the person who unmatched without new agreement from the other participant; other restoration cases remain pending. Decision 13's continued already-approved chat after unmatch is preserved. D04 Decision 20 approves that the person who unmatched may restore the match herself without additional agreement from the other participant. No renewed reciprocal agreement is required for that restoration. In Decision 19's pending-request scenario, restoring the match does not approve the chat request: its recipient must still approve it, and the original expiry and independent restrictions remain applicable. Decision 21 below resolves restoration by the other participant. Other restoration details, including any cooldown or cap, remain pending. D04 Decision 21 approves that, when Alice is the one who unmatched Brian, only Alice may restore that match; Brian cannot restore Alice's unmatch. Decision 20's lack of renewed match agreement and Decision 19's recipient approval of the still-pending chat request remain unchanged. Decision 22 below settles behavior when both users independently unmatch. D04 Decision 22 approves that both participants must undo their own unmatch before the match can return. If only Alice has undone her unmatch while Brian's remains, the pair stays unmatched. Neither can undo the other's unmatch. Decision 19's pending-request approval prerequisite and original seven-day expiry remain unchanged; restoration alone does not approve chat. Decision 13 still preserves already-approved chat while unmatched. All earlier contact restrictions remain applicable; remaining restoration details, including any unspecified cooldown or cap, remain pending. D04 Decision 23 selects a combined `Block and report` option for reporting in conjunction with blocking. It initially provides no unblock privilege and clears any pending chat requests between that pair. The reviewer clarified that unblocking becomes possible after safety review; this is not an approved permanent loss of the unblock privilege. Decision 24 below requires a safety reviewer's explicit approval; substantive criteria, named role assignments, review timing and later unblock/chat effects remain pending. Clearing requests selects no terminal-state name, physical record-deletion method or retention deadline. Ordinary block/unblock Decisions 10-12 and unmatch Decisions 13 and 19-22 remain unchanged; the combined action has its own recorded restriction. Decision 4's fixed reported-sender probation and request budgets remain unchanged. Reporting outside this combined flow, including unmatch-only reporting, remains unresolved. D04 Decision 24 approves that a safety reviewer must explicitly approve unblocking after `Block and report`; completing a review alone does not restore the unblock option. Safety reviewers may ban users from the app for policy or ethical violations. The clarified choice also allows a reviewer to deny unblocking and leave the pair blocked without an app ban; denial does not automatically require a ban. Specific approval/ban criteria, definitions, named role assignments, ban duration/appeals, review timing remain pending; Decisions 25-26 below select the blocker's own choice to unblock and immediate chat availability after that action. Decision 23's clearing of pending pair requests, ordinary block/unmatch approvals, fixed reported-sender probation and all earlier request budgets/restrictions remain unchanged. D04 Decision 25 approves that, after the safety reviewer's explicit approval, the blocker chooses whether to press `Unblock`. Reviewer approval restores that option but does not automatically remove the block; Alice may keep Brian blocked. Only her own block is affected by her later choice to unblock. Decision 26 below settles the combined flow's chat effect after the chosen unblock. All earlier approvals and independent restrictions remain unchanged. D04 Decision 26 approves that, after the safety reviewer's explicit approval and the blocker's actual choice to unblock, chat becomes immediately available. No fresh chat request or further chat approval is required. Decision 23's cleared pending requests remain cleared; immediate access does not revive those requests or reset budgets. Other active blocks, account restrictions and the second-ending cutoff remain applicable. All earlier approvals, including fixed sender probation, remain unchanged. The owner requested all remaining questions together; the packet now records pending questionnaire Q01-Q48. These approvals cover only the recorded request handling, request budgets, probation, decline/rematch behavior, restart actor/fresh approval, the 12-hour restart cooldown, the second-end match-lifetime cutoff, its carryover across rematches and immediate chat on blocker unblock including never-approved chat and exclusion of blocking from the two-ending cutoff and continuation of approved chat after unmatch and during discovery pause, and the unsent-original deletion model with its already-preserved report-evidence exception, and the 15-minute unsend window from the server-recorded sending time with denial after the window, plus removal of the unsent message entry from both ordinary chat views without a placeholder, and preservation of matching, requesting, approving and chatting during discovery pause, plus preservation of pending requests on unmatch with approval allowed only after the matched state returns, and restoration of a match only by the person who unmatched, without additional agreement from the other participant in the reviewed case, and the requirement that both undo their own unmatch before the match can return when both unmatched, plus the combined block/report option, clearing of pending pair requests and a safety reviewer's explicit approval before unblocking becomes possible, with an app ban available as a separate review action and no ban required merely for refusing unblocking, plus the blocker's own choice whether to unblock after explicit reviewer approval and immediate chat availability upon that chosen unblock. Evidence access, retention deadlines and backup deletion remain pending under D05. | Reviewer: Takudzwa Hondova, 2026-10-14 for D04 Decisions 1-5; 2026-10-15 for D04 Decision 6 (restart actor and fresh approval only), Decision 7 (12-hour restart cooldown only), Decision 8 (second-end match-lifetime cutoff only), Decision 9 (second-end cutoff carryover across rematches only), Decision 10 (immediate chat on blocker unblock in the reviewed scenario only), Decision 11 (unblock eligibility includes never-approved chat), Decision 12 (blocking excluded from the two-ending cutoff), Decision 13 (approved chat continues after unmatch), Decision 14 (approved chat continues during discovery pause), Decision 15 (unsent-original deletion except already-preserved safety-report evidence; no blanket retention), Decision 16 (15-minute unsend window from server-recorded sending time; denial after the window), Decision 17 (unsent message entry disappears from both ordinary chat views without a placeholder), Decision 18 (discovery pause does not affect matching, requesting, approving or chatting), Decision 19 (unmatch preserves pending request; approval requires matched state again), Decision 20 (person who unmatched may restore without the other participant's renewed agreement), Decision 21 (only the person who unmatched may restore in the reviewed case), Decision 22 (both must undo their own unmatch before match restoration when both unmatched), Decision 23 (combined block/report clears pending pair requests; unblock becomes possible after safety review), Decision 24 (safety reviewer explicitly approves unblock; may ban for violations or leave the pair blocked without a ban), Decision 25 (blocker chooses whether to unblock after explicit reviewer approval) and Decision 26 (chat immediately available on the chosen unblock after explicit reviewer approval) | Revised proposal prepared in `docs/remediation/policy-proposals-d04-d05.md`; Prompt 03 packet prepares owner choices. Required implementation alignment: `api/message_requests.php` still reflects the earlier provisional 24-hour cancellation/expiry retry, 30-day declined-request retry and 20-per-hour request model, so it must be changed before production policy can be treated as implemented. Decisions 6-26 implementation alignment/verification and regression evidence remain pending. Approved-chat authorization must support Decision 13 without requiring an active match after unmatch. Discovery pause must preserve matching, requesting, approving and chatting under Decisions 14 and 18. Pending-request preservation and matched-state approval under Decision 19 also require alignment verification. Decision 20's restoration by the person who unmatched requires alignment verification. Decision 21's denial of restoration by the other participant requires alignment verification. Decision 22's requirement for both participants' own undo actions requires alignment verification. Decision 23's combined action, pending-request clearing and review prerequisite require alignment verification. Decision 24's explicit reviewer approval and authority to impose an app ban require alignment verification. Unresolved choices: substantive review/ban criteria, role assignments, ban duration/appeals, review timing, reporting outside the combined flow and remaining restoration mechanics/timing/caps, other block/unblock/unmatch details and discovery-pause presentation, other unsend projections and reviewed user-facing wording. Evidence access, retention deadlines, backup deletion and genuinely closed-chat lifecycle/access remain pending under D05. Decision 26's immediate chat after the reviewed, chosen unblock requires alignment verification. The complete pending questionnaire Q01-Q48 in the packet covers the remaining D04-D12 owner choices, following the owner's request to ask them together. An unanswered item remains pending. Synthetic-development safeguards may be tested, but production D04 remains otherwise unapproved. |
+| D05 | Pending | Data lifecycle and retention. | Pending | Revised proposal prepared in `docs/remediation/policy-proposals-d04-d05.md`; Prompt 03 packet prepares owner choices. Unresolved choices: field-level retention, abandoned/underage signup expiry, confession deletion model, consent proof fields/deadline, restore ledger horizon, media/cache/log purge ownership and rights-request process. All durations remain proposed until owner/privacy review. |
 | D06 | Pending | Azure ownership, subscription, region and budget. | Pending | Needed before Azure provisioning. |
 | D07 | Pending | Availability, RPO and RTO. | Pending | Needed before production topology and recovery acceptance. |
 | D08 | Pending | Runtime/networking versions and session strategy. | Pending | Needed before Azure-bound artifact lock. |
 | D09 | Pending | Operations owners and escalation coverage. | Pending | Needed before launch. |
 | D10 | Pending | Telemetry fields, retention and alert recipients. | Pending | Needed before production logging/monitoring. |
 | D11 | Partial | Use a Bushisa-owned sender domain, approved From address and matching Reply-To. Use fake mail only for labelled local/synthetic development until Azure Communication Services is ready. | Operator, 2026-10-09 | Exact production domain/address and ACS resource remain pending. Fake mail is blocked in production code paths and code-bearing fake-mail payloads are erased on terminal verification/expiry. |
-| D12 | Pending | Geographic matching catalogue, consent, retention, granularity and weight. | Pending | Required before P1-01G can be certified. |
+| D12 | Pending | Geographic matching catalogue, consent, retention, granularity and weight. | Pending | Required before P1-01G can be certified and before the D03 full-scope geographic matching feature can be production-ready. |

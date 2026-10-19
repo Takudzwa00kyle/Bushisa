@@ -186,13 +186,17 @@ function operational_create_policy_safeguard_tables(PDO $pdo): void
             subject_id BIGINT UNSIGNED NOT NULL,
             actor_user_id INT UNSIGNED NULL,
             payload_json JSON NOT NULL,
-            occurred_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            replayed_at TIMESTAMP NULL,
+            occurred_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+            replayed_at TIMESTAMP(6) NULL,
             UNIQUE KEY uq_replay_event (event_type, subject_type, subject_id, occurred_at),
             INDEX idx_replay_subject (subject_type, subject_id),
             INDEX idx_replay_pending (replayed_at, occurred_at)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
+    if (operational_table_exists($pdo, 'protective_replay_events')) {
+        $pdo->exec('ALTER TABLE protective_replay_events MODIFY occurred_at TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)');
+        $pdo->exec('ALTER TABLE protective_replay_events MODIFY replayed_at TIMESTAMP(6) NULL');
+    }
 }
 
 function ensure_operational_schema(PDO $pdo): void
@@ -615,6 +619,18 @@ function operational_other_user_id(array $match, int $currentUserId): int
 function operational_has_message_approval(PDO $pdo, int $matchId): bool
 {
     ensure_operational_schema($pdo);
+    if (operational_table_exists($pdo,'pair_policy_history')) {
+        $mc=operational_match_columns($pdo);
+        $cutoff=$pdo->prepare(sprintf('SELECT ph.ending_count,ph.chat_suppressed FROM pair_policy_history ph
+            JOIN matches m ON ph.user_low=LEAST(m.%1$s,m.%2$s) AND ph.user_high=GREATEST(m.%1$s,m.%2$s)
+            WHERE m.id=?',$mc['user_a'],$mc['user_b']));
+        $cutoff->execute([$matchId]);
+        $policy=$cutoff->fetch(PDO::FETCH_ASSOC);
+        if (is_array($policy) && ((int)$policy['ending_count']>=2 || (int)$policy['chat_suppressed']===1)) { return false; }
+        $grant=$pdo->prepare('SELECT 1 FROM pair_chat_segments WHERE match_id=? AND ended_at IS NULL LIMIT 1');
+        $grant->execute([$matchId]);
+        if ($grant->fetchColumn()) { return true; }
+    }
 
     $statement = $pdo->prepare(
         'SELECT 1
@@ -623,7 +639,8 @@ function operational_has_message_approval(PDO $pdo, int $matchId): bool
          WHERE mr.match_id = :match_id
            AND mr.status = "approved"
            AND mr.revoked_at IS NULL
-           AND (' . (operational_column_exists($pdo, 'matches', 'match_status') ? 'm.match_status = "active"' : '1 = 1') . ')
+           AND mr.id = (SELECT MAX(current_request.id) FROM message_requests current_request WHERE current_request.match_id=mr.match_id)
+           AND (' . (operational_column_exists($pdo, 'matches', 'match_status') ? 'm.match_status IN ("active", "unmatched")' : '1 = 1') . ')
          LIMIT 1'
     );
     $statement->execute([':match_id' => $matchId]);

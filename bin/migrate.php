@@ -51,9 +51,16 @@ function apply_operational_contract_migration(PDO $pdo): void
 $migrationDir = __DIR__ . '/../database/migrations';
 $files = glob($migrationDir . '/*.sql') ?: [];
 sort($files);
+$through = getopt('', ['through:'])['through'] ?? null;
+if ($through !== null && (!is_string($through) || !preg_match('/\A[0-9]{3}\z/', $through))) {
+    throw new InvalidArgumentException('--through requires a three-digit migration prefix');
+}
 
 foreach ($files as $file) {
     $name = basename($file);
+    if ($through !== null && substr($name, 0, 3) > $through) {
+        continue;
+    }
     $version = pathinfo($name, PATHINFO_FILENAME);
 
     if (migration_applied($pdo, $version)) {
@@ -95,7 +102,56 @@ foreach ($files as $file) {
     }
 
     fwrite(STDOUT, "Applying {$name}\n");
-    $pdo->exec($sql);
+    if ($name === '015_session_copy_consumer.sql') {
+        require_once __DIR__.'/../php/session_copy_migration.php';
+        bushisa_migrate_session_copy_consumer($pdo,$sql);
+        mark_migration_applied($pdo,$version);
+        continue;
+    }
+    if ($name === '013_challenge_mail_retention.sql') {
+        require_once __DIR__.'/../php/verification_retention_migration.php';
+        bushisa_migrate_verification_retention($pdo,$sql);
+        mark_migration_applied($pdo,$version);
+        continue;
+    }
+    if ($name === '012_signup_attempt_erasure.sql') {
+        require_once __DIR__.'/../php/attempt_erasure_migration.php';
+        bushisa_migrate_attempt_erasure($pdo,$sql);
+        mark_migration_applied($pdo,$version);
+        continue;
+    }
+    if ($name === '009_pair_trigger_health.sql') {
+        // Bind the routine to its own schema; an invoker's USE/connection database
+        // must not redirect the definer's metadata check to another schema.
+        $schema = (string) $pdo->query('SELECT DATABASE()')->fetchColumn();
+        $sql = str_replace("'__BUSHISA_CURRENT_SCHEMA__'", $pdo->quote($schema), $sql);
+        $existing = $pdo->prepare('SELECT ROUTINE_DEFINITION,ROUTINE_TYPE,SQL_DATA_ACCESS,SECURITY_TYPE,DEFINER FROM information_schema.routines WHERE ROUTINE_SCHEMA=? AND ROUTINE_NAME=?');
+        $existing->execute([$schema,'bushisa_pair_trigger_health']);
+        $routine = $existing->fetch(PDO::FETCH_ASSOC);
+        if (is_array($routine)) {
+            // A partial run may already have created the exact routine. Keep its
+            // grants and definer; never DROP/replace an unrelated existing object.
+            $body = substr($sql, strpos($sql,'SELECT COUNT(*)'));
+            $canonical = static fn(string $value): string => trim(str_replace("\r\n","\n",$value)," \t\r\n;");
+            $parameters = $pdo->prepare('SELECT COUNT(*) FROM information_schema.parameters WHERE SPECIFIC_SCHEMA=? AND SPECIFIC_NAME=?');
+            $parameters->execute([$schema,'bushisa_pair_trigger_health']);
+            if ($routine['ROUTINE_TYPE']!=='PROCEDURE' || $routine['SQL_DATA_ACCESS']!=='READS SQL DATA' || $routine['SECURITY_TYPE']!=='DEFINER'
+                || $routine['DEFINER']!==$pdo->query('SELECT CURRENT_USER()')->fetchColumn() || (int)$parameters->fetchColumn()!==0
+                || $canonical((string)$routine['ROUTINE_DEFINITION'])!==$canonical($body)) {
+                throw new RuntimeException('Unexpected existing pair health routine; reconcile the controlled migration before retrying');
+            }
+            $sql = ''; // Exact partial execution is safe to mark without DDL.
+        }
+    }
+    if ($sql !== '') { $pdo->exec($sql); }
+    if ($name === '006_report_intake.sql') {
+        require_once __DIR__ . '/../php/report_migration.php';
+        bushisa_migrate_report_revisions($pdo);
+    }
+    if ($name === '007_pair_history.sql') {
+        require_once __DIR__ . '/../php/pair_migration.php';
+        bushisa_migrate_pair_history($pdo);
+    }
     mark_migration_applied($pdo, $version);
 }
 

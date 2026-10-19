@@ -7,6 +7,8 @@ require_once __DIR__ . '/logger.php';
 require_once __DIR__ . '/operational.php';
 require_once __DIR__ . '/policy_safeguards.php';
 require_once __DIR__ . '/mail_delivery.php';
+require_once __DIR__ . '/signup_lifecycle.php';
+require_once __DIR__ . '/verification_retention.php';
 
 function bushisa_student_email_domain_allowlist(): array
 {
@@ -86,72 +88,62 @@ function bushisa_generate_signup_code(): string
 function bushisa_issue_signup_code(PDO $pdo, int $userId, string $email): string
 {
     ensure_operational_schema($pdo);
-
-    $ownsTransaction = !$pdo->inTransaction();
-    if ($ownsTransaction) {
-        $pdo->beginTransaction();
-    }
-    try {
-        $owner = $pdo->prepare('SELECT email, is_verified, account_status FROM users WHERE id = :id FOR UPDATE');
+    bushisa_signup_require_schema($pdo);
+    bushisa_signup_test_point($pdo,'q11_mixed');
+    $result=bushisa_signup_transaction($pdo,function()use($pdo,$userId,$email):array {
+        $owner = $pdo->prepare('SELECT * FROM users WHERE id = :id FOR UPDATE');
         $owner->execute([':id' => $userId]);
         $user = $owner->fetch(PDO::FETCH_ASSOC);
         if (!is_array($user) || strtolower($user['email']) !== strtolower($email)) {
             throw new RuntimeException('An approval challenge requires the account email.');
         }
-        if (bushisa_mail_provider() === 'smtp'
-            && ((int) $user['is_verified'] !== 0 || $user['account_status'] !== 'pending_email')) {
-            throw new RuntimeException('This account does not need student email approval.');
+        $expiry=bushisa_signup_expire_locked($pdo,$user);
+        if (!bushisa_signup_user_live($user) || $expiry['state']!=='live' || (int)$user['is_verified']!==0 || $user['account_status']!=='pending_email') {
+            return ['error'=>bushisa_signup_expiry_message($expiry['state'])];
         }
 
         $code = bushisa_generate_signup_code();
         $hash = bushisa_hash_signup_code($userId, $email, $code);
         $ttl = bushisa_signup_code_ttl_seconds();
 
+        $now=bushisa_signup_now($pdo);
         $expireExisting = $pdo->prepare(
             'UPDATE student_email_approval_codes
-             SET consumed_at = COALESCE(consumed_at, UTC_TIMESTAMP()),
-                 terminal_at = COALESCE(terminal_at, UTC_TIMESTAMP()),
+             SET consumed_at = COALESCE(consumed_at, :used),
+                 terminal_at = COALESCE(terminal_at, :terminal),
                  code_hash = NULL,
-                 purged_at = COALESCE(purged_at, UTC_TIMESTAMP())
+                 purged_at = COALESCE(purged_at, :purged)
              WHERE user_id = :user_id
-               AND consumed_at IS NULL'
+               AND consumed_at IS NULL AND terminal_at IS NULL'
         );
-        $expireExisting->execute([':user_id' => $userId]);
-
-        $cancelMail = $pdo->prepare(
-            'UPDATE mail_outbox m
-             INNER JOIN student_email_approval_codes c ON c.id = m.approval_code_id
-             SET m.status = CASE WHEN m.status = "pending" THEN "failed" ELSE m.status END,
-                 m.body = NULL, m.payload_erased_at = COALESCE(m.payload_erased_at, UTC_TIMESTAMP()),
-                 m.next_attempt_at = NULL, m.metadata_json = JSON_OBJECT("result", "superseded")
-             WHERE c.user_id = :user_id AND c.consumed_at IS NOT NULL
-               AND m.code_bearing = 1 AND m.payload_erased_at IS NULL'
-        );
-        $cancelMail->execute([':user_id' => $userId]);
+        $expireExisting->execute([':user_id' => $userId,':used'=>$now,':terminal'=>$now,':purged'=>$now]);
+        bushisa_signup_cancel_material_locked($pdo,$userId,'superseded');
 
         $insertCode = $pdo->prepare(
             'INSERT INTO student_email_approval_codes (user_id, email, code_hash, code_version, expires_at, attempts, created_at)
-             VALUES (:user_id, :email, :code_hash, "v1", DATE_ADD(NOW(), INTERVAL :ttl SECOND), 0, NOW())'
+             VALUES (:user_id, :email, :code_hash, "v1", :expires, 0, :issued)'
         );
         $insertCode->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $insertCode->bindValue(':email', strtolower($email), PDO::PARAM_STR);
         $insertCode->bindValue(':code_hash', $hash, PDO::PARAM_STR);
-        $insertCode->bindValue(':ttl', $ttl, PDO::PARAM_INT);
+        // Preserve the existing seconds precision/TTL settings. No new Q22
+        // default or resend allowance is adopted by Q11.
+        $issued=substr($now,0,19);
+        $insertCode->bindValue(':issued',$issued,PDO::PARAM_STR);
+        $insertCode->bindValue(':expires',bushisa_signup_time($issued,'+'.$ttl.' seconds'),PDO::PARAM_STR);
         $insertCode->execute();
         $codeId = (int) $pdo->lastInsertId();
+        \Bushisa\VerificationRetention\register_code($pdo,$codeId);
 
         bushisa_queue_signup_email($pdo, $email, $code, $ttl, $codeId);
+        $finalExpiry=bushisa_signup_expire_locked($pdo,$user);
+        if ($finalExpiry['state']!=='live') { return ['error'=>bushisa_signup_expiry_message($finalExpiry['state'])]; }
 
-        if ($ownsTransaction) {
-            $pdo->commit();
-        }
-        return $code;
-    } catch (Throwable $exception) {
-        if ($ownsTransaction && $pdo->inTransaction()) {
-            $pdo->rollBack();
-        }
-        throw $exception;
-    }
+        return ['code'=>$code];
+    });
+    // Business refusal follows commit so lazy expiry is not accidentally undone.
+    if (isset($result['error'])) { throw new RuntimeException($result['error']); }
+    return $result['code'];
 }
 
 function bushisa_mail_provider(): string
@@ -181,6 +173,9 @@ function bushisa_queue_signup_email(PDO $pdo, string $email, string $code, int $
 
 function bushisa_queue_fake_signup_email(PDO $pdo, string $email, string $code, int $ttlSeconds, ?int $codeId = null): void
 {
+    if (bushisa_q11_synthetic_enabled() && getenv('BUSHISA_Q11_QUEUE_FAKE')==='true' && $codeId!==null) {
+        bushisa_queue_q11_fake_email($pdo,$codeId,$email,$code); return;
+    }
     $fromAddress = getenv('MAIL_FROM_ADDRESS') ?: 'verification@bushisa.local';
     $subject = 'Your Bushisa approval code';
     $minutes = (int) ceil($ttlSeconds / 60);
@@ -200,6 +195,7 @@ function bushisa_queue_fake_signup_email(PDO $pdo, string $email, string $code, 
         'policy_status' => 'proposed',
     ], JSON_UNESCAPED_SLASHES), PDO::PARAM_STR);
     $statement->execute();
+    if ($codeId!==null) { bushisa_signup_register_mail_job($pdo,(int)$pdo->lastInsertId(),$codeId,'fixture_delivered'); }
     bushisa_enqueue_cleanup($pdo, 'synthetic_mail_cleanup', 'user', 0, [
         'email' => strtolower($email),
         'policy_status' => 'proposed',
@@ -208,63 +204,73 @@ function bushisa_queue_fake_signup_email(PDO $pdo, string $email, string $code, 
 
 function bushisa_terminalize_signup_code(PDO $pdo, int $codeId, int $userId, string $email, bool $consume): void
 {
+    bushisa_signup_transaction($pdo,function()use($pdo,$codeId,$userId,$email,$consume):void {
+    bushisa_signup_query($pdo,'SELECT id FROM users WHERE id=? FOR UPDATE',[$userId])->fetchColumn();
+    $at=bushisa_signup_now($pdo);
     $statement = $pdo->prepare(
         'UPDATE student_email_approval_codes
-         SET consumed_at = CASE WHEN :consume = 1 THEN COALESCE(consumed_at, UTC_TIMESTAMP()) ELSE consumed_at END,
-             terminal_at = COALESCE(terminal_at, UTC_TIMESTAMP()),
+         SET consumed_at = CASE WHEN :consume = 1 AND terminal_at IS NULL AND code_hash IS NOT NULL THEN COALESCE(consumed_at, :consumed) ELSE consumed_at END,
+             terminal_at = COALESCE(terminal_at, :terminal),
              code_hash = NULL,
-             purged_at = COALESCE(purged_at, UTC_TIMESTAMP())
-         WHERE id = :id'
+             purged_at = COALESCE(purged_at, :purged)
+         WHERE id = :id AND user_id=:owner'
     );
     $statement->execute([
         ':consume' => $consume ? 1 : 0,
         ':id' => $codeId,
+        ':owner'=>$userId,':consumed'=>$at,':terminal'=>$at,':purged'=>$at,
     ]);
 
-    bushisa_erase_terminal_signup_material($pdo, $userId, $email);
+    bushisa_signup_cancel_material_locked($pdo,$userId,'terminal_challenge');
+    });
 }
 
 function bushisa_cleanup_expired_signup_codes(PDO $pdo): int
 {
     ensure_operational_schema($pdo);
 
-    $expired = $pdo->query(
+    $expired = $pdo->prepare(
         'SELECT id, user_id, email
          FROM student_email_approval_codes
          WHERE consumed_at IS NULL
-           AND expires_at <= UTC_TIMESTAMP()
-           AND (terminal_at IS NULL OR code_hash IS NOT NULL)'
+           AND expires_at <= ?
+           AND (terminal_at IS NULL OR code_hash IS NOT NULL) ORDER BY id LIMIT 100'
     );
-    $rows = $expired !== false ? ($expired->fetchAll(PDO::FETCH_ASSOC) ?: []) : [];
+    $expired->execute([bushisa_signup_now($pdo)]);
+    $rows = $expired->fetchAll(PDO::FETCH_ASSOC);
+    $count=0;
     foreach ($rows as $row) {
-        bushisa_terminalize_signup_code($pdo, (int) $row['id'], (int) $row['user_id'], (string) $row['email'], false);
+        $count+=bushisa_signup_transaction($pdo,function()use($pdo,$row):int {
+            bushisa_signup_query($pdo,'SELECT id FROM users WHERE id=? FOR UPDATE',[$row['user_id']])->fetchColumn();
+            $fresh=bushisa_signup_query($pdo,'SELECT * FROM student_email_approval_codes WHERE id=? FOR UPDATE',[$row['id']])->fetch(PDO::FETCH_ASSOC);
+            if ($fresh && $fresh['consumed_at']===null && ($fresh['terminal_at']===null || $fresh['code_hash']!==null) && bushisa_signup_time($fresh['expires_at'])<=bushisa_signup_now($pdo)) {
+                bushisa_terminalize_signup_code($pdo,(int)$row['id'],(int)$row['user_id'],(string)$row['email'],false);
+                return 1;
+            }
+            return 0;
+        });
     }
 
-    return count($rows);
+    return $count;
 }
 
-function bushisa_verify_signup_code(PDO $pdo, int $userId, string $code): array
+function bushisa_verify_signup_code(PDO $pdo, int $userId, string $code,?int $sessionVersion=null): array
 {
     ensure_operational_schema($pdo);
 
-    $ownsTransaction = !$pdo->inTransaction();
-    if ($ownsTransaction) {
-        $pdo->beginTransaction();
-    }
-    try {
-        $owner = $pdo->prepare('SELECT id FROM users WHERE id = :id FOR UPDATE');
+    bushisa_signup_require_schema($pdo);
+    bushisa_signup_test_point($pdo,'q11_mixed');
+    return bushisa_signup_transaction($pdo,function()use($pdo,$userId,$code,$sessionVersion):array {
+        $owner = $pdo->prepare('SELECT * FROM users WHERE id = :id FOR UPDATE');
         $owner->execute([':id' => $userId]);
-        $result = bushisa_verify_signup_code_locked($pdo, $userId, $code);
-        if ($ownsTransaction) {
-            $pdo->commit();
+        $u=$owner->fetch(PDO::FETCH_ASSOC);
+        if (!$u || ($sessionVersion!==null && (int)$u['session_version']!==$sessionVersion)) { return ['success'=>false,'error'=>'This account or session is unavailable.']; }
+        $expiry=bushisa_signup_expire_locked($pdo,$u);
+        if ($expiry['state']!=='live' || !bushisa_signup_user_live($u) || $u['account_status']!=='pending_email' || (int)$u['is_verified']!==0) {
+            return ['success'=>false,'error'=>bushisa_signup_expiry_message($expiry['state'])];
         }
-        return $result;
-    } catch (Throwable $exception) {
-        if ($ownsTransaction && $pdo->inTransaction()) {
-            $pdo->rollBack();
-        }
-        throw $exception;
-    }
+        return bushisa_verify_signup_code_locked($pdo,$userId,$code);
+    });
 }
 
 function bushisa_verify_signup_code_locked(PDO $pdo, int $userId, string $code): array
@@ -295,8 +301,7 @@ function bushisa_verify_signup_code_locked(PDO $pdo, int $userId, string $code):
         return ['success' => false, 'error' => 'This approval code has too many failed attempts. Request a new code.'];
     }
 
-    $expiresAt = new DateTimeImmutable((string) $row['expires_at'], new DateTimeZone('UTC'));
-    if ($expiresAt < new DateTimeImmutable('now', new DateTimeZone('UTC'))) {
+    if (bushisa_signup_time((string)$row['expires_at'])<=bushisa_signup_now($pdo)) {
         bushisa_terminalize_signup_code($pdo, (int) $row['id'], $userId, (string) $row['email'], false);
         return ['success' => false, 'error' => 'This approval code has expired. Request a new code.'];
     }
@@ -313,8 +318,16 @@ function bushisa_verify_signup_code_locked(PDO $pdo, int $userId, string $code):
         return ['success' => false, 'error' => 'The approval code is incorrect.'];
     }
 
-    $consume = $pdo->prepare('UPDATE student_email_approval_codes SET consumed_at = NOW() WHERE id = :id');
-    $consume->execute([':id' => (int) $row['id']]);
+    $user=bushisa_signup_query($pdo,'SELECT * FROM users WHERE id=? FOR UPDATE',[$userId])->fetch(PDO::FETCH_ASSOC);
+    $expiry=bushisa_signup_expire_locked($pdo,$user);
+    if ($expiry['state']!=='live') { return ['success'=>false,'error'=>bushisa_signup_expiry_message($expiry['state'])]; }
+    $at=bushisa_signup_now($pdo);
+    if ($at>=$expiry['expires_at']) {
+        bushisa_signup_expire_locked($pdo,$user);
+        return ['success'=>false,'error'=>bushisa_signup_expiry_message('expired')];
+    }
+    bushisa_signup_query($pdo,'UPDATE signup_lifecycle SET first_email_approved_at=COALESCE(first_email_approved_at,?),onboarding_expires_at=COALESCE(onboarding_expires_at,?),anchor_status="recorded_email_approval",version=version+1 WHERE account_id=?',
+        [$at,bushisa_signup_time($at,'+7 days'),$userId]);
 
     $approve = $pdo->prepare(
         'UPDATE users
@@ -327,11 +340,23 @@ function bushisa_verify_signup_code_locked(PDO $pdo, int $userId, string $code):
 
     bushisa_terminalize_signup_code($pdo, (int) $row['id'], $userId, (string) $row['email'], true);
 
-    return ['success' => true, 'error' => null];
+    require_once __DIR__.'/managed_session.php';
+    \Bushisa\ManagedSession\transition_locked($pdo,$userId,(int)$user['session_version'],(int)$user['session_version']+1,'email_approval');
+
+    return ['success' => true, 'error' => null,'session_version'=>(int)$user['session_version']+1];
 }
 
-function bushisa_complete_adult_onboarding(PDO $pdo, int $userId, string $dateOfBirth): array
+function bushisa_complete_adult_onboarding(PDO $pdo, int $userId, string $dateOfBirth,?int $sessionVersion=null): array
 {
+    bushisa_signup_require_schema($pdo);
+    bushisa_signup_test_point($pdo,'q11_mixed');
+    return bushisa_signup_transaction($pdo,function()use($pdo,$userId,$dateOfBirth,$sessionVersion):array {
+    $u=bushisa_signup_query($pdo,'SELECT * FROM users WHERE id=? FOR UPDATE',[$userId])->fetch(PDO::FETCH_ASSOC);
+    if (!$u || ($sessionVersion!==null && (int)$u['session_version']!==$sessionVersion)) { return ['success'=>false,'error'=>'This account or session is unavailable.']; }
+    $expiry=bushisa_signup_expire_locked($pdo,$u);
+    if ($expiry['state']!=='live' || !bushisa_signup_user_live($u) || $u['account_status']!=='pending_onboarding' || (int)$u['is_verified']!==1) {
+        return ['success'=>false,'error'=>bushisa_signup_expiry_message($expiry['state'])];
+    }
     $age = verify_age($dateOfBirth);
     if (!$age['is_valid']) {
         $status = ($age['age'] !== null && $age['age'] < 18) ? 'underage_blocked' : 'pending_onboarding';
@@ -345,10 +370,22 @@ function bushisa_complete_adult_onboarding(PDO $pdo, int $userId, string $dateOf
             ':status' => $status,
             ':user_id' => $userId,
         ]);
+        if ($status==='underage_blocked') { bushisa_signup_cancel_material_locked($pdo,$userId,'eligibility_rejected',true); }
 
         return ['success' => false, 'error' => $age['error'] ?? 'Age verification failed.'];
     }
 
+    // Lock the profile before the final deadline check as well. Waiting for a
+    // profile writer must not permit activation using an earlier clock read.
+    if (!bushisa_signup_query($pdo,'SELECT user_id FROM profiles WHERE user_id=? FOR UPDATE',[$userId])->fetchColumn()) {
+        return ['success'=>false,'error'=>'This signup is unavailable.'];
+    }
+    $currentExpiry=bushisa_signup_expire_locked($pdo,$u);
+    $completedAt=bushisa_signup_now($pdo);
+    if ($currentExpiry['state']!=='live' || $completedAt>=$currentExpiry['expires_at']) {
+        bushisa_signup_expire_locked($pdo,$u);
+        return ['success'=>false,'error'=>bushisa_signup_expiry_message('expired')];
+    }
     $statement = $pdo->prepare(
         'UPDATE profiles
          SET date_of_birth = :date_of_birth
@@ -367,6 +404,11 @@ function bushisa_complete_adult_onboarding(PDO $pdo, int $userId, string $dateOf
          WHERE id = :user_id'
     );
     $activate->execute([':user_id' => $userId]);
+    bushisa_signup_query($pdo,'UPDATE signup_lifecycle SET onboarding_completed_at=COALESCE(onboarding_completed_at,?),version=version+1 WHERE account_id=?',[$completedAt,$userId]);
 
-    return ['success' => true, 'error' => null];
+    require_once __DIR__.'/managed_session.php';
+    \Bushisa\ManagedSession\transition_locked($pdo,$userId,(int)$u['session_version'],(int)$u['session_version']+1,'adult_onboarding');
+
+    return ['success' => true, 'error' => null,'session_version'=>(int)$u['session_version']+1];
+    });
 }
