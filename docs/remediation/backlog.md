@@ -5,6 +5,11 @@ Updated: 2026-10-20, Africa/Harare.
 ## Current release path: controlled direct update, staging deferred
 
 Latest owner-metadata follow-up: [observed-schema rehearsal and release blockers](owner-schema-release-rehearsal-2026-10-20.md).
+Implementation `3dbcb50` has six successful jobs in each of its push/PR runs;
+[exact hosted artifacts](evidence/owner-schema-hosted-ci-2026-10-21.json) verify
+28 owner-schema and 16 generic release cases per run, source/merge and digests.
+The hosted profile does not execute the local verified-TLS subcase. This is
+candidate evidence, not production acceptance or complete artifact identity.
 Owner DOCX establishes MySQL 8.0.46-azure, UTC/RR, exact settings, four ledger
 markers, broad configured-user grants and nine baseline-matching file samples.
 All 227 columns/122 index entries/13 FK rules/29 tables match the pinned 004

@@ -67,6 +67,12 @@ supplied file hash. `signin.php` was absent in that historical source too:
 the actual sign-in route is **login.php**; the earlier probe named the wrong
 file. Absence is not evidence of a deleted deployed sign-in journey.
 
+The [241-path full comparison](evidence/owner-schema-change-inventory-2026-10-21.json)
+pins every old/new Git blob from known comparator `0bf311f` to implementation
+`3dbcb50bbb8e3401e2d7688143c4d406dbf0d426`. It includes the entire accumulated
+change, not just this repair. Evidence-only follow-up files do not alter that
+application comparison; complete deployed identity is still unestablished.
+
 This is a strong baseline lead, **not complete app identity**. Identical sampled
 files cannot exclude mixed/untracked deployment files. A script under
 `wwwroot/deploy/mail-webjob` does not attest the independently installed
@@ -206,6 +212,34 @@ the same reviewed DB_HOST/DB_NAME/DB_SSL_CA. Migration credentials are private
 release-process overrides, unavailable to runtime/WebJob. Merely configuring
 different names does not prove their grants are least privilege. No secret
 value belongs in Git, command output or this document.
+
+The local fixture establishes process binding and SQL grant behavior, **not
+secret isolation**. Review whether the selected worker-secret delivery also
+makes credentials visible to web/SCM processes in the shared App Service.
+Do not describe two app-setting names as a separate security boundary or
+silently broaden either identity to compensate. Actual secret placement,
+effective access and definer lifecycle remain configuration/security gates.
+
+## Exact implementation-candidate hosted CI
+
+Implementation `3dbcb50bbb8e3401e2d7688143c4d406dbf0d426` passed all six jobs in
+[feature push 39504794381](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504794381)
+and [draft PR run 39504799952](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504799952).
+PR 8 test checkout is `e67b43137a971c939d83e09737f1744d631bec0a`; its parents
+and tree relationship, clean report attribution and downloaded artifact
+digests are verified in the [hosted record](evidence/owner-schema-hosted-ci-2026-10-21.json).
+Both reports show **28 owner-schema PASS** plus **16 generic release PASS**,
+PHP 8.5.11/upstream MySQL 8.0.46. The hosted ordinary-loopback profile does
+**not** execute OS01.TLS; the local 29-case report alone covers verified PDO TLS.
+The remaining jobs cover lint/units, SMTP/outbox/lifecycle/report/pair/import
+and session regressions, rendered route overlap, L06 browser/HTTP and guarded
+stage implementation. Those stage implementation checks are not AZS execution.
+
+The follow-up commit records this implementation evidence and configuration
+limits only. Its own head/run attribution belongs to the matching draft PR;
+the committed implementation record must never be relabelled to that later
+SHA. Main's deploy/manual workflow was inspected and unchanged; only this
+feature branch was pushed. No production or managed-staging acceptance follows.
 
 ## Legacy transitions and rollback stop conditions
 
