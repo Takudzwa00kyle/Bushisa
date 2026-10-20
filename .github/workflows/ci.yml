@@ -38,11 +38,14 @@ jobs:
           node --check tests/support/l06_browser_server.js
           node --check tests/support/browser_overlap.js
           node --check tests/support/l06_browser_reporter.js
+          node --check bin/managed_stage_driver.js
+          node --check tests/support/stage_tls_proxy.js
       - name: Unit checks
         run: |
           php tests/unit_signup_verification.php
           php tests/unit_mail_configuration.php
           php tests/unit_disposable_database_guard.php
+          php -n -d extension=ctype tests/unit_staging_guard.php --expect-no-mysql
           php tests/unit_legacy_history.php
           php -n -d extension=ctype -d disable_classes=PDO tests/unit_synthetic_import_guard.php
           php -n -d extension=ctype -d disable_classes=PDO tests/unit_l02e_controls.php
@@ -261,4 +264,62 @@ jobs:
           path: |
             test-results/l06-browser.json
             test-results/l06-http.json
+          if-no-files-found: error
+
+  guarded-staging-acceptance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_test_stage_ci
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      MAIL_TRANSPORT: fake
+      STAGE_RUN_BROWSER: "true"
+      BUSHISA_STAGE_TEST_ENGINE_SETUP: "true"
+      STAGE_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, curl, ctype
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: composer install --no-interaction --prefer-dist
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Allow the owned loopback HTTPS fixture on port 443
+        # Ephemeral CI runner only, no cloud or application configuration.
+        run: sudo sysctl -w net.ipv4.ip_unprivileged_port_start=0 > /dev/null
+      - name: Pure staging guards without the MySQL driver
+        run: php -n -d extension=ctype tests/unit_staging_guard.php --expect-no-mysql
+      - name: Guarded carrier, actual HTTPS ingress driver and concurrent consume
+        run: php tests/integration_staging.php
+      - name: Sanitized staging implementation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: guarded-staging-results
+          path: test-results/staging-local.json
           if-no-files-found: error

@@ -262,15 +262,22 @@ even with `--query`**: client-side projection still fetches the secret-bearing
 endpoint. Likewise no publishing-profile, Key Vault secret-get or storage-key
 operation. Record key/reference **presence and resolution status only**.
 
-## 4. Two staging blockers and proposed implementation only
+## 4. Audited staging blockers and guarded implementation
 
-| Blocker | Current behavior and protection | Why managed staging cannot pass now | Smallest proposed adaptation / required tests |
+The table records ordinary production/loopback behavior audited at `7326716`.
+The [guarded implementation follow-up](guarded-staging-implementation-2026-10-20.md)
+supplies the separate stage-origin profile, private CLI fake carrier and ingress
+driver, preserving these production protections. Actual managed execution still
+needs the accepted destination/identity profile; local implementation evidence
+does not establish Azure acceptance.
+
+| Baseline blocker | Preserved production/loopback protection | Limitation without guarded profile | Guarded follow-up / required acceptance |
 |---|---|---|---|
-| STG-I01 trusted origin | [password_reset.php](../../php/password_reset.php) `bushisa_reset_trusted_origin()` uses configured `APP_BASE_URL`, rejects user/pass/query/fragment, requires HTTPS and host exactly `bushisa.me` with absent/443 port outside synthetic mode. It never builds links from Host/redirect input. Synthetic relaxation needs `BUSHISA_PASSWORD_RESET_SYNTHETIC` and **all** `bushisa_q11_synthetic_enabled()` guards, including loopback DB host, `bushisa_test_q11_*`, development/debug-off, runtime-DDL-off, fake provider/transport and explicit synthetic flag. | An Azure staging hostname or `staging.bushisa.me` is rejected. Remote managed MySQL cannot satisfy that loopback cohort. Request UX stays generic and writes no reset issuance. Setting the staging URL to the production origin, tunnelling a live database through localhost, or setting flags to impersonate a fixture is not an acceptable workaround. | A separately reviewed staging-only origin/destination profile, exact HTTPS hostname and explicit dedicated synthetic resource/account-generation proof. Preserve the default production `bushisa.me` rule, no wildcard hosts or request-selected origin. Reject missing/production/wrong resource, unknown host, userinfo/query/fragment, bad port/scheme and spoofed Host/redirect; prove valid staging links remain on the approved staging origin, GET/HEAD remain inert and existing 15m/supersession/consume rules unchanged. No implementation in this audit. |
-| STG-I02 fake carrier | [bin/dispatch_mail.php](../../bin/dispatch_mail.php) rejects `MAIL_PROVIDER != smtp` **before DB load** and constructs an SMTP mailer. [signup_verification.php](../../php/signup_verification.php) rejects fake mail in production. Existing service [mail_delivery.php](../../php/mail_delivery.php) `bushisa_dispatch_mail(..., $transport)` supports injected test callbacks; [reset jobs](../../php/password_reset_mail_jobs.php) refuse sendable fake jobs without an explicit carrier. | Running the production CLI with fake settings fails; fake mode alone does not deliver/reset a job. Supplying real SMTP would violate this acceptance plan and add real-mail dependencies. Existing guarded fixture callbacks are local-only, not a managed-staging CLI/worker adapter. | Separate CLI-only synthetic carrier entry point/profile with pre-connection immutable destination checks, synthetic-recipient/account allowlist and scoped in-memory receipt capture. Reuse service state machines, encryption, claim/version, deadlines and cleanup. Keep production CLI SMTP-only and production fake-provider denial. Test default denial, wrong target/recipient/purpose, no SMTP/network access, retries/cancellation/in-flight and late-result handling, password-change notices, one consume winner and secret-free output. A missing carrier must fail, never fall back to SMTP. Entry point does not yet exist. |
+| STG-I01 trusted origin | [password_reset.php](../../php/password_reset.php) `bushisa_reset_trusted_origin()` uses configured `APP_BASE_URL`, rejects user/pass/query/fragment, requires HTTPS and host exactly `bushisa.me` with absent/443 port outside synthetic mode. It never builds links from Host/redirect input. Synthetic relaxation needs `BUSHISA_PASSWORD_RESET_SYNTHETIC` and **all** `bushisa_q11_synthetic_enabled()` guards, including loopback DB host, `bushisa_test_q11_*`, development/debug-off, runtime-DDL-off, fake provider/transport and explicit synthetic flag. | An Azure staging hostname or `staging.bushisa.me` is rejected. Remote managed MySQL cannot satisfy that loopback cohort. Request UX stays generic and writes no reset issuance. Setting the staging URL to the production origin, tunnelling a live database through localhost, or setting flags to impersonate a fixture is not an acceptable workaround. | A separately reviewed staging-only origin/destination profile, exact HTTPS hostname and explicit dedicated synthetic resource/account-generation proof. Preserve the default production `bushisa.me` rule, no wildcard hosts or request-selected origin. Reject missing/production/wrong resource, unknown host, userinfo/query/fragment, bad port/scheme and spoofed Host/redirect; prove valid staging links remain on the approved staging origin, GET/HEAD remain inert and existing 15m/supersession/consume rules unchanged. The guarded follow-up implements this profile; managed acceptance remains NOT RUN. |
+| STG-I02 fake carrier | [bin/dispatch_mail.php](../../bin/dispatch_mail.php) rejects `MAIL_PROVIDER != smtp` **before DB load** and constructs an SMTP mailer. [signup_verification.php](../../php/signup_verification.php) rejects fake mail in production. Existing service [mail_delivery.php](../../php/mail_delivery.php) `bushisa_dispatch_mail(..., $transport)` supports injected test callbacks; [reset jobs](../../php/password_reset_mail_jobs.php) refuse sendable fake jobs without an explicit carrier. | Running the production CLI with fake settings fails; fake mode alone does not deliver/reset a job. Supplying real SMTP would violate this acceptance plan and add real-mail dependencies. Existing guarded fixture callbacks are local-only, not a managed-staging CLI/worker adapter. | Separate CLI-only synthetic carrier entry point/profile with pre-connection immutable destination checks, synthetic-recipient/account allowlist and scoped in-memory receipt capture. Reuse service state machines, encryption, claim/version, deadlines and cleanup. Keep production CLI SMTP-only and production fake-provider denial. Test default denial, wrong target/recipient/purpose, no SMTP/network access, retries/cancellation/in-flight and late-result handling, password-change notices, one consume winner and secret-free output. A missing carrier must fail, never fall back to SMTP. The separate guarded entry point now exists in the follow-up; managed execution remains NOT RUN. |
 
-Implement these together as one bounded proposed engineering task using the
-destination contract below, with initial tests on owned disposable systems.
+These requirements govern the bounded implementation using the destination
+contract below, with initial tests on owned disposable systems.
 Acceptance of the actual manifest/security profile is required before managed
 execution; no production throttle decision is needed for explicitly labelled
 synthetic limits. Adapting these two surfaces alone
@@ -279,9 +286,9 @@ readiness. Do not weaken local-harness guards to retarget destructive suites.
 
 ### 4.1 Final bounded engineering brief: STG-I01 / STG-I02 / managed driver
 
-**Proposed only; no application changes or tests executed in this documentation
-checkpoint.** Implement on a dedicated feature branch containing the tested
-baseline/audit. This brief supplies the next concrete implementation task;
+**Implemented in the bounded follow-up; managed execution remains GATED / NOT
+RUN.** The numbered brief remains the engineering acceptance contract. See the
+linked implementation for concrete guards, commands and exact local/CI evidence;
 it does not provision or authorize a real staging destination.
 
 1. **One stage destination contract, default-deny.** Define a protected,
@@ -422,8 +429,10 @@ variant remains NOT RUN; a synthetic hold/MFA fixture is not a staffed authority
 
 ### 5.3 Lane M: actual isolated App Service + managed MySQL
 
-This lane remains **GATED** by section 3 capture, the target manifest and
-STG-I01/I02 for reset. It needs separate execution authorization; this document
+This lane remains **GATED** by remaining section 3 capture, the accepted target
+manifest and verified guarded-origin/carrier/driver configuration. STG-I01/I02
+have a separate implementation; local fixture evidence is not this lane's
+execution. It needs separate execution authorization; this document
 contains no deploy/provision command. The staging artifact must be pinned and
 checked independently of the main-only production workflow. Keep automatic
 workers and reset issuance off during install/upgrade. Synthetic data only.
@@ -553,8 +562,8 @@ passing refusal test or an execution result. Attach separate Lane H/M evidence.
 | AZS05 | Representative 015-to-016 upgrade preserves original rows/anchors/generations; repeat safe after reviewed partial failure | GATED: reviewed synthetic fixture/projection; engineering |
 | AZS06 | Private ingress routes/assets work; hidden/config/SQL/test/log/CLI paths denied | GATED: stage artifact/root/NGINX configuration; security |
 | AZS07 | Signup/email approval/adult/onboarding/replacement clocks stay immutable and restricted | GATED: fake carrier/ingress driver; engineering |
-| AZS08 | Reset origin exact stage allowlist/default production denial and no Host/redirect override | GATED: proposed STG-I01; security + engineering |
-| AZS09 | Fake carrier cannot reach SMTP; purpose/envelope/deadline/cancellation/late-result behavior correct | GATED: proposed STG-I02; engineering/email operations |
+| AZS08 | Reset origin exact stage allowlist/default production denial and no Host/redirect override | GATED: implemented profile needs actual accepted managed target/security execution; security + engineering |
+| AZS09 | Fake carrier cannot reach SMTP; purpose/envelope/deadline/cancellation/late-result behavior correct | GATED: implemented carrier needs actual guarded managed execution; engineering/email operations |
 | AZS10 | Six rendered L06 behaviors through actual ingress, no proof in URLs/storage/diagnostics/telemetry | GATED: STG-I01/I02 + guarded driver; engineering/manual witnesses |
 | AZS11 | 25 HTTP behavior families on supported managed-stage driver, including negative authorization | GATED: driver/fixtures; engineering |
 | AZS12 | Two real existing sessions lose page/API access; new login works, reset does not grant other eligibility | GATED: stage origin/carrier/session topology; security |
@@ -578,10 +587,10 @@ passing refusal test or an execution result. Attach separate Lane H/M evidence.
 | Existing policy proposals Q12/Q13/Q16/Q23/Q26/Q38 | Anti-replay/field-purpose review, active-chat timing, broader metadata/copy values, recovery objectives and actual inventory | Do not choose missing durations or hard-code a universal 49d. These do not reopen approved report/pair/probation/signup/reset clocks or block independent approved engineering work. |
 | Engineering (existing approvals suffice) | STG-I01/I02 and managed-stage driver; supported session/storage/recovery adapters, lifecycle coverage, private media and ingress protections | Prepare/review bounded code changes separately; no weakening guards, enabling legacy pairs, scheduling production cleanup or adopting Q40 by inference. |
 
-**Next concrete implementation task:** implement the bounded guarded staging
-origin, CLI fake carrier and managed-stage driver in section 4.1 on disposable
-systems only, when separately authorized. No Azure provisioning is needed for
-its initial guarded tests. **Next owner action before managed execution:**
+**Bounded implementation follow-up:** the guarded staging origin, private CLI
+fake carrier and managed-stage driver are recorded in the linked implementation
+evidence. Local disposable tests do not close AZS01-AZS18.
+**Next owner action before managed execution:**
 accept named engineering/security/operations primary and backup, choose/fund
 separate isolated staging resources (B1 has no slot), and bind the destination
 manifest; provide redacted hosted application/worker source/artifact provenance
@@ -589,10 +598,11 @@ and the unread NGINX advisory details. Use section 3 only for remaining facts,
 not to repeat the supplied observations; no secrets or user/database records
 are requested. Real mail, provider fencing,
 independent recovery and qualified go/no-go remain distinct gates. No settled
-decision is reopened; the engineering brief is finalized as proposed work,
-not an implemented or accepted managed-stage flow.
+decision is reopened; the engineering brief supplies an implemented guarded
+path, not an executed or accepted managed-stage flow.
 
-Executed documentation checks: **108 local link targets**, 12 compatibility
+At the owner-observation documentation checkpoint, executed checks were
+**108 local link targets**, 12 compatibility
 categories, exact baseline CI/merge/two four-job successes, all 18 new cases
 NOT RUN, migration inventory 001-016 and documentation-only changes;
 `git diff --check` passed. The owner observation ledger was checked for exact
@@ -602,4 +612,5 @@ engineering-brief anchor passed; decisions and historical CI/SC26 evidence
 were unchanged. Proposed-versus-approved boundaries and command scope were
 reviewed against the source. These are documentation checks, not functional
 acceptance. No database, browser acceptance, staging, recovery or application
-tests were rerun for this documentation change.
+tests were rerun for that documentation-only checkpoint. The new implementation's
+checks and candidate attribution are separate in its linked evidence.

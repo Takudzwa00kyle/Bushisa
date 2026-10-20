@@ -11,6 +11,17 @@ and [roadmap addendum](p0-p2-status-2026-10-18.md#sc26-follow-up-after-774547cf)
 
 ## Azure compatibility and staging-plan checkpoint
 
+Implementation follow-up: [guarded stage origin, private fake carrier and
+managed-stage driver](guarded-staging-implementation-2026-10-20.md) supply the
+separate default-deny configuration path, actual UUID/principal/marker/grant
+checks, explicit fixture preparation and non-destructive execution driver.
+The new SG matrix records local implementation tests separately from managed
+AZS01-AZS18, which remain **NOT RUN**. Production SMTP/origin/default-off reset,
+old loopback guards, Q47/Q40 decisions and SC26 production **PARTIAL** remain.
+No funded/accepted Azure stage manifest or operator appointment is invented.
+See the follow-up for exact source, versions, commands and hosted CI;
+historical `7326716` is not new implementation evidence.
+
 The [readiness audit and two-lane staging plan](azure-compatibility-staging-plan-2026-10-19.md)
 continues from tested `7326716` on a separate documentation branch. Read-only
 GitHub metadata reconfirms both four-job CI successes and PR merge checkout
@@ -28,11 +39,10 @@ remain UNKNOWN. OneDeploy UUID is not a Git SHA; zero counters are not delivery,
 erasure or lifecycle-coverage evidence. No cloud/DB/settings/mail operation
 occurred in this update.
 
-Managed staging is **GATED** by the exact production-host reset-origin check,
-the SMTP-only CLI dispatcher, a guarded managed-stage driver and actual
-destination/identity/storage/recovery evidence. Proposed STG-I01/STG-I02 keep
-production origin/fake-mail protections and existing proof/deadline rules;
-they are separate implementation work, not changes made by this audit. The
+Managed staging is **GATED** by the actual accepted destination/identity,
+configured guarded origin/carrier/driver, storage/recovery and operational
+evidence. STG-I01/STG-I02 have the linked bounded implementation; production
+origin/fake-mail protections and existing proof/deadline rules remain. The
 existing loopback harness is a different procedure, never managed Azure
 acceptance. AZS01-AZS18 are all **NOT RUN**, separate from existing matrices.
 SC26 remains PARTIAL for production/shared-store topology. Q47 production
@@ -41,9 +51,9 @@ qualified reviews remain open. The exact observed
 `APPLICATIONINSIGHTS_CONNECTIONS_STRING` has no consumer in the scoped candidate
 code search; no value, correction or activation was attempted and D10 stays
 GATED. The [final bounded engineering brief](azure-compatibility-staging-plan-2026-10-19.md#41-final-bounded-engineering-brief-stg-i01--stg-i02--managed-driver)
-defines the next implementation: default-deny stage destination/origin admission,
-separate CLI fake carrier and guarded managed-stage driver, tested first on
-disposable systems under separate authorization. Owner action before managed
+defines the implemented scope: default-deny stage destination/origin admission,
+separate CLI fake carrier and guarded managed-stage driver, with disposable
+execution evidence in the follow-up. Owner action before managed
 execution: accepted primary/backup, funded isolated app/compute (B1 has no slot),
 destination manifest, redacted app/worker provenance and the unread NGINX
 advisory. Remaining metadata should be collected selectively, without repeating

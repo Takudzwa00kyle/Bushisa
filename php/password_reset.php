@@ -5,6 +5,7 @@ require_once __DIR__ . '/mail_delivery.php';
 require_once __DIR__ . '/password_policy.php';
 require_once __DIR__ . '/age_verification.php';
 require_once __DIR__ . '/sanitize.php';
+require_once __DIR__ . '/staging_guard.php';
 
 const BUSHISA_RESET_TTL = 900;
 const BUSHISA_RESET_QUEUE_MAX = 300;
@@ -86,6 +87,10 @@ function bushisa_reset_eligible(?array $u): bool
 
 function bushisa_reset_trusted_origin(): ?string
 {
+    if (\Bushisa\Staging\requested()) {
+        try { return \Bushisa\Staging\context()['origin']; }
+        catch (Throwable) { return null; }
+    }
     $raw = trim((string) (getenv('APP_BASE_URL') ?: ''));
     $parts = parse_url($raw);
     if (!is_array($parts) || !isset($parts['scheme'],$parts['host']) || array_intersect(['user','pass','query','fragment'], array_keys($parts)) !== []) return null;
@@ -152,6 +157,12 @@ function bushisa_reset_cancel_account(PDO $pdo,int $account): void
 /** Existence-neutral endpoint service. It never accepts a caller-selected recipient. */
 function bushisa_reset_request(PDO $pdo, string $submittedEmail): void
 {
+    $stage = null;
+    if (\Bushisa\Staging\requested()) {
+        $stage = \Bushisa\Staging\context();
+        \Bushisa\Staging\database($pdo, $stage);
+        if (!in_array(strtolower(trim($submittedEmail)), $stage['recipients'], true)) return;
+    }
     if (!bushisa_reset_enabled() || !bushisa_reset_schema_ready($pdo) || bushisa_reset_trusted_origin() === null) return;
     $email = clean_email($submittedEmail);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 254) $email = 'invalid-' . hash('sha256', substr($submittedEmail,0,512)) . '@invalid.example';
@@ -159,7 +170,7 @@ function bushisa_reset_request(PDO $pdo, string $submittedEmail): void
     $origin = bushisa_reset_trusted_origin();
     $ip = (string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
     $subjects = [bushisa_reset_hash('email', $email), bushisa_reset_hash('ip', $ip)];
-    bushisa_reset_transaction($pdo, function () use ($pdo,$email,$cfg,$origin,$subjects): void {
+    bushisa_reset_transaction($pdo, function () use ($pdo,$email,$cfg,$origin,$subjects,$stage): void {
         foreach ($subjects as $subject) {
             $pdo->prepare('INSERT INTO password_reset_rate_subjects(subject_hash,touched_at) VALUES(?,UTC_TIMESTAMP(6)) ON DUPLICATE KEY UPDATE touched_at=VALUES(touched_at)')->execute([$subject]);
         }
@@ -177,6 +188,7 @@ function bushisa_reset_request(PDO $pdo, string $submittedEmail): void
         if ($rateLimited) return;
         $u = bushisa_reset_account($pdo,$email,true);
         if (!bushisa_reset_eligible($u)) return;
+        if ($stage !== null && !\Bushisa\Staging\account($pdo,$stage,(int)$u['id'],(string)$u['signup_attempt_key'],(string)$u['email'])) return;
         $recipient = strtolower((string)$u['email']); $generation=(string)$u['signup_attempt_key']; $account=(int)$u['id'];
         $st=$pdo->prepare('INSERT INTO password_reset_state(account_id,account_generation,issuance_generation,updated_at) VALUES(?,?,0,?) ON DUPLICATE KEY UPDATE account_id=VALUES(account_id)');
         $st->execute([$account,$generation,$now]);
@@ -207,15 +219,21 @@ function bushisa_reset_request(PDO $pdo, string $submittedEmail): void
 /** GET/scanner-safe: only the explicit CSRF-protected POST consumes proof. */
 function bushisa_reset_consume(PDO $pdo, string $token, string $newPassword): bool
 {
+    $stage = null;
+    if (\Bushisa\Staging\requested()) {
+        $stage = \Bushisa\Staging\context();
+        \Bushisa\Staging\database($pdo,$stage);
+    }
     if (!preg_match('/\A[a-f0-9]{64}\z/', $token) || !bushisa_reset_schema_ready($pdo)) return false;
     if (validate_account_password($newPassword) !== []) return false;
     $hash=hash('sha256',$token);
     $lookup=$pdo->prepare('SELECT account_id FROM password_reset_challenges WHERE token_hash=? LIMIT 1'); $lookup->execute([$hash]); $account=(int)$lookup->fetchColumn();
     if ($account<1) return false;
     $newHash=hash_password($newPassword);
-    return bushisa_reset_transaction($pdo,function()use($pdo,$hash,$account,$newHash):bool {
+    return bushisa_reset_transaction($pdo,function()use($pdo,$hash,$account,$newHash,$stage):bool {
         $uStmt=$pdo->prepare('SELECT u.id,u.email,u.is_verified,u.is_active,u.is_suspended,u.account_status,u.deleted_at,u.session_version,u.signup_attempt_key,p.date_of_birth FROM users u LEFT JOIN profiles p ON p.user_id=u.id WHERE u.id=? FOR UPDATE');
         $uStmt->execute([$account]); $u=$uStmt->fetch(PDO::FETCH_ASSOC);
+        if ($stage !== null && (!$u || !\Bushisa\Staging\account($pdo,$stage,(int)$u['id'],(string)$u['signup_attempt_key'],(string)$u['email']))) return false;
         $cStmt=$pdo->prepare('SELECT * FROM password_reset_challenges WHERE token_hash=? FOR UPDATE'); $cStmt->execute([$hash]); $c=$cStmt->fetch(PDO::FETCH_ASSOC);
         if (!$c || !$u || (int)$c['account_id']!==$account || !bushisa_reset_eligible($u)
             || !hash_equals((string)$c['account_generation'],(string)$u['signup_attempt_key'])

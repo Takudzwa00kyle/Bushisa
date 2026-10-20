@@ -9,6 +9,7 @@ require_once __DIR__ . '/policy_safeguards.php';
 require_once __DIR__ . '/mail_delivery.php';
 require_once __DIR__ . '/signup_lifecycle.php';
 require_once __DIR__ . '/verification_retention.php';
+require_once __DIR__ . '/staging_guard.php';
 
 function bushisa_student_email_domain_allowlist(): array
 {
@@ -173,6 +174,11 @@ function bushisa_queue_signup_email(PDO $pdo, string $email, string $code, int $
 
 function bushisa_queue_fake_signup_email(PDO $pdo, string $email, string $code, int $ttlSeconds, ?int $codeId = null): void
 {
+    if (\Bushisa\Staging\requested()) {
+        require_once __DIR__.'/staging_mail.php';
+        \Bushisa\Staging\queue_signup($pdo,$email,$code,$codeId);
+        return;
+    }
     if (bushisa_q11_synthetic_enabled() && getenv('BUSHISA_Q11_QUEUE_FAKE')==='true' && $codeId!==null) {
         bushisa_queue_q11_fake_email($pdo,$codeId,$email,$code); return;
     }

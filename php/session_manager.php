@@ -2,6 +2,21 @@
 
 declare(strict_types=1);
 
+require_once __DIR__.'/staging_guard.php';
+if (\Bushisa\Staging\requested()) {
+    try {
+        $stageSession = \Bushisa\Staging\context('serve');
+        ini_set('display_errors','0');
+        ini_set('zend.exception_ignore_args','1');
+        if (session_status() !== PHP_SESSION_NONE || ini_get('session.save_handler')!=='files' || ini_set('session.save_path', $stageSession['_sessions']) === false) {
+            \Bushisa\Staging\deny('SESSION_CONFIGURATION');
+        }
+    } catch (Throwable) {
+        http_response_code(503);
+        exit('Synthetic stage configuration unavailable.');
+    }
+}
+
 require_once __DIR__.'/managed_session.php';
 
 function bushisa_managed_handler(): ?\Bushisa\ManagedSession\Handler
