@@ -1,0 +1,22 @@
+{
+  "format": "bushisa.synthetic-stage.v1",
+  "mode": "managed",
+  "run_id": null,
+  "expires_at": null,
+  "candidate_sha": null,
+  "origin": null,
+  "resources": {"app": null, "database": null, "platform_owner": null},
+  "database": {"host": null, "port": "3306", "name": null, "server_uuid": null, "binding_id": null, "ca_sha256": null},
+  "roles": {
+    "runtime": {"user": null, "principal": null},
+    "worker": {"user": null, "principal": null},
+    "runner": {"user": null, "principal": null},
+    "fixture": {"user": null, "principal": null},
+    "migration": {"user": null, "principal": null}
+  },
+  "mail": "fake-only",
+  "recipients": [],
+  "pending_recipient": null,
+  "storage": {"handler": "files", "namespace": null, "root": null},
+  "acceptance": {"funding": null, "destination": null, "security": null, "egress": null, "storage": null, "key_provenance": null, "primary": null, "backup": null}
+}

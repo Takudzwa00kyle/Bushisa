@@ -1,0 +1,59 @@
+{
+  "suite": "L06 rendered browser acceptance",
+  "completed_at_utc": "2026-10-19T07:30:14.481Z",
+  "environment": {
+    "node": "v20.19.6",
+    "os": "win32",
+    "playwright": "1.64.0"
+  },
+  "status": "passed",
+  "cases": [
+    {
+      "id": "L06-B01",
+      "title": "L06-B01 rendered requests are neutral and preserve signup mail purpose",
+      "result": "passed",
+      "duration_ms": 6965,
+      "annotations": [
+        {
+          "type": "environment",
+          "description": "{\"php\":\"8.5.11\",\"mysql\":\"8.0.45\",\"chromium\":\"156.0.8078.4\"}"
+        }
+      ]
+    },
+    {
+      "id": "L06-B02",
+      "title": "L06-B02 fragment autofill clears URL, GET is inert, storage and telemetry exclude proof",
+      "result": "passed",
+      "duration_ms": 3626,
+      "annotations": []
+    },
+    {
+      "id": "L06-B03",
+      "title": "L06-B03 manual form without JavaScript rejects CSRF, invalid and expired proof",
+      "result": "passed",
+      "duration_ms": 4648,
+      "annotations": []
+    },
+    {
+      "id": "L06-B04",
+      "title": "L06-B04 explicit reset revokes two sessions, returns to sign-in, rejects used proof",
+      "result": "passed",
+      "duration_ms": 8739,
+      "annotations": []
+    },
+    {
+      "id": "L06-B05",
+      "title": "L06-B05 no-JavaScript scanner visits are inert and manual key completes reset",
+      "result": "passed",
+      "duration_ms": 4470,
+      "annotations": []
+    },
+    {
+      "id": "L06-B06",
+      "title": "L06-B06 controlled HTTP diagnostics and code-free records contain no proof",
+      "result": "passed",
+      "duration_ms": 218,
+      "annotations": []
+    }
+  ]
+}

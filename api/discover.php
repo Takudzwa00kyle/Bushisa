@@ -9,6 +9,7 @@ require_once __DIR__ . '/../php/sanitize.php';
 require_once __DIR__ . '/../php/db.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
+require_once __DIR__ . '/../php/report_intake.php';
 require_once __DIR__ . '/../php/matching/service.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -37,7 +38,27 @@ if ($offset !== null) {
     $options['offset'] = $offset;
 }
 
-$result = matching_get_ranked_candidates($pdo, $currentUserId, $options);
+$result = bushisa_report_transaction($pdo, function () use ($pdo, $currentUserId, $options): array {
+    if (!bushisa_report_actor_ok($pdo, $currentUserId, (int) $_SESSION['session_version'])) {
+        return ['success' => false, 'error' => 'Session unavailable', 'status' => 401];
+    }
+    $result = matching_get_ranked_candidates($pdo, $currentUserId, $options);
+    if (($result['success'] ?? false) === true) {
+        $cards = [];
+        foreach ($result['data']['results'] as $card) {
+            $id = (int) $card['user_id'];
+            $lock = $pdo->prepare('SELECT id FROM users WHERE id = ? FOR UPDATE');
+            $lock->execute([$id]);
+            if (!bushisa_account_is_chat_eligible($pdo, $id) || operational_is_blocked($pdo, $currentUserId, $id)) {
+                continue;
+            }
+            $card['report_context'] = bushisa_report_context_for_response($pdo, $currentUserId, 'user', $id);
+            $cards[] = $card;
+        }
+        $result['data']['results'] = $result['data']['candidates'] = $cards;
+    }
+    return $result;
+});
 
 if (($result['success'] ?? false) !== true) {
     json_response(['error' => (string) ($result['error'] ?? 'Unable to load discovery profiles')], (int) ($result['status'] ?? 500));

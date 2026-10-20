@@ -1,0 +1,14 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const { spawn } = require('node:child_process');
+const { disposableDatabaseSettings } = require('./disposable-database');
+disposableDatabaseSettings('L06 isolated HTTP server');
+const root = path.resolve(__dirname, '../..');
+const dir = path.resolve(process.env.L06_BROWSER_RUN_DIR || '');
+if (!dir.startsWith(path.join(root, '.tmp') + path.sep) || !path.basename(dir).startsWith('l06-browser-')) throw new Error('Unsafe L06 fixture directory.');
+fs.mkdirSync(path.join(dir, 'sessions'), { recursive: true, mode: 0o700 });
+const log = fs.openSync(path.join(dir, 'server.log'), 'a');
+const url = new URL(process.env.APP_BASE_URL);
+const child = spawn('php', ['-d', `session.save_path=${path.join(dir, 'sessions')}`, '-d', `error_log=${path.join(dir, 'php-error.log')}`, '-S', `${url.hostname}:${url.port}`, '-t', root], { cwd: root, env: process.env, stdio: ['ignore', log, log] });
+for (const signal of ['SIGTERM', 'SIGINT']) process.on(signal, () => { child.kill(); });
+child.on('exit', code => { fs.closeSync(log); process.exit(code || 0); });

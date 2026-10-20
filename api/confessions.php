@@ -12,6 +12,7 @@ require_once __DIR__ . '/../php/rate_limit.php';
 require_once __DIR__ . '/../php/logger.php';
 require_once __DIR__ . '/../php/function.php';
 require_once __DIR__ . '/../php/operational.php';
+require_once __DIR__ . '/../php/report_intake.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' && $_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_response(['error' => 'Method not allowed'], 405);
@@ -24,23 +25,13 @@ $currentUserId = (int) $_SESSION['user_id'];
 $confessionColumns = operational_confession_columns($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $pdo->beginTransaction();
+    if (!bushisa_report_actor_ok($pdo, $currentUserId, (int) $_SESSION['session_version'])) { $pdo->rollBack(); json_response(['error' => 'Session unavailable'], 401); }
     $limit = clean_int($_GET['limit'] ?? null) ?? 20;
     $limit = max(1, min(50, $limit));
     $offset = clean_int($_GET['offset'] ?? null) ?? 0;
     $offset = max(0, $offset);
     $confessionId = clean_int($_GET['confession_id'] ?? null);
-
-    if ($confessionId !== null && $confessionId > 0) {
-        $viewerHash = operational_viewer_hash($currentUserId);
-        $viewStatement = $pdo->prepare(
-            'INSERT IGNORE INTO confession_views (confession_id, viewer_hash, viewed_at)
-             VALUES (:confession_id, :viewer_hash, NOW())'
-        );
-        $viewStatement->execute([
-            ':confession_id' => $confessionId,
-            ':viewer_hash' => $viewerHash,
-        ]);
-    }
 
     $statement = $pdo->prepare(
         sprintf(
@@ -51,18 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 c.is_flagged,
                 p.anon_handle,
                 COUNT(cv.id) AS view_count,
-                rc.referenced_confession_id,
+                rc.id AS reference_id, rc.referenced_confession_id,
                 CASE WHEN ref.id IS NOT NULL AND COALESCE(ref.is_flagged, 0) = 0 THEN ref.%1$s ELSE NULL END AS reference_body,
                 rp.anon_handle AS reference_handle
              FROM confessions c
              LEFT JOIN profiles p ON p.user_id = c.%2$s
              LEFT JOIN confession_views cv ON cv.confession_id = c.id
-             LEFT JOIN confession_references rc ON rc.confession_id = c.id
-             LEFT JOIN confessions ref ON ref.id = rc.referenced_confession_id AND (ref.deleted_at IS NULL OR ref.deleted_at = "")
+             LEFT JOIN confession_references rc ON rc.confession_id = c.id AND rc.deleted_at IS NULL
+             LEFT JOIN confessions ref ON ref.id = rc.referenced_confession_id AND ref.deleted_at IS NULL
              LEFT JOIN profiles rp ON rp.user_id = ref.%2$s AND COALESCE(ref.is_flagged, 0) = 0
              WHERE c.is_flagged = 0
-               AND (c.deleted_at IS NULL OR c.deleted_at = "")
-             GROUP BY c.id, c.%1$s, c.created_at, c.is_flagged, p.anon_handle, rc.referenced_confession_id, ref.%1$s, rp.anon_handle
+               AND c.deleted_at IS NULL
+             GROUP BY c.id, c.%1$s, c.created_at, c.is_flagged, p.anon_handle, rc.id, rc.referenced_confession_id, ref.%1$s, rp.anon_handle
              ORDER BY view_count DESC, c.created_at DESC, c.id DESC
              LIMIT :limit OFFSET :offset',
             $confessionColumns['body'],
@@ -74,19 +65,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $statement->execute();
 
     $rows = $statement->fetchAll(PDO::FETCH_ASSOC) ?: [];
-    $items = array_map(static function (array $row): array {
+    $items = array_map(static function (array $row) use ($pdo, $currentUserId): array {
         $referenceBody = isset($row['reference_body']) && is_string($row['reference_body'])
             ? trim(strip_tags(html_entity_decode($row['reference_body'], ENT_QUOTES | ENT_HTML5, 'UTF-8')))
             : '';
 
         return [
             'id' => (int) $row['id'],
+            'report_context' => bushisa_report_context_for_response($pdo, $currentUserId, 'confession', (int) $row['id'], (string) $row['body']),
             'body' => (string) ($row['body'] ?? ''),
             'anon_handle' => (string) ($row['anon_handle'] ?? 'anonymous'),
             'created_at' => bushisa_utc_iso(isset($row['created_at']) ? (string) $row['created_at'] : null),
             'view_count' => (int) ($row['view_count'] ?? 0),
             'reference' => !empty($row['referenced_confession_id']) ? [
                 'id' => (int) $row['referenced_confession_id'],
+                'report_target_id' => (int) $row['reference_id'],
+                'report_context' => bushisa_report_context_for_response($pdo, $currentUserId, 'confession_reference', (int) $row['reference_id'], (string) $row['body']),
                 'anon_handle' => (string) ($row['reference_handle'] ?? 'anonymous'),
                 'excerpt' => $referenceBody === ''
                     ? 'Referenced confession unavailable.'
@@ -95,6 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         ];
     }, $rows);
 
+    // A guessed view ID never establishes exposure. Count only an actually returned post.
+    if ($confessionId !== null && in_array($confessionId, array_column($items, 'id'), true)) {
+        $view = $pdo->prepare('INSERT IGNORE INTO confession_views (confession_id, viewer_hash, viewed_at) VALUES (?, ?, UTC_TIMESTAMP())');
+        $view->execute([$confessionId, operational_viewer_hash($currentUserId)]);
+    }
+    $pdo->commit();
     json_response([
         'success' => true,
         'data' => [
@@ -123,16 +123,23 @@ if ($submittedToken === '' || !validate_csrf_token($submittedToken)) {
 $action = isset($payload['action']) && is_string($payload['action']) ? clean_enum($payload['action'], ['create', 'flag']) : 'create';
 
 if ($action === 'flag') {
-    $confessionId = clean_int($payload['confession_id'] ?? null);
-    if ($confessionId === null || $confessionId <= 0) {
-        json_response(['error' => 'Invalid confession'], 400);
+    // Reporting is an allegation, never an automatic global hiding decision.
+    session_write_close();
+    try {
+        $report = [
+            'action' => 'report', 'target_type' => 'confession',
+            'target_id' => $payload['confession_id'] ?? null, 'context' => $payload['context'] ?? null,
+            'idempotency_key' => $payload['idempotency_key'] ?? null, 'reason' => $payload['reason'] ?? '',
+            'explanation' => $payload['explanation'] ?? '',
+        ];
+        $receipt = bushisa_report_intake($pdo, $currentUserId, $report, (int) $_SESSION['session_version']);
+        json_response(['success' => true, 'data' => $receipt]);
+    } catch (BushisaReportError $e) {
+        json_response(['error' => $e->getMessage()], $e->status);
+    } catch (Throwable $e) {
+        log_to_file('Confession report failed: ' . get_class($e), 'ERROR');
+        json_response(['error' => 'Reporting is unavailable'], 503);
     }
-
-    $statement = $pdo->prepare('UPDATE confessions SET is_flagged = 1 WHERE id = :id');
-    $statement->execute([':id' => $confessionId]);
-    log_action($pdo, $currentUserId, 'flag_confession:' . $confessionId, $_SERVER['REMOTE_ADDR'] ?? null);
-
-    json_response(['success' => true, 'data' => null]);
 }
 
 if (!check_rate_limit($pdo, 'confession', (string) $currentUserId, 5, 3600)) {
@@ -191,7 +198,7 @@ try {
 
         $ownerStatement = $pdo->prepare(
             sprintf(
-                'SELECT %1$s AS author_id FROM confessions WHERE id = :id AND (deleted_at IS NULL OR deleted_at = "") LIMIT 1',
+                'SELECT %1$s AS author_id FROM confessions WHERE id = :id AND deleted_at IS NULL LIMIT 1',
                 $confessionColumns['author']
             )
         );

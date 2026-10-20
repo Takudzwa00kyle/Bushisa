@@ -11,6 +11,7 @@ require_once __DIR__ . '/php/function.php';
 require_once __DIR__ . '/php/operational.php';
 require_once __DIR__ . '/php/frontend.php';
 require_once __DIR__ . '/php/matching/service.php';
+require_once __DIR__ . '/php/pair_messages.php';
 
 require_login();
 ensure_operational_schema($pdo);
@@ -70,56 +71,7 @@ if (($recommendationResult['success'] ?? false) === true) {
     $recommendations = $recommendationResult['data']['results'] ?? [];
 }
 
-$matchColumnsStatement = $pdo->query('SHOW COLUMNS FROM matches');
-$matchColumns = $matchColumnsStatement !== false ? $matchColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
-$matchUserAColumn = in_array('user_a_id', $matchColumns, true) ? 'user_a_id' : 'user_one_id';
-$matchUserBColumn = in_array('user_b_id', $matchColumns, true) ? 'user_b_id' : 'user_two_id';
-$matchTimeColumn = in_array('matched_at', $matchColumns, true) ? 'matched_at' : 'created_at';
-
-$messageColumnsStatement = $pdo->query('SHOW COLUMNS FROM messages');
-$messageColumns = $messageColumnsStatement !== false ? $messageColumnsStatement->fetchAll(PDO::FETCH_COLUMN) : [];
-$messageBodyColumn = in_array('body', $messageColumns, true) ? 'body' : 'message_text';
-$messageTimeColumn = in_array('sent_at', $messageColumns, true) ? 'sent_at' : 'created_at';
-
-$sql = sprintf(
-    'SELECT
-        m.id AS match_id,
-        CASE WHEN m.%1$s = :select_user THEN m.%2$s ELSE m.%1$s END AS other_user_id,
-        p.display_name,
-        p.profile_photo_path,
-        p.faculty,
-        lm.body AS last_message,
-        lm.sent_at AS last_message_time,
-        m.%3$s AS matched_at
-    FROM matches m
-    INNER JOIN profiles p
-        ON p.user_id = CASE WHEN m.%1$s = :join_user THEN m.%2$s ELSE m.%1$s END
-    LEFT JOIN (
-        SELECT msg.match_id, msg.%4$s AS body, msg.%5$s AS sent_at
-        FROM messages msg
-        INNER JOIN (
-            SELECT match_id, MAX(id) AS last_message_id
-            FROM messages
-            GROUP BY match_id
-        ) latest ON latest.last_message_id = msg.id
-    ) lm ON lm.match_id = m.id
-    WHERE m.%1$s = :where_user_a OR m.%2$s = :where_user_b
-    ORDER BY COALESCE(lm.sent_at, m.%3$s) DESC, m.id DESC',
-    $matchUserAColumn,
-    $matchUserBColumn,
-    $matchTimeColumn,
-    $messageBodyColumn,
-    $messageTimeColumn
-);
-
-$statement = $pdo->prepare($sql);
-$statement->execute([
-    ':select_user' => $currentUserId,
-    ':join_user' => $currentUserId,
-    ':where_user_a' => $currentUserId,
-    ':where_user_b' => $currentUserId,
-]);
-$matches = $statement->fetchAll(PDO::FETCH_ASSOC) ?: [];
+$matches=bushisa_pair_match_list($pdo,$currentUserId,(int)$_SESSION['session_version']);
 
 render_page_shell_start('find', 'Find Match', $csrfToken, $currentUserId, false, 'Questionnaire fit and consent-aware match actions');
 ?>

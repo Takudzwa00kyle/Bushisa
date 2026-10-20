@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-if (getenv('BUSHISA_TEST_DATABASE') !== 'true' || getenv('APP_ENV') === 'production') {
-    throw new RuntimeException('Run this suite only against an explicitly selected synthetic test database.');
-}
+require_once __DIR__ . '/support/disposable_database.php';
+
+bushisa_require_disposable_test_database('integration_smtp_outbox');
 
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/signup_verification.php';
@@ -18,6 +18,7 @@ function check_smtp(bool $condition, string $message): void
 
 function smtp_test_user(PDO $pdo): array
 {
+    $pdo->beginTransaction();
     $student = 'n025' . str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT) . chr(random_int(97, 122));
     $email = $student . '@students.nust.ac.zw';
     $insert = $pdo->prepare(
@@ -26,7 +27,10 @@ function smtp_test_user(PDO $pdo): array
     );
     $insert->execute([':student' => $student, ':email' => $email, ':password' => password_hash('Synthetic-test-only', PASSWORD_DEFAULT)]);
 
-    return [(int) $pdo->lastInsertId(), $email];
+    $id=(int)$pdo->lastInsertId();
+    bushisa_signup_record_creation($pdo,$id);
+    $pdo->commit();
+    return [$id, $email];
 }
 
 function smtp_test_mail(PDO $pdo, string $email): array
@@ -115,8 +119,12 @@ check_smtp(bushisa_dispatch_mail($pdo, 10, fn () => throw new RuntimeException('
 [$expiredUser, $expiredEmail] = smtp_test_user($pdo);
 bushisa_issue_signup_code($pdo, $expiredUser, $expiredEmail);
 $expired = smtp_test_mail($pdo, $expiredEmail);
-$pdo->exec('UPDATE mail_outbox SET expires_at = DATE_SUB(UTC_TIMESTAMP(), INTERVAL 1 SECOND) WHERE id = ' . (int) $expired['id']);
-$result = bushisa_dispatch_mail($pdo, 10, fn () => throw new RuntimeException('Expired code must not be sent'));
+// Disposable fixture clock affects only this SQL session. Source expiry is
+// immutable; never rewrite it merely to simulate elapsed server time.
+$expiredClock=(new DateTimeImmutable($expired['expires_at'],new DateTimeZone('UTC')))->getTimestamp()+1;
+$pdo->exec('SET timestamp='.$expiredClock);
+try { $result = bushisa_dispatch_mail($pdo, 10, fn () => throw new RuntimeException('Expired code must not be sent')); }
+finally { $pdo->exec('SET timestamp=DEFAULT'); }
 check_smtp($result['discarded'] === 1 && smtp_test_mail($pdo, $expiredEmail)['body'] === null, 'expired payloads must be discarded');
 
 [$failedUser, $failedEmail] = smtp_test_user($pdo);

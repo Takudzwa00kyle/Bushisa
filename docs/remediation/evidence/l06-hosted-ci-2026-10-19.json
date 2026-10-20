@@ -1,0 +1,415 @@
+{
+    "format":  "bushisa.l06-hosted-ci.v1",
+    "observed_at_utc":  "2026-10-19T08:42:21.2309942Z",
+    "source_sha":  "e7501fecde630801018cded6b9247935eed59518",
+    "branch":  "codex/l06-password-reset-20261019",
+    "pr":  {
+               "number":  6,
+               "base":  "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+               "head":  "e7501fecde630801018cded6b9247935eed59518",
+               "merge_commit_sha":  "82f692d96417449e5cae14025799349b9b709df2",
+               "url":  "https://github.com/Takudzwa00kyle/Bushisa/pull/6",
+               "draft":  true
+           },
+    "runs":  [
+                 {
+                     "run_id":  39223983771,
+                     "event":  "pull_request",
+                     "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223983771",
+                     "source_sha":  "e7501fecde630801018cded6b9247935eed59518",
+                     "checkout_sha":  "82f692d96417449e5cae14025799349b9b709df2",
+                     "conclusion":  "success",
+                     "jobs":  [
+                                  {
+                                      "name":  "smtp-outbox-integration",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223983771/job/117965687856",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "name":  "browser-route-session-overlap",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223983771/job/117965687921",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "name":  "lint-and-unit",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223983771/job/117965687932",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "name":  "l06-recovery-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223983771/job/117965688111",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  }
+                              ],
+                     "artifact":  {
+                                      "id":  12172358991,
+                                      "name":  "l06-recovery-results",
+                                      "digest":  "sha256:05901bc4ef1e2b1c2cbdbfcd78b900b1058ef1715a0ff7b80a5b66a5a4450334",
+                                      "created_at_utc":  "2026-10-19T08:38:03Z",
+                                      "verified_files":  [
+                                                             "l06-browser.json",
+                                                             "l06-http.json"
+                                                         ]
+                                  },
+                     "environment":  {
+                                         "runner":  "ubuntu-latest",
+                                         "php":  "8.4.26",
+                                         "mysql":  "8.0.46",
+                                         "node":  "v20.20.2",
+                                         "playwright":  "1.64.0",
+                                         "chromium":  "156.0.8078.4",
+                                         "mail":  "fake",
+                                         "database_scope":  "guarded disposable synthetic fixtures"
+                                     },
+                     "browser":  {
+                                     "status":  "passed",
+                                     "completed_at_utc":  "2026-10-19T08:38:02.122Z",
+                                     "cases":  [
+                                                   {
+                                                       "id":  "L06-B01",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B02",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B03",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B04",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B05",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B06",
+                                                       "result":  "passed"
+                                                   }
+                                               ]
+                                 },
+                     "http":  {
+                                  "status":  "PASS",
+                                  "started_at_utc":  "2026-10-19T08:37:33+00:00",
+                                  "cases":  [
+                                                {
+                                                    "case":  "L06-MIG-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-05",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-INTAKE-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-ORIGIN-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-MAIL-00",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-MAIL-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-PROOF-02",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-02",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-03",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-00",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-04",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-02",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-03",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-MAIL-02",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-PROOF-03",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-STATE-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-PROOF-04",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-04",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-MAIL-03",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-RACE-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-CLEAN-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-CONFIG-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-PRIV-01",
+                                                    "result":  "PASS"
+                                                }
+                                            ],
+                                  "concurrent_consume":  "concurrent consumption evidence {\"observed_overlap\":true,\"ready\":2,\"pids\":2,\"connections\":2,\"waiters\":2,\"exits\":[0,0],\"wins\":1,\"worker_errors\":[\"\",\"\"]}"
+                              }
+                 },
+                 {
+                     "run_id":  39223978928,
+                     "event":  "push",
+                     "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223978928",
+                     "source_sha":  "e7501fecde630801018cded6b9247935eed59518",
+                     "checkout_sha":  "e7501fecde630801018cded6b9247935eed59518",
+                     "conclusion":  "success",
+                     "jobs":  [
+                                  {
+                                      "name":  "lint-and-unit",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223978928/job/117965672425",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "name":  "l06-recovery-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223978928/job/117965672534",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "name":  "browser-route-session-overlap",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223978928/job/117965672566",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "name":  "smtp-outbox-integration",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39223978928/job/117965673048",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  }
+                              ],
+                     "artifact":  {
+                                      "id":  12173480189,
+                                      "name":  "l06-recovery-results",
+                                      "digest":  "sha256:91d89775ec82c26cc6b2cac443c186e46897661a2aae5750030b6759dbefd1bb",
+                                      "created_at_utc":  "2026-10-19T08:38:06Z",
+                                      "verified_files":  [
+                                                             "l06-browser.json",
+                                                             "l06-http.json"
+                                                         ]
+                                  },
+                     "environment":  {
+                                         "runner":  "ubuntu-latest",
+                                         "php":  "8.4.26",
+                                         "mysql":  "8.0.46",
+                                         "node":  "v20.20.2",
+                                         "playwright":  "1.64.0",
+                                         "chromium":  "156.0.8078.4",
+                                         "mail":  "fake",
+                                         "database_scope":  "guarded disposable synthetic fixtures"
+                                     },
+                     "browser":  {
+                                     "status":  "passed",
+                                     "completed_at_utc":  "2026-10-19T08:38:05.723Z",
+                                     "cases":  [
+                                                   {
+                                                       "id":  "L06-B01",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B02",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B03",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B04",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B05",
+                                                       "result":  "passed"
+                                                   },
+                                                   {
+                                                       "id":  "L06-B06",
+                                                       "result":  "passed"
+                                                   }
+                                               ]
+                                 },
+                     "http":  {
+                                  "status":  "PASS",
+                                  "started_at_utc":  "2026-10-19T08:37:35+00:00",
+                                  "cases":  [
+                                                {
+                                                    "case":  "L06-MIG-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-05",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-INTAKE-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-ORIGIN-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-MAIL-00",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-MAIL-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-PROOF-02",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-02",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-03",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-00",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-HTTP-04",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-02",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-03",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-MAIL-02",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-PROOF-03",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-STATE-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-PROOF-04",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-AUTH-04",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-MAIL-03",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-RACE-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-CLEAN-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-CONFIG-01",
+                                                    "result":  "PASS"
+                                                },
+                                                {
+                                                    "case":  "L06-PRIV-01",
+                                                    "result":  "PASS"
+                                                }
+                                            ],
+                                  "concurrent_consume":  "concurrent consumption evidence {\"observed_overlap\":true,\"ready\":2,\"pids\":2,\"connections\":2,\"waiters\":2,\"exits\":[0,0],\"wins\":1,\"worker_errors\":[\"\",\"\"]}"
+                              }
+                 }
+             ],
+    "boundary":  "Synthetic local/hosted evidence only; no staging/production, deployment, actual mail, activation, qualified review or independent recovery acceptance."
+}

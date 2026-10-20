@@ -82,12 +82,34 @@ function attempt_login(PDO $pdo, string $email, string $password, ?string $ident
         ];
     }
 
+    // Preserve the identity for which the password was actually proven. A
+    // later pending-stage reload must not transfer that proof to a replacement.
+    $authenticatedIdentity=$user;
+    bushisa_signup_test_point($pdo,'session_login');
+
+    if (in_array($user['account_status'] ?? '', ['pending_email', 'pending_onboarding'], true)) {
+        $expiry = bushisa_signup_check_account($pdo, (int) $user['id']);
+        if ($expiry['state'] !== 'live') {
+            return ['success' => false, 'error' => bushisa_signup_expiry_message($expiry['state']), 'redirect' => null];
+        }
+        $user = find_user_by_email($pdo, $email);
+        if ($user === null || !bushisa_signup_user_live($user)) {
+            return ['success' => false, 'error' => 'Your account is not available.', 'redirect' => null];
+        }
+    }
+
     clear_attempts($pdo, 'login', $rateLimitKey);
+    if (function_exists('bushisa_managed_handler') && bushisa_managed_handler()) {
+        if (!bushisa_managed_login($authenticatedIdentity,$passwordHash)) {
+            return ['success'=>false,'error'=>'Session service unavailable.','redirect'=>null];
+        }
+    } else {
     regenerate_session();
     $_SESSION['user_id'] = (int) $user['id'];
     $_SESSION['role'] = isset($user['role']) && is_string($user['role']) && $user['role'] !== '' ? $user['role'] : 'user';
     $_SESSION['email'] = $user['email'] ?? $email;
     $_SESSION['session_version'] = isset($user['session_version']) ? (int) $user['session_version'] : 0;
+    }
 
     log_action($pdo, (int) $user['id'], 'login', $rateLimitKey);
     log_to_file('User ' . (int) $user['id'] . ' logged in', 'INFO');
@@ -152,10 +174,7 @@ function register_user(PDO $pdo, array $data): array
         ];
     }
 
-    $passwordErrors = validate_password($password);
-    if ($password !== '' && !preg_match('/[^A-Za-z0-9]/', $password)) {
-        $passwordErrors[] = 'Password must contain at least one special character.';
-    }
+    $passwordErrors = validate_account_password($password);
 
     if ($passwordErrors !== []) {
         return [
@@ -265,6 +284,7 @@ function register_user(PDO $pdo, array $data): array
         ]);
 
         $userId = (int) $pdo->lastInsertId();
+        bushisa_signup_record_creation($pdo, $userId);
 
         $profileStatement = $pdo->prepare(
             'INSERT INTO profiles (user_id, display_name, anon_handle, bio, gender, date_of_birth, faculty, year_of_study, profile_photo_path) VALUES (:user_id, :display_name, :anon_handle, :bio, :gender, NULL, :faculty, :year_of_study, NULL)'
@@ -298,7 +318,7 @@ function register_user(PDO $pdo, array $data): array
         return [
             'success' => true,
             'error' => null,
-            'message' => 'Account created. Your approval email is on its way. Enter the code from your student mailbox.',
+            'message' => 'Account created. Approval mail has been queued. Approve your student email within 72 hours; resending a code does not extend that deadline.',
             'redirect' => 'verify_email.php?email=' . rawurlencode($email),
         ];
     } catch (Throwable $exception) {

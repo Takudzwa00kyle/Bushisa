@@ -1,0 +1,240 @@
+{
+    "suite": "guarded staging local implementation",
+    "status": "PASS",
+    "started_at_utc": "2026-10-20T06:31:31+00:00",
+    "finished_at_utc": "2026-10-20T06:33:46+00:00",
+    "source_sha": "a0289c1d78824dfb67fcf07b75b1a4edc87d88b6",
+    "checkout_sha": null,
+    "worktree_state": "clean",
+    "environment": {
+        "php": "8.5.11",
+        "os": "Linux",
+        "mysql": "8.0.45",
+        "execution": "owned loopback disposable DB; synthetic accounts; no SMTP"
+    },
+    "checks": [
+        {
+            "case": "SG-I01",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I02",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I03",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I04",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I05",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I05b",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I06.1",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I06.2",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I06.3",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I06.4",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I06.5",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I06.6",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I06.7",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I07",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I08",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I09",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I10",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I11",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I12",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I13",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I14",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I15a",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I15",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I16",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I19",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I20",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I21",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I22",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I23",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I24",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I25",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I17",
+            "result": "PASS"
+        },
+        {
+            "case": "SG-I18",
+            "result": "PASS"
+        }
+    ],
+    "engine_fixture": {
+        "original_log_bin_trust_function_creators": 0,
+        "fixture_only_override": true,
+        "restored_log_bin_trust_function_creators": 0
+    },
+    "overlap": {
+        "workers": [
+            {
+                "pid": 1209,
+                "connection_id": 2766
+            },
+            {
+                "pid": 1210,
+                "connection_id": 2767
+            }
+        ],
+        "engine_observed_waiters": [
+            2766,
+            2767
+        ],
+        "successful_consumptions": 1
+    },
+    "mail_overlap": {
+        "pids": [
+            1217,
+            1218
+        ],
+        "engine_observed_waiters": [
+            2773,
+            2774
+        ],
+        "private_deliveries": 1
+    },
+    "driver": {
+        "status": "PASS",
+        "execution": "local-fixture HTTPS proxy; NOT managed Azure",
+        "environment": {
+            "php": "8.5.11",
+            "mysql": "8.0.45",
+            "mode": "local-fixture",
+            "node": "v20.20.2",
+            "chromium": "156.0.8078.4"
+        },
+        "cases": [
+            {
+                "case": "SG-D01",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D02",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D03",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D04",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D05",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D06",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D07",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D08",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D09",
+                "result": "PASS"
+            },
+            {
+                "case": "SG-D10",
+                "result": "PASS"
+            }
+        ],
+        "managed_roadmap_cases_changed": false
+    },
+    "failure_case": null,
+    "failure_reason": null,
+    "managed_azure_cases": "AZS01-AZS18 NOT RUN",
+    "SC26_production_topology": "PARTIAL"
+}
