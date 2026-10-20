@@ -22,6 +22,15 @@ No funded/accepted Azure stage manifest or operator appointment is invented.
 See the follow-up for exact source, versions, commands and hosted CI;
 historical `7326716` is not new implementation evidence.
 
+Implementation candidate `a0289c1` now has clean local **33 integration / 10
+driver PASS**, **51 pure guard PASS**, and **five hosted jobs successful in both
+feature-push and PR runs**. [Exact CI/source/merge evidence](evidence/guarded-staging-hosted-ci-2026-10-20.json)
+is separate from the historical candidate. Local PHP 8.5.11/MySQL 8.0.45 and
+hosted stage PHP 8.5.11/MySQL 8.0.46 are synthetic profiles; actual Azure patch,
+deployed artifact/schema, sessions and storage remain unverified. Draft PR 7
+is not merged. The metadata-only follow-up's exact-head CI is reported on that
+PR; it does not alter the implementation-run attribution.
+
 The [readiness audit and two-lane staging plan](azure-compatibility-staging-plan-2026-10-19.md)
 continues from tested `7326716` on a separate documentation branch. Read-only
 GitHub metadata reconfirms both four-job CI successes and PR merge checkout

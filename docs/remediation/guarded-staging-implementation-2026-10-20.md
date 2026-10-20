@@ -104,14 +104,14 @@ execution. Unexecuted managed variants remain NOT RUN.
 | Cases | Requirement | Local result |
 |---|---|---|
 | SG-U01-U51 | Complete local profile; missing/production/staging-only flags, credential/role/resource/pin mismatch; unsafe origin; expiry/UUID format; each missing managed acceptance field; unsupported/oversized manifest; Host/Forwarded independence; preserved production origin rule | **51 PASS**, Windows PHP 8.5.11; Linux minimal-PHP/no-MySQL-driver variant recorded separately |
-| SG-I01-I05 | Fresh install/repeated 001-016 migrations under separate migration identity; anchored synthetic preparation and non-resetting repeat | **PASS**, Linux PHP 8.5.11 / MySQL 8.0.45 |
+| SG-I01-I05b | Fresh install/repeated 001-016 migrations under separate migration identity; anchored synthetic preparation, non-resetting repeat and positive read-only connection-counter witness | **PASS**, Linux PHP 8.5.11 / MySQL 8.0.45 |
 | SG-I06 variants / I07 | Seven unsafe entry profiles refuse before any new stage-role MySQL connection | **PASS**, seven variants; account-specific connection counts exclude unrelated health checks |
 | SG-I08-I14 | Unlisted-recipient zero writes; purpose-separated encrypted issuance; private carrier with SMTP socket functions disabled; hash-only challenge; terminal retry/no proof; duplicate/conflicting selection zero effects | **PASS** |
 | SG-I15a / I15 | Existing immutable attempt key cannot be rewritten; stale fixture mapping cannot authorize consumption | **PASS**; no immutable-key safeguard was relaxed |
 | SG-I16 | Two distinct processes/connections engine-observed waiting on account lock; exactly one successful consume | **PASS** |
 | SG-I19-I20 | Actual wrong server UUID prevents preparation writes; unexpected runtime DDL privilege fails closed | **PASS** |
 | SG-I21-I25 | Original backoff respected, invalid member prevents the whole batch, production carrier refusal before connection, lost private result safe retry, distinct concurrent carrier connections/one delivery | **PASS** |
-| SG-I17-I18 / SG-D01-D10 | Real rendered HTTPS fixture, neutral outcomes, inert GET/HEAD, CSRF, fragment removal, storage/console/URL checks, reset, two-session API/page revocation, used/manual form, ordinary new-password login, separate signup/notice purposes and owned diagnostics | **10 driver PASS**, within **32 integration assertions PASS** |
+| SG-I17-I18 / SG-D01-D10 | Real rendered HTTPS fixture, neutral outcomes, inert GET/HEAD, CSRF, fragment removal, storage/console/URL checks, reset, two-session API/page revocation, used/manual form, ordinary new-password login, separate signup/notice purposes and owned diagnostics | **10 driver PASS**, within **33 final integration assertions PASS** |
 | Managed variants / AZS01-AZS18 | Actual isolated Azure ingress/engine/grants/storage/recovery/device/operational execution | **NOT RUN / GATED** |
 
 Local commands are `php tests/unit_staging_guard.php` (also minimal `php -n -d
@@ -134,14 +134,23 @@ or a decision that a managed server should adopt it. Actual managed parameter,
 definer/role acceptance remains a prerequisite; failed/partial DDL must stop.
 
 The [local machine record](evidence/guarded-staging-local-2026-10-20.json)
-names the underlying checkout, modified/clean worktree state, UTC execution
-times, exact versions and observed worker/connection IDs. A modified worktree
-tag does **not** attribute the implementation to clean audit commit `7cc97bc`.
+records clean implementation candidate **`a0289c1d78824dfb67fcf07b75b1a4edc87d88b6`**,
+2026-10-20 **06:31:31-06:33:46 UTC** (08:31:31-08:33:46 Africa/Harare):
+**33 assertions and 10 rendered driver cases PASS**. Consume PIDs 1209/1210,
+connections 2766/2767 were observed waiting together with one winner; carrier
+PIDs 1217/1218, connections 2773/2774 likewise produced one private delivery.
+The disposable binary-log trust setting was restored and verified at its original
+value 0. Pure guard **51 PASS** also ran on Windows PHP 8.5.11 and minimal Linux
+PHP 8.5.11/8.4.26 with the MySQL driver absent. PDO's class can remain present;
+the test asserts driver absence rather than claiming a class-removal sandbox.
+
+A modified worktree tag does **not** attribute implementation tests to clean
+audit commit `7cc97bc`.
 Development run 2026-10-20 05:52:57-05:53:47 UTC (07:52:57-07:53:47
 Africa/Harare) passed 32 integration assertions and 10 driver cases on Linux,
 PHP 8.5.11, MySQL 8.0.45, Node 20.20.2 and Chromium 156.0.8078.4.
-The later clean candidate and hosted records supersede only source attribution,
-not these runs' original meaning.
+The clean-candidate and hosted runs supply independent current-candidate
+evidence. The development run remains attributed to its modified audit worktree.
 
 The separate [regression record](evidence/guarded-staging-regressions-2026-10-20.json)
 preserves case results and unavailable variants without private payloads.
@@ -166,6 +175,23 @@ the four existing jobs. It runs the real driver on an owned loopback HTTPS
 fixture only. Failures fail the job; only sanitized JSON is uploaded. Hosted
 results must name their own source SHA, PR merge checkout and run URLs; the
 historical `7326716` CI is unchanged and does not certify this work.
+
+The [hosted record](evidence/guarded-staging-hosted-ci-2026-10-20.json) verifies
+**all five jobs successful in both runs** for implementation source `a0289c1`:
+[feature push 39381076947](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381076947)
+and [PR 39381243193](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381243193).
+[Draft PR 7](https://github.com/Takudzwa00kyle/Bushisa/pull/7) has test merge
+`f0f4bbfd9ea4c4908df58dea17c9e9b91e0c2020`, parents main `0bf311f` and
+implementation `a0289c1`; its tree matches the source tree. Both staging ZIP
+digests, source/checkout fields, 33 assertions, 10 driver cases and actual
+consume/carrier overlap were checked. Observed hosted stage runtime is PHP
+**8.5.11 / MySQL 8.0.46**; local MySQL was **8.0.45**, and Azure's patch is still
+UNKNOWN. The other four jobs retain their declared PHP 8.4 line; their success
+does not identify an Azure web runtime.
+
+The following metadata/evidence checkpoint changes documentation only. Its own
+exact-head CI is linked from PR 7 and the task completion record; it must not
+silently relabel the implementation runs above or imply managed acceptance.
 
 Pre-push workflow review found only `ci.yml` and `main_bushisa.yml` locally and
 on remote main `0bf311fb6d6a298712fd4cd16d0722305516edd4`. Remote workflow blobs
