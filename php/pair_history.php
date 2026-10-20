@@ -148,7 +148,7 @@ function bushisa_pair_open_chat(PDO $pdo, int $match, string $source, ?string $e
 /** Import an observed current row, not a synthetic event or completeness claim. */
 function bushisa_pair_observe_request(PDO $pdo, array $pair, ?array $row): ?string
 {
-    if ($row===null) { return null; }
+    if ($row===null || !is_string($row['requested_at']??null) || $row['requested_at']==='') { return null; }
     $key=hash('sha256','observed-request:'.$row['id'].':'.$row['requested_at']);
     $stmt=$pdo->prepare('INSERT IGNORE INTO pair_request_events
         (event_key,match_id,generation,request_id,requester_id,recipient_id,requested_at,request_expires_at,status,closed_at,purge_due_at,provenance)

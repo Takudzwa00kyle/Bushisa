@@ -4,6 +4,27 @@ Updated: 2026-10-20, Africa/Harare.
 
 ## Current release path: controlled direct update, staging deferred
 
+Latest owner-metadata follow-up: [observed-schema rehearsal and release blockers](owner-schema-release-rehearsal-2026-10-20.md).
+Owner DOCX establishes MySQL 8.0.46-azure, UTC/RR, exact settings, four ledger
+markers, broad configured-user grants and nine baseline-matching file samples.
+All 227 columns/122 index entries/13 FK rules/29 tables match the pinned 004
+baseline's captured fields. **DR-P01 PARTIAL**: synthetic reconstruction has
+29 local PASS on PHP 8.5.11/MySQL 8.0.46 with verified local TLS; omitted
+physical attributes remain a minimal metadata gate. Pending 006/007 repairs
+preserve NULL unknown request clocks/minimum counts and migration retries.
+Mail CLIs have purpose-scoped health checks and require dedicated production
+worker credentials; real role/config changes are prepared, not applied.
+
+**DR-P02 remains NOT RUN for the unknown actual previous bundle.** A real
+baseline API counterexample proves unrestricted code-only rollback can omit
+pair provenance. Keep writers closed during rollback; do not call that a safe
+fallback. Complete app/installed-WebJob identity, legacy all-writer cutover and
+signup continuation, full-D03 grant negatives and recovery/operational gates
+remain. Next owner input is the supplement/artifact identity, not repeated
+captures or renewed approval of settled decisions. The checkpoint's exact
+local/hosted results are linked in the focused record; prior CI below remains
+historically attributed. AZS18-case deferral and SC26 production PARTIAL remain.
+
 The owner now selects existing resources for a controlled direct-production
 update; no second paid environment is required for preparation. The
 [release package](direct-production-release-preparation-2026-10-20.md) records
@@ -16,7 +37,7 @@ does not supply permission to execute the runbook.
 
 AZS01-AZS18 stay **NOT RUN / DEFERRED**; SC26's production storage/topology
 stays **PARTIAL**. Existing A/LB/LC/QS/QE/QM/SC results and P0/P1 gates are
-unchanged. The next operator action is the package's read-only application/
+unchanged. The earlier next operator action was the package's read-only application/
 worker fingerprint and schema/grant capture. The next bounded engineering
 action is to match that actual schema to the rehearsal, reconcile any drift
 and verify the exact previous-artifact rollback against the forward schema.
@@ -28,8 +49,9 @@ draft PR [8](https://github.com/Takudzwa00kyle/Bushisa/pull/8); exact
 [CI attribution/artifacts](evidence/direct-release-hosted-ci-2026-10-20.json)
 are separate from production acceptance. Linux local 8.5.11/8.0.45 rehearsal
 and affected regressions passed; hosted release job is 8.5.11/8.0.46. The
-production patch, schema, grants, artifact, legacy cutover and recovery gates
-are still UNKNOWN/open. No second paid environment is a preparation gate.
+production patch/settings/grants now have owner observations above; complete
+schema fidelity, artifact, legacy cutover and recovery gates remain open.
+No second paid environment is a preparation gate.
 
 Whole-roadmap reconciliation at candidate `d381e56`: [P0–P2 status and critical path](p0-p2-status-2026-10-18.md). This is a documentation audit; it preserves historical evidence and leaves the existing acceptance matrices and release gates unchanged.
 

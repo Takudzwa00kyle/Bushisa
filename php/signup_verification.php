@@ -233,7 +233,9 @@ function bushisa_terminalize_signup_code(PDO $pdo, int $codeId, int $userId, str
 
 function bushisa_cleanup_expired_signup_codes(PDO $pdo): int
 {
-    ensure_operational_schema($pdo);
+    // This bounded worker only needs signup stores. Missing required fields
+    // fail at their query before carrier I/O; it never bootstraps runtime DDL.
+    bushisa_signup_require_schema($pdo);
 
     $expired = $pdo->prepare(
         'SELECT id, user_id, email

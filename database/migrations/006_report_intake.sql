@@ -135,10 +135,18 @@ CREATE TABLE IF NOT EXISTS pair_decline_restrictions (
 -- explicit L02 release gate; this is not a claim to reconstruct purged history.
 INSERT INTO message_request_sends (requester_id, recipient_id, request_id, created_at)
 SELECT requester_id, recipient_id, id, requested_at FROM message_requests mr
-WHERE NOT EXISTS (SELECT 1 FROM message_request_sends s WHERE s.request_id = mr.id);
+WHERE mr.requested_at IS NOT NULL
+  AND NOT EXISTS (SELECT 1 FROM message_request_sends s WHERE s.request_id = mr.id);
 
 INSERT INTO pair_request_counts (requester_id, recipient_id, request_count)
-SELECT requester_id, recipient_id, COUNT(*) FROM message_request_sends GROUP BY requester_id, recipient_id
+-- A surviving projection with no trustworthy time still proves a minimum
+-- request count, never a timed send event or complete historical allowance.
+SELECT requester_id, recipient_id, COUNT(*) FROM (
+    SELECT requester_id, recipient_id FROM message_request_sends
+    UNION ALL
+    SELECT mr.requester_id, mr.recipient_id FROM message_requests mr
+    WHERE NOT EXISTS (SELECT 1 FROM message_request_sends s WHERE s.request_id = mr.id)
+) known_minimum GROUP BY requester_id, recipient_id
 ON DUPLICATE KEY UPDATE request_count = GREATEST(request_count, VALUES(request_count));
 
 -- No synthetic decline timestamp when legacy attribution time is unavailable.

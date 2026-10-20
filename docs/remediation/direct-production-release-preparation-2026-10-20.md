@@ -37,13 +37,44 @@ success is not operational acceptance.
 
 ## Hosted identity and complete change boundary
 
+### Owner metadata follow-up: current evidence
+
+The [observed-schema rehearsal](owner-schema-release-rehearsal-2026-10-20.md)
+ingests the owner's DOCX observations and supersedes the corresponding UNKNOWNs
+in the historical capture request below. It records MySQL **8.0.46-azure**, UTC,
+REPEATABLE-READ, exact SQL mode/collations, verified MariaDB-client TLS, broad
+configured-user grants, four migration markers and all captured physical
+attributes. Production metadata was not independently executed by the agent.
+All nine sampled file hashes match raw baseline `0bf311f` bytes; `signin.php`
+was the wrong probe name (`login.php` is the route). Complete application and
+installed WebJob artifact identity remain UNKNOWN.
+
+DR-P01 is now **PARTIAL**: every captured baseline column/default/index/FK rule
+matches, and the reconstructed schema upgrades through 016 and reruns locally
+on PHP 8.5.11/upstream MySQL 8.0.46, including nullable legacy request clocks,
+restricted migration/worker identities and verified local TLS. The omitted
+FK mappings/index attributes/default ambiguity/CHECK metadata still need the
+[minimal supplement](../../deploy/release/supplemental-schema-metadata.sql).
+This is distinct from the earlier generic 004 rehearsal below.
+
+The new local test has **29 PASS**; OS17 deliberately demonstrates **unsafe
+baseline rollback**, not successful rollback acceptance. The historical API
+can create requests without pair provenance on the forward schema. DR-P02 for
+the actual complete previous artifact stays NOT RUN. Keep all writers stopped
+on failure; do not reopen traffic on a restored baseline bundle. DR-P03 recovery
+and DR-P04 live acceptance remain NOT RUN. See the focused record for exact
+commands, worktree attribution, new worker-binding prerequisites and remaining
+legacy signup/pair compatibility gates.
+
 The [owner observation ledger](evidence/azure-owner-observations-2026-10-20.json)
 is owner-provided Portal/CLI evidence collected 19-20 October, not an independent
 agent Azure capture. It establishes Linux B1/one instance/no slots, PHP CLI
 8.5.11, MySQL major 8.0/private network, seven-day DB backups and a successful
 no-work minute WebJob. Deployment UUID `25ae3df2-bf75-4dd4-a9ed-625a2b759c24`
-is not a Git SHA. App/worker source, migration markers, schema drift, patch,
-grants/definers, isolation and web-effective sessions remain **UNKNOWN**.
+is not a Git SHA. At that earlier capture, app/worker source, migration markers,
+schema drift, patch, grants/definers and isolation were UNKNOWN; the follow-up
+above replaces only the supplied observations. Full source identity and
+web-effective sessions remain **UNKNOWN**.
 
 Azure CLI/Az.Accounts and a callable authenticated Azure connector are not
 available in this checkout environment. The computer-use runtime was rechecked
@@ -152,10 +183,11 @@ and approved chat, runs current 005-016 and a second migration pass. It uses the
 observed SQL-mode set and UTC for migration connections, restoring the owned
 server's globals afterward. It does not fabricate production records or anchors.
 
-Local profile: **Linux PHP 8.5.11; MySQL 8.0.45**. Owner production CLI matches
-PHP patch, while production MySQL patch remains unknown. Fixture isolation is
+Historical generic local profile: **Linux PHP 8.5.11; MySQL 8.0.45**. Owner
+production CLI matches PHP patch; later owner capture records MySQL
+**8.0.46-azure**. This older fixture isolation is
 REPEATABLE-READ, server collation utf8mb4_0900_ai_ci, schema utf8mb4_unicode_ci;
-production isolation/full collation are unknown. Fixture root migration identity
+production isolation/full collation were unknown at that rehearsal. Fixture root migration identity
 has administrative privileges, `log_bin=1`, trust-function-creators=0; this is
 not the Azure restricted migration role. Loopback fixtures do not prove Azure
 VERIFY_IDENTITY/private TLS; production secure-transport is ON. Existing SG
@@ -169,7 +201,7 @@ restricted-role checks and exact CI evidence remain separate.
 | DR12-DR15 | Production broad CLI refuses pre-connection; fake mail rejected by mail-cleanup CLI; SMTP-mode hygiene has no account/chat effects: PASS. No SMTP dispatch occurs in this test. |
 | DR16 | Owned test server SQL-mode/time-zone restoration verified: PASS. |
 | DR17.1-DR17.4 | Actual Bash script in owned fixture: success, cleanup failure still dispatches, dispatcher failure propagates, both fail: PASS. Stub carrier only. |
-| DR-P01 | Actual captured-production-schema upgrade, restricted grants/TLS/definers: NOT RUN, capture missing. |
+| DR-P01 | PARTIAL: later captured-field reconstruction/upgrade, restricted fixture roles and local TLS pass; physical supplement, actual live identities and Azure behavior remain unverified. |
 | DR-P02 | Previous deployed artifact compatibility with forward schema and protective state: NOT RUN, artifact missing. |
 | DR-P03 | Fresh production backup/media/config verification and witnessed recovery/replay: NOT RUN. |
 | DR-P04 | Owner-controlled live smoke/delivery/worker checks after separate approval: NOT RUN. |
@@ -230,6 +262,13 @@ workflow was invoked. No further application change is authorized by recording C
 Observed schedule stays `0 * * * * *`; no scheduling change is made here.
 The deployed worker's actual package is unknown. The proposed
 [run.sh](../../deploy/mail-webjob/run.sh) executes only:
+
+The proposed mail CLIs now require dedicated `MAIL_WORKER_DB_USER` and
+`MAIL_WORKER_DB_PASSWORD` in production before DB loading, distinct from the
+web runtime identity. Missing bindings stop the new worker. Provisioning these
+reviewed roles/settings is a **future separately approved action**, not an
+executed change or permission to interrupt the existing working worker now.
+The focused rehearsal records the restricted profile and missing-grant failure.
 
 1. [cleanup_mail.php](../../bin/cleanup_mail.php): bounded expiry/terminalization
    of signup challenge secrets and expired code-bearing payloads; no account,
@@ -368,6 +407,13 @@ before it may serve users. If it cannot safely read current restrictions, remain
 in maintenance and use reviewed forward repair/recovery instead. No data rewind
 is part of code rollback; post-release protective actions cannot be discarded.
 
+**Observed counterexample:** OS17's real baseline API creates a request without
+the new pair ledger on the forward schema. Therefore restoring known baseline
+`0bf311f` is permitted only for private diagnosis while all traffic/writers
+remain stopped, pending a separately verified repair/recovery. It is not a
+tested traffic-serving fallback. Actual previous artifact identity/compatibility
+is still unverified; additive migrations alone do not make this rollback safe.
+
 **Database recovery:** distinct incident authorization is needed. Freeze every
 writer/mail dispatcher first; record the last acknowledged protective actions,
 backup cutoff and any post-cutoff changes that would be lost. Rehearse the
@@ -400,14 +446,16 @@ maintenance, migration nor replay restarts an original retention deadline.
 |---|---|---|
 | Owner execution information | Maintenance start/end/abort window, exact permitted change set, accepted primary/backup, consenting smoke accounts, existing recovery capacity | Takudzwa supplies actual choices; no invented appointments or budget. |
 | Policy decisions | Production reset throttles before separate activation; Q40 session redesign still proposed; other register proposals unchanged | Owner selects only when needed. Direct release does not approve them; reset stays off. |
-| Executable engineering | Actual schema/grant rehearsal; complete deployed-source diff; exact old-artifact rollback; legacy anchor/history/cutover compatibility; NGINX/private paths; full D03 routes/geography/media/retention completion | Engineering uses metadata capture; preserve incomplete history and existing approval boundaries. |
+| Executable engineering | Reconcile minimal physical-schema supplement; finish full-D03 restricted-grant checks and complete deployed-source diff; address demonstrated unsafe baseline rollback; legacy anchor/history/cutover compatibility; NGINX/private paths; full D03 routes/geography/media/retention completion | Engineering uses the owner observations and local rehearsal; preserve incomplete history and existing approval boundaries. |
 | External operational/review | Existing monitoring/alert receipt, SMTP/inbox/header acceptance, monitored support, operators/coverage, qualified security/privacy/safety, actual backup/media/session/replay and witnessed recovery | Named accepted operators/reviewers; synthetic fixtures and old green CI cannot close these. |
 
-**Next concrete owner action:** return the private metadata/fingerprint results
-from the read-only capture, with secrets and user content excluded. This needs
-no paid environment and does not authorize the mutation sequence. Next bounded
-engineering task is an exact observed-schema upgrade/previous-artifact rollback
-rehearsal and resolution of any identified drift. Only after its evidence and
+**Next concrete owner action:** return only the missing physical-schema supplement
+and complete application/installed-WebJob artifact identity; identify accepted
+DB/security/operator reviewers for the role and maintenance/recovery set. Do not
+repeat the supplied 227-column/nine-hash capture. No paid environment is needed.
+Next bounded engineering work is the remaining full-D03 grant-path checks and
+legacy continuation/cutover resolution, with rollback writers kept disabled
+until separately demonstrated safe. Only after this evidence and
 remaining release criteria are satisfied should a concrete production approval
 be requested. Current recommendation remains **NO-GO**, without reopening any
 settled product decisions.

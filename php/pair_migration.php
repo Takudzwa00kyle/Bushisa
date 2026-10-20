@@ -8,10 +8,19 @@ function bushisa_migrate_pair_history(PDO $pdo): void
     // Widen precision without changing existing instants. The canonical server
     // receipt, seven-day expiry and twelve-hour cooldown must agree exactly.
     foreach (['requested_at','responded_at','revoked_at','closed_at','expires_at','purge_due_at'] as $column) {
-        $precision=$pdo->prepare('SELECT datetime_precision FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name="message_requests" AND column_name=?');
+        $precision=$pdo->prepare('SELECT datetime_precision,is_nullable,column_default,extra,data_type FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name="message_requests" AND column_name=?');
         $precision->execute([$column]);
-        if ((int)$precision->fetchColumn()!==6) {
-            $pdo->exec('ALTER TABLE message_requests MODIFY COLUMN '.$column.' TIMESTAMP(6) '.($column==='requested_at'?'NOT NULL DEFAULT CURRENT_TIMESTAMP(6)':'NULL DEFAULT NULL'));
+        $old=$precision->fetch(PDO::FETCH_ASSOC);
+        if(is_array($old))$old=array_change_key_case($old,CASE_LOWER);
+        if(!$old || $old['data_type']!=='timestamp' || !in_array($old['extra'],['','DEFAULT_GENERATED'],true))throw new RuntimeException('Unexpected request timestamp definition; review migration');
+        if ((int)$old['datetime_precision']!==6) {
+            // Preserve observed legacy nullability and unknown clocks. Trusted
+            // new send events remain NOT NULL in their separate event ledger.
+            $definition=$old['is_nullable']==='YES'?'NULL':'NOT NULL';
+            if($old['column_default']!==null){
+                $definition.=' DEFAULT '.(preg_match('/\ACURRENT_TIMESTAMP(?:\(\))?\z/iD',$old['column_default'])?'CURRENT_TIMESTAMP(6)':$pdo->quote($old['column_default']));
+            }elseif($old['is_nullable']==='YES'){$definition.=' DEFAULT NULL';}
+            $pdo->exec('ALTER TABLE message_requests MODIFY COLUMN '.$column.' TIMESTAMP(6) '.$definition);
         }
     }
     $precision=$pdo->query('SELECT datetime_precision FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name="messages" AND column_name="evidence_purge_due_at"')->fetchColumn();

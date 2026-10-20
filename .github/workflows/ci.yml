@@ -44,6 +44,7 @@ jobs:
         run: |
           php tests/unit_signup_verification.php
           php tests/unit_mail_configuration.php
+          php -n tests/unit_mail_worker_config.php
           php tests/unit_disposable_database_guard.php
           php -n -d extension=ctype tests/unit_staging_guard.php --expect-no-mysql
           php tests/unit_legacy_history.php
@@ -103,6 +104,10 @@ jobs:
         env:
           DB_NAME: bushisa_test_l02d_ci
         run: php tests/integration_l02d_imports.php
+      - name: Report intake and pair-ledger regressions
+        run: |
+          DB_NAME=bushisa_test_l01b_ci php tests/integration_l01b_reports.php
+          DB_NAME=bushisa_test_l02a_ci php tests/integration_l02a_pairs.php
       - name: Mixed HTTP and importer races, real engine retries, restricted roles
         env:
           DB_NAME: bushisa_test_l02d_e_ci
@@ -330,7 +335,7 @@ jobs:
       contents: read
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:8.0.46
         env:
           MYSQL_ROOT_PASSWORD: synthetic-ci-password
         ports:
@@ -366,10 +371,22 @@ jobs:
         run: php tests/unit_mail_worker_schedule.php
       - name: Historical 004 upgrade under owner-observed SQL mode and UTC
         run: php tests/integration_release_upgrade.php
+      - name: Reconstructed owner-observed schema, roles and transition checks
+        env:
+          DB_NAME: bushisa_test_release_observed_ci
+          BUSHISA_OBSERVED_TEST_ENGINE_SETUP: "true"
+        run: php tests/integration_owner_schema.php
       - name: Sanitized release rehearsal evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: direct-release-compatibility
           path: test-results/direct-release.json
+          if-no-files-found: error
+      - name: Owner-schema comparison and bounded rehearsal evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: owner-observed-schema-results
+          path: test-results/owner-schema.json
           if-no-files-found: error

@@ -48,7 +48,7 @@ try {
     $denied=false;$p->beginTransaction();try{$pair=bushisa_pair_ensure($p,1,2);bushisa_pair_complete($p,$pair);}catch(BushisaReportError){$denied=true;}finally{$p->rollBack();}rel_check('DR11',$denied);
     $prod=array_replace(getenv(),['APP_ENV'=>'production','DB_HOST'=>'invalid.invalid','DB_NAME'=>'bushi-database']);
     $r=rel_child([PHP_BINARY,$repo.'/bin/cleanup_policy.php'],$prod);rel_check('DR12',$r['exit']===78 && str_contains($r['err'],'POLICY_CLEANUP_GATED') && !str_contains($r['err'],'Database'));
-    $r=rel_child([PHP_BINARY,$repo.'/bin/cleanup_mail.php'],array_replace($prod,['MAIL_PROVIDER'=>'fake','MAIL_TRANSPORT'=>'fake']));rel_check('DR13',$r['exit']===1 && str_contains($r['err'],'MAIL_CLEANUP_FAILED'));
+    $r=rel_child([PHP_BINARY,$repo.'/bin/cleanup_mail.php'],array_replace($prod,['MAIL_PROVIDER'=>'fake','MAIL_TRANSPORT'=>'fake','MAIL_WORKER_DB_USER'=>'synthetic_worker','MAIL_WORKER_DB_PASSWORD'=>'synthetic-unused']));rel_check('DR13',$r['exit']===1 && str_contains($r['err'],'MAIL_CLEANUP_FAILED'));
     $r=rel_child([PHP_BINARY,$repo.'/bin/cleanup_mail.php'],array_replace(getenv(),['MAIL_PROVIDER'=>'smtp','MAIL_TRANSPORT'=>'smtp']));rel_check('DR14',$r['exit']===0 && json_decode($r['out'],true)['policy_cleanup']==='gated');
     rel_check('DR15',$p->query('SELECT body FROM messages WHERE id=1')->fetchColumn()==='synthetic retained chat' && $before===$p->query('SELECT id,email,password_hash,account_status,is_verified,session_version FROM users ORDER BY id')->fetchAll());
 } catch(Throwable $e){$failure=$e instanceof PDOException?'SQL_'.($e->errorInfo[1]??0):$e->getMessage();}
