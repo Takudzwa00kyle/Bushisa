@@ -1,0 +1,267 @@
+{
+    "production_acceptance":  false,
+    "managed_azure_cases":  "18 NOT RUN",
+    "draft":  true,
+    "merge_parents":  [
+                          "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+                          "803a03a87d5dd73f1f130a5145c8672e447c911e"
+                      ],
+    "format":  "bushisa.direct-release-hosted-ci.v1",
+    "source_sha":  "803a03a87d5dd73f1f130a5145c8672e447c911e",
+    "captured_utc":  "2026-10-20T11:57:11.0506940Z",
+    "test_merge":  "4b18eed8cd73384df772b5cfbfd35105d642d92b",
+    "merged":  false,
+    "runs":  [
+                 {
+                     "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417838741",
+                     "id":  39417838741,
+                     "global_settings_restored":  true,
+                     "conclusion":  "success",
+                     "release_cases":  [
+                                           {
+                                               "case":  "DR01",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR02",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR03",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR04",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR05",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR06",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR07",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR08",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR09",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR10",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR11",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR12",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR13",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR14",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR15",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR16",
+                                               "result":  "PASS"
+                                           }
+                                       ],
+                     "event":  "pull_request",
+                     "jobs":  [
+                                  {
+                                      "name":  "browser-route-session-overlap",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417838741/job/118611098225"
+                                  },
+                                  {
+                                      "name":  "lint-and-unit",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417838741/job/118611098475"
+                                  },
+                                  {
+                                      "name":  "smtp-outbox-integration",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417838741/job/118611098520"
+                                  },
+                                  {
+                                      "name":  "guarded-staging-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417838741/job/118611098583"
+                                  },
+                                  {
+                                      "name":  "direct-release-compatibility",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417838741/job/118611098641"
+                                  },
+                                  {
+                                      "name":  "l06-recovery-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417838741/job/118611098829"
+                                  }
+                              ],
+                     "php":  "8.5.11",
+                     "checkout_sha":  "4b18eed8cd73384df772b5cfbfd35105d642d92b",
+                     "mysql_profile":  {
+                                           "mysql":  "8.0.46",
+                                           "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+                                           "time_zone":  "+00:00",
+                                           "isolation":  "REPEATABLE-READ",
+                                           "charset":  "utf8mb4",
+                                           "collation":  "utf8mb4_0900_ai_ci",
+                                           "require_secure_transport":  0,
+                                           "log_bin":  1,
+                                           "log_bin_trust_function_creators":  0
+                                       },
+                     "artifact":  {
+                                      "sha256":  "0190f98bb2ed8626bb7acb50c01d484a1101b140a7654b904a52acd404e96350",
+                                      "id":  12262128892,
+                                      "digest_verified":  true
+                                  },
+                     "source_sha":  "803a03a87d5dd73f1f130a5145c8672e447c911e"
+                 },
+                 {
+                     "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417740204",
+                     "id":  39417740204,
+                     "global_settings_restored":  true,
+                     "conclusion":  "success",
+                     "release_cases":  [
+                                           {
+                                               "case":  "DR01",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR02",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR03",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR04",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR05",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR06",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR07",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR08",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR09",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR10",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR11",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR12",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR13",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR14",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR15",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR16",
+                                               "result":  "PASS"
+                                           }
+                                       ],
+                     "event":  "push",
+                     "jobs":  [
+                                  {
+                                      "name":  "browser-route-session-overlap",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417740204/job/118610773218"
+                                  },
+                                  {
+                                      "name":  "guarded-staging-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417740204/job/118610773418"
+                                  },
+                                  {
+                                      "name":  "lint-and-unit",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417740204/job/118610773465"
+                                  },
+                                  {
+                                      "name":  "smtp-outbox-integration",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417740204/job/118610773569"
+                                  },
+                                  {
+                                      "name":  "direct-release-compatibility",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417740204/job/118610773627"
+                                  },
+                                  {
+                                      "name":  "l06-recovery-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417740204/job/118610773709"
+                                  }
+                              ],
+                     "php":  "8.5.11",
+                     "checkout_sha":  "803a03a87d5dd73f1f130a5145c8672e447c911e",
+                     "mysql_profile":  {
+                                           "mysql":  "8.0.46",
+                                           "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+                                           "time_zone":  "+00:00",
+                                           "isolation":  "REPEATABLE-READ",
+                                           "charset":  "utf8mb4",
+                                           "collation":  "utf8mb4_0900_ai_ci",
+                                           "require_secure_transport":  0,
+                                           "log_bin":  1,
+                                           "log_bin_trust_function_creators":  0
+                                       },
+                     "artifact":  {
+                                      "sha256":  "529206f5fc76fe3bda538c5c552a82764a39a1e0692384df7d8a4287a3114539",
+                                      "id":  12262009496,
+                                      "digest_verified":  true
+                                  },
+                     "source_sha":  "803a03a87d5dd73f1f130a5145c8672e447c911e"
+                 }
+             ],
+    "sc26_production":  "PARTIAL",
+    "pr":  8,
+    "source_and_merge_tree":  "a39c51c67daa726636cbb9e818853eb8a3982eae"
+}

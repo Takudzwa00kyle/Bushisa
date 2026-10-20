@@ -23,6 +23,14 @@ and verify the exact previous-artifact rollback against the forward schema.
 No fabricated legacy anchor/history backfill or paid environment is required.
 Unknown history stays fail-closed and therefore remains a compatibility gate.
 
+Implementation candidate `803a03a` passed six jobs in both feature push and
+draft PR [8](https://github.com/Takudzwa00kyle/Bushisa/pull/8); exact
+[CI attribution/artifacts](evidence/direct-release-hosted-ci-2026-10-20.json)
+are separate from production acceptance. Linux local 8.5.11/8.0.45 rehearsal
+and affected regressions passed; hosted release job is 8.5.11/8.0.46. The
+production patch, schema, grants, artifact, legacy cutover and recovery gates
+are still UNKNOWN/open. No second paid environment is a preparation gate.
+
 Whole-roadmap reconciliation at candidate `d381e56`: [P0–P2 status and critical path](p0-p2-status-2026-10-18.md). This is a documentation audit; it preserves historical evidence and leaves the existing acceptance matrices and release gates unchanged.
 
 SC26 follow-up on `codex/sc26-physical-io-fence-20261018`, based on audit

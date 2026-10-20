@@ -46,7 +46,10 @@ is not a Git SHA. App/worker source, migration markers, schema drift, patch,
 grants/definers, isolation and web-effective sessions remain **UNKNOWN**.
 
 Azure CLI/Az.Accounts and a callable authenticated Azure connector are not
-available in this checkout environment. No cloud credentials or production DB
+available in this checkout environment. The computer-use runtime was rechecked
+and failed before app/window inventory with `failed to write kernel assets:
+The system cannot find the path specified. (os error 3)`; no Portal state was
+observed. No cloud credentials or production DB
 credentials were retrieved; no live SQL connection was attempted. The owner
 can collect the following now under the read-only authorization. Do not install
 the candidate, invoke migrations, bootstrap a schema or run a worker to identify it.
@@ -115,6 +118,13 @@ git diff --name-status 0bf311fb6d6a298712fd4cd16d0722305516edd4 <candidate-sha>
 git diff --stat 0bf311fb6d6a298712fd4cd16d0722305516edd4 <candidate-sha>
 git log --reverse --oneline 0bf311fb6d6a298712fd4cd16d0722305516edd4..<candidate-sha>
 ```
+
+The [225-path change inventory](evidence/direct-release-change-inventory-2026-10-20.json)
+pins that entire comparison to implementation candidate
+`803a03a87d5dd73f1f130a5145c8672e447c911e`, including old/new Git blob IDs.
+It is not just a diff from `423ec6c` and does not claim the comparator is deployed.
+Evidence-only follow-up changes must still be included in the final artifact
+manifest; they cannot change the application/worker code without new verification.
 
 | Change family from that comparator | Release consequence |
 |---|---|
@@ -191,6 +201,29 @@ tree based on `423ec6c`, not clean historical `423ec6c`. Their ordinary test SQL
 mode additionally includes NO_ENGINE_SUBSTITUTION; only the release-upgrade
 rehearsal selects the owner's exact observed set. Existing matrix statuses and
 external/unavailable variants are not upgraded by these repeated checks.
+
+### Exact implementation-candidate CI
+
+Source `803a03a87d5dd73f1f130a5145c8672e447c911e` passed **all six jobs** in
+[feature push 39417740204](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417740204)
+and [draft PR run 39417838741](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39417838741).
+Draft [PR 8](https://github.com/Takudzwa00kyle/Bushisa/pull/8) targets main without
+merging. Its test checkout `4b18eed8cd73384df772b5cfbfd35105d642d92b` has parents
+`0bf311f`/`803a03a` and the same tree as the feature source. The
+[verified CI record](evidence/direct-release-hosted-ci-2026-10-20.json) includes
+job URLs, source/checkout SHAs and independently checked artifact SHA-256 digests.
+Both downloaded release reports have 16 PASS cases, clean worktrees, PHP 8.5.11,
+MySQL 8.0.46, the observed SQL-mode set/UTC and verified fixture-global restoration.
+The worker's four Bash variants run in that job too. Other jobs cover the
+existing SMTP/outbox/lifecycle/pair/session, browser/race, L06 and stage guard
+regressions. Four original jobs declare PHP 8.4 and the stage-guard job declares
+8.5; only the release job's exact 8.5.11 patch is asserted by this report.
+
+The follow-up checkpoint adds evidence/documentation only. Its final CI
+attribution is kept with the matching draft PR and run artifacts; the committed
+record above remains historical evidence for `803a03a`, never relabelled as a
+later head. No run is Azure/staging/production acceptance, and no deployment
+workflow was invoked. No further application change is authorized by recording CI.
 
 ## Scheduled behavior, legacy effects and backfill boundaries
 
