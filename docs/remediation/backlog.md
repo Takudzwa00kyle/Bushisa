@@ -4,6 +4,13 @@ Updated: 2026-10-20, Africa/Harare.
 
 ## Current release path: controlled direct update, staging deferred
 
+Next owner collection: [ordered read-only schema/app/installed-worker procedure](owner-evidence-collection-2026-10-21.md).
+It reuses the six-query metadata supplement, starts in the existing verified
+MySQL prompt, discovers the actual job through Kudu before hashing, and prepares
+a separate known-code application manifest locally. Role/definer, legacy
+continuation/cutover and recovery review sheets are included; no operational
+step was executed and no readiness gate or CI attribution changes.
+
 Latest owner-metadata follow-up: [observed-schema rehearsal and release blockers](owner-schema-release-rehearsal-2026-10-20.md).
 Implementation `3dbcb50` has six successful jobs in each of its push/PR runs;
 [exact hosted artifacts](evidence/owner-schema-hosted-ci-2026-10-21.json) verify

@@ -39,6 +39,12 @@ success is not operational acceptance.
 
 ### Owner metadata follow-up: current evidence
 
+Use the [next owner-run collection procedure](owner-evidence-collection-2026-10-21.md)
+for the remaining minimal schema attributes and separate installed-worker/app
+identity. Its surface-labelled commands and local evidence filenames replace
+the earlier broad collection checklist for this next step; no repeated full
+audit, production script upload or live action is required.
+
 The [observed-schema rehearsal](owner-schema-release-rehearsal-2026-10-20.md)
 ingests the owner's DOCX observations and supersedes the corresponding UNKNOWNs
 in the historical capture request below. It records MySQL **8.0.46-azure**, UTC,
