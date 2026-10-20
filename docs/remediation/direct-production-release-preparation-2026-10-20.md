@@ -246,8 +246,16 @@ refuses non-development environments **before DB loading**, with no production
 override switch. Separate attempt/Q22/session/evidence consumers are not added
 to WebJobs; existing production adapter/authority/recovery gates still apply.
 This prevents accidental scheduling, not a claim those retention duties are met.
-Reads/explicit approved writes can still enforce access expiry/unsend and Q11
-logical expiry. Live erasure and recovery obligations remain independently due.
+In particular, `bushisa_signup_cleanup_mail` and dispatch both use
+`bushisa_signup_mail_rows_locked`, which calls `bushisa_signup_expire_locked`.
+For an individually selected mail account with a trusted overdue Q11 anchor,
+that check can disable the account, increment its session version, cancel
+challenge/mail material and enqueue pending erasure/session/recovery obligations.
+It is not a general account sweep or physical account erasure. Unknown legacy
+anchors require review rather than automatic expiry. Ordinary reads/approved
+writes also enforce access expiry/unsend. Live erasure and recovery obligations
+remain independently due: withholding unsupported consumers is not compliance
+with their deadlines, and operational adapters remain a release gate.
 
 Old pending signup mail without Q11 job/anchor proof is **not** transformed into
 a new authorized delivery: current dispatcher rejects/terminalizes it. Drain
