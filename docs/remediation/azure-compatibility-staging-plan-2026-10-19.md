@@ -1,5 +1,14 @@
 # Azure compatibility audit and isolated staging acceptance plan
 
+**Current release-route amendment:** the owner has selected a controlled
+direct-production update using existing resources. Managed staging is deferred
+for resource constraints; this document's second-environment proposals are
+historical options, not preparation prerequisites. All 18 AZS cases remain
+NOT RUN. The [direct-release package](direct-production-release-preparation-2026-10-20.md)
+supplies the current plan and narrower newly authorized read-only production
+schema/grant capture. This does not turn local staging-driver tests into Azure
+acceptance or authorize any production mutation.
+
 Updated 2026-10-20, Africa/Harare. Status: **PARTIAL compatibility audit;
 owner-observed configuration recorded; staging GATED / NOT RUN**.
 This is documentation on `codex/azure-compatibility-staging-plan-20261019`,

@@ -323,3 +323,53 @@ jobs:
           name: guarded-staging-results
           path: test-results/staging-local.json
           if-no-files-found: error
+
+  direct-release-compatibility:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_test_release_ci
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      MAIL_TRANSPORT: fake
+      RELEASE_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5.11'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, curl, ctype
+      - run: composer install --no-interaction --prefer-dist
+      - name: Worker boundary and independent failure reporting
+        run: php tests/unit_mail_worker_schedule.php
+      - name: Historical 004 upgrade under owner-observed SQL mode and UTC
+        run: php tests/integration_release_upgrade.php
+      - name: Sanitized release rehearsal evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: direct-release-compatibility
+          path: test-results/direct-release.json
+          if-no-files-found: error

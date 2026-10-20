@@ -7,6 +7,14 @@ if (PHP_SAPI !== 'cli') {
     exit;
 }
 
+// Production recovery/authority adapters and the broader cleanup release gate
+// remain unavailable. Refuse before loading database configuration. The regular
+// mail WebJob uses cleanup_mail.php instead; this is not an activation switch.
+if (strtolower((string) (getenv('APP_ENV') ?: 'production')) !== 'development') {
+    fwrite(STDERR, "POLICY_CLEANUP_GATED: production lifecycle cleanup is not activated.\n");
+    exit(78);
+}
+
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/signup_verification.php';

@@ -2,6 +2,25 @@
 
 Updated: 2026-10-16, Africa/Harare.
 
+## Release approach amendment: existing resources, 20 October recording
+
+Takudzwa Hondova expressly chose a **controlled direct-production update using
+existing resources**, deferring managed Azure staging because of resource
+constraints. A second paid environment is not a prerequisite to completing
+release preparation. The source is the owner's message beginning `Change the
+Bushisa release approach`; its exact acceptance instant was not captured, so
+no UTC/Harare approval time is invented from this recording date.
+
+This replaces the proposed managed-staging route as the immediate release
+approach, not D03's full scope or any safety, privacy, recovery or acceptance
+requirement. All **18 AZS cases remain NOT RUN**; staging acceptance, P0/P1 exit,
+unresolved Q40/Q47 choices and qualified/operational gates remain open. Read-only
+production metadata capture for version/schema/grants is authorized without
+user content or credentials. Local preparation, guarded rehearsals and feature
+candidate CI are authorized; merge, deployment, settings changes, live
+migrations/cleanup and real mail require the separate concrete change approval.
+See the [direct-release package](direct-production-release-preparation-2026-10-20.md).
+
 ## P1-P6 explicit owner decisions
 
 Reviewer: **Takudzwa Hondova**. Source: the owner's message beginning `Record
