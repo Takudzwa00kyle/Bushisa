@@ -4,6 +4,14 @@ Updated: 2026-10-20, Africa/Harare.
 
 ## Current release path: controlled direct update, staging deferred
 
+Owner schema supplement received: [all six missing metadata groups match](owner-schema-supplement-comparison-2026-10-21.md),
+including 13 FK mappings, 122 index attributes, 51 default checks, 29 table
+options and no CHECK/partitioning. No additional SHOW CREATE TABLE is needed
+from this capture. Historical test/PARTIAL labels retain their original scope;
+actual Azure identities/grants/PDO/definers, artifact, cutover and recovery
+acceptance remain open. Next collection is installed WebJob location/identity,
+then the application manifest; schema steps 1-2 need not be repeated.
+
 Next owner collection: [ordered read-only schema/app/installed-worker procedure](owner-evidence-collection-2026-10-21.md).
 It reuses the six-query metadata supplement, starts in the existing verified
 MySQL prompt, discovers the actual job through Kudu before hashing, and prepares

@@ -1,5 +1,10 @@
 # Next owner-run collection, existing resources
 
+**Progress update:** schema steps 1-2 were returned by the owner and
+[match the reconstruction](owner-schema-supplement-comparison-2026-10-21.md).
+Do not repeat them. The next collection is **step 3, actual installed WebJob
+location**. The commands below preserve the original procedure for reference.
+
 Prepared from clean `888a2c273711c1ac5f3d1dc3d26d649f1e636235` on
 `codex/direct-production-release-prep-20261020`. Commands below are **prepared,
 not executed against Azure by the agent**. PR 8 stays draft. No code, grants,
@@ -9,7 +14,7 @@ SC26 production topology stays PARTIAL. Prior CI attribution is unchanged.
 
 ## 1. First collection: verify the already connected schema
 
-**Run now in the MySQL/MariaDB prompt** of the existing certificate-verifying
+**Completed by the owner; retained for reference.** This ran in the MySQL/MariaDB prompt of the existing certificate-verifying
 connection that produced the DOCX. This is not a Bash or IntelliJ command:
 
 ```sql

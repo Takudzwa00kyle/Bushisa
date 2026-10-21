@@ -39,6 +39,14 @@ success is not operational acceptance.
 
 ### Owner metadata follow-up: current evidence
 
+**Latest supplement:** the [owner's additional physical metadata matches the
+reconstruction](owner-schema-supplement-comparison-2026-10-21.md) in every
+requested field. The six schema-metadata assumptions below are now confirmed;
+no targeted SHOW CREATE TABLE is required from this capture. DR-P01 remains
+PARTIAL for broader actual Azure role/definer/PDO acceptance; app/installed-job
+identity and recovery are separate open gates. The earlier pending-supplement
+wording below records the previous checkpoint and does not request recapture.
+
 Use the [next owner-run collection procedure](owner-evidence-collection-2026-10-21.md)
 for the remaining minimal schema attributes and separate installed-worker/app
 identity. Its surface-labelled commands and local evidence filenames replace
