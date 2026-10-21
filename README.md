@@ -2,8 +2,6 @@
 
 Bushisa is a responsive student matching and campus interaction website built for the SCS 2114 Internet and Web Development mini group project. The platform demonstrates a complete PHP/MySQL web application with registration, secure login, navigation, forms, JavaScript interactivity, database-backed CRUD operations, responsive design, accessibility considerations, and browser-focused testing.
 
-The project brief is stored in [docs/Web Development Group Mini Project.docx](docs/Web%20Development%20Group%20Mini%20Project.docx). This README presents Bushisa only against the requirements in that brief.
-
 ## 1. Project Purpose
 
 Bushisa is designed for NUST students who want a safer, student-only way to discover other students, express interest, chat after a match, and participate in a campus confession board. The website is not just a static brochure; it is an interactive platform where users can create accounts, sign in, complete onboarding, update profiles, browse candidates, like or pass candidates, manage matches, send messages, and create or manage confessions.
@@ -381,7 +379,7 @@ http://127.0.0.1:8000
 
 Database and mail environment examples are documented in [.env.example](.env.example). The PDO connection code is in [config/db.php](config/db.php).
 
-## 16. Suggested Lecture Demonstration Script
+## 16. Lecture Demonstration Script
 
 1. Open the homepage and explain that Bushisa is a student-only matching and campus interaction service.
 2. Show registration in [register.php](register.php): student email, password, profile information, and terms acceptance.
