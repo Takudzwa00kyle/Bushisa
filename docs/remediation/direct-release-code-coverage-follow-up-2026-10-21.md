@@ -8,7 +8,13 @@ and ZIP settings are semantically equivalent: exactly
 formatting whitespace. This resolves the schedule/representation comparison,
 not who installed/edited it or whether this exact ZIP was deployed.
 
-## Next unresolved requirement and local preparation
+**Owner follow-up completed:** capture 08 is accepted and
+[reconciled](deployed-code-inventory-reconciliation-2026-10-21.md). Do not repeat
+this names-only collection. The next action is the
+[single consolidated code-gap collection](remaining-code-evidence-collection-2026-10-21.md).
+The original preparation and command below remain historical reference.
+
+## Original unresolved requirement and local preparation
 
 **Establish coverage of the hosted code, rather than infer a whole deployment
 from the 75 known source matches.** Capture 05 already supplies the reviewed
@@ -29,7 +35,8 @@ PHP/JavaScript/JSON/SQL, execute an autoloader or connect to a database.
 
 ## Smallest owner action: one names-only capture
 
-**Azure Portal > Bushisa > Application SSH, Bash.** Paste this block once.
+**Completed by the owner as capture 08; do not paste again.** The original
+execution location was Azure Portal > Bushisa > Application SSH, Bash.
 It lists reviewed kinds of code filenames under the known source directories,
 plus safe top-level directory names to identify areas needing classification.
 It reads directory metadata only: no file bodies, hashes, environment,
@@ -136,7 +143,8 @@ Get-Clipboard -Raw | Set-Content -LiteralPath (Join-Path $OwnerEvidenceDir '08-d
 ```
 
 Expected: a complete BEGIN/END block of names/counts, or a STOP requiring
-targeted review. **Production execution NOT RUN.** No second settings capture,
+targeted review. **Later owner metadata execution is recorded in capture 08**
+at 2026-10-21 12:41:11 UTC / 14:41:11 Africa/Harare; this is not application acceptance. No second settings capture,
 whole-file hashing, database connection, worker run, Composer invocation or
 application archive export is requested.
 
@@ -156,7 +164,9 @@ real owned filesystem symlink. Error cases emitted a STOP without a partial
 BEGIN/END result. Exact cases, source digest and profile are in the
 [preparation report](evidence/code-names-local-preparation-2026-10-21.json).
 
-Linux/Azure execution remains **NOT RUN**. These checks validate a proposed
+At preparation time Linux/Azure execution was **NOT RUN**. Owner capture 08
+later executed this names-only reader in Application SSH; that observation does
+not turn local fixtures into Azure application/SC/AZS acceptance. These checks validate a proposed
 read-only metadata command, not application behavior, production filesystem
 fencing, independent durability or an AZS/SC case. Existing application suites
 and hosted CI were not rerun or relabelled. Owner source hashes 01-07 remain

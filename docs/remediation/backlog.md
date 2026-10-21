@@ -4,7 +4,7 @@ Updated: 2026-10-21, Africa/Harare.
 
 ## Current release path: controlled direct update, staging deferred
 
-All 01-07 files and the original DOCX are now
+All 01-08 files and the original DOCX are now
 [reconciled](completed-owner-evidence-reconciliation-2026-10-21.md). No repeated
 SQL/hash collection or passed acceptance-suite rerun was needed. The six
 physical-schema assumptions are resolved: 13 FK mappings, 122 index attributes,
@@ -16,9 +16,15 @@ actual Azure restricted grants/definers/PHP PDO/service acceptance.
 The 75 captured Git-tracked application files all match raw baseline `0bf311f`
 bytes; 45 also match candidate `888a2c2`. The 54 MISSING paths comprise 53
 candidate additions and one dependency target, none baseline-tracked. Of 18
-dependency hashes, 17 match explicit local vendor files; installed
-`vendor/composer/installed.php` is unmatched. Unknown extra code/dependency
-coverage, build provenance and non-atomic capture prevent a complete hosted
+dependency hashes, 17 match explicit local vendor files. The installed.php hash
+is now accounted for by generated
+root-reference metadata matching baseline `0bf311f`; no new production read of
+that file is needed. Capture 08 has 154 file names/12 top directories: all 93
+known hashes are represented; 61 extra paths classify as Playwright (1), expected
+PHPMailer package paths (59) and unclassified hostingstart.html (1).
+[Detailed classification](deployed-code-inventory-reconciliation-2026-10-21.md)
+keeps deploy/sql/database/extension/private exclusions explicit. Remaining
+content/build provenance and non-atomic capture prevent a complete hosted
 source SHA claim. The installed worker is now located and its old `run.sh`
 identified; whole package identity remains unresolved.
 
@@ -28,9 +34,12 @@ equivalent to ZIP settings. Local compact JSON matches the installed digest;
 the ZIP bytes remain different. Exact ZIP deployment provenance is unverified. **No preserved application deployment archive was found** in the
 inspected locations. CI-results ZIPs are not rollback bundles. The next owner
 action is only the prepared
-[names-only code coverage inventory](direct-release-code-coverage-follow-up-2026-10-21.md#smallest-owner-action-one-names-only-capture)
-in Application SSH, saved as 08 beside the returned files. This is prepared
-locally, not executed against Azure; no previous hashes/settings are recollected.
+[single consolidated code-gap collection](remaining-code-evidence-collection-2026-10-21.md#owner-action-in-execution-order)
+in Application SSH, saved as 09 beside the returned files. It hashes only 68
+newly classified targets, lists only new non-private names across the remaining
+boundaries/extensions and does not hash unclassified hostingstart by default.
+Local preparation has 17 synthetic checks PASS; production execution NOT RUN.
+No accepted hash, settings or capture-08 inventory is repeated.
 Steps 1-4 of the
 [collection guide](owner-evidence-collection-2026-10-21.md) are complete; do not
 repeat them or execute the worker.
@@ -608,7 +617,7 @@ deadlines stay gated by ownership, overdue alerts and measured capacity.
 | L04 Consent and coarse geography | Q28-Q34; D12 partial; source combination/catalogue widths/bonus bands still proposed; D03 full geography scope preserved | Build reviewed catalogue contract without invented points; current coarse area/version/time/consent only; optional opt-in/refusal/withdrawal; 7d freshness/24h purge; >=10-user cohort suppression; atomic 2 changes/24h; <=5-point soft ranking with zero fallback; cursor invalidation/live safety checks. `profiles.campus_zone` is legacy and authoritative matcher currently lacks geographic ranking. | Local catalogue/point acceptance, normalization/fairness/probing/query/load evidence and Android/iOS grant/refuse/withdraw/expiry/paging witnesses. Privacy/H13, final notice and actual catalogue reviewers UNASSIGNED; no production collection before acceptance. |
 | L05 Telemetry allowlist | Q13/Q23/Q43-Q44; provider/sampling/metadata defaults and funding remain proposed | The owner reports the exact name `APPLICATIONINSIGHTS_CONNECTIONS_STRING`; the audit finds no scoped code consumer and makes no correction/activation. D10 remains GATED. Map every server/browser/provider destination. Prepare pre-transmission fixed-field redaction/allowlist, optional browser consent/withdrawal gate, random expiring visitor reference, separate app-side totals and suppressed aggregates. Inventory table minimums/export/archive paths against retention; no session replay, message/location/answer/token collection. | Later consent/redaction/retention/source-count tests, priced region/configuration review and named privacy/security acceptance. D10 stays pending; US$5 is not an approved spend. |
 | L06 Reset challenge, outbox and sessions | Q11/Q22/Q40/Q45-Q47; approved sender/15m controls; production throttle values and Q40 redesign pending; temporary unset Reply-To approved | Migration 016 and guarded routes/outbox/session-version flow are implemented locally. [25 corrected HTTP cases](evidence/l06-password-reset-local.json) and [six rendered browser cases](l06-browser-hosted-ci-evidence-2026-10-19.md) PASS, including same-document fragment repair, no-JavaScript manual recovery, no-store/scanner behavior, genuine two-session page/API revocation, storage/diagnostic checks and purpose separation. The earlier AUTH-02 evidence limitation is explicitly preserved. Dedicated CI executes L06 independently of the existing regression jobs. Issuance remains off by default. | All four CI jobs passed on implementation candidate `e7501fe` in both feature-push and PR-merge runs; exact attribution is in the linked evidence. Actual device/manual witnesses, staging engine/grants/migration/worker compatibility, qualified review, named operators, monitored support and actual inbox/header acceptance remain open. The [Azure audit](azure-compatibility-staging-plan-2026-10-19.md) additionally gates managed-stage reset on proposed STG-I01/STG-I02 and its guarded driver. Resolve production throttles separately before enabling. No production configuration or mail is touched. |
-| L07 Monitoring and configuration hardening | Q05/Q24/Q26/Q35-Q44/Q46/Q48; appointment/budget/SLO/RPO/runtime/session/security proposals not adopted | The [release reconciliation](completed-owner-evidence-reconciliation-2026-10-21.md) accepts owner observations through 07: PHP CLI 8.5.11, MySQL 8.0.46-azure/UTC/RR, captured schema and ledger 001-004, broad configured-user grants, 75 baseline source matches, actual installed wrapper and established minute-schedule semantics. Full app/dependency/worker-package provenance, web-effective sessions, new restricted identities, storage/recovery and backup redundancy remain unverified. The [names-only follow-up](direct-release-code-coverage-follow-up-2026-10-21.md) prepares the next bounded artifact-coverage read; do not repeat completed metadata or hash collection. Preserve the old-wrapper/candidate-cleanup dispatch stop and reviewed mail-only replacement prerequisites. Continue grant/secret/definer, monitoring/alert/queue/capacity, private paths, support and operator preparation without live changes. | Full deployed-code coverage, authentic legacy continuation/cutover, compatible forward repair or previous-artifact acceptance, accepted reviewers/coverage, restricted-role/service proof and independent recovery remain required for the controlled existing-resource release. Managed staging stays DEFERRED, all 18 cases NOT RUN; SC26 production topology PARTIAL. No production migration or restore is claimed. |
+| L07 Monitoring and configuration hardening | Q05/Q24/Q26/Q35-Q44/Q46/Q48; appointment/budget/SLO/RPO/runtime/session/security proposals not adopted | The [release reconciliation](completed-owner-evidence-reconciliation-2026-10-21.md) accepts owner observations through 08: PHP CLI 8.5.11, MySQL 8.0.46-azure/UTC/RR, captured schema and ledger 001-004, broad configured-user grants, 75 baseline source matches, actual installed wrapper and established minute-schedule semantics. Full app/dependency/worker-package provenance, web-effective sessions, new restricted identities, storage/recovery and backup redundancy remain unverified. The [capture-08 classification](deployed-code-inventory-reconciliation-2026-10-21.md) accounts for added paths and generated metadata; the [consolidated delta](remaining-code-evidence-collection-2026-10-21.md) prepares only remaining justified hashes/names; do not repeat completed metadata or hash collection. Preserve the old-wrapper/candidate-cleanup dispatch stop and reviewed mail-only replacement prerequisites. Continue grant/secret/definer, monitoring/alert/queue/capacity, private paths, support and operator preparation without live changes. | Full deployed-code coverage, authentic legacy continuation/cutover, compatible forward repair or previous-artifact acceptance, accepted reviewers/coverage, restricted-role/service proof and independent recovery remain required for the controlled existing-resource release. Managed staging stays DEFERRED, all 18 cases NOT RUN; SC26 production topology PARTIAL. No production migration or restore is claimed. |
 
 ### L01a documentation checkpoint
 

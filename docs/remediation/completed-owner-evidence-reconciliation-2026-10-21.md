@@ -10,7 +10,7 @@ NOT RUN**, and SC26 production storage/topology stays **PARTIAL**.
 
 ## Sources accepted and limits
 
-The seven files were found in the repository's parent directory. No missing-file
+The eight files were found in the repository's parent directory. No missing-file
 request, repeated production collection, SQL execution, worker execution or
 application-regression rerun was needed. The original DOCX and supplement hashes
 are unchanged. Capture 07 adds a local ZIP comparison and synthetic validation
@@ -28,6 +28,7 @@ Original files remain private and unmodified, outside Git.
 | `05-application-code-sha256.txt` | Owner file manifest at **2026-10-21 00:00:29-00:00:35 UTC / 02:00:29-02:00:35 Africa/Harare**, physical root `/home/site/wwwroot`. Complete BEGIN/END block, no recorded STOP; 93 digests and 54 MISSING paths. This is not an atomic deployment snapshot. |
 | `06-artifact-provenance.txt` | Prior **local agent read-only inspection**, recorded **2026-10-21 00:26:32.5241896 UTC / 02:26:32.5241896 Africa/Harare**. This is not an independent Azure capture or an owner approval timestamp. Reuse its archive inspection; archives were not reopened or executed for this reconciliation. |
 | `07-installed-settings-summary.txt` | Owner Application SSH read-only capture at **2026-10-21 11:35:51 UTC / 13:35:51 Africa/Harare**. Same installed digest as 04; one property, only the recorded minute schedule; no BOM, CRLF or LF. The capture was read locally; Azure collection was not repeated. |
+| `08-deployed-code-names.txt` | Owner metadata capture at **2026-10-21 12:41:11 UTC / 14:41:11 Africa/Harare**: 190 visited, 10 excluded, 166 rows (154 code paths/12 top directories), no STOP. All 93 capture-05 paths are present; 61 additional names are locally classified. See the [inventory reconciliation](deployed-code-inventory-reconciliation-2026-10-21.md). |
 
 No file-save time, recording time or last job run is substituted for historical
 owner acceptance. Previously accepted decisions remain accepted despite an
@@ -74,15 +75,17 @@ This ignored helper reads bounded metadata and Git blobs, not production data.
 |---|---|
 | 75 captured Git-tracked application paths | **75/75 raw-byte matches to `0bf311f`**. No newline normalization was needed. 45 also match `888a2c2`; the other 30 differ from that candidate. No unmatched tracked file was found within this allowlist. |
 | 54 MISSING paths | None is a baseline-tracked target. 53 are candidate-tracked additions, including migrations 005-016 and new flows; the remaining path is `vendor/composer/autoload_files.php`. Missing files were not installed or treated as unexpected drift. |
-| 18 captured dependency paths | 17 raw-byte matches to the explicit local vendor files, including all seven captured PHPMailer source files. Captured `vendor/composer/installed.php` does **not** match the local file. Its installed bytes were not retrieved/executed and the reason remains UNKNOWN; it is not explained away as a newline change. |
+| 18 captured dependency paths | 17 raw-byte local matches, including seven PHPMailer source files. Capture-08 local comparison now accounts for `vendor/composer/installed.php`: changing the two local generated root-reference fields to baseline `0bf311f` yields its exact captured digest. This is one constructed metadata match, not an 18th raw local match or whole deployment identity; no further production read is needed for that discrepancy. |
 | Lockfile | Captured baseline `composer.lock` matches Git; it declares `phpmailer/phpmailer` **v7.1.1**, source reference `1bc1716a507a65e039d4ac9d9adebbbd0d346e15`. A lockfile/local dependency match is not proof of the complete installed dependency tree or authenticated build. |
 | Installed `run.sh` | SHA-256 `8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015` matches baseline bytes and the Git blob introduced by `634fa92d6092918c5b3e091736ab28ab9b0b4b49`. It differs from the candidate wrapper. |
 | Installed `settings.job` | SHA-256 `0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501` matches no available history blob at `deploy/mail-webjob/settings.job`, including tested LF/CRLF variants. Capture 07 now establishes exactly `{"schedule":"0 * * * * *"}` as its parsed semantics. Locally serialized compact JSON (26 bytes) hashes to this same installed digest; the formatted ZIP remains byte-different. |
 
 **Complete hosted source identity remains UNESTABLISHED.** The known-code
 manifest supports a baseline comparison for those paths; it does not exclude
-extra/custom code, additional dependencies or changes between captures. No
-names-only inventory of unexpected code was returned. The application manifest
+extra/custom code, additional dependencies or changes between captures.
+Capture 08 supplies bounded names: 61 additions (Playwright, 59 expected package
+paths, unidentified hostingstart.html). Its excluded/untraversed/extension gaps
+are explicit in the [inventory record](deployed-code-inventory-reconciliation-2026-10-21.md). The application manifest
 does not identify the separately installed worker or certify a previous bundle.
 No newly fetched Git history, dependency download or production access is claimed.
 
@@ -136,7 +139,7 @@ as new authorized envelopes.
 
 | Gate / role | What remains; useful preparation using existing approvals |
 |---|---|
-| Artifact / engineering + release operator | Installed settings semantics are established by 07; classify unexpected code names and unmatched dependency metadata privately; establish full app/worker/package provenance or explicitly review a forward-repair route. Known source files match baseline, but a complete previous package is not available. No full-site export is requested. |
+| Artifact / engineering + release operator | Installed settings semantics are established by 07; capture 08 classifies 61 added names and accounts for generated dependency metadata; collect only newly justified hashes and remaining boundary/extension names; establish full app/worker/package provenance or explicitly review a forward-repair route. Known source files match baseline, but a complete previous package is not available. No full-site export is requested. |
 | Role separation / DB + security reviewers | Actual configured DB_USER has global administration and GRANT OPTION. Review separate runtime, mail worker and migrator grants/host scopes and secret delivery. Finish full-D03 allowed-write/negative-grant cases; retain trusted routine/trigger definers. Different setting names in one App Service do not prove secret isolation. No live grant/config change is authorized. |
 | Legacy continuation/cutover / engineering + safety | Preserve known minimum pair counts and incomplete history; keep writer epoch inactive until authentic all-writer boundary evidence and a bounded enablement design exist. Cover web/API, lazy writers, moderation, sessions/reset, imports/recovery and old/new workers. Missing events/anchors are not zero counts or new clocks. Split active, trusted pending and unknown-anchor signup cases without exposing users. |
 | Compatible fallback / engineering + owner | OS17 demonstrates that old code can accept a request without pair provenance on the forward schema. Restoring old PHP files cannot undo this. Keep **all** ingress/lazy writers/admin/support/session/signup/reset/old-and-new jobs/imports/direct writers stopped during any separately approved fallback. Reconcile in-flight SMTP. Only an exact-artifact compatibility demonstration or tested forward repair preserving current restrictions permits traffic to reopen; unrestricted baseline rollback stays **INCOMPATIBLE**, actual-artifact DR-P02 **NOT RUN**. |
@@ -172,16 +175,22 @@ Local comparison command:
 `D:/cygwin64/bin/python3.9.exe .tmp/accept-owner-settings-07.py`.
 The earlier 07 collection is complete. **Do not repeat Azure collection.**
 
-## Next owner action: names-only code coverage
+## Capture 08 accepted; next consolidated code-gap collection
 
-The next unresolved artifact requirement is unexpected code/dependency coverage,
-not schedule semantics. The [prepared names-only follow-up](direct-release-code-coverage-follow-up-2026-10-21.md)
-provides one bounded Application SSH read, its exclusions/stop conditions and
-local fixture validation. Save its output as `08-deployed-code-names.txt`
-beside 01-07. Reuse all previous hashes; do not run a worker, Composer,
-database audit or full-site download. An unexpected path will be classified
-before any new hash/body request. Names cannot establish deployment provenance,
-previous-artifact compatibility or recovery acceptance.
+The [inventory reconciliation](deployed-code-inventory-reconciliation-2026-10-21.md)
+accepts the complete owner result and classifies all additions using local Git
+and the cached locked package. `hostingstart.html` remains unclassified content,
+not an assumed provider default; filenames do not establish HTTP accessibility.
+The Composer generated-reference hash difference is accounted for locally.
+Do not repeat capture 08 or request another installed.php body/hash.
+
+The [single consolidated delta procedure](remaining-code-evidence-collection-2026-10-21.md)
+targets only 68 newly reviewed source/package paths and extension-independent
+new names in the remaining bounded roots. It suppresses accepted hashes/names,
+does not execute discovered scripts and leaves hostingstart un-hashed unless
+the owner privately classifies it as non-sensitive source. Save only its output
+as `09-code-gap-evidence.txt` beside 01-08. Production execution remains NOT RUN;
+successful local preparation does not close artifact/cutover/recovery gates.
 
 ## Validation and candidate attribution
 
@@ -224,3 +233,10 @@ Final documentation consistency check:
 source hashes and reused the ten fixture results only after confirming the
 reader digest was unchanged. `git diff --check` passed. These are documentation
 and collection-tool checks, not a change to existing acceptance matrices.
+
+Capture 08 follow-up: the [local Git/package comparison](evidence/deployed-code-inventory-reconciliation-2026-10-21.json)
+and [consolidated-reader preparation](evidence/code-gap-local-preparation-2026-10-21.json)
+are separate from the historical 07 checks above. The new standalone collector
+has 17 synthetic Windows PHP 8.5.11 checks PASS, PHP/Bash syntax and local
+PowerShell rendering PASS; Azure execution NOT RUN. No application/AZS/SC matrix
+or prior CI result is changed. All eight original source hashes are preserved.

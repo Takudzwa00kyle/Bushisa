@@ -2,7 +2,7 @@
   "format": "bushisa.owner-application-worker-reconciliation.v1",
   "recorded_utc": "2026-10-21T08:00:00.297223+00:00",
   "checkout": "ba800431a9bcecddb2645f9b0a267948c54dbe25",
-  "source_kind": "01-05 and 07 owner-collected Azure observations; 06 local agent archive inspection; no new Azure/DB/application-acceptance-suite execution",
+  "source_kind": "01-05 and 07-08 owner-collected Azure observations; 06 local agent archive inspection; no new agent Azure/DB/application-acceptance execution",
   "owner_sources": {
     "01-schema-context.txt": {
       "sha256": "89a5e870ccec6f4fe0de248bd8ebd781048244c964b55c5423713d18ce81659a",
@@ -31,6 +31,10 @@
     "07-installed-settings-summary.txt": {
       "sha256": "8eaf1b74bccd942cce68072b757713fc5f2ba535eb5021b89cbd76a7d01708ab",
       "bytes": 253
+    },
+    "08-deployed-code-names.txt": {
+      "sha256": "2c564889f6f8e7bc6fc7f4c7bfb2f1b75e2b36bbb53225e3bc54939fab14c0e4",
+      "bytes": 7755
     }
   },
   "original_docx_sha256": "90ca70375d3fb2a3844bb80064cd1f6620224411d36eb8b490e94937cbede233",
@@ -2540,9 +2544,9 @@
   ],
   "deployment_identity_complete": false,
   "unknown_coverage": [
-    "no names-only inventory of unexpected code beyond the allowlist",
+    "Capture 08 bounded names accepted; remaining reviewed hashes, hostingstart content classification and untraversed/extension/private coverage limits are explicit",
     "dependency files not tracked in application Git; local matches are not deployment/build provenance",
-    "Installed vendor/composer/installed.php hash is unmatched; installed bytes and exact cause remain unknown; no dependency code was executed",
+    "Generated installed.php reference difference is accounted for locally; new package/path content and full build/install provenance remain unverified",
     "hash capture is not a globally atomic snapshot",
     "no preserved actual application deployment archive or installation receipt"
   ],
@@ -2623,5 +2627,57 @@
     "profile": "Windows PHP 8.5.11 CLI",
     "azure_execution": "NOT RUN",
     "production_changes": false
+  },
+  "capture_08_inventory": {
+    "report": "deployed-code-inventory-reconciliation-2026-10-21.json",
+    "capture_utc": "2026-10-21T12:41:11Z",
+    "summary": {
+      "code_paths": 154,
+      "top_directories": 12,
+      "missing_directories": 0,
+      "known_capture05_hash_paths_seen": 93,
+      "additional_paths": 61,
+      "additional_git_tooling": 1,
+      "additional_dependency_paths": 59,
+      "additional_dependency_language_files": 57,
+      "unidentified_root_html": 1
+    },
+    "complete_deployment_identity": false
+  },
+  "installed_php_generated_candidate_comparison": {
+    "local_sha256": "28af8b356c620326b02f421fc159de740e2b6708a6c8ff5fcbbd44422a279617",
+    "owner_sha256": "43bff47902412561900e0817be4b91641e1293acae1e42a771ab908a7e87e0a9",
+    "enumerated_git_references": 84,
+    "matches": [
+      {
+        "root_reference": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+        "root_dev": true,
+        "newlines": "LF",
+        "final_newline": "preserved",
+        "candidate_sha256": "43bff47902412561900e0817be4b91641e1293acae1e42a771ab908a7e87e0a9"
+      }
+    ],
+    "no_execution": true,
+    "no_new_host_read": true,
+    "original_local_root_reference": "6ed126d31ce6d2a5e046cf0ace98744345a8e934",
+    "root_reference_occurrences_changed": 2,
+    "interpretation": "exact generated candidate digest match; 17 raw local matches plus one generated-root metadata match; not a whole app identity or new host read"
+  },
+  "consolidated_delta_preparation": {
+    "spec": "code-gap-collection-spec-2026-10-21.json",
+    "fixture_report": "code-gap-local-preparation-2026-10-21.json",
+    "hash_targets": 68,
+    "accepted_hash_paths_not_repeated": 93,
+    "azure_execution": "NOT RUN"
+  },
+  "capture08_pr_read_only_recheck": {
+    "recorded_utc": "2026-10-21T14:20:50.794970+00:00",
+    "draft": true,
+    "merged": false,
+    "state": "open",
+    "head_sha": "888a2c273711c1ac5f3d1dc3d26d649f1e636235",
+    "test_merge_sha": "2bdd01a214d0665ddd446a823d4dda61988006ca",
+    "url": "https://github.com/Takudzwa00kyle/Bushisa/pull/8",
+    "no_write": true
   }
 }

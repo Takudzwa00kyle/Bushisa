@@ -39,7 +39,7 @@ success is not operational acceptance.
 
 ### Owner metadata follow-up: current evidence
 
-**Latest accepted evidence:** owner files 01-05 and 07 plus local archive record
+**Latest accepted evidence:** owner files 01-05, 07-08 plus local archive record
 06 are [reconciled](completed-owner-evidence-reconciliation-2026-10-21.md).
 They were located in the repository parent directory. No repeat production
 collection or application-regression rerun was needed. The agent did not independently
@@ -59,7 +59,12 @@ The owner application manifest contains **75/75 raw-byte baseline source
 matches**, 18 dependency digests and 54 missing allowlisted paths. 45 source
 files also match candidate `888a2c2`; 30 differ. 53 missing paths are candidate
 additions; none is baseline-tracked. 17 dependency files match the explicit
-local vendor installation; installed `vendor/composer/installed.php` is unmatched.
+local vendor installation; the installed.php digest is now accounted for by
+locally changing its generated root reference to baseline `0bf311f`. This is
+17 raw matches plus one constructed metadata match, not full bundle proof.
+Capture 08 adds 61 locally classified names: Playwright, 59 expected PHPMailer
+paths and unclassified hostingstart.html. Deploy/sql, database outside migrations
+and former extension/private exclusions remain explicit coverage boundaries.
 Unknown additional code, dependency/build coverage and non-atomic capture
 mean **complete hosted source identity is still UNESTABLISHED**. The known-file
 baseline comparison is supported; a complete deployment SHA is not.
@@ -74,7 +79,7 @@ Local 26-byte compact serialization matches the installed digest; the ZIP
 remains byte-different. The exact ZIP's deployment provenance remains unverified.
 **No preserved actual application archive was found** in the inspected locations; CI report archives
 and rehearsal fixtures are not a rollback package. The next action is only the
-[names-only code coverage inventory](direct-release-code-coverage-follow-up-2026-10-21.md#smallest-owner-action-one-names-only-capture),
+[consolidated code-gap collection](remaining-code-evidence-collection-2026-10-21.md#owner-action-in-execution-order),
 not the already completed collection in the
 [historical guide](owner-evidence-collection-2026-10-21.md).
 
@@ -432,12 +437,14 @@ maintenance, migration nor replay restarts an original retention deadline.
 | External operational/review | Existing monitoring/alert receipt, SMTP/inbox/header acceptance, monitored support, operators/coverage, qualified security/privacy/safety, actual backup/media/session/replay and witnessed recovery | Named accepted operators/reviewers; synthetic fixtures and old green CI cannot close these. |
 
 **Next concrete owner action:** run only the prepared
-[names-only code coverage inventory](direct-release-code-coverage-follow-up-2026-10-21.md#smallest-owner-action-one-names-only-capture)
-in Azure Application SSH and save 08 beside 01-07. All seven existing files are
+[consolidated code-gap collection](remaining-code-evidence-collection-2026-10-21.md#owner-action-in-execution-order)
+in Azure Application SSH and save 09 beside 01-08. All eight existing files are
 accepted; do not repeat schema, worker or application-manifest collection.
-Schedule equivalence is established. The next bounded check identifies
-unclassified code names; it does not establish complete deployment or rollback
-provenance. Actual role/secret acceptance, unexpected-code/dependency
+Schedule equivalence and the bounded capture-08 names are established. The
+next delta checks only newly reviewed hashes and remaining boundary/extension
+names; hostingstart stays deferred until private classification. It does not
+establish full deployment, public accessibility or rollback provenance. Actual
+role/secret acceptance, remaining code/dependency
 coverage, legacy cutover and recovery remain open. No paid environment is needed.
 Next bounded engineering work is the remaining full-D03 grant-path checks and
 legacy continuation/cutover resolution, with rollback writers kept disabled
