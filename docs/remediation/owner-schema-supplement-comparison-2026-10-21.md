@@ -62,11 +62,12 @@ OS17's unsafe baseline rollback remains INCOMPATIBLE; actual previous artifact
 compatibility/recovery remain NOT RUN. Managed Azure staging remains DEFERRED,
 all 18 cases NOT RUN, and SC26 production storage/topology remains PARTIAL.
 
-**Subsequent collection received:** all 01-06 files, including the actual
+**Subsequent collection received:** all 01-07 files, including the actual
 installed-worker capture and application manifest, are now
 [reconciled](completed-owner-evidence-reconciliation-2026-10-21.md). Do not
 repeat schema steps 1-2 or installed-worker/application hashing. The recorded
-script is identified; whole artifact identity, unmatched settings/dependency
-coverage and recovery remain separate gaps. The linked record prepares only a
-bounded settings-semantics follow-up. PR 8 remains draft; no merge, deployment,
+script is identified and 07 establishes installed/ZIP schedule equivalence.
+Whole artifact identity, dependency coverage and recovery remain separate gaps.
+The linked record advances to a bounded names-only code inventory; no repeated
+settings or schema collection is requested. PR 8 remains draft; no merge, deployment,
 live grant/settings change, cleanup or real email occurred.

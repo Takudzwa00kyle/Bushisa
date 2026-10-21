@@ -1,14 +1,15 @@
 # Owner-run collection, existing resources
 
-**Progress update: all 01-06 files received and reconciled.** Schema details
+**Progress update: all 01-07 files received and reconciled.** Schema details
 [match the reconstruction](owner-schema-supplement-comparison-2026-10-21.md);
 actual worker location/hashes, application allowlist and local archive findings
 are accepted in the [completed evidence record](completed-owner-evidence-reconciliation-2026-10-21.md).
 Do not repeat steps 1-4 below. They preserve the original collection procedure
 for reference, not a new request. The next smallest action is the bounded
-[installed-settings summary](completed-owner-evidence-reconciliation-2026-10-21.md#next-owner-action-inspect-only-installed-settings-semantics),
-saved as 07 beside the existing parent-directory evidence files. No SQL,
-worker run or artifact download is requested.
+[names-only code inventory](direct-release-code-coverage-follow-up-2026-10-21.md#smallest-owner-action-one-names-only-capture),
+saved as 08 beside the existing parent-directory evidence files. Capture 07
+establishes schedule equivalence with the byte-different ZIP; do not repeat it.
+No SQL, worker run or artifact download is requested.
 
 Prepared from clean `888a2c273711c1ac5f3d1dc3d26d649f1e636235` on
 `codex/direct-production-release-prep-20261020`. Commands below are **prepared,

@@ -10,9 +10,11 @@ NOT RUN**, and SC26 production storage/topology stays **PARTIAL**.
 
 ## Sources accepted and limits
 
-The six files were found in the repository's parent directory. No missing-file
-request, repeated production collection, SQL execution, worker execution or new
-functional test was needed. The original DOCX and supplement hashes are unchanged.
+The seven files were found in the repository's parent directory. No missing-file
+request, repeated production collection, SQL execution, worker execution or
+application-regression rerun was needed. The original DOCX and supplement hashes
+are unchanged. Capture 07 adds a local ZIP comparison and synthetic validation
+of the next metadata reader, separately from application acceptance.
 All source sizes/digests and per-file comparisons are in the
 [sanitized reconciliation](evidence/completed-owner-evidence-reconciliation-2026-10-21.json).
 Original files remain private and unmodified, outside Git.
@@ -25,6 +27,7 @@ Original files remain private and unmodified, outside Git.
 | `04-installed-webjob-sha256.txt` | Owner installed-file capture at **2026-10-20 23:50:49 UTC / 2026-10-21 01:50:49 Africa/Harare**, actual directory `/home/site/wwwroot/App_Data/jobs/triggered/bushisa-mail`; both file hashes below. |
 | `05-application-code-sha256.txt` | Owner file manifest at **2026-10-21 00:00:29-00:00:35 UTC / 02:00:29-02:00:35 Africa/Harare**, physical root `/home/site/wwwroot`. Complete BEGIN/END block, no recorded STOP; 93 digests and 54 MISSING paths. This is not an atomic deployment snapshot. |
 | `06-artifact-provenance.txt` | Prior **local agent read-only inspection**, recorded **2026-10-21 00:26:32.5241896 UTC / 02:26:32.5241896 Africa/Harare**. This is not an independent Azure capture or an owner approval timestamp. Reuse its archive inspection; archives were not reopened or executed for this reconciliation. |
+| `07-installed-settings-summary.txt` | Owner Application SSH read-only capture at **2026-10-21 11:35:51 UTC / 13:35:51 Africa/Harare**. Same installed digest as 04; one property, only the recorded minute schedule; no BOM, CRLF or LF. The capture was read locally; Azure collection was not repeated. |
 
 No file-save time, recording time or last job run is substituted for historical
 owner acceptance. Previously accepted decisions remain accepted despite an
@@ -74,7 +77,7 @@ This ignored helper reads bounded metadata and Git blobs, not production data.
 | 18 captured dependency paths | 17 raw-byte matches to the explicit local vendor files, including all seven captured PHPMailer source files. Captured `vendor/composer/installed.php` does **not** match the local file. Its installed bytes were not retrieved/executed and the reason remains UNKNOWN; it is not explained away as a newline change. |
 | Lockfile | Captured baseline `composer.lock` matches Git; it declares `phpmailer/phpmailer` **v7.1.1**, source reference `1bc1716a507a65e039d4ac9d9adebbbd0d346e15`. A lockfile/local dependency match is not proof of the complete installed dependency tree or authenticated build. |
 | Installed `run.sh` | SHA-256 `8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015` matches baseline bytes and the Git blob introduced by `634fa92d6092918c5b3e091736ab28ab9b0b4b49`. It differs from the candidate wrapper. |
-| Installed `settings.job` | SHA-256 `0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501` matches no available history blob at `deploy/mail-webjob/settings.job`, including tested LF/CRLF variants. Installed JSON bytes/semantics have not been captured. |
+| Installed `settings.job` | SHA-256 `0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501` matches no available history blob at `deploy/mail-webjob/settings.job`, including tested LF/CRLF variants. Capture 07 now establishes exactly `{"schedule":"0 * * * * *"}` as its parsed semantics. Locally serialized compact JSON (26 bytes) hashes to this same installed digest; the formatted ZIP remains byte-different. |
 
 **Complete hosted source identity remains UNESTABLISHED.** The known-code
 manifest supports a baseline comparison for those paths; it does not exclude
@@ -95,8 +98,10 @@ Its only entries are `run.sh` (105 bytes) and `settings.job` (34 bytes).
   it matches baseline/candidate repository settings, **not installed settings**.
   The tested BOM/newline/trailing-newline alternatives also did not match.
 - That byte mismatch **does not establish a different schedule**. Owner Kudu
-  metadata records the minute schedule; installed settings semantics and the
-  cause of the digest mismatch remain unresolved.
+  metadata and capture 07 establish the same minute schedule as the ZIP.
+  The local compact serialization hashes to the installed digest, while ZIP
+  formatting whitespace accounts for its different representation. The
+  historical editing/installation process remains UNKNOWN.
 - Deployment provenance for **this exact ZIP remains UNVERIFIED**. Matching
   script bytes/file dates cannot replace an upload/installation receipt.
 - **No preserved application deployment archive was found** in the named ZIP
@@ -131,7 +136,7 @@ as new authorized envelopes.
 
 | Gate / role | What remains; useful preparation using existing approvals |
 |---|---|
-| Artifact / engineering + release operator | Resolve installed settings semantics; classify unexpected code names and unmatched dependency metadata privately; establish full app/worker/package provenance or explicitly review a forward-repair route. Known source files match baseline, but a complete previous package is not available. No full-site export is requested. |
+| Artifact / engineering + release operator | Installed settings semantics are established by 07; classify unexpected code names and unmatched dependency metadata privately; establish full app/worker/package provenance or explicitly review a forward-repair route. Known source files match baseline, but a complete previous package is not available. No full-site export is requested. |
 | Role separation / DB + security reviewers | Actual configured DB_USER has global administration and GRANT OPTION. Review separate runtime, mail worker and migrator grants/host scopes and secret delivery. Finish full-D03 allowed-write/negative-grant cases; retain trusted routine/trigger definers. Different setting names in one App Service do not prove secret isolation. No live grant/config change is authorized. |
 | Legacy continuation/cutover / engineering + safety | Preserve known minimum pair counts and incomplete history; keep writer epoch inactive until authentic all-writer boundary evidence and a bounded enablement design exist. Cover web/API, lazy writers, moderation, sessions/reset, imports/recovery and old/new workers. Missing events/anchors are not zero counts or new clocks. Split active, trusted pending and unknown-anchor signup cases without exposing users. |
 | Compatible fallback / engineering + owner | OS17 demonstrates that old code can accept a request without pair provenance on the forward schema. Restoring old PHP files cannot undo this. Keep **all** ingress/lazy writers/admin/support/session/signup/reset/old-and-new jobs/imports/direct writers stopped during any separately approved fallback. Reconcile in-flight SMTP. Only an exact-artifact compatibility demonstration or tested forward repair preserving current restrictions permits traffic to reopen; unrestricted baseline rollback stays **INCOMPATIBLE**, actual-artifact DR-P02 **NOT RUN**. |
@@ -141,91 +146,46 @@ as new authorized envelopes.
 These are engineering/evidence and operational gates, not a new 48-question
 policy review. Missing historical provenance cannot be approved into existence.
 
-## Next owner action: inspect only installed settings semantics
+## Installed settings semantics: capture 07 accepted
 
-**Azure Portal > Bushisa > Application SSH, Bash.** Use the block below only
-to read the already located settings file. It does not load the application,
-retrieve environment values, connect to MySQL, execute `run.sh`, modify settings
-or send mail. `php -n` avoids loading PHP INI extensions/prepend configuration.
-It prints booleans/counts/hash metadata only, never unknown settings values.
-If a STOP appears, save it and stop; do not relax the checks or install a file.
+Capture 07 has SHA-256
+`8eaf1b74bccd942cce68072b757713fc5f2ba535eb5021b89cbd76a7d01708ab`,
+253 bytes. Its owner capture instant is **2026-10-21 11:35:51 UTC / 13:35:51
+Africa/Harare**, not an approval time. It reports the same installed digest
+as 04, `property_count=1`, `only_recorded_schedule=1`, and BOM/CRLF/LF counts 0.
+The installed object's semantics are **exactly `{"schedule":"0 * * * * *"}`**.
 
-```bash
-php -n <<'PHP'
-<?php
-function stop_capture(string $reason): never {
-    echo 'STOP_', $reason, PHP_EOL;
-    exit(1);
-}
-$dir = '/home/site/wwwroot/App_Data/jobs/triggered/bushisa-mail';
-$path = $dir . '/settings.job';
-if (realpath($dir) !== $dir || is_link($path)) stop_capture('UNSAFE_PATH');
-$before = @lstat($path);
-if (!$before || ($before['mode'] & 0170000) !== 0100000
-    || $before['size'] < 1 || $before['size'] > 65536) stop_capture('UNSAFE_FILE');
-$handle = @fopen($path, 'rb');
-if (!$handle) stop_capture('UNREADABLE_FILE');
-$opened = fstat($handle);
-$bytes = stream_get_contents($handle, 65537);
-$closed = fstat($handle);
-fclose($handle);
-if (!$opened || !$closed) stop_capture('STAT_FAILED');
-clearstatcache(true, $path);
-$after = @lstat($path);
-foreach (['dev', 'ino', 'mode', 'size', 'mtime', 'ctime'] as $key) {
-    if (!$after || $before[$key] !== $opened[$key]
-        || $opened[$key] !== $closed[$key] || $closed[$key] !== $after[$key]) {
-        stop_capture('FILE_CHANGED');
-    }
-}
-if (!is_string($bytes) || strlen($bytes) !== $before['size']
-    || realpath($dir) !== $dir || is_link($path)) stop_capture('FILE_CHANGED');
-$hash = hash('sha256', $bytes);
-if ($hash !== '0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501') {
-    stop_capture('DIFFERS_FROM_CAPTURE_04');
-}
-$bom = str_starts_with($bytes, "\xEF\xBB\xBF");
-try {
-    $settings = json_decode($bom ? substr($bytes, 3) : $bytes, false, 16, JSON_THROW_ON_ERROR);
-} catch (Throwable $e) { stop_capture('INVALID_JSON'); }
-if (!is_object($settings)) stop_capture('NOT_JSON_OBJECT');
-$properties = get_object_vars($settings);
-$same = count($properties) === 1 && array_key_exists('schedule', $properties)
-    && is_string($properties['schedule']) && $properties['schedule'] === '0 * * * * *';
-echo 'BEGIN_INSTALLED_SETTINGS_SUMMARY', PHP_EOL;
-echo 'capture_utc=', gmdate('Y-m-d\TH:i:s\Z'), PHP_EOL;
-echo 'sha256=', $hash, PHP_EOL;
-echo 'utf8_bom=', (int)$bom, PHP_EOL;
-echo 'crlf_count=', substr_count($bytes, "\r\n"), PHP_EOL;
-echo 'lf_count=', substr_count($bytes, "\n"), PHP_EOL;
-echo 'property_count=', count($properties), PHP_EOL;
-echo 'only_recorded_schedule=', (int)$same, PHP_EOL;
-echo 'END_INSTALLED_SETTINGS_SUMMARY', PHP_EOL;
-PHP
-```
+The agent reread only the 34-byte settings entry from the existing local ZIP,
+with bounded ZIP checks, duplicate JSON-key rejection and before/after archive
+identity checks; it did not extract or execute it. The parsed ZIP object is
+identical. Local compact serialization is 26 bytes and its SHA-256 is
+`0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501`,
+matching 04/07. The ZIP's 34-byte representation still hashes to
+`0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6`.
+Thus **semantic equivalence is established; raw ZIP/installed equality is
+false**. This supplies no installation/upload receipt or whole-package identity.
+No original archive, worker or observation file changed.
 
-Expected: the unchanged installed digest, bounded format counts and
-`only_recorded_schedule=1` if its **parsed object** has just the recorded minute
-schedule. That would support schedule equivalence, not byte/archive/deployment
-equivalence. A zero needs private targeted review; do not print unknown values.
-Duplicate JSON member spellings/whitespace and the exact historical editing
-reason are not established by this parsed summary. Retain the raw digest gap.
+Exact command/results and source digests are in the
+[settings evidence](evidence/installed-settings-semantics-2026-10-21.json).
+Local comparison command:
+`D:/cygwin64/bin/python3.9.exe .tmp/accept-owner-settings-07.py`.
+The earlier 07 collection is complete. **Do not repeat Azure collection.**
 
-Save the result only as **`07-installed-settings-summary.txt` in the same
-private parent directory as 01-06**, using your local IntelliJ PowerShell:
+## Next owner action: names-only code coverage
 
-```powershell
-$OwnerEvidenceDir = Split-Path -Parent (Get-Location).Path
-Get-Clipboard -Raw | Set-Content -LiteralPath (Join-Path $OwnerEvidenceDir '07-installed-settings-summary.txt') -Encoding UTF8
-```
-
-Run that save command with this repository as the current directory, after
-copying only the bounded output. No other SQL, artifact download, worker run or
-production change is the next action. This capture is **prepared / NOT RUN**.
+The next unresolved artifact requirement is unexpected code/dependency coverage,
+not schedule semantics. The [prepared names-only follow-up](direct-release-code-coverage-follow-up-2026-10-21.md)
+provides one bounded Application SSH read, its exclusions/stop conditions and
+local fixture validation. Save its output as `08-deployed-code-names.txt`
+beside 01-07. Reuse all previous hashes; do not run a worker, Composer,
+database audit or full-site download. An unexpected path will be classified
+before any new hash/body request. Names cannot establish deployment provenance,
+previous-artifact compatibility or recovery acceptance.
 
 ## Validation and candidate attribution
 
-This checkpoint performs offline source/hash/count reconciliation and
+The initial checkpoint performed offline source/hash/count reconciliation and
 documentation checks only. It does not rerun passed acceptance suites or assign
 new PASS results. The existing 29-case local observed-schema report, its
 NULL-clock checks and deliberately unsafe rollback demonstration are reused.
@@ -239,7 +199,7 @@ Implementation `3dbcb50` retains its separate
 Read-only GitHub metadata reconfirms [PR 8](https://github.com/Takudzwa00kyle/Bushisa/pull/8)
 is open, draft, unmerged, with source `888a2c2`; no PR state was changed.
 
-Documentation validation command:
+**Historical validation at `6b2294c` (before capture 07):**
 `D:/cygwin64/bin/python3.9.exe .tmp/validate-completed-owner-evidence.py`.
 Result: **101 relative links**, including five links to new-document anchors,
 resolve; all six source hashes are unchanged; **147 manifest paths** and the
@@ -248,3 +208,19 @@ summary/status counts reconcile. The extracted read-only command passed
 this was syntax validation, not command execution or Azure behavior evidence.
 `git diff --check` passed. No functional suite or hosted CI was rerun for these
 documentation-only changes; their prior results remain at the sources above.
+
+Capture 07 follow-up validation: the bounded local ZIP JSON comparison and
+compact-serialization digest match are recorded separately. The next names-only
+reader passed PHP 8.5.11 syntax and ten isolated Windows fixture checks,
+including a real owned symlink refusal, deterministic names, private exclusions,
+wrong root, missing directories and actual depth/5,000-entry stops. These are
+collection-tool preparation checks, not new application/AZS/SC acceptance.
+See the [local preparation report](evidence/code-names-local-preparation-2026-10-21.json).
+All seven source-file hashes are unchanged. No Azure or Linux execution of
+this new names reader is claimed; existing application/CI evidence is reused.
+Final documentation consistency check:
+`D:/cygwin64/bin/python3.9.exe .tmp/finalize-owner-07-validation.py` resolved
+**108 relative links** (five new-document anchor links), rechecked seven owner
+source hashes and reused the ten fixture results only after confirming the
+reader digest was unchanged. `git diff --check` passed. These are documentation
+and collection-tool checks, not a change to existing acceptance matrices.

@@ -39,10 +39,10 @@ success is not operational acceptance.
 
 ### Owner metadata follow-up: current evidence
 
-**Latest accepted evidence:** all owner files 01-05 and local archive record
+**Latest accepted evidence:** owner files 01-05 and 07 plus local archive record
 06 are [reconciled](completed-owner-evidence-reconciliation-2026-10-21.md).
 They were located in the repository parent directory. No repeat production
-collection or functional test was needed. The agent did not independently
+collection or application-regression rerun was needed. The agent did not independently
 capture Azure configuration or run SQL from the original DOCX.
 
 The [schema supplement](owner-schema-supplement-comparison-2026-10-21.md)
@@ -68,11 +68,13 @@ The separately installed job is observed at
 `/home/site/wwwroot/App_Data/jobs/triggered/bushisa-mail`. Its `run.sh` matches
 the baseline cleanup-then-dispatch wrapper and preserved worker ZIP. Its
 `settings.job` hash does **not** match that ZIP or available Git history. This
-does not establish a different schedule; Kudu metadata records `0 * * * * *`.
-The exact ZIP's deployment provenance remains unverified. **No preserved actual
-application archive was found** in the inspected locations; CI report archives
+is a representation difference: capture 07 establishes exactly
+`{"schedule":"0 * * * * *"}`, semantically identical to the ZIP settings.
+Local 26-byte compact serialization matches the installed digest; the ZIP
+remains byte-different. The exact ZIP's deployment provenance remains unverified.
+**No preserved actual application archive was found** in the inspected locations; CI report archives
 and rehearsal fixtures are not a rollback package. The next action is only the
-[bounded settings summary](completed-owner-evidence-reconciliation-2026-10-21.md#next-owner-action-inspect-only-installed-settings-semantics),
+[names-only code coverage inventory](direct-release-code-coverage-follow-up-2026-10-21.md#smallest-owner-action-one-names-only-capture),
 not the already completed collection in the
 [historical guide](owner-evidence-collection-2026-10-21.md).
 
@@ -233,7 +235,8 @@ made here. The installed `run.sh` now matches baseline bytes: `set -euo pipefail
 `cd /home/site/wwwroot`, broad cleanup, then dispatch. Complete package identity
 is still unestablished: installed `settings.job` differs from the preserved ZIP
 and all available Git settings blobs. The mismatch does not prove a different
-schedule. See the [completed artifact comparison](completed-owner-evidence-reconciliation-2026-10-21.md#application-and-installed-worker-comparison).
+schedule. Capture 07 and the local ZIP comparison now establish the same
+minute schedule despite different raw representations. See the [completed artifact comparison](completed-owner-evidence-reconciliation-2026-10-21.md#application-and-installed-worker-comparison).
 
 **Coordinated worker replacement is required during a future approved release.**
 If left installed with the candidate app, this exact old wrapper would exit
@@ -429,11 +432,12 @@ maintenance, migration nor replay restarts an original retention deadline.
 | External operational/review | Existing monitoring/alert receipt, SMTP/inbox/header acceptance, monitored support, operators/coverage, qualified security/privacy/safety, actual backup/media/session/replay and witnessed recovery | Named accepted operators/reviewers; synthetic fixtures and old green CI cannot close these. |
 
 **Next concrete owner action:** run only the prepared
-[installed-settings summary](completed-owner-evidence-reconciliation-2026-10-21.md#next-owner-action-inspect-only-installed-settings-semantics)
-in Azure Application SSH and save 07 beside 01-06. All six existing files are
+[names-only code coverage inventory](direct-release-code-coverage-follow-up-2026-10-21.md#smallest-owner-action-one-names-only-capture)
+in Azure Application SSH and save 08 beside 01-07. All seven existing files are
 accepted; do not repeat schema, worker or application-manifest collection.
-The bounded check resolves schedule semantics only, not complete deployment or
-rollback provenance. Actual role/secret acceptance, unexpected-code/dependency
+Schedule equivalence is established. The next bounded check identifies
+unclassified code names; it does not establish complete deployment or rollback
+provenance. Actual role/secret acceptance, unexpected-code/dependency
 coverage, legacy cutover and recovery remain open. No paid environment is needed.
 Next bounded engineering work is the remaining full-D03 grant-path checks and
 legacy continuation/cutover resolution, with rollback writers kept disabled

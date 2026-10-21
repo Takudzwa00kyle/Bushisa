@@ -2,7 +2,7 @@
   "format": "bushisa.owner-application-worker-reconciliation.v1",
   "recorded_utc": "2026-10-21T08:00:00.297223+00:00",
   "checkout": "ba800431a9bcecddb2645f9b0a267948c54dbe25",
-  "source_kind": "01-05 owner-collected Azure observations; 06 local agent archive inspection; no new Azure/DB/test execution",
+  "source_kind": "01-05 and 07 owner-collected Azure observations; 06 local agent archive inspection; no new Azure/DB/application-acceptance-suite execution",
   "owner_sources": {
     "01-schema-context.txt": {
       "sha256": "89a5e870ccec6f4fe0de248bd8ebd781048244c964b55c5423713d18ce81659a",
@@ -27,6 +27,10 @@
     "06-artifact-provenance.txt": {
       "sha256": "0a1c52bd008f4748cef3a0b3d9e588cd4412518ecca765ba74de288b17e1b15a",
       "bytes": 10134
+    },
+    "07-installed-settings-summary.txt": {
+      "sha256": "8eaf1b74bccd942cce68072b757713fc5f2ba535eb5021b89cbd76a7d01708ab",
+      "bytes": 253
     }
   },
   "original_docx_sha256": "90ca70375d3fb2a3844bb80064cd1f6620224411d36eb8b490e94937cbede233",
@@ -2549,7 +2553,12 @@
     "settings_raw_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
     "schedule_difference_established": false,
     "exact_zip_deployment": "UNVERIFIED",
-    "application_archive": "NOT FOUND in inspected locations"
+    "application_archive": "NOT FOUND in inspected locations",
+    "settings_semantic_equivalence": true,
+    "settings_compact_serialization_matches_installed_digest": true,
+    "settings_semantics": {
+      "schedule": "0 * * * * *"
+    }
   },
   "production_source_sha": "UNESTABLISHED: individual file matches only",
   "managed_staging": "18 NOT RUN / DEFERRED",
@@ -2574,5 +2583,45 @@
     "hash_capture_utc": "2026-10-20T23:50:49Z",
     "physical_directory": "/home/site/wwwroot/App_Data/jobs/triggered/bushisa-mail",
     "capture_is_owner_provided": true
+  },
+  "installed_settings_semantics": {
+    "recorded_utc": "2026-10-21T12:02:24.885908+00:00",
+    "checkout": "6b2294c36a0d415d0d52ab10ff1c7881346e459c",
+    "capture_source": "owner-provided 07; no Azure collection repeated",
+    "source_file": "07-installed-settings-summary.txt",
+    "source_sha256": "8eaf1b74bccd942cce68072b757713fc5f2ba535eb5021b89cbd76a7d01708ab",
+    "source_bytes": 253,
+    "capture_utc": "2026-10-21T11:35:51Z",
+    "capture_harare": "2026-10-21T13:35:51+02:00",
+    "installed_sha256": "0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501",
+    "installed_semantics": {
+      "schedule": "0 * * * * *"
+    },
+    "reported_property_count": 1,
+    "reported_utf8_bom": false,
+    "reported_crlf_count": 0,
+    "reported_lf_count": 0,
+    "local_zip_sha256": "3ef3ed29d7224bd75baac2dff173c7a7807f61a68b56a72b3da4bc2cb7a28c41",
+    "local_zip_settings_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+    "local_zip_settings_bytes": 34,
+    "local_zip_settings_semantics": {
+      "schedule": "0 * * * * *"
+    },
+    "semantic_equivalence": true,
+    "raw_zip_installed_equality": false,
+    "compact_json_bytes": 26,
+    "compact_json_sha256": "0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501",
+    "compact_json_matches_installed_digest": true,
+    "exact_zip_deployment_provenance": "UNVERIFIED",
+    "archive_modified": false,
+    "worker_executed": false
+  },
+  "capture_07_follow_up_checkout": "6b2294c36a0d415d0d52ab10ff1c7881346e459c",
+  "names_only_collection_preparation": {
+    "report": "code-names-local-preparation-2026-10-21.json",
+    "local_fixture_cases_pass": 10,
+    "profile": "Windows PHP 8.5.11 CLI",
+    "azure_execution": "NOT RUN",
+    "production_changes": false
   }
 }
