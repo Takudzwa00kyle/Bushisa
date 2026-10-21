@@ -1,0 +1,16 @@
+{
+    "production_execution":  false,
+    "base_checkout":  "4e76a7de361f32a17062ea8189e875844ee10660",
+    "pending_migrations_and_repeat":  "PASS",
+    "executed_utc":  "2026-10-20T20:39:56+00:00",
+    "format":  "bushisa.owner-schema-initial-worker-failure.v1",
+    "modified_worktree":  true,
+    "cli_exit":  "nonzero; standard sanitized dispatch failure",
+    "original_synthetic_rows_preserved":  true,
+    "observed_attributes_reconstructed":  true,
+    "source_docx_sha256":  "90ca70375d3fb2a3844bb80064cd1f6620224411d36eb8b490e94937cbede233",
+    "failed_case":  "OS14.CLI",
+    "mysql":  "8.0.46",
+    "php":  "8.5.11",
+    "inspected_cause":  "Generic ensure_operational_schema requires unrelated table visibility from a narrowly granted signup worker"
+}

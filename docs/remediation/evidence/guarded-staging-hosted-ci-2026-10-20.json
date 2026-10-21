@@ -1,0 +1,593 @@
+{
+    "format":  "bushisa.guarded-staging-hosted.v1",
+    "observed_at_utc":  "2026-10-20T06:47:15Z",
+    "source_sha":  "a0289c1d78824dfb67fcf07b75b1a4edc87d88b6",
+    "branch":  "codex/guarded-staging-origin-carrier-20261020",
+    "pr":  {
+               "number":  7,
+               "draft":  true,
+               "test_merge_sha":  "f0f4bbfd9ea4c4908df58dea17c9e9b91e0c2020",
+               "source_tree_matches_merge":  true,
+               "url":  "https://github.com/Takudzwa00kyle/Bushisa/pull/7",
+               "merge_tree":  "78a6b54688dc02f23d2ba2e2eb575b2c2fc05f3a",
+               "source_sha":  "a0289c1d78824dfb67fcf07b75b1a4edc87d88b6",
+               "base_sha":  "0bf311fb6d6a298712fd4cd16d0722305516edd4"
+           },
+    "runs":  [
+                 {
+                     "cases":  [
+                                   {
+                                       "case":  "SG-I01",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I02",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I03",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I04",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I05",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I05b",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.1",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.2",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.3",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.4",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.5",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.6",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.7",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I07",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I08",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I09",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I10",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I11",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I12",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I13",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I14",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I15a",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I15",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I16",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I19",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I20",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I21",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I22",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I23",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I24",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I25",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I17",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I18",
+                                       "result":  "PASS"
+                                   }
+                               ],
+                     "id":  39381076947,
+                     "consume_overlap":  {
+                                             "workers":  [
+                                                             {
+                                                                 "pid":  4209,
+                                                                 "connection_id":  26
+                                                             },
+                                                             {
+                                                                 "pid":  4210,
+                                                                 "connection_id":  27
+                                                             }
+                                                         ],
+                                             "engine_observed_waiters":  [
+                                                                             26,
+                                                                             27
+                                                                         ],
+                                             "successful_consumptions":  1
+                                         },
+                     "artifact":  {
+                                      "archive_digest_verified":  true,
+                                      "name":  "guarded-staging-results",
+                                      "id":  12245462862,
+                                      "member":  "staging-local.json",
+                                      "digest":  "sha256:ff6f14480ecaeaf9d5c3da5b637a115859cb4ed0a71bdaeabda76fa4464ad830"
+                                  },
+                     "checkout_sha":  "a0289c1d78824dfb67fcf07b75b1a4edc87d88b6",
+                     "jobs":  [
+                                  {
+                                      "id":  118490087741,
+                                      "name":  "l06-recovery-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381076947/job/118490087741",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "id":  118490087947,
+                                      "name":  "guarded-staging-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381076947/job/118490087947",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "id":  118490087985,
+                                      "name":  "lint-and-unit",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381076947/job/118490087985",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "id":  118490088126,
+                                      "name":  "browser-route-session-overlap",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381076947/job/118490088126",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "id":  118490088173,
+                                      "name":  "smtp-outbox-integration",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381076947/job/118490088173",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  }
+                              ],
+                     "event":  "push",
+                     "source_sha":  "a0289c1d78824dfb67fcf07b75b1a4edc87d88b6",
+                     "driver_cases":  [
+                                          {
+                                              "case":  "SG-D01",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D02",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D03",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D04",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D05",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D06",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D07",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D08",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D09",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D10",
+                                              "result":  "PASS"
+                                          }
+                                      ],
+                     "finished_at_utc":  "2026-10-20T06:35:07+00:00",
+                     "environment":  {
+                                         "php":  "8.5.11",
+                                         "os":  "Linux",
+                                         "mysql":  "8.0.46",
+                                         "execution":  "owned loopback disposable DB; synthetic accounts; no SMTP"
+                                     },
+                     "engine_fixture":  {
+                                            "original_log_bin_trust_function_creators":  0,
+                                            "fixture_only_override":  true,
+                                            "restored_log_bin_trust_function_creators":  0
+                                        },
+                     "driver_environment":  {
+                                                "php":  "8.5.11",
+                                                "mysql":  "8.0.46",
+                                                "mode":  "local-fixture",
+                                                "node":  "v20.20.2",
+                                                "chromium":  "156.0.8078.4"
+                                            },
+                     "carrier_overlap":  {
+                                             "pids":  [
+                                                          4218,
+                                                          4219
+                                                      ],
+                                             "engine_observed_waiters":  [
+                                                                             33,
+                                                                             34
+                                                                         ],
+                                             "private_deliveries":  1
+                                         },
+                     "status":  "completed",
+                     "started_at_utc":  "2026-10-20T06:34:50+00:00",
+                     "conclusion":  "success",
+                     "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381076947"
+                 },
+                 {
+                     "cases":  [
+                                   {
+                                       "case":  "SG-I01",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I02",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I03",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I04",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I05",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I05b",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.1",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.2",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.3",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.4",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.5",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.6",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I06.7",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I07",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I08",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I09",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I10",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I11",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I12",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I13",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I14",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I15a",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I15",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I16",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I19",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I20",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I21",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I22",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I23",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I24",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I25",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I17",
+                                       "result":  "PASS"
+                                   },
+                                   {
+                                       "case":  "SG-I18",
+                                       "result":  "PASS"
+                                   }
+                               ],
+                     "id":  39381243193,
+                     "consume_overlap":  {
+                                             "workers":  [
+                                                             {
+                                                                 "pid":  4225,
+                                                                 "connection_id":  26
+                                                             },
+                                                             {
+                                                                 "pid":  4226,
+                                                                 "connection_id":  27
+                                                             }
+                                                         ],
+                                             "engine_observed_waiters":  [
+                                                                             26,
+                                                                             27
+                                                                         ],
+                                             "successful_consumptions":  1
+                                         },
+                     "artifact":  {
+                                      "archive_digest_verified":  true,
+                                      "name":  "guarded-staging-results",
+                                      "id":  12245398581,
+                                      "member":  "staging-local.json",
+                                      "digest":  "sha256:e083c80360c771e3fd7f1806d0e28dcb42bbf6980af8991129de8113c7be3a10"
+                                  },
+                     "checkout_sha":  "f0f4bbfd9ea4c4908df58dea17c9e9b91e0c2020",
+                     "jobs":  [
+                                  {
+                                      "id":  118490597606,
+                                      "name":  "smtp-outbox-integration",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381243193/job/118490597606",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "id":  118490597840,
+                                      "name":  "browser-route-session-overlap",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381243193/job/118490597840",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "id":  118490597883,
+                                      "name":  "l06-recovery-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381243193/job/118490597883",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "id":  118490597899,
+                                      "name":  "lint-and-unit",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381243193/job/118490597899",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  },
+                                  {
+                                      "id":  118490598026,
+                                      "name":  "guarded-staging-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381243193/job/118490598026",
+                                      "labels":  [
+                                                     "ubuntu-latest"
+                                                 ]
+                                  }
+                              ],
+                     "event":  "pull_request",
+                     "source_sha":  "a0289c1d78824dfb67fcf07b75b1a4edc87d88b6",
+                     "driver_cases":  [
+                                          {
+                                              "case":  "SG-D01",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D02",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D03",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D04",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D05",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D06",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D07",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D08",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D09",
+                                              "result":  "PASS"
+                                          },
+                                          {
+                                              "case":  "SG-D10",
+                                              "result":  "PASS"
+                                          }
+                                      ],
+                     "finished_at_utc":  "2026-10-20T06:36:36+00:00",
+                     "environment":  {
+                                         "php":  "8.5.11",
+                                         "os":  "Linux",
+                                         "mysql":  "8.0.46",
+                                         "execution":  "owned loopback disposable DB; synthetic accounts; no SMTP"
+                                     },
+                     "engine_fixture":  {
+                                            "original_log_bin_trust_function_creators":  0,
+                                            "fixture_only_override":  true,
+                                            "restored_log_bin_trust_function_creators":  0
+                                        },
+                     "driver_environment":  {
+                                                "php":  "8.5.11",
+                                                "mysql":  "8.0.46",
+                                                "mode":  "local-fixture",
+                                                "node":  "v20.20.2",
+                                                "chromium":  "156.0.8078.4"
+                                            },
+                     "carrier_overlap":  {
+                                             "pids":  [
+                                                          4234,
+                                                          4235
+                                                      ],
+                                             "engine_observed_waiters":  [
+                                                                             33,
+                                                                             34
+                                                                         ],
+                                             "private_deliveries":  1
+                                         },
+                     "status":  "completed",
+                     "started_at_utc":  "2026-10-20T06:36:21+00:00",
+                     "conclusion":  "success",
+                     "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39381243193"
+                 }
+             ],
+    "boundary":  "Hosted disposable synthetic fixtures and fake carrier only. AZS01-AZS18 NOT RUN; SC26 production storage/topology PARTIAL; no Azure staging or production execution, deployment, real mail, activation, qualified review or independent recovery acceptance."
+}

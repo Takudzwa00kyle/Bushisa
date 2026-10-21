@@ -1,0 +1,127 @@
+{
+    "format":  "bushisa.azure-compatibility-metadata.v1",
+    "observed_at_utc":  "2026-10-19T10:29:38.4918320Z",
+    "display_timezone":  "Africa/Harare",
+    "repository":  "Takudzwa00kyle/Bushisa",
+    "baseline":  "73267163564e2de6dc1c9de5a1354c6fd9ecdf9f",
+    "main_sha":  "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+    "pr":  {
+               "number":  6,
+               "url":  "https://github.com/Takudzwa00kyle/Bushisa/pull/6",
+               "draft":  true,
+               "state":  "open",
+               "merged":  false,
+               "source_branch":  "codex/l06-password-reset-20261019",
+               "head_sha":  "73267163564e2de6dc1c9de5a1354c6fd9ecdf9f",
+               "base_sha":  "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+               "merge_sha":  "3dd131875aeea548bb4adc202d907febbb12258b"
+           },
+    "prior_artifact_attribution":  {
+                                       "source_sha":  "73267163564e2de6dc1c9de5a1354c6fd9ecdf9f",
+                                       "pr_checkout_sha":  "3dd131875aeea548bb4adc202d907febbb12258b",
+                                       "source":  "L06 final downloaded-artifact record and PR metadata; no acceptance tests rerun"
+                                   },
+    "ci_runs":  [
+                    {
+                        "id":  39224866889,
+                        "event":  "push",
+                        "source_sha":  "73267163564e2de6dc1c9de5a1354c6fd9ecdf9f",
+                        "status":  "completed",
+                        "conclusion":  "success",
+                        "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224866889",
+                        "workflow":  ".github/workflows/ci.yml",
+                        "jobs":  [
+                                     {
+                                         "name":  "lint-and-unit",
+                                         "status":  "completed",
+                                         "conclusion":  "success",
+                                         "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224866889/job/117968586021"
+                                     },
+                                     {
+                                         "name":  "smtp-outbox-integration",
+                                         "status":  "completed",
+                                         "conclusion":  "success",
+                                         "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224866889/job/117968586258"
+                                     },
+                                     {
+                                         "name":  "l06-recovery-acceptance",
+                                         "status":  "completed",
+                                         "conclusion":  "success",
+                                         "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224866889/job/117968586267"
+                                     },
+                                     {
+                                         "name":  "browser-route-session-overlap",
+                                         "status":  "completed",
+                                         "conclusion":  "success",
+                                         "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224866889/job/117968586299"
+                                     }
+                                 ]
+                    },
+                    {
+                        "id":  39224874180,
+                        "event":  "pull_request",
+                        "source_sha":  "73267163564e2de6dc1c9de5a1354c6fd9ecdf9f",
+                        "status":  "completed",
+                        "conclusion":  "success",
+                        "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224874180",
+                        "workflow":  ".github/workflows/ci.yml",
+                        "jobs":  [
+                                     {
+                                         "name":  "browser-route-session-overlap",
+                                         "status":  "completed",
+                                         "conclusion":  "success",
+                                         "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224874180/job/117968607027"
+                                     },
+                                     {
+                                         "name":  "lint-and-unit",
+                                         "status":  "completed",
+                                         "conclusion":  "success",
+                                         "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224874180/job/117968607194"
+                                     },
+                                     {
+                                         "name":  "smtp-outbox-integration",
+                                         "status":  "completed",
+                                         "conclusion":  "success",
+                                         "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224874180/job/117968607308"
+                                     },
+                                     {
+                                         "name":  "l06-recovery-acceptance",
+                                         "status":  "completed",
+                                         "conclusion":  "success",
+                                         "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39224874180/job/117968607338"
+                                     }
+                                 ]
+                    }
+                ],
+    "recent_main_deployment_workflow_runs":  [
+                                                 {
+                                                     "id":  38230207825,
+                                                     "event":  "push",
+                                                     "head_sha":  "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+                                                     "status":  "completed",
+                                                     "conclusion":  "success",
+                                                     "created_at":  "2026-10-12T09:29:22Z",
+                                                     "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/38230207825"
+                                                 },
+                                                 {
+                                                     "id":  38145653067,
+                                                     "event":  "push",
+                                                     "head_sha":  "5f3db01bedbbff30108892beaaf51f5c64f82918",
+                                                     "status":  "completed",
+                                                     "conclusion":  "failure",
+                                                     "created_at":  "2026-10-11T14:03:42Z",
+                                                     "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/38145653067"
+                                                 }
+                                             ],
+    "azure":  {
+                  "status":  "UNKNOWN",
+                  "captured_resource_metadata":  false,
+                  "reason":  "Azure CLI and Az.Accounts unavailable; browser and node-repl initialization failed with kernel-assets path error, including one browser reset; no Azure session/resource state observed",
+                  "secret_values_retrieved":  false,
+                  "live_database_connected":  false,
+                  "user_records_accessed":  false,
+                  "access_recheck_at_utc":  "2026-10-19T20:13:53.3889578Z",
+                  "browser_recheck":  "After interruption, cua.getState again failed before inventory with the same kernel-assets path error; no Azure configuration observed."
+              },
+    "boundary":  "Read-only GitHub metadata plus repository inspection. No cloud configuration mutation, deployment, real mail, staging execution or production activation."
+}

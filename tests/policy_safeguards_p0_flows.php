@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/support/disposable_database.php';
+
+bushisa_require_disposable_test_database('policy_safeguards_p0_flows');
+
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/policy_safeguards.php';
@@ -147,7 +151,8 @@ assert_policy((string) $messageExists->fetchColumn() === 'case evidence body', '
 
 $revoked = $pdo->prepare('SELECT status FROM message_requests WHERE match_id = :match_id ORDER BY id DESC LIMIT 1');
 $revoked->execute([':match_id' => $matchId]);
-assert_policy((string) $revoked->fetchColumn() === 'revoked', 'block should revoke approved chat grant');
+assert_policy((string) $revoked->fetchColumn() === 'approved', 'block preserves approval history without manufacturing an explicit chat ending');
+assert_policy(!bushisa_authorize_match_action($pdo,$matchId,$leftUserId,true)['ok'], 'actual block independently denies the preserved grant');
 
 $deleteUserId = policy_create_user($pdo, 'male', 'female');
 $otherUserId = policy_create_user($pdo, 'female', 'male');
@@ -183,6 +188,11 @@ $cleanup->execute([':user_id' => $deleteUserId]);
 assert_policy((int) $cleanup->fetchColumn() >= 1, 'account deletion should enqueue idempotent cleanup rows');
 
 $mailUserId = policy_create_user($pdo, 'male', 'female');
+$pdo->beginTransaction();
+$pdo->prepare('UPDATE users SET is_verified=0,account_status="pending_email" WHERE id=?')->execute([$mailUserId]);
+// Explicitly constructed NEW synthetic signup, never a legacy backfill path.
+bushisa_signup_record_creation($pdo,$mailUserId);
+$pdo->commit();
 $mailUser = find_user_by_id($pdo, $mailUserId);
 $mailEmail = (string) $mailUser['email'];
 $code = bushisa_issue_signup_code($pdo, $mailUserId, $mailEmail);
@@ -205,4 +215,3 @@ $restoreCheck = $pdo->query('SELECT traffic_reopen_allowed FROM restore_replay_r
 assert_policy((int) $restoreCheck->fetchColumn() === 0, 'missing replay evidence must fail closed for synthetic restore');
 
 fwrite(STDOUT, "policy_safeguards_p0_flows PASS\n");
-

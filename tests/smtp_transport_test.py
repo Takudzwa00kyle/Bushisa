@@ -6,12 +6,21 @@ from pathlib import Path
 import socket
 import ssl
 import subprocess
+import sys
 import tempfile
 import threading
 
 
 REPO = Path(__file__).resolve().parents[1]
 PHP = os.environ.get("BUSHISA_PHP_BINARY", "php")
+
+
+def php_path(path):
+    # Cygwin Python can read POSIX /tmp paths; native Windows PHP needs the
+    # corresponding Windows path for openssl.cafile. Linux CI is unchanged.
+    if sys.platform == "cygwin" and PHP.lower().endswith(".exe"):
+        return subprocess.check_output(["cygpath", "-w", str(path)], text=True).strip()
+    return str(path)
 
 
 def openssl(*args):
@@ -98,7 +107,7 @@ def exercise(cert_dir, advertise_tls, trust_ca=True):
 
     thread = threading.Thread(target=server, daemon=True)
     thread.start()
-    environment = dict(os.environ, SMTP_HOST="localhost", SMTP_PORT=str(port),
+    environment = dict(os.environ, SMTP_HOST="127.0.0.1", SMTP_PORT=str(port),
                        SMTP_USERNAME="synthetic-user", SMTP_PASSWORD="synthetic-password",
                        SMTP_ENCRYPTION="tls", SMTP_TIMEOUT_SECONDS="2",
                        MAIL_FROM_ADDRESS="donotreply@bushisa.me", MAIL_FROM_NAME="Bushisa",
@@ -117,7 +126,7 @@ try {
 """
     command = [PHP]
     if trust_ca:
-        command += ["-d", "openssl.cafile=" + str(cert_dir / "ca.pem")]
+        command += ["-d", "openssl.cafile=" + php_path(cert_dir / "ca.pem")]
     command += ["-r", program]
     result = subprocess.run(command, cwd=REPO, env=environment, capture_output=True, text=True, timeout=15)
     thread.join(6)
@@ -144,7 +153,7 @@ with tempfile.TemporaryDirectory(prefix="bushisa-smtp-") as directory:
     openssl("req", "-newkey", "rsa:2048", "-nodes", "-subj", "/CN=localhost",
             "-keyout", str(cert_dir / "server.key"), "-out", str(cert_dir / "server.csr"))
     extensions = cert_dir / "extensions.cnf"
-    extensions.write_text("subjectAltName=DNS:localhost\nbasicConstraints=CA:FALSE\nextendedKeyUsage=serverAuth\n")
+    extensions.write_text("subjectAltName=DNS:localhost,IP:127.0.0.1\nbasicConstraints=CA:FALSE\nextendedKeyUsage=serverAuth\n")
     openssl("x509", "-req", "-in", str(cert_dir / "server.csr"),
             "-CA", str(cert_dir / "ca.pem"), "-CAkey", str(cert_dir / "ca.key"),
             "-CAcreateserial", "-days", "1", "-extfile", str(extensions), "-out", str(cert_dir / "server.pem"))

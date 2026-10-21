@@ -1,0 +1,1112 @@
+{
+  "suite": "L01b guarded synthetic integration",
+  "result": "PASS",
+  "started_utc": "2026-10-16T16:39:46+00:00",
+  "finished_utc": "2026-10-16T16:40:16+00:00",
+  "php": "8.5.11",
+  "os": "Windows",
+  "mysql": "9.6.0",
+  "database": "bushisa_test_l01b",
+  "host": "127.0.0.1",
+  "port": "3319",
+  "http_topology": "Two separate loopback PHP built-in server processes, ports 8097/8098",
+  "checks": [
+    {
+      "check": "M01 fresh migrations 001-006",
+      "result": "PASS"
+    },
+    {
+      "check": "M02 migration rerun skips 006",
+      "result": "PASS"
+    },
+    {
+      "check": "M03 real pre-006 schema",
+      "result": "PASS"
+    },
+    {
+      "check": "M04 upgrade preserves all user values",
+      "result": "PASS"
+    },
+    {
+      "check": "M05 upgrade preserves message body",
+      "result": "PASS"
+    },
+    {
+      "check": "M06 existing request event backfilled once",
+      "result": "PASS"
+    },
+    {
+      "check": "M06 migration never certifies unknown older pair history",
+      "result": "PASS"
+    },
+    {
+      "check": "M06 legacy case values preserved without retrospective probation",
+      "result": "PASS"
+    },
+    {
+      "check": "M07 repeat migration does not repeat backfill",
+      "result": "PASS"
+    },
+    {
+      "check": "M08 source revision trigger catches direct edits",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A01 authorized discovery HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A01 proof belongs to actually returned card",
+      "result": "PASS"
+    },
+    {
+      "check": "A01 account report without prior match HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A01 report grants no relationship",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A02 authorized message with own context HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A02/A39 exact bounded evidence",
+      "result": "PASS"
+    },
+    {
+      "check": "A02 safe opaque receipt only",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 actual author probation",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 fixed 168 hours",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 allegation is not a finding/ban",
+      "result": "PASS"
+    },
+    {
+      "check": "A23 exact retry HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A23 same receipt no repeated effect",
+      "result": "PASS"
+    },
+    {
+      "check": "A23 active key rotation on distinct worker HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A23 old key digest remains resolvable",
+      "result": "PASS"
+    },
+    {
+      "check": "A25 changed same-key intent HTTP 409 (actual 409)",
+      "result": "PASS"
+    },
+    {
+      "check": "A25 operation namespace cannot reuse key HTTP 409 (actual 409)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A26 equivalent context HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A26 equivalent envelopes deduplicate information",
+      "result": "PASS"
+    },
+    {
+      "check": "A11 inaccessible and absent targets share unavailable projection",
+      "result": "PASS"
+    },
+    {
+      "check": "A12 cross-reporter proof HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "A12 forged authority field HTTP 400 (actual 400)",
+      "result": "PASS"
+    },
+    {
+      "check": "A14 other receipt HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "A15 raw ID without proof HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "A10 CSRF required HTTP 403 (actual 403)",
+      "result": "PASS"
+    },
+    {
+      "check": "A22/A39 self primary HTTP 400 (actual 400)",
+      "result": "PASS"
+    },
+    {
+      "check": "A22 Unicode length without truncation HTTP 400 (actual 400)",
+      "result": "PASS"
+    },
+    {
+      "check": "A22 unsupported image/URL authority HTTP 400 (actual 400)",
+      "result": "PASS"
+    },
+    {
+      "check": "A13 wrong generation fails closed HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A21 cross-segment context denied HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A21 eleven preceding items denied HTTP 400 (actual 400)",
+      "result": "PASS"
+    },
+    {
+      "check": "A21 excess context rolls back all new evidence",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A32 new active-period report HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A32 active period never resets/extends",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A16 stale version metadata HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A16 later version not captured",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A08 actual HTTP unsend HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A08 metadata report after unsend HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A08 no erased-original recapture",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A19 report-first serial order HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A19 unsend after report HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A19 only pre-existing evidence survives unsend",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "distinct HTTP workers reached report_before_transaction",
+      "result": "PASS"
+    },
+    {
+      "check": "A19 report/unsend overlap report HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A19 report/unsend overlap unsend HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A19 overlap has one serialized capture or metadata-only result",
+      "result": "PASS"
+    },
+    {
+      "check": "A08 ordinary reader after unsend HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A08 unsent entry disappears",
+      "result": "PASS"
+    },
+    {
+      "check": "A18 old operation remains receipt-only HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A18 another case cannot select existing evidence",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A17 source deadline applies before cleanup HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "A17 proof at expiry HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A09 unavailable physical target HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "A03 own request event HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A03/A09 explicit pair fallback HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A03 unmatched inbound pending request HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A03 report inbound pending event while unmatched HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A03 no unmatched approval HTTP 409 (actual 409)",
+      "result": "PASS"
+    },
+    {
+      "check": "A03 terminal declined event HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A03 retained terminal request HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A27 distinct request-state event HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A03 reporting does not renew request expiry",
+      "result": "PASS"
+    },
+    {
+      "check": "A04 board response HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A04 independent board response HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A04 no private author in returned post",
+      "result": "PASS"
+    },
+    {
+      "check": "distinct HTTP workers reached report_before_transaction",
+      "result": "PASS"
+    },
+    {
+      "check": "A28 reporter A HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A28 reporter C HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A28 private independent cases one initial period",
+      "result": "PASS"
+    },
+    {
+      "check": "A04 filing never sets global finding/flag",
+      "result": "PASS"
+    },
+    {
+      "check": "A05 actual reference with deleted source HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A37 quote author, never original source author",
+      "result": "PASS"
+    },
+    {
+      "check": "A05 source never reconstructed",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 anonymous-attribution response HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 accepted ambiguous attribution HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 no guessed actor probation",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 own pair proof HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 ambiguous conduct participant HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 never penalize both pair participants",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 attribution exposure HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 disputed attribution accepted for review HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A38 no guessed sanction or unseen revised capture",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 reporter A context HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 reporter C context HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 controlled validation wait lock",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 both actual HTTP receipts precede controlled release",
+      "result": "PASS"
+    },
+    {
+      "check": "distinct HTTP workers reached report_before_transaction",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 delayed worker A HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 delayed worker C HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 stored original UTC receipts precede expiry",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 receipt during active period never renews after worker delay",
+      "result": "PASS"
+    },
+    {
+      "check": "A45 reporter A context HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A45 reporter C context HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "distinct HTTP workers reached report_before_transaction",
+      "result": "PASS"
+    },
+    {
+      "check": "A45 renewal worker A HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A45 renewal worker C HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A45 two new qualifying reports create one fresh fixed period",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 retry exposure HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A24/A40 bounded forced-40001 retry HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A24/A40 retry preserves original receipt, one capture, no expiry renewal",
+      "result": "PASS"
+    },
+    {
+      "check": "A35 late-fault exposure HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A35 pre-existing ordinary block HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A35 final write failure HTTP 503 (actual 503)",
+      "result": "PASS"
+    },
+    {
+      "check": "A35 full rollback preserves only the pre-existing block",
+      "result": "PASS"
+    },
+    {
+      "check": "A24 retry after rolled-back final failure HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A24 initial probation created once after successful retry",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "distinct HTTP workers reached report_before_transaction",
+      "result": "PASS"
+    },
+    {
+      "check": "A24 worker 1 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A24 worker 2 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A24 same-key once-only atomic result",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "distinct HTTP workers reached report_before_transaction",
+      "result": "PASS"
+    },
+    {
+      "check": "A26 worker 1 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A26 worker 2 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A26 concurrent incident and info dedup",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A35 failed block attachment HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "A35 no orphan case/evidence/outcome",
+      "result": "PASS"
+    },
+    {
+      "check": "A24 same key usable after full rollback HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A33 old trigger replay after expiry HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A33 retries cannot renew",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A33/A44 new qualifying event linked to existing case HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A33 fresh period starts once",
+      "result": "PASS"
+    },
+    {
+      "check": "A44 case reuse does not suppress new qualifying event",
+      "result": "PASS"
+    },
+    {
+      "check": "A29 own narrative addendum HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A44 narrative update is not a new sanction",
+      "result": "PASS"
+    },
+    {
+      "check": "A40 exact boundary and delayed active-period validation",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 missing history proof cannot be treated as a fresh allowance HTTP 503 (actual 503)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 probation successful send 0 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 probation successful send 1 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "distinct HTTP workers reached message_request_before_mutation",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 concurrent send attempts cannot overspend remaining allowance",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 fourth probation send denied HTTP 429 (actual 429)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 active probation counts prior 24 hours HTTP 429 (actual 429)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 normal 12-hour allowance after actual expiry HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 no lifetime send reset",
+      "result": "PASS"
+    },
+    {
+      "check": "A10 restrictions dominate unused allowance HTTP 401 (actual 401)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 20 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 21 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 22 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 23 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 24 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 25 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 26 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 27 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 incoming-budget setup successful send 28 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "distinct HTTP workers reached message_request_before_mutation",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 concurrent incoming ceiling remains ten per 12 hours",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 lifetime setup send 0 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 cancel without lifetime reset 0 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 lifetime setup send 1 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 cancel without lifetime reset 1 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 lifetime setup send 2 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 cancel without lifetime reset 2 HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 rolling timestamp cleanup preserves minimal lifetime count",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 lifetime fourth send denied after rolling cleanup HTTP 429 (actual 429)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 directional decline setup HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 recipient records decline HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 approved reverse direction remains available HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 reverse requester may cancel HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A31 reverse request cannot erase original directional decline HTTP 409 (actual 409)",
+      "result": "PASS"
+    },
+    {
+      "check": "A06 unmatch preserves chat grant",
+      "result": "PASS"
+    },
+    {
+      "check": "A06 approved chat stays readable HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A06 report after unmatch HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A06 report does not undo unmatch",
+      "result": "PASS"
+    },
+    {
+      "check": "A07 ordinary block HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A07 report attached after block HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A07 report does not restore chat HTTP 403 (actual 403)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 creator cannot bypass clearance HTTP 409 (actual 409)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 unassigned admin cannot clear HTTP 403 (actual 403)",
+      "result": "PASS"
+    },
+    {
+      "check": "A10/A41 MFA required HTTP 403 (actual 403)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 assigned reviewer current scope HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 new information after review HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 stale clearance cannot approve unseen attachment HTTP 409 (actual 409)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 new attachment remains uncleared HTTP 409 (actual 409)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 refreshed reviewer scope HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 assigned MFA reviewer clearance HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 clearance alone keeps personal block",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 other participant cannot remove creator block HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 wrong creator changes no block",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 reverse block is independent HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 creator explicitly removes cleared block HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 eligible creator removal",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 another personal block remains",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 reverse block still denies chat HTTP 403 (actual 403)",
+      "result": "PASS"
+    },
+    {
+      "check": "A41 reverse creator removes own ordinary block HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A34 combined existing incident HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A34 combo review scope HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A34 combo clearance HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A34 later deliberate unblock HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A34 completed combined retry HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A34 retry never reblocks",
+      "result": "PASS"
+    },
+    {
+      "check": "A18/A29 already anchored evidence link HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A18/A29 no duplicate capture or effect from case link",
+      "result": "PASS"
+    },
+    {
+      "check": "A10/A30 revoked session overrides retained receipt HTTP 401 (actual 401)",
+      "result": "PASS"
+    },
+    {
+      "check": "A10 unassigned privileged evidence read denied",
+      "result": "PASS"
+    },
+    {
+      "check": "A10 assigned MFA evidence read is scoped and audited",
+      "result": "PASS"
+    },
+    {
+      "check": "A10 removed assignment immediately denies evidence",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized message reader HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A23 initial erasure-retry receipt HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A23 erased source and rotated active key HTTP 200 (actual 200)",
+      "result": "PASS"
+    },
+    {
+      "check": "A23 replay is receipt-only after source erasure",
+      "result": "PASS"
+    },
+    {
+      "check": "A23 unsupported stored contract cannot create fresh operation HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "A30 expired receipt unavailable HTTP 404 (actual 404)",
+      "result": "PASS"
+    },
+    {
+      "check": "A30 intake copies physically purged at final-resolution bound",
+      "result": "PASS"
+    },
+    {
+      "check": "A36 only specifically held text survives ordinary purge",
+      "result": "PASS"
+    },
+    {
+      "check": "A36 hold does not restore ordinary expired evidence access",
+      "result": "PASS"
+    },
+    {
+      "check": "A36 released already-expired evidence purged without a new clock",
+      "result": "PASS"
+    },
+    {
+      "check": "A29/A30 cleanup does not renew expiry",
+      "result": "PASS"
+    },
+    {
+      "check": "A30 final accidental case uses 30-day evidence deadline",
+      "result": "PASS"
+    },
+    {
+      "check": "No real or synthetic mail queued",
+      "result": "PASS"
+    }
+  ],
+  "overlaps": [
+    {
+      "barrier": "l01b-d9d762cfff717692e921a221",
+      "point": "report_before_transaction",
+      "workers": [
+        25212,
+        25388
+      ],
+      "results": [
+        200,
+        200
+      ]
+    },
+    {
+      "barrier": "l01b-a6b15ed2bb49090bba8832da",
+      "point": "report_before_transaction",
+      "workers": [
+        25212,
+        25388
+      ],
+      "results": [
+        200,
+        200
+      ]
+    },
+    {
+      "barrier": "l01b-22fbb9391e716ac77d0ce8b7",
+      "point": "report_before_transaction",
+      "workers": [
+        25388,
+        25212
+      ],
+      "results": [
+        200,
+        200
+      ]
+    },
+    {
+      "barrier": "l01b-d819f4c3b8a1bb0e77d84168",
+      "point": "report_before_transaction",
+      "workers": [
+        25388,
+        25212
+      ],
+      "results": [
+        200,
+        200
+      ]
+    },
+    {
+      "barrier": "l01b-c99195ab9d383f9e094c3966",
+      "point": "report_before_transaction",
+      "workers": [
+        25388,
+        25212
+      ],
+      "results": [
+        200,
+        200
+      ]
+    },
+    {
+      "barrier": "l01b-82784fcfab76c0062a5bbf1a",
+      "point": "report_before_transaction",
+      "workers": [
+        25212,
+        25388
+      ],
+      "results": [
+        200,
+        200
+      ]
+    },
+    {
+      "barrier": "l01b-90137f4f52bdd3db8654d191",
+      "point": "message_request_before_mutation",
+      "workers": [
+        25388,
+        25212
+      ],
+      "results": [
+        429,
+        200
+      ]
+    },
+    {
+      "barrier": "l01b-1a5394eeb61542b1bab95799",
+      "point": "message_request_before_mutation",
+      "workers": [
+        25388,
+        25212
+      ],
+      "results": [
+        200,
+        429
+      ]
+    }
+  ],
+  "failure": null,
+  "sources_lf_sha256": {
+    "api/safety.php": "d78e55d54c70293b730cce0a0220d0136be3c0fe54b5a10ecde0627ac1ec96b6",
+    "api/confessions.php": "be0eb94be8d41b8e3c3566f0feb344bd6d365353542dcde791433725a7c93ad1",
+    "api/discover.php": "98021921a37a4677b71f152e646f06fcaf69a6614aedb0470ac615c7b8078206",
+    "api/messages.php": "8ae2d162a0de361c1524771622a85815dae1a4028ab6c4ac92b9e0fd36b749d5",
+    "api/message_requests.php": "58e5fc80fa16a179db2fb8dfd5f57d3ef73bb8b69b12757e7aa6c922db2643af",
+    "bin/migrate.php": "f9d4cde3f6666cc8c4669b3ec66111179fff90d64e906aeedfb5abf68b981911",
+    "bin/cleanup_policy.php": "397acdeacb656e40ff54abee72f273cc4e2eca7aa6921fe55ba2bd79da7b9af9",
+    "database/migrations/006_report_intake.sql": "dd7b8821710910aa005b75393e3eb98ba5440aded0e624044b14fb3d0781a21d",
+    "php/report_intake.php": "752d03e2287704598d4e06b365538bde89db806ccaf4223211a0a8a2355376d7",
+    "php/report_migration.php": "f82808f88ee12268287e6972b0b2b10a56bec0a65e411a9fbf1840103fea7cf3",
+    "php/block_handler.php": "1ac6fb5a7d12d2d8d89cbf7cd2f8e6e27017b915ade15a40ad62b5504db6d65b",
+    "php/report_handler.php": "5cfe9a87f6f940750affd967820b9a687652fa7b6d018d6f750f3439cf666948",
+    "php/policy_safeguards.php": "c1606e4a721573e5b720219cfea799cdfe809a413a06f27f23837f6fc7383804",
+    "php/operational.php": "a8c46cdf8886f6c8cbf0ce8c00c3172305101d5aa07689661b3e9801eb8127c1",
+    "js/confessions.js": "92e86482fc51e5827ff7a156fba3a73e241166e8d2693b8851e1a0bdd13e8132",
+    "tests/integration_l01b_reports.php": "89bfe7570d1f4f73a6c7f9e69b026d6e03fab1bef22832fa6b2ac37b11676227"
+  }
+}

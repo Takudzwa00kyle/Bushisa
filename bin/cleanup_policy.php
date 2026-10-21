@@ -7,40 +7,41 @@ if (PHP_SAPI !== 'cli') {
     exit;
 }
 
+// Production recovery/authority adapters and the broader cleanup release gate
+// remain unavailable. Refuse before loading database configuration. The regular
+// mail WebJob uses cleanup_mail.php instead; this is not an activation switch.
+if (strtolower((string) (getenv('APP_ENV') ?: 'production')) !== 'development') {
+    fwrite(STDERR, "POLICY_CLEANUP_GATED: production lifecycle cleanup is not activated.\n");
+    exit(78);
+}
+
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../php/operational.php';
 require_once __DIR__ . '/../php/signup_verification.php';
+require_once __DIR__ . '/../php/report_intake.php';
+require_once __DIR__ . '/../php/pair_history.php';
 
 ensure_operational_schema($pdo);
 
+$signupExpiry = bushisa_cleanup_expired_signup_attempts($pdo);
 $expiredCodes = bushisa_cleanup_expired_signup_codes($pdo);
+$reportCleanup = bushisa_report_transaction($pdo, fn(): array => bushisa_report_cleanup($pdo));
+$pairCleanup = bushisa_pair_ready($pdo) ? bushisa_report_transaction($pdo,fn():array=>bushisa_pair_cleanup($pdo)) : [];
 
-$mail = $pdo->prepare(
-    'UPDATE mail_outbox
-     SET body = NULL,
-         status = CASE WHEN status = "pending" THEN "failed" ELSE status END,
-         next_attempt_at = NULL,
-         payload_erased_at = COALESCE(payload_erased_at, UTC_TIMESTAMP()),
-         metadata_json = JSON_OBJECT("policy_status", "proposed", "erased_reason", "expired_code_bearing_payload")
-     WHERE code_bearing = 1
-       AND payload_erased_at IS NULL
-       AND (expires_at IS NULL OR expires_at <= UTC_TIMESTAMP())'
-);
-$mail->execute();
-
-$cleanup = $pdo->prepare(
-    'UPDATE cleanup_outbox
-     SET status = "done",
-         completed_at = COALESCE(completed_at, UTC_TIMESTAMP())
-     WHERE status = "pending"
-       AND run_after <= UTC_TIMESTAMP()
-       AND cleanup_type IN ("signup_code_cleanup", "synthetic_mail_cleanup")'
-);
-$cleanup->execute();
+$expiredMail = bushisa_signup_cleanup_mail($pdo);
+$resetMailCleanup = ['payloads'=>0,'challenge_hashes'=>0,'metadata'=>0,'rate_events'=>0];
+require_once __DIR__ . '/../php/password_reset_mail_jobs.php';
+if (bushisa_reset_schema_ready($pdo)) $resetMailCleanup = bushisa_reset_cleanup($pdo);
+// Q11 account-data obligations remain pending until a bounded live-cleanup
+// consumer verifies its work. Merely reaching run_after proves no erasure.
 
 fwrite(STDOUT, json_encode([
     'expired_codes_terminalized' => $expiredCodes,
-    'code_bearing_payloads_erased' => $mail->rowCount(),
-    'cleanup_rows_completed' => $cleanup->rowCount(),
+    'signup_expiry' => $signupExpiry,
+    'code_bearing_payloads_erased' => $expiredMail,
+    'password_reset_cleanup' => $resetMailCleanup,
+    'report_intake_copies_purged' => $reportCleanup['intake_copies_purged'],
+    'report_text_evidence_purged' => $reportCleanup['text_evidence_purged'] ?? 0,
+    'pair_cleanup' => $pairCleanup,
 ], JSON_UNESCAPED_SLASHES) . PHP_EOL);
 
