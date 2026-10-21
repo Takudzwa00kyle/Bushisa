@@ -204,6 +204,14 @@ specific separation without SUPER, global admin or WITH GRANT OPTION:
 | Controlled migrator | Schema-scoped SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, INDEX, REFERENCES, TRIGGER, CREATE ROUTINE, ALTER ROUTINE, EXECUTE; no DROP/global administration/GRANT OPTION. Actual 005-016 succeeds with binlog/trust=1. Inspect and preserve routine/trigger definers before disabling credentials; do not drop a required definer account. |
 | Web runtime | No DDL. Tested original D03-table reads, selected login/profile/pair DML and fixed health-procedure EXECUTE. **Not a completed full-D03 write-grant audit.** Report, confession, media, evidence/recovery and reset paths require their exact approved table/column rights and negative checks before release. |
 | Minute mail worker | Purpose-limited signup/challenge/mail/lifecycle/retention/receipt DML, three fixed health-procedure EXECUTEs, constrained cleanup_outbox column UPDATE. No ordinary chat/evidence browsing, schema DDL or account administration. Exact tested SHOW GRANTS are in the synthetic report. Additional jobs need separate reviewed rights, never wildcard grants to suppress an error. |
+
+**21 October clarification after capture 09:** the worker description above
+states the intended operational scope, not a proven account-administration
+denial. `os_role` actually grants table-wide SELECT/UPDATE on `users`; OS13/OS15
+did not test password/suspension-column denial. Preserve the historical results
+and exact grants, but do not use them as least-privilege completion evidence.
+The [current handover review](direct-release-handover-review-2026-10-21.md)
+specifies the proposed column-contract/negative-path work, HR01–HR04 NOT RUN.
 | Missing-privilege fixture | Deliberately lacks mail_outbox UPDATE; proves atomic claim failure before fake carrier. Not a proposed operational identity. |
 
 Web requests retain `DB_USER` / `DB_PASSWORD` (reviewed runtime values). The

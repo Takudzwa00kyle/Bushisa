@@ -71,3 +71,7 @@ Whole artifact identity, dependency coverage and recovery remain separate gaps.
 Capture 08 is classified locally; the linked record advances to one consolidated
 code-gap delta. No repeated settings, schema or accepted hash collection is requested. PR 8 remains draft; no merge, deployment,
 live grant/settings change, cleanup or real email occurred.
+
+**Current follow-up:** [capture 09](code-gap-reconciliation-2026-10-21.md) is now
+accepted; the prior code-gap collection pointer above is completed. No repeated
+schema/file collection is requested. Continue the [handover review](direct-release-handover-review-2026-10-21.md).

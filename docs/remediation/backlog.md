@@ -4,7 +4,7 @@ Updated: 2026-10-21, Africa/Harare.
 
 ## Current release path: controlled direct update, staging deferred
 
-All 01-08 files and the original DOCX are now
+All 01-09 files and the original DOCX are now
 [reconciled](completed-owner-evidence-reconciliation-2026-10-21.md). No repeated
 SQL/hash collection or passed acceptance-suite rerun was needed. The six
 physical-schema assumptions are resolved: 13 FK mappings, 122 index attributes,
@@ -32,17 +32,28 @@ The preserved worker ZIP has matching `run.sh` and **nonmatching settings**.
 Capture 07 establishes exactly `{"schedule":"0 * * * * *"}`, semantically
 equivalent to ZIP settings. Local compact JSON matches the installed digest;
 the ZIP bytes remain different. Exact ZIP deployment provenance is unverified. **No preserved application deployment archive was found** in the
-inspected locations. CI-results ZIPs are not rollback bundles. The next owner
-action is only the prepared
-[single consolidated code-gap collection](remaining-code-evidence-collection-2026-10-21.md#owner-action-in-execution-order)
-in Application SSH, saved as 09 beside the returned files. It hashes only 68
-newly classified targets, lists only new non-private names across the remaining
-boundaries/extensions and does not hash unclassified hostingstart by default.
-Local preparation has 17 synthetic checks PASS; production execution NOT RUN.
-No accepted hash, settings or capture-08 inventory is repeated.
-Steps 1-4 of the
-[collection guide](owner-evidence-collection-2026-10-21.md) are complete; do not
-repeat them or execute the worker.
+inspected locations. CI-results ZIPs are not rollback bundles.
+
+[Capture 09 is reconciled](code-gap-reconciliation-2026-10-21.md): all 65 new
+hashes match (six Git baseline, 59 locked PHPMailer); three missing later audit
+helpers do not belong to the baseline runtime. All 13 new names are accounted
+for. Captures 05/09 cover 158 distinct hashed paths: 81 baseline Git and 77
+dependency paths, including the generated installed.php metadata comparison.
+The deployed source settings copy matches the ZIP while installed App_Data
+bytes remain different and semantically equivalent. No exact ZIP provenance
+or complete application artifact identity is claimed. The bounded collection
+is complete: do not repeat captures or request bodies/hashes of the eight
+documentation/licence/version names. hostingstart stays unclassified; resolve
+its retain/serve or candidate-exclusion/routing disposition for release rather
+than request another broad audit. Private/external/non-atomic coverage limits
+remain explicit. No worker or discovered code was run.
+
+The [local handover review packet](direct-release-handover-review-2026-10-21.md)
+prepares worker compatibility, role separation, all-writer cutover and recovery.
+HR01–HR04 are proposed engineering checks, all NOT RUN. Existing fixture
+table-wide users UPDATE does not establish worker password/suspension denial;
+derive/test a minimum column contract and full-D03 runtime negatives next.
+No synthetic role or no-work dispatch result establishes live acceptance.
 
 **Mail rollout blocker:** the installed `set -e` wrapper would stop at the
 candidate production-gated `cleanup_policy.php` before dispatch. A separately
@@ -82,9 +93,13 @@ and no broad cleanup is activated. AZS01-AZS18 remain **NOT RUN / DEFERRED**;
 SC26 production storage/topology **PARTIAL**. Existing A/LB/LC/QS/QE/QM/SC and
 P0/P1 results/gates and full D03 scope are unchanged. Actual role acceptance,
 NGINX/private paths, sessions/storage, delivery/support/coverage, qualified
-review and recovery remain open. Next independent engineering work: full-D03
-restricted-grant/negative-path checks and a bounded legacy continuation/cutover
-design, using settled decisions. Current release recommendation: **NO-GO**.
+review and recovery remain open. Next independent engineering work: the packet's
+mail-only column-grant/negative-path and full-D03 runtime checks, then a
+bounded legacy continuation/cutover design, using settled decisions. Next owner
+action: name accepted DB/security reviewer and maintenance/recovery primary plus
+backup, and the existing-resource recovery method/capacity they can validate;
+no additional production file collection is requested. Current release
+recommendation: **NO-GO**.
 
 Whole-roadmap reconciliation at candidate `d381e56`: [P0–P2 status and critical path](p0-p2-status-2026-10-18.md). This is a documentation audit; it preserves historical evidence and leaves the existing acceptance matrices and release gates unchanged.
 

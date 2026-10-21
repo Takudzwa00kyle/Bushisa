@@ -1,16 +1,12 @@
 # Owner-run collection, existing resources
 
-**Progress update: all 01-08 files received and reconciled.** Schema details
-[match the reconstruction](owner-schema-supplement-comparison-2026-10-21.md);
-actual worker location/hashes, application allowlist and local archive findings
-are accepted in the [completed evidence record](completed-owner-evidence-reconciliation-2026-10-21.md).
-Do not repeat steps 1-4 below. They preserve the original collection procedure
-for reference, not a new request. The next smallest action is the bounded
-[consolidated code-gap collection](remaining-code-evidence-collection-2026-10-21.md#owner-action-in-execution-order),
-saved as 09 beside the existing parent-directory evidence files. Capture 07
-establishes schedule equivalence and 08 adds bounded names/classification; do not
-repeat them or retrieve installed.php again. Hostingstart remains default-deferred.
-No SQL, worker run or artifact download is requested.
+**Progress update: all 01–09 files received and reconciled.** The
+[final bounded code-gap reconciliation](code-gap-reconciliation-2026-10-21.md)
+accounts for every reviewed target/new filename. Do not repeat steps 1–4 or
+the consolidated delta. No further broad collection or worker run is requested.
+Next is the [handover role/cutover/recovery review](direct-release-handover-review-2026-10-21.md),
+with accepted real reviewers/operators and existing-resource recovery capacity.
+The commands below are historical reference, not instructions to execute again.
 
 Prepared from clean `888a2c273711c1ac5f3d1dc3d26d649f1e636235` on
 `codex/direct-production-release-prep-20261020`. Commands below are **prepared,

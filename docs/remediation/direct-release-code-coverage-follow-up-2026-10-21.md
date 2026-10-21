@@ -1,5 +1,9 @@
 # Direct-release follow-up: deployed code coverage
 
+**Current status:** the [capture-09 reconciliation](code-gap-reconciliation-2026-10-21.md)
+completes the reviewed delta; collection directions in this historical follow-up
+are superseded. No repeated broad collection is requested.
+
 Prepared from `6b2294c36a0d415d0d52ab10ff1c7881346e459c` after accepting
 [capture 07](evidence/installed-settings-semantics-2026-10-21.json). Installed
 and ZIP settings are semantically equivalent: exactly

@@ -10,7 +10,7 @@ NOT RUN**, and SC26 production storage/topology stays **PARTIAL**.
 
 ## Sources accepted and limits
 
-The eight files were found in the repository's parent directory. No missing-file
+The nine files were found in the repository's parent directory. No missing-file
 request, repeated production collection, SQL execution, worker execution or
 application-regression rerun was needed. The original DOCX and supplement hashes
 are unchanged. Capture 07 adds a local ZIP comparison and synthetic validation
@@ -29,6 +29,7 @@ Original files remain private and unmodified, outside Git.
 | `06-artifact-provenance.txt` | Prior **local agent read-only inspection**, recorded **2026-10-21 00:26:32.5241896 UTC / 02:26:32.5241896 Africa/Harare**. This is not an independent Azure capture or an owner approval timestamp. Reuse its archive inspection; archives were not reopened or executed for this reconciliation. |
 | `07-installed-settings-summary.txt` | Owner Application SSH read-only capture at **2026-10-21 11:35:51 UTC / 13:35:51 Africa/Harare**. Same installed digest as 04; one property, only the recorded minute schedule; no BOM, CRLF or LF. The capture was read locally; Azure collection was not repeated. |
 | `08-deployed-code-names.txt` | Owner metadata capture at **2026-10-21 12:41:11 UTC / 14:41:11 Africa/Harare**: 190 visited, 10 excluded, 166 rows (154 code paths/12 top directories), no STOP. All 93 capture-05 paths are present; 61 additional names are locally classified. See the [inventory reconciliation](deployed-code-inventory-reconciliation-2026-10-21.md). |
+| `09-code-gap-evidence.txt` | Owner Application SSH capture **2026-10-21 14:28:23–14:28:24 UTC / 16:28:23–16:28:24 Africa/Harare**: 65 new hashes all match, three missing reviewed audit helpers, 13 new names and deferred hostingstart; no STOP. See the [complete delta reconciliation](code-gap-reconciliation-2026-10-21.md). |
 
 No file-save time, recording time or last job run is substituted for historical
 owner acceptance. Previously accepted decisions remain accepted despite an
@@ -175,22 +176,27 @@ Local comparison command:
 `D:/cygwin64/bin/python3.9.exe .tmp/accept-owner-settings-07.py`.
 The earlier 07 collection is complete. **Do not repeat Azure collection.**
 
-## Capture 08 accepted; next consolidated code-gap collection
+## Captures 08 and 09 accepted; bounded collection complete
 
-The [inventory reconciliation](deployed-code-inventory-reconciliation-2026-10-21.md)
-accepts the complete owner result and classifies all additions using local Git
-and the cached locked package. `hostingstart.html` remains unclassified content,
-not an assumed provider default; filenames do not establish HTTP accessibility.
-The Composer generated-reference hash difference is accounted for locally.
-Do not repeat capture 08 or request another installed.php body/hash.
+The [capture-09 reconciliation](code-gap-reconciliation-2026-10-21.md)
+accounts for all 68 reviewed targets and every new filename. All 65 new hashes
+match six baseline Git files and 59 locked-package files. Three missing audit
+helpers are not baseline runtime dependencies. Captures 05/09 now cover 158
+distinct hashes: 81 baseline Git paths and 77 dependency paths, including the
+one constructed installed.php metadata match. No further broad production
+file collection or hashing of the eight new documentation/licence/version
+names is requested. hostingstart stays unclassified; its concrete release
+disposition and the bounds of full identity acceptance are explained there.
 
-The [single consolidated delta procedure](remaining-code-evidence-collection-2026-10-21.md)
-targets only 68 newly reviewed source/package paths and extension-independent
-new names in the remaining bounded roots. It suppresses accepted hashes/names,
-does not execute discovered scripts and leaves hostingstart un-hashed unless
-the owner privately classifies it as non-sensitive source. Save only its output
-as `09-code-gap-evidence.txt` beside 01-08. Production execution remains NOT RUN;
-successful local preparation does not close artifact/cutover/recovery gates.
+The deployed source settings copy matches the ZIP; installed App_Data settings
+remain byte-different and semantically equivalent under 07. Exact ZIP deployment
+provenance remains unverified, and no preserved application archive was found.
+The historical collection procedures/reports remain attributed to their
+original sources; owner execution of a metadata reader is not application or
+staging acceptance. The [handover review packet](direct-release-handover-review-2026-10-21.md)
+advances local worker-role, legacy cutover and recovery preparation instead of
+requesting another audit. Existing worker incompatibility, unsafe baseline
+rollback and actual recovery gates remain open.
 
 ## Validation and candidate attribution
 
@@ -240,3 +246,10 @@ are separate from the historical 07 checks above. The new standalone collector
 has 17 synthetic Windows PHP 8.5.11 checks PASS, PHP/Bash syntax and local
 PowerShell rendering PASS; Azure execution NOT RUN. No application/AZS/SC matrix
 or prior CI result is changed. All eight original source hashes are preserved.
+
+Capture 09 follow-up: offline [per-path results](evidence/code-gap-reconciliation-2026-10-21.json)
+reuse the unchanged local Git/package comparisons and accepted source captures.
+The new [handover packet](direct-release-handover-review-2026-10-21.md) distinguishes
+fixture grants from a final least-privilege contract: table-wide UPDATE on users
+does not prove password/suspension denial. Its HR01–HR04 checks are NOT RUN.
+No old acceptance or CI claim is extended to this documentation head.

@@ -39,7 +39,7 @@ success is not operational acceptance.
 
 ### Owner metadata follow-up: current evidence
 
-**Latest accepted evidence:** owner files 01-05, 07-08 plus local archive record
+**Latest accepted evidence:** owner files 01-05, 07-09 plus local archive record
 06 are [reconciled](completed-owner-evidence-reconciliation-2026-10-21.md).
 They were located in the repository parent directory. No repeat production
 collection or application-regression rerun was needed. The agent did not independently
@@ -62,12 +62,17 @@ additions; none is baseline-tracked. 17 dependency files match the explicit
 local vendor installation; the installed.php digest is now accounted for by
 locally changing its generated root reference to baseline `0bf311f`. This is
 17 raw matches plus one constructed metadata match, not full bundle proof.
-Capture 08 adds 61 locally classified names: Playwright, 59 expected PHPMailer
-paths and unclassified hostingstart.html. Deploy/sql, database outside migrations
-and former extension/private exclusions remain explicit coverage boundaries.
-Unknown additional code, dependency/build coverage and non-atomic capture
-mean **complete hosted source identity is still UNESTABLISHED**. The known-file
-baseline comparison is supported; a complete deployment SHA is not.
+Capture 08's 61 additional names are now reconciled with the complete
+[capture-09 delta](code-gap-reconciliation-2026-10-21.md): all 65 new hashes
+match (six baseline source, 59 locked package), three absent audit helpers are
+not runtime dependencies, and all 13 new filename rows are classified. Captures
+05/09 cover 158 distinct hashed paths (81 baseline Git, 77 dependency). The eight
+unhashed documentation/licence/version names do not need further collection for
+this compatibility preparation. hostingstart remains DEFERRED_UNCLASSIFIED;
+retain/serve versus exclude/verify-routing disposition is still a concrete
+artifact/default-document gate, not a reason to repeat broad collection.
+Private/external stores, excluded entries, non-atomic captures and build/install
+provenance mean **complete hosted source identity is still UNESTABLISHED**.
 
 The separately installed job is observed at
 `/home/site/wwwroot/App_Data/jobs/triggered/bushisa-mail`. Its `run.sh` matches
@@ -78,10 +83,15 @@ is a representation difference: capture 07 establishes exactly
 Local 26-byte compact serialization matches the installed digest; the ZIP
 remains byte-different. The exact ZIP's deployment provenance remains unverified.
 **No preserved actual application archive was found** in the inspected locations; CI report archives
-and rehearsal fixtures are not a rollback package. The next action is only the
-[consolidated code-gap collection](remaining-code-evidence-collection-2026-10-21.md#owner-action-in-execution-order),
-not the already completed collection in the
-[historical guide](owner-evidence-collection-2026-10-21.md).
+and rehearsal fixtures are not a rollback package. Capture 09's deployed
+source `deploy/mail-webjob/settings.job` matches the ZIP, not installed App_Data
+bytes. All three retain the established schedule semantics; none proves the
+exact ZIP was deployed. No further broad collection is requested. The next
+step is the [worker/role/cutover/recovery handover review](direct-release-handover-review-2026-10-21.md),
+using the completed evidence. The old-wrapper/candidate-cleanup incompatibility
+is unchanged. Existing fixture worker grants include table-wide users UPDATE;
+the passing fixture does not prove password/suspension denial. Tightening and
+negative-path verification are still required before accepted live grants.
 
 The [observed-schema rehearsal](owner-schema-release-rehearsal-2026-10-20.md)
 retains its **29 local PASS**, including immutable NULL legacy clocks and
@@ -433,22 +443,22 @@ maintenance, migration nor replay restarts an original retention deadline.
 |---|---|---|
 | Owner execution information | Maintenance start/end/abort window, exact permitted change set, accepted primary/backup, consenting smoke accounts, existing recovery capacity | Takudzwa supplies actual choices; no invented appointments or budget. |
 | Policy decisions | Production reset throttles before separate activation; Q40 session redesign still proposed; other register proposals unchanged | Owner selects only when needed. Direct release does not approve them; reset stays off. |
-| Executable engineering | Physical-schema supplement is reconciled; finish full-D03 restricted-grant checks and complete deployed-source coverage; address demonstrated unsafe baseline rollback and old-wrapper dispatch stop; legacy anchor/history/cutover compatibility; NGINX/private paths; full D03 routes/geography/media/retention completion | Engineering uses the owner observations and local rehearsal; preserve incomplete history and existing approval boundaries. |
+| Executable engineering | Physical-schema supplement is reconciled; finish full-D03 and mail-only column-grant/negative-path checks; resolve actual artifact/routing disposition; address demonstrated unsafe baseline rollback and old-wrapper dispatch stop; legacy anchor/history/cutover compatibility; NGINX/private paths; full D03 routes/geography/media/retention completion | Engineering uses the owner observations and local rehearsal; preserve incomplete history and existing approval boundaries. |
 | External operational/review | Existing monitoring/alert receipt, SMTP/inbox/header acceptance, monitored support, operators/coverage, qualified security/privacy/safety, actual backup/media/session/replay and witnessed recovery | Named accepted operators/reviewers; synthetic fixtures and old green CI cannot close these. |
 
-**Next concrete owner action:** run only the prepared
-[consolidated code-gap collection](remaining-code-evidence-collection-2026-10-21.md#owner-action-in-execution-order)
-in Azure Application SSH and save 09 beside 01-08. All eight existing files are
-accepted; do not repeat schema, worker or application-manifest collection.
-Schedule equivalence and the bounded capture-08 names are established. The
-next delta checks only newly reviewed hashes and remaining boundary/extension
-names; hostingstart stays deferred until private classification. It does not
-establish full deployment, public accessibility or rollback provenance. Actual
-role/secret acceptance, remaining code/dependency
-coverage, legacy cutover and recovery remain open. No paid environment is needed.
-Next bounded engineering work is the remaining full-D03 grant-path checks and
-legacy continuation/cutover resolution, with rollback writers kept disabled
-until separately demonstrated safe. Only after this evidence and
-remaining release criteria are satisfied should a concrete production approval
-be requested. Current recommendation remains **NO-GO**, without reopening any
-settled product decisions.
+**Next concrete owner action:** review the
+[prepared handover packet](direct-release-handover-review-2026-10-21.md) and
+name the accepted DB/security reviewer plus maintenance/recovery primary and
+backup (or identify unavailable roles), and the existing-resource recovery
+method/capacity they can validate. This is responsibility/capability information,
+not permission for a production change. No further production file collection
+is requested; all 01–09 evidence is accepted within its stated bounds.
+
+Engineering can independently derive/test the mail-only column grant contract
+and full-D03 runtime negatives (HR01–HR04 NOT RUN), then resolve legacy
+continuation/all-writer cutover using settled decisions. Actual role/secret/TLS
+acceptance, compatible fallback/forward repair, independent replay and witnessed
+recovery remain open. Reset stays off; its future throttles and Q40 proposals
+are unchanged. Only after these and the remaining full-scope release criteria
+are satisfied should a concrete production approval be requested. **NO-GO**
+remains; managed staging is DEFERRED/18 NOT RUN and SC26 production PARTIAL.

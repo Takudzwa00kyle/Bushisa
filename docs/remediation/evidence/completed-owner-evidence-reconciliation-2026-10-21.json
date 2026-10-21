@@ -35,6 +35,11 @@
     "08-deployed-code-names.txt": {
       "sha256": "2c564889f6f8e7bc6fc7f4c7bfb2f1b75e2b36bbb53225e3bc54939fab14c0e4",
       "bytes": 7755
+    },
+    "09-code-gap-evidence.txt": {
+      "bytes": 9590,
+      "sha256": "b7805f13fec935c0f5fa40d7875670b0b1128e33d92a807c1b547953c55ad770",
+      "source": "owner Application SSH metadata; see code-gap reconciliation for capture times and comparison"
     }
   },
   "original_docx_sha256": "90ca70375d3fb2a3844bb80064cd1f6620224411d36eb8b490e94937cbede233",
@@ -2679,5 +2684,13 @@
     "test_merge_sha": "2bdd01a214d0665ddd446a823d4dda61988006ca",
     "url": "https://github.com/Takudzwa00kyle/Bushisa/pull/8",
     "no_write": true
+  },
+  "capture09_follow_up": {
+    "owner_metadata_collection": "COMPLETED as owner observation 2026-10-21T14:28:23Z through 14:28:24Z; not independent agent execution or application acceptance",
+    "report": "code-gap-reconciliation-2026-10-21.json",
+    "review_packet": "../direct-release-handover-review-2026-10-21.md",
+    "new_functional_tests": "NOT RUN",
+    "previous_validation_attribution_preserved": true,
+    "no_further_broad_collection_requested": true
   }
 }

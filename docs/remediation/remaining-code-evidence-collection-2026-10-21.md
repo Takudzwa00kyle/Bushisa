@@ -1,5 +1,12 @@
 # One consolidated code-gap collection
 
+**Completed owner observation:** capture 09 is received and
+[fully reconciled within its bounds](code-gap-reconciliation-2026-10-21.md).
+Do not rerun this collection or its optional hostingstart read. The procedure
+and original local fixture results below are historical preparation evidence.
+Owner execution produced metadata, not application/staging acceptance; the
+agent did not execute it against Azure. No new broad collection is requested.
+
 Prepared after [capture 08 reconciliation](deployed-code-inventory-reconciliation-2026-10-21.md).
 **Not executed against Azure by the agent.** Direct production remains the
 chosen release approach, not permission to release now. No old collection,

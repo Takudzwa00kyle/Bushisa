@@ -1,0 +1,651 @@
+{
+  "format": "bushisa.owner-code-gap-reconciliation.v1",
+  "recorded_utc": "2026-10-21T14:44:10.553006+00:00",
+  "checkout": "de7547a19bb27072c2334551dabd16c6881699b2",
+  "source_file": "09-code-gap-evidence.txt",
+  "source_sha256": "b7805f13fec935c0f5fa40d7875670b0b1128e33d92a807c1b547953c55ad770",
+  "source_bytes": 9590,
+  "source_kind": "owner Application SSH output; not independently captured by agent",
+  "metadata": {
+    "capture_utc": "2026-10-21T14:28:23Z",
+    "physical_root": "/home/site/wwwroot",
+    "reviewed_hash_targets": "68",
+    "visited_entries": "198",
+    "excluded_entries": "12",
+    "row_count": "82",
+    "capture_end_utc": "2026-10-21T14:28:24Z"
+  },
+  "capture_harare_start": "2026-10-21T16:28:23+02:00",
+  "capture_harare_end": "2026-10-21T16:28:24+02:00",
+  "summary": {
+    "new_hashes": 65,
+    "missing_reviewed": 3,
+    "reviewed_total": 68,
+    "git_baseline_raw_matches": 6,
+    "git_candidate_raw_matches": 3,
+    "locked_package_raw_matches": 59,
+    "new_filename_rows": 13,
+    "new_filename_rows_hashed": 5,
+    "new_filename_rows_documentation_only_unhashed": 8,
+    "combined_05_09_distinct_hash_paths": 158
+  },
+  "files": [
+    {
+      "path": "database/bushisa.sql",
+      "owner_sha256": "141b594e09a468b897b038a1e8770334254252ca3266835b071907500edd8729",
+      "kind": "GIT_SOURCE",
+      "baseline_sha256": "141b594e09a468b897b038a1e8770334254252ca3266835b071907500edd8729",
+      "baseline_match": true,
+      "candidate_sha256": "141b594e09a468b897b038a1e8770334254252ca3266835b071907500edd8729",
+      "candidate_match": true,
+      "match": true
+    },
+    {
+      "path": "database/seed.php",
+      "owner_sha256": "b89d701a9473d651cd5b3c62bcad01983a3d0831ad6350e5e53b5b2e1d084787",
+      "kind": "GIT_SOURCE",
+      "baseline_sha256": "b89d701a9473d651cd5b3c62bcad01983a3d0831ad6350e5e53b5b2e1d084787",
+      "baseline_match": true,
+      "candidate_sha256": "0b135baf0952b03652d333fc18d5ceb3af3cdafba57f1dd41ac850f9932b43b1",
+      "candidate_match": false,
+      "match": true
+    },
+    {
+      "path": "deploy/mail-webjob/run.sh",
+      "owner_sha256": "8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015",
+      "kind": "GIT_SOURCE",
+      "baseline_sha256": "8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015",
+      "baseline_match": true,
+      "candidate_sha256": "a86d696b9d5997e487318a512127394c84fe99af3a66728bb80125abef9a2aee",
+      "candidate_match": false,
+      "match": true
+    },
+    {
+      "path": "deploy/mail-webjob/settings.job",
+      "owner_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+      "kind": "GIT_SOURCE",
+      "baseline_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+      "baseline_match": true,
+      "candidate_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+      "candidate_match": true,
+      "match": true
+    },
+    {
+      "path": "playwright.config.js",
+      "owner_sha256": "f3f5ec772279978f7d0ae3d93fbcee9ca28fc6126469c4ba178b469f0e69b04a",
+      "kind": "GIT_SOURCE",
+      "baseline_sha256": "f3f5ec772279978f7d0ae3d93fbcee9ca28fc6126469c4ba178b469f0e69b04a",
+      "baseline_match": true,
+      "candidate_sha256": "1e0dcf281be4402f1a849c82e04e6d12059b8d7e055df17c122ceb4da2323752",
+      "candidate_match": false,
+      "match": true
+    },
+    {
+      "path": "sql/schema.sql",
+      "owner_sha256": "659a2690f8c40ad0bf0092ce0f391d884892e53495ef162bd2547971b0718280",
+      "kind": "GIT_SOURCE",
+      "baseline_sha256": "659a2690f8c40ad0bf0092ce0f391d884892e53495ef162bd2547971b0718280",
+      "baseline_match": true,
+      "candidate_sha256": "659a2690f8c40ad0bf0092ce0f391d884892e53495ef162bd2547971b0718280",
+      "candidate_match": true,
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/composer.json",
+      "owner_sha256": "0d29d0a9c86be376433530333bee758ba563e7267347300c181299f5a1d920a4",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "0d29d0a9c86be376433530333bee758ba563e7267347300c181299f5a1d920a4",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/get_oauth_token.php",
+      "owner_sha256": "c461d8181348df478a5639013af6719e89182bd6153b2e48469525763371f743",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "c461d8181348df478a5639013af6719e89182bd6153b2e48469525763371f743",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-af.php",
+      "owner_sha256": "d4c5272712f1b1cd6b3d08f83a89fbdae257de308a58e6eee1f4e7f519c86062",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "d4c5272712f1b1cd6b3d08f83a89fbdae257de308a58e6eee1f4e7f519c86062",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ar.php",
+      "owner_sha256": "ad11ffbf21f84fe6e812a0cf4f82df4412dd232ab6f6b6fe47e2c760845ec04f",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "ad11ffbf21f84fe6e812a0cf4f82df4412dd232ab6f6b6fe47e2c760845ec04f",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-as.php",
+      "owner_sha256": "8aaaa3925b2e79a475ffd7b65e29406b1e86c8ea48a666ec32243668f5e28494",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "8aaaa3925b2e79a475ffd7b65e29406b1e86c8ea48a666ec32243668f5e28494",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-az.php",
+      "owner_sha256": "8b116561af83e2bd1ef3319ff8103f169883e89efab592115d98c9ae7c09d6df",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "8b116561af83e2bd1ef3319ff8103f169883e89efab592115d98c9ae7c09d6df",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ba.php",
+      "owner_sha256": "df573ba9a9431bff2c602b7b297040e0f9cf9b319562f17c686f01f1ed4ebfad",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "df573ba9a9431bff2c602b7b297040e0f9cf9b319562f17c686f01f1ed4ebfad",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-be.php",
+      "owner_sha256": "47c51cef7371142b993b58764c0abd4e82fe7213f9bd85b6dcfb24d0acd223ec",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "47c51cef7371142b993b58764c0abd4e82fe7213f9bd85b6dcfb24d0acd223ec",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-bg.php",
+      "owner_sha256": "9a556b5ad45ead80d7331f5ed713799e7fb810c52f8d7913725585fbeff084c2",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "9a556b5ad45ead80d7331f5ed713799e7fb810c52f8d7913725585fbeff084c2",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-bn.php",
+      "owner_sha256": "ff7842ce6fdc7cbb846b16f292e126fbc578e0c27da48092e4a5f44d928aebe6",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "ff7842ce6fdc7cbb846b16f292e126fbc578e0c27da48092e4a5f44d928aebe6",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ca.php",
+      "owner_sha256": "2b62db0921d2d321c80869bc9544b744747fd7cf398cc17358c0ae0b2533548c",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "2b62db0921d2d321c80869bc9544b744747fd7cf398cc17358c0ae0b2533548c",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-cs.php",
+      "owner_sha256": "4bdb6445032c31fa1c41d65b8840f4fed0c30b96a6e68418ea6968e6de49f664",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "4bdb6445032c31fa1c41d65b8840f4fed0c30b96a6e68418ea6968e6de49f664",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-da.php",
+      "owner_sha256": "bd266892cb528bdb3a691d1716f139c3c84435272e93ca7e6a0b70e74f3e1ce2",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "bd266892cb528bdb3a691d1716f139c3c84435272e93ca7e6a0b70e74f3e1ce2",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-de.php",
+      "owner_sha256": "41e9bee22a8b00d42b28ebadae85ba531134a2482108489c0e5ced6ddc25b062",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "41e9bee22a8b00d42b28ebadae85ba531134a2482108489c0e5ced6ddc25b062",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-el.php",
+      "owner_sha256": "3760e138e5c0fdc17a896718d2d86239b6d2d936abc0cf016fc5350ee034a8dd",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "3760e138e5c0fdc17a896718d2d86239b6d2d936abc0cf016fc5350ee034a8dd",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-eo.php",
+      "owner_sha256": "bf02aaf8e09a94ec0e20355dfb6e0f1a37a56ae06944014c277de208e39b16f9",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "bf02aaf8e09a94ec0e20355dfb6e0f1a37a56ae06944014c277de208e39b16f9",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-es.php",
+      "owner_sha256": "182270f8e64be0dcbb5c22c6c672efc5a3da4c0295b4d2d69373e18424657a91",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "182270f8e64be0dcbb5c22c6c672efc5a3da4c0295b4d2d69373e18424657a91",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-et.php",
+      "owner_sha256": "7a854b796bc5058913ab5f5ad489b02ed246ad49220e844a1c3fbb0ffa908fa6",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "7a854b796bc5058913ab5f5ad489b02ed246ad49220e844a1c3fbb0ffa908fa6",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fa.php",
+      "owner_sha256": "7e38e2e75326d9d7bbb87fc4f6dc5c40ce79c9ce43016a707e84af9d7e332102",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "7e38e2e75326d9d7bbb87fc4f6dc5c40ce79c9ce43016a707e84af9d7e332102",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fi.php",
+      "owner_sha256": "3efb47c9e164860b45ee3a9f707975210d7f87bbc356a7dada075528fc37052c",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "3efb47c9e164860b45ee3a9f707975210d7f87bbc356a7dada075528fc37052c",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fo.php",
+      "owner_sha256": "2b778d73170ff1864126bd65839d39098a9dde290e31fe6ea6719b68a030daa2",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "2b778d73170ff1864126bd65839d39098a9dde290e31fe6ea6719b68a030daa2",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fr.php",
+      "owner_sha256": "1d816ccae7fa8eea24907686ffeeeeb5861ffdf794690e6a91c142d49d05efd7",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "1d816ccae7fa8eea24907686ffeeeeb5861ffdf794690e6a91c142d49d05efd7",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-gl.php",
+      "owner_sha256": "fe2fd5068446a04e73ca767ca05eba81f6648fcb93988a307a4dbd619054780a",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "fe2fd5068446a04e73ca767ca05eba81f6648fcb93988a307a4dbd619054780a",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-he.php",
+      "owner_sha256": "7d944fe5e073d0dfb8a53cf9f8e9c409d40f5f0149ce6d47c1f4088cb28d69fe",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "7d944fe5e073d0dfb8a53cf9f8e9c409d40f5f0149ce6d47c1f4088cb28d69fe",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hi.php",
+      "owner_sha256": "2a260e1b5f0d7efbfccc436ea040aa172ecd5ac8ea394482c0dd9a2e7c9d3206",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "2a260e1b5f0d7efbfccc436ea040aa172ecd5ac8ea394482c0dd9a2e7c9d3206",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hr.php",
+      "owner_sha256": "b337f280f2e5f087daaa44bd1f359bbc41e01062cbd07a5c67345a45a01ccbaf",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "b337f280f2e5f087daaa44bd1f359bbc41e01062cbd07a5c67345a45a01ccbaf",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hu.php",
+      "owner_sha256": "94045618ef5a86dc4f8176f3ebae3fbb1e29b7ef7cb1ce99ba57ee4724aef3be",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "94045618ef5a86dc4f8176f3ebae3fbb1e29b7ef7cb1ce99ba57ee4724aef3be",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hy.php",
+      "owner_sha256": "52fc3f40d24d55ef95702a59ec006c4c5996a22e54a6b00e54a25707db341629",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "52fc3f40d24d55ef95702a59ec006c4c5996a22e54a6b00e54a25707db341629",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-id.php",
+      "owner_sha256": "a9c606b5da1470c02140c96c1ef3fc5ba1175ad0ce119b6f2d93e02c112d2ae1",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "a9c606b5da1470c02140c96c1ef3fc5ba1175ad0ce119b6f2d93e02c112d2ae1",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-it.php",
+      "owner_sha256": "06e7faf9dc2dabebe8ea8c684eb9b798ffd241ce039945a8e5583993705b1c3e",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "06e7faf9dc2dabebe8ea8c684eb9b798ffd241ce039945a8e5583993705b1c3e",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ja.php",
+      "owner_sha256": "c1cb38a994fb2f1b523dc622174dd4f7b9e9ba20e8cd864ae44744bd2b8050fc",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "c1cb38a994fb2f1b523dc622174dd4f7b9e9ba20e8cd864ae44744bd2b8050fc",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ka.php",
+      "owner_sha256": "0bf765b1e28e33947df929657c325cd957c506ec42d44d2a32b3d30794f09b31",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "0bf765b1e28e33947df929657c325cd957c506ec42d44d2a32b3d30794f09b31",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ko.php",
+      "owner_sha256": "674f7f333694475a3a6164c1c5cb84e25f94a5b0d3118cb49ff2e5a318260c64",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "674f7f333694475a3a6164c1c5cb84e25f94a5b0d3118cb49ff2e5a318260c64",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ku.php",
+      "owner_sha256": "4cc2ad8c0516ce01090997c802c7cdc3362e974e55ea26823140e60d50328f71",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "4cc2ad8c0516ce01090997c802c7cdc3362e974e55ea26823140e60d50328f71",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-lt.php",
+      "owner_sha256": "ee21a138a136caf9b213b3fe9f070afb9c20f4cdd51178045798bb60ccc82865",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "ee21a138a136caf9b213b3fe9f070afb9c20f4cdd51178045798bb60ccc82865",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-lv.php",
+      "owner_sha256": "a986f934cb4a2b9cf5bad1c150f0af9d8a0c7745d36b9904882d68b1bb07fb5d",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "a986f934cb4a2b9cf5bad1c150f0af9d8a0c7745d36b9904882d68b1bb07fb5d",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-mg.php",
+      "owner_sha256": "eebd4b1c9caa2b0ad5637b623cad66a0b67363a2e752cbd86eacb2139636fd85",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "eebd4b1c9caa2b0ad5637b623cad66a0b67363a2e752cbd86eacb2139636fd85",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-mn.php",
+      "owner_sha256": "e1b246c27568a92fef27a44e9601ce3ff41ca0dac0f564782dc46bfd03f42724",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "e1b246c27568a92fef27a44e9601ce3ff41ca0dac0f564782dc46bfd03f42724",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ms.php",
+      "owner_sha256": "f6b8ec01f2734624eadb3e9135e408a5a6da20a5a684b5577d7ba29bddd4b5aa",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "f6b8ec01f2734624eadb3e9135e408a5a6da20a5a684b5577d7ba29bddd4b5aa",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-nb.php",
+      "owner_sha256": "ab8d4793108063c90914114c6686aacf79aba80a1e7c7194885851942dcdd520",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "ab8d4793108063c90914114c6686aacf79aba80a1e7c7194885851942dcdd520",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-nl.php",
+      "owner_sha256": "fdc521f74bcf25bde2395483441c7920919b26f7b181d89602fe0807868620d9",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "fdc521f74bcf25bde2395483441c7920919b26f7b181d89602fe0807868620d9",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pl.php",
+      "owner_sha256": "9c00369f9bd935c4fa6faaf2692a8511369993119a0294c1badc33313f8d6e91",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "9c00369f9bd935c4fa6faaf2692a8511369993119a0294c1badc33313f8d6e91",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pt.php",
+      "owner_sha256": "588e547a80a7c867594f2e956ca12625d3b48446b16cd0e47f48fea71ef3ed2c",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "588e547a80a7c867594f2e956ca12625d3b48446b16cd0e47f48fea71ef3ed2c",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pt_br.php",
+      "owner_sha256": "8965d817b5667787efd6ffe58b15af236e51ff085594562fafccaf85d9f1bcd8",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "8965d817b5667787efd6ffe58b15af236e51ff085594562fafccaf85d9f1bcd8",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ro.php",
+      "owner_sha256": "f0cf6c8032723215293095e7a9b2f2a9c1159bb51221511efb6163f4096b9232",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "f0cf6c8032723215293095e7a9b2f2a9c1159bb51221511efb6163f4096b9232",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ru.php",
+      "owner_sha256": "981aa0630326df0b5dd48da086c19c4a329571a7426c36f6e08ff6470f24687d",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "981aa0630326df0b5dd48da086c19c4a329571a7426c36f6e08ff6470f24687d",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-si.php",
+      "owner_sha256": "502364f4ccb0c546093c13b4fc2a9ef15e0d47b4e4b789729d72b6cb33c6871e",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "502364f4ccb0c546093c13b4fc2a9ef15e0d47b4e4b789729d72b6cb33c6871e",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sk.php",
+      "owner_sha256": "b3327b7d377f16e0aeabca54ca2c8906e23c5a77cdb19d2d4fb85f0bbd39d3cd",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "b3327b7d377f16e0aeabca54ca2c8906e23c5a77cdb19d2d4fb85f0bbd39d3cd",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sl.php",
+      "owner_sha256": "642ab71b9a02ee00abc39516e6d005957beff6dde91948155d0f25ce4f98630d",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "642ab71b9a02ee00abc39516e6d005957beff6dde91948155d0f25ce4f98630d",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sr.php",
+      "owner_sha256": "9982802bafa971f1d2e376fca86f8da86c7e43158ef6d3cb6f7c3ff51cc1c7e9",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "9982802bafa971f1d2e376fca86f8da86c7e43158ef6d3cb6f7c3ff51cc1c7e9",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sr_latn.php",
+      "owner_sha256": "0f67cf31fa3b5f2db2a2c74911096a73892377096c966923c0dc1fbbbc612a32",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "0f67cf31fa3b5f2db2a2c74911096a73892377096c966923c0dc1fbbbc612a32",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sv.php",
+      "owner_sha256": "c1cb0390311cdff2f93ab37fff165b389fa74dca7f6341ce08240eca886b5ac3",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "c1cb0390311cdff2f93ab37fff165b389fa74dca7f6341ce08240eca886b5ac3",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-tl.php",
+      "owner_sha256": "48fa60bb2a88fdeb53960878fd0cdf88f7a59736a9efa487787b61de1c5d9db9",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "48fa60bb2a88fdeb53960878fd0cdf88f7a59736a9efa487787b61de1c5d9db9",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-tr.php",
+      "owner_sha256": "5a12fa276a53c54fbe3d3940d982142c64736aeea8eb12ce712552e2350b43d8",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "5a12fa276a53c54fbe3d3940d982142c64736aeea8eb12ce712552e2350b43d8",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-uk.php",
+      "owner_sha256": "767609225673b2983c2cf7b208ae954d49d7728287da2c2cb859ca8c9273efd3",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "767609225673b2983c2cf7b208ae954d49d7728287da2c2cb859ca8c9273efd3",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ur.php",
+      "owner_sha256": "4404c38f4f64a1098678e0d30a62c63cd1dd56949fcc7f6ea89557fbf0693e06",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "4404c38f4f64a1098678e0d30a62c63cd1dd56949fcc7f6ea89557fbf0693e06",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-vi.php",
+      "owner_sha256": "3b5acbfceceb34f90dc7f905f044a51e48cce7f79cbf998b579b8bf00fa1fabc",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "3b5acbfceceb34f90dc7f905f044a51e48cce7f79cbf998b579b8bf00fa1fabc",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-zh.php",
+      "owner_sha256": "ad235ae24994a85b63ff1bd2dadab9de1f2806a9764c162cf047459fa037814c",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "ad235ae24994a85b63ff1bd2dadab9de1f2806a9764c162cf047459fa037814c",
+      "match": true
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-zh_cn.php",
+      "owner_sha256": "cd53b733c64eeac233b140e33a6d58d337cd1ac28d6a5cd3231d87169f548c07",
+      "kind": "LOCKED_PACKAGE_PATH",
+      "expected_cached_sha256": "cd53b733c64eeac233b140e33a6d58d337cd1ac28d6a5cd3231d87169f548c07",
+      "match": true
+    }
+  ],
+  "missing": [
+    {
+      "path": "deploy/release/prepare-owner-code-identity.ps1",
+      "baseline_git_present": false,
+      "candidate_git_present": false,
+      "current_git_present": true,
+      "interpretation": "local audit helper absent on observed baseline deployment; not a missing production runtime dependency"
+    },
+    {
+      "path": "deploy/release/read-only-metadata.sql",
+      "baseline_git_present": false,
+      "candidate_git_present": true,
+      "current_git_present": true,
+      "interpretation": "local audit helper absent on observed baseline deployment; not a missing production runtime dependency"
+    },
+    {
+      "path": "deploy/release/supplemental-schema-metadata.sql",
+      "baseline_git_present": false,
+      "candidate_git_present": true,
+      "current_git_present": true,
+      "interpretation": "local audit helper absent on observed baseline deployment; not a missing production runtime dependency"
+    }
+  ],
+  "names": [
+    {
+      "path": "README.md",
+      "classification": "GIT_DOCUMENTATION_NAME_ONLY_NO_NEW_HASH_NEEDED_FOR_COMPATIBILITY",
+      "content_hashed_in_09": false,
+      "actual_unhashed_contents": "UNVERIFIED"
+    },
+    {
+      "path": "database/bushisa.sql",
+      "classification": "REVIEWED_SOURCE_HASH_MATCH",
+      "content_hashed_in_09": true,
+      "actual_unhashed_contents": null
+    },
+    {
+      "path": "database/seed.php",
+      "classification": "REVIEWED_SOURCE_HASH_MATCH",
+      "content_hashed_in_09": true,
+      "actual_unhashed_contents": null
+    },
+    {
+      "path": "deploy/mail-webjob/run.sh",
+      "classification": "REVIEWED_SOURCE_HASH_MATCH",
+      "content_hashed_in_09": true,
+      "actual_unhashed_contents": null
+    },
+    {
+      "path": "deploy/mail-webjob/settings.job",
+      "classification": "REVIEWED_SOURCE_HASH_MATCH",
+      "content_hashed_in_09": true,
+      "actual_unhashed_contents": null
+    },
+    {
+      "path": "sql/schema.sql",
+      "classification": "REVIEWED_SOURCE_HASH_MATCH",
+      "content_hashed_in_09": true,
+      "actual_unhashed_contents": null
+    },
+    {
+      "path": "vendor/composer/LICENSE",
+      "classification": "COMPOSER_DISTRIBUTION_LICENSE_NAME_ONLY",
+      "content_hashed_in_09": false,
+      "actual_unhashed_contents": "UNVERIFIED"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/COMMITMENT",
+      "classification": "LOCKED_PACKAGE_DOCUMENTATION_OR_VERSION_NAME_ONLY",
+      "content_hashed_in_09": false,
+      "actual_unhashed_contents": "UNVERIFIED"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/LICENSE",
+      "classification": "LOCKED_PACKAGE_DOCUMENTATION_OR_VERSION_NAME_ONLY",
+      "content_hashed_in_09": false,
+      "actual_unhashed_contents": "UNVERIFIED"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/README.md",
+      "classification": "LOCKED_PACKAGE_DOCUMENTATION_OR_VERSION_NAME_ONLY",
+      "content_hashed_in_09": false,
+      "actual_unhashed_contents": "UNVERIFIED"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/SECURITY.md",
+      "classification": "LOCKED_PACKAGE_DOCUMENTATION_OR_VERSION_NAME_ONLY",
+      "content_hashed_in_09": false,
+      "actual_unhashed_contents": "UNVERIFIED"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/SMTPUTF8.md",
+      "classification": "LOCKED_PACKAGE_DOCUMENTATION_OR_VERSION_NAME_ONLY",
+      "content_hashed_in_09": false,
+      "actual_unhashed_contents": "UNVERIFIED"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/VERSION",
+      "classification": "LOCKED_PACKAGE_DOCUMENTATION_OR_VERSION_NAME_ONLY",
+      "content_hashed_in_09": false,
+      "actual_unhashed_contents": "UNVERIFIED"
+    }
+  ],
+  "deferred": [
+    "hostingstart.html"
+  ],
+  "exclusions": {
+    "count": 12,
+    "names_not_recorded": true,
+    "scope": "dot/private/runtime/credentials/config.local/auth/log/mail/dump/archive/key paths excluded; no extension filter in traversed roots; unknown top-level dirs listed only; outside-webroot not inspected",
+    "non_atomic": true
+  },
+  "source_vs_installed_settings": {
+    "source_path": "deploy/mail-webjob/settings.job",
+    "source_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+    "zip_settings_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+    "installed_path": "App_Data/jobs/triggered/bushisa-mail/settings.job",
+    "installed_sha256": "0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501",
+    "semantic_equivalence_from_07": true,
+    "schedule": {
+      "schedule": "0 * * * * *"
+    },
+    "exact_zip_deployed": "UNVERIFIED"
+  },
+  "hostingstart": "DEFERRED_UNCLASSIFIED; no new body or hash requested for local compatibility preparation; disposition/routing prerequisite only if preserved/served or required for complete previous-artifact acceptance",
+  "complete_deployment_identity": false,
+  "new_functional_tests": "NOT RUN; existing evidence reused",
+  "production_changes": false,
+  "documentation_validation": {
+    "recorded_utc": "2026-10-21T15:30:06.750812+00:00",
+    "relative_links": 158,
+    "anchor_links": 1,
+    "owner_source_hashes_unchanged": 9,
+    "65_match_and_3_missing_targets_reconcile": true,
+    "13_new_names_classified": true,
+    "historical_collector_17_fixture_pass_reused_after_digest_checks": true,
+    "static_worker_grant_and_q11_source_checks": "PASS; not functional tests",
+    "HR01_HR04": "NOT RUN",
+    "git_diff_check": "PASS",
+    "changed_files_docs_only": 13,
+    "application_tests_rerun": false,
+    "production_collection_or_changes": false,
+    "hosted_ci_rerun": false
+  }
+}

@@ -1,5 +1,9 @@
 # Capture 08: deployed-code inventory reconciliation
 
+**Subsequent capture 09 received:** the [delta reconciliation](code-gap-reconciliation-2026-10-21.md)
+resolves the reviewed new hashes/boundaries and classifies every new filename.
+Any collection directions below are historical; do not repeat them.
+
 Continued from clean `a3d2cf0055e6dc8efecf85413ed5ecd306cdb9d1` on the existing
 direct-release preparation branch. Source: owner Application SSH output
 `08-deployed-code-names.txt`, SHA-256
