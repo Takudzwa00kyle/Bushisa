@@ -1,9 +1,14 @@
-# Next owner-run collection, existing resources
+# Owner-run collection, existing resources
 
-**Progress update:** schema steps 1-2 were returned by the owner and
-[match the reconstruction](owner-schema-supplement-comparison-2026-10-21.md).
-Do not repeat them. The next collection is **step 3, actual installed WebJob
-location**. The commands below preserve the original procedure for reference.
+**Progress update: all 01-06 files received and reconciled.** Schema details
+[match the reconstruction](owner-schema-supplement-comparison-2026-10-21.md);
+actual worker location/hashes, application allowlist and local archive findings
+are accepted in the [completed evidence record](completed-owner-evidence-reconciliation-2026-10-21.md).
+Do not repeat steps 1-4 below. They preserve the original collection procedure
+for reference, not a new request. The next smallest action is the bounded
+[installed-settings summary](completed-owner-evidence-reconciliation-2026-10-21.md#next-owner-action-inspect-only-installed-settings-semantics),
+saved as 07 beside the existing parent-directory evidence files. No SQL,
+worker run or artifact download is requested.
 
 Prepared from clean `888a2c273711c1ac5f3d1dc3d26d649f1e636235` on
 `codex/direct-production-release-prep-20261020`. Commands below are **prepared,
@@ -238,7 +243,7 @@ than reopening an unproved fallback.
 | Signup continuation | Separate active legacy accounts, pending-email with trusted creation, approved-email with trusted first approval, and unknown-anchor attempts. Known anchors retain their original Q11 deadlines. Unknown anchors stay explicit; fresh resends/visits do not create replacement clocks. Untracked old mail cannot be relabelled as a new authorized envelope. No user-content export or automatic backfill is needed for this collection. |
 | Recovery acceptance | Prepare a witness sheet for DB/media/config/previous code/worker/protective-record sources, copy expiry, verified restore/replay, session revocation and stale-mail reconciliation. Record protection/access references, no keys or data. Use actual backup/media bounds plus seven-day recovery margin; do not blindly apply 49 days to the observed seven-day backup policy. No backup/restore/export is executed here. |
 
-Return the six small result files/limitations through the owner's private
+The six result files/limitations have been returned through the owner's private
 evidence route, with no credentials, user rows or bodies. No new 48-question
 review or reapproval of settled decisions is needed. Role acceptance, authentic
 legacy provenance/continuation, effective storage, qualified reviewers, delivery,

@@ -1,77 +1,78 @@
 # Bushisa P0-P2 Remediation Backlog
 
-Updated: 2026-10-20, Africa/Harare.
+Updated: 2026-10-21, Africa/Harare.
 
 ## Current release path: controlled direct update, staging deferred
 
-Owner schema supplement received: [all six missing metadata groups match](owner-schema-supplement-comparison-2026-10-21.md),
-including 13 FK mappings, 122 index attributes, 51 default checks, 29 table
-options and no CHECK/partitioning. No additional SHOW CREATE TABLE is needed
-from this capture. Historical test/PARTIAL labels retain their original scope;
-actual Azure identities/grants/PDO/definers, artifact, cutover and recovery
-acceptance remain open. Next collection is installed WebJob location/identity,
-then the application manifest; schema steps 1-2 need not be repeated.
+All 01-06 files and the original DOCX are now
+[reconciled](completed-owner-evidence-reconciliation-2026-10-21.md). No repeated
+SQL/hash collection or passed acceptance-suite rerun was needed. The six
+physical-schema assumptions are resolved: 13 FK mappings, 122 index attributes,
+51 SQL-null checks, 29 table options and no CHECK/partitioning all match.
+**No more SHOW CREATE TABLE is needed from this capture.** Historical report
+labels remain attributed to their tested commits. DR-P01 stays PARTIAL for
+actual Azure restricted grants/definers/PHP PDO/service acceptance.
 
-Next owner collection: [ordered read-only schema/app/installed-worker procedure](owner-evidence-collection-2026-10-21.md).
-It reuses the six-query metadata supplement, starts in the existing verified
-MySQL prompt, discovers the actual job through Kudu before hashing, and prepares
-a separate known-code application manifest locally. Role/definer, legacy
-continuation/cutover and recovery review sheets are included; no operational
-step was executed and no readiness gate or CI attribution changes.
+The 75 captured Git-tracked application files all match raw baseline `0bf311f`
+bytes; 45 also match candidate `888a2c2`. The 54 MISSING paths comprise 53
+candidate additions and one dependency target, none baseline-tracked. Of 18
+dependency hashes, 17 match explicit local vendor files; installed
+`vendor/composer/installed.php` is unmatched. Unknown extra code/dependency
+coverage, build provenance and non-atomic capture prevent a complete hosted
+source SHA claim. The installed worker is now located and its old `run.sh`
+identified; whole package identity remains unresolved.
 
-Latest owner-metadata follow-up: [observed-schema rehearsal and release blockers](owner-schema-release-rehearsal-2026-10-20.md).
-Implementation `3dbcb50` has six successful jobs in each of its push/PR runs;
-[exact hosted artifacts](evidence/owner-schema-hosted-ci-2026-10-21.json) verify
-28 owner-schema and 16 generic release cases per run, source/merge and digests.
-The hosted profile does not execute the local verified-TLS subcase. This is
-candidate evidence, not production acceptance or complete artifact identity.
-Owner DOCX establishes MySQL 8.0.46-azure, UTC/RR, exact settings, four ledger
-markers, broad configured-user grants and nine baseline-matching file samples.
-All 227 columns/122 index entries/13 FK rules/29 tables match the pinned 004
-baseline's captured fields. **DR-P01 PARTIAL**: synthetic reconstruction has
-29 local PASS on PHP 8.5.11/MySQL 8.0.46 with verified local TLS; omitted
-physical attributes remain a minimal metadata gate. Pending 006/007 repairs
-preserve NULL unknown request clocks/minimum counts and migration retries.
-Mail CLIs have purpose-scoped health checks and require dedicated production
-worker credentials; real role/config changes are prepared, not applied.
+The preserved worker ZIP has matching `run.sh` and **nonmatching settings**.
+This does not prove a different schedule; exact ZIP deployment provenance is
+unverified. **No preserved application deployment archive was found** in the
+inspected locations. CI-results ZIPs are not rollback bundles. The next owner
+action is only the prepared
+[installed-settings summary](completed-owner-evidence-reconciliation-2026-10-21.md#next-owner-action-inspect-only-installed-settings-semantics)
+in Application SSH, saved as 07 beside the returned files. Steps 1-4 of the
+[collection guide](owner-evidence-collection-2026-10-21.md) are complete; do not
+repeat them or execute the worker.
 
-**DR-P02 remains NOT RUN for the unknown actual previous bundle.** A real
-baseline API counterexample proves unrestricted code-only rollback can omit
-pair provenance. Keep writers closed during rollback; do not call that a safe
-fallback. Complete app/installed-WebJob identity, legacy all-writer cutover and
-signup continuation, full-D03 grant negatives and recovery/operational gates
-remain. Next owner input is the supplement/artifact identity, not repeated
-captures or renewed approval of settled decisions. The checkpoint's exact
-local/hosted results are linked in the focused record; prior CI below remains
-historically attributed. AZS18-case deferral and SC26 production PARTIAL remain.
+**Mail rollout blocker:** the installed `set -e` wrapper would stop at the
+candidate production-gated `cleanup_policy.php` before dispatch. A separately
+approved release must quiesce the old job and install the reviewed mail-only
+wrapper with dedicated accepted worker credentials. Keep the guard; no live
+change is made now. Review separate runtime/worker/migration grants, definer
+lifecycle and secret delivery; different settings in a shared app do not prove
+credential isolation. Full-D03 grant-path negatives remain engineering work.
 
-The owner now selects existing resources for a controlled direct-production
-update; no second paid environment is required for preparation. The
-[release package](direct-production-release-preparation-2026-10-20.md) records
-the full-delta/provenance gate, historical-004 synthetic upgrade, narrowly
-scheduled mail hygiene, maintenance, code rollback and separate DB recovery.
-The expanded policy cleanup CLI refuses production before connection. Reset
-issuance remains default-off; deployed flags still require capture, and all
-stage/fake/test controls must be absent in production. A policy or CI result
-does not supply permission to execute the runbook.
+**DR-P02 NOT RUN for the unknown complete previous bundle.** OS17's baseline
+API counterexample still proves unrestricted old-code rollback can omit pair
+provenance. Keep all writers closed during separately approved fallback; only
+a tested compatible artifact or forward repair/recovery preserving restrictions
+can reopen traffic. Authentic pair all-writer cutover, incomplete-history
+enablement design and legacy signup/mail/anchor continuation remain blockers;
+no invented history, reset clocks or implicit ledger activation is allowed.
+Fresh DB/media/config/worker/session recovery coverage, independent replay and
+witnessed recovery remain DR-P03/open operational requirements.
 
-AZS01-AZS18 stay **NOT RUN / DEFERRED**; SC26's production storage/topology
-stays **PARTIAL**. Existing A/LB/LC/QS/QE/QM/SC results and P0/P1 gates are
-unchanged. The earlier next operator action was the package's read-only application/
-worker fingerprint and schema/grant capture. The next bounded engineering
-action is to match that actual schema to the rehearsal, reconcile any drift
-and verify the exact previous-artifact rollback against the forward schema.
-No fabricated legacy anchor/history backfill or paid environment is required.
-Unknown history stays fail-closed and therefore remains a compatibility gate.
+The [observed-schema rehearsal](owner-schema-release-rehearsal-2026-10-20.md)
+has 29 local PASS on PHP 8.5.11/upstream MySQL 8.0.46, including local verified
+PDO TLS. It is not rerun or relabelled by this documentation checkpoint.
+Implementation `3dbcb50` retains its
+[separate exact CI](evidence/owner-schema-hosted-ci-2026-10-21.json), 28 hosted
+owner-schema plus 16 generic release cases per run; local TLS is not hosted.
+Latest tested source `888a2c2` passed all six jobs in
+[push 39506098991](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39506098991)
+and [PR 39506110044](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39506110044),
+merge `2bdd01a214d0665ddd446a823d4dda61988006ca`. This is historical candidate CI,
+not CI for later documentation heads. PR 8 remains draft, open and unmerged at
+source `888a2c2`. Earlier `803a03a`/`4e76a7d` CI records remain unchanged.
 
-Implementation candidate `803a03a` passed six jobs in both feature push and
-draft PR [8](https://github.com/Takudzwa00kyle/Bushisa/pull/8); exact
-[CI attribution/artifacts](evidence/direct-release-hosted-ci-2026-10-20.json)
-are separate from production acceptance. Linux local 8.5.11/8.0.45 rehearsal
-and affected regressions passed; hosted release job is 8.5.11/8.0.46. The
-production patch/settings/grants now have owner observations above; complete
-schema fidelity, artifact, legacy cutover and recovery gates remain open.
-No second paid environment is a preparation gate.
+The owner chose the [controlled direct update](direct-production-release-preparation-2026-10-20.md)
+on existing resources; no second paid environment is required for preparation.
+Reset stays default-off, stage/fake/test controls stay absent in production,
+and no broad cleanup is activated. AZS01-AZS18 remain **NOT RUN / DEFERRED**;
+SC26 production storage/topology **PARTIAL**. Existing A/LB/LC/QS/QE/QM/SC and
+P0/P1 results/gates and full D03 scope are unchanged. Actual role acceptance,
+NGINX/private paths, sessions/storage, delivery/support/coverage, qualified
+review and recovery remain open. Next independent engineering work: full-D03
+restricted-grant/negative-path checks and a bounded legacy continuation/cutover
+design, using settled decisions. Current release recommendation: **NO-GO**.
 
 Whole-roadmap reconciliation at candidate `d381e56`: [P0–P2 status and critical path](p0-p2-status-2026-10-18.md). This is a documentation audit; it preserves historical evidence and leaves the existing acceptance matrices and release gates unchanged.
 

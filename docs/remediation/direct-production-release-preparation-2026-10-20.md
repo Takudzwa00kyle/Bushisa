@@ -39,124 +39,79 @@ success is not operational acceptance.
 
 ### Owner metadata follow-up: current evidence
 
-**Latest supplement:** the [owner's additional physical metadata matches the
-reconstruction](owner-schema-supplement-comparison-2026-10-21.md) in every
-requested field. The six schema-metadata assumptions below are now confirmed;
-no targeted SHOW CREATE TABLE is required from this capture. DR-P01 remains
-PARTIAL for broader actual Azure role/definer/PDO acceptance; app/installed-job
-identity and recovery are separate open gates. The earlier pending-supplement
-wording below records the previous checkpoint and does not request recapture.
+**Latest accepted evidence:** all owner files 01-05 and local archive record
+06 are [reconciled](completed-owner-evidence-reconciliation-2026-10-21.md).
+They were located in the repository parent directory. No repeat production
+collection or functional test was needed. The agent did not independently
+capture Azure configuration or run SQL from the original DOCX.
 
-Use the [next owner-run collection procedure](owner-evidence-collection-2026-10-21.md)
-for the remaining minimal schema attributes and separate installed-worker/app
-identity. Its surface-labelled commands and local evidence filenames replace
-the earlier broad collection checklist for this next step; no repeated full
-audit, production script upload or live action is required.
+The [schema supplement](owner-schema-supplement-comparison-2026-10-21.md)
+confirms all requested physical-metadata assumptions: 13 FK mappings, 122
+index attributes, 51 SQL-null default checks (13 nullable defaults, 38 NOT NULL
+columns without explicit defaults), 29 table options and no CHECK/partitioning.
+Together with the original 227-column/index/FK-rule comparison, this resolves
+the requested reconstruction-fidelity gap. No more SHOW CREATE TABLE is needed
+from these observations. DR-P01 stays **PARTIAL for actual Azure restricted
+principals, definers, PHP PDO TLS and service behavior**, not missing metadata.
+The historical reports retain their original known-at-test-time scope.
+
+The owner application manifest contains **75/75 raw-byte baseline source
+matches**, 18 dependency digests and 54 missing allowlisted paths. 45 source
+files also match candidate `888a2c2`; 30 differ. 53 missing paths are candidate
+additions; none is baseline-tracked. 17 dependency files match the explicit
+local vendor installation; installed `vendor/composer/installed.php` is unmatched.
+Unknown additional code, dependency/build coverage and non-atomic capture
+mean **complete hosted source identity is still UNESTABLISHED**. The known-file
+baseline comparison is supported; a complete deployment SHA is not.
+
+The separately installed job is observed at
+`/home/site/wwwroot/App_Data/jobs/triggered/bushisa-mail`. Its `run.sh` matches
+the baseline cleanup-then-dispatch wrapper and preserved worker ZIP. Its
+`settings.job` hash does **not** match that ZIP or available Git history. This
+does not establish a different schedule; Kudu metadata records `0 * * * * *`.
+The exact ZIP's deployment provenance remains unverified. **No preserved actual
+application archive was found** in the inspected locations; CI report archives
+and rehearsal fixtures are not a rollback package. The next action is only the
+[bounded settings summary](completed-owner-evidence-reconciliation-2026-10-21.md#next-owner-action-inspect-only-installed-settings-semantics),
+not the already completed collection in the
+[historical guide](owner-evidence-collection-2026-10-21.md).
 
 The [observed-schema rehearsal](owner-schema-release-rehearsal-2026-10-20.md)
-ingests the owner's DOCX observations and supersedes the corresponding UNKNOWNs
-in the historical capture request below. It records MySQL **8.0.46-azure**, UTC,
-REPEATABLE-READ, exact SQL mode/collations, verified MariaDB-client TLS, broad
-configured-user grants, four migration markers and all captured physical
-attributes. Production metadata was not independently executed by the agent.
-All nine sampled file hashes match raw baseline `0bf311f` bytes; `signin.php`
-was the wrong probe name (`login.php` is the route). Complete application and
-installed WebJob artifact identity remain UNKNOWN.
+retains its **29 local PASS**, including immutable NULL legacy clocks and
+verified local PDO TLS on PHP 8.5.11/upstream MySQL 8.0.46. It is not a new test
+run or Azure acceptance. OS17 demonstrates **unsafe baseline rollback**:
+old code can create requests without durable pair provenance on the forward
+schema. The matched source files strengthen the relevance of that comparator;
+they do not prove the unknown complete previous artifact safe. DR-P02 for that
+artifact, DR-P03 recovery and DR-P04 live acceptance remain **NOT RUN**. Keep
+all writers stopped during any separately approved fallback pending tested
+compatible repair/recovery; no cleanup/worker is executed in this checkpoint.
 
-DR-P01 is now **PARTIAL**: every captured baseline column/default/index/FK rule
-matches, and the reconstructed schema upgrades through 016 and reruns locally
-on PHP 8.5.11/upstream MySQL 8.0.46, including nullable legacy request clocks,
-restricted migration/worker identities and verified local TLS. The omitted
-FK mappings/index attributes/default ambiguity/CHECK metadata still need the
-[minimal supplement](../../deploy/release/supplemental-schema-metadata.sql).
-This is distinct from the earlier generic 004 rehearsal below.
+Latest tested source `888a2c273711c1ac5f3d1dc3d26d649f1e636235` passed all six
+jobs in [push 39506098991](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39506098991)
+and [PR 39506110044](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39506110044),
+merge checkout `2bdd01a214d0665ddd446a823d4dda61988006ca`. Implementation
+`3dbcb50` retains its separate [hosted evidence](evidence/owner-schema-hosted-ci-2026-10-21.json).
+No green result is reassigned to a later documentation head. Read-only GitHub
+metadata confirms PR 8 remains draft/open/unmerged at source `888a2c2`.
 
-The new local test has **29 PASS**; OS17 deliberately demonstrates **unsafe
-baseline rollback**, not successful rollback acceptance. The historical API
-can create requests without pair provenance on the forward schema. DR-P02 for
-the actual complete previous artifact stays NOT RUN. Keep all writers stopped
-on failure; do not reopen traffic on a restored baseline bundle. DR-P03 recovery
-and DR-P04 live acceptance remain NOT RUN. See the focused record for exact
-commands, worktree attribution, new worker-binding prerequisites and remaining
-legacy signup/pair compatibility gates.
-
-The [owner observation ledger](evidence/azure-owner-observations-2026-10-20.json)
-is owner-provided Portal/CLI evidence collected 19-20 October, not an independent
-agent Azure capture. It establishes Linux B1/one instance/no slots, PHP CLI
-8.5.11, MySQL major 8.0/private network, seven-day DB backups and a successful
-no-work minute WebJob. Deployment UUID `25ae3df2-bf75-4dd4-a9ed-625a2b759c24`
-is not a Git SHA. At that earlier capture, app/worker source, migration markers,
-schema drift, patch, grants/definers and isolation were UNKNOWN; the follow-up
-above replaces only the supplied observations. Full source identity and
-web-effective sessions remain **UNKNOWN**.
-
-Azure CLI/Az.Accounts and a callable authenticated Azure connector are not
-available in this checkout environment. The computer-use runtime was rechecked
-and failed before app/window inventory with `failed to write kernel assets:
-The system cannot find the path specified. (os error 3)`; no Portal state was
-observed. No cloud credentials or production DB
-credentials were retrieved; no live SQL connection was attempted. The owner
-can collect the following now under the read-only authorization. Do not install
-the candidate, invoke migrations, bootstrap a schema or run a worker to identify it.
-The [capture availability record](evidence/direct-release-metadata-2026-10-20.json)
-separates the independent GitHub observation from unknown production state.
-
-1. Portal **Bushisa > Deployment Center > Logs**, select the active deployment;
-   record UTC/offset, source commit if supplied, artifact/build ID, build and
-   deploy path. Privately compare the actual deployed code/worker hashes with
-   the corresponding release archive. In **Advanced Tools > WebJobs > bushisa-mail**
-   identify the deployed `run.sh` and package separately: a copied WebJob can
-   remain stale when the web app is updated. Do not run it or disclose logs with
-   addresses/tokens. The observed counters match repository `0bf311f`'s worker,
-   which is a useful lead, not source proof or evidence against a mixed artifact.
-2. In an already authorized app SSH console, these are file metadata only:
-
-   ```bash
-   cd /home/site/wwwroot
-   php -r 'echo PHP_VERSION," ",PHP_SAPI,PHP_EOL;'
-   for p in index.php signin.php config/db.php php/operational.php php/signup_verification.php php/mail_delivery.php bin/migrate.php bin/cleanup_policy.php bin/dispatch_mail.php deploy/mail-webjob/run.sh; do
-     if test -f "$p"; then sha256sum -- "$p"; else printf 'MISSING %s\n' "$p"; fi
-   done
-   ```
-
-   Compare against known commit bytes (LF/CRLF differences must be explained).
-   These probes alone do not attest the whole artifact. Obtain its complete
-   immutable build/archive digest or a privately reviewed code-file manifest
-   before claiming a complete source mapping. Never hash/read session files,
-   uploads, `.env`, `config.local.php` or credentials to create that manifest.
-3. Use an existing authorized **TLS-verified** metadata connection to
-   `bushi-server.mysql.database.azure.com`, selected schema `bushi-database`.
-   Run [read-only-metadata.sql](../../deploy/release/read-only-metadata.sql).
-   It selects versions/settings, table/column/index/FK metadata, trigger/routine
-   hashes and migration markers; no user rows/challenge fields. Run as the
-   appropriate existing runtime, worker and migration principals separately to
-   establish grants/definer visibility. Do not grant privileges for capture.
-
-   ```bash
-   # On the owner's trusted private-network workstation/console, credentials
-   # entered through the client's password prompt, never in arguments/output.
-   mysql --host=bushi-server.mysql.database.azure.com --port=3306 \
-     --user='<existing authorized metadata principal>' --password \
-     --ssl-mode=VERIFY_IDENTITY --ssl-ca='<verified CA bundle path>' \
-     --connect-timeout=10 --batch bushi-database < read-only-metadata.sql
-   ```
-
-   Keep raw output private. Absence of marker table/hidden trigger bodies is
-   UNKNOWN, not zero migrations or permission to certify history. A SQL read-only
-   transaction does not replace a suitably authorized identity. No `mysql.user`,
-   `SHOW CREATE USER`, data dumps or secret-bearing settings exports are requested.
-4. Allowlisted Portal observations only: effective `PASSWORD_RESET_ENABLED`,
-   reset throttles, `APP_BASE_URL`, `SESSION_COOKIE_SECURE`, `WEBJOBS_STOPPED`,
-   package/build mode; presence/resolution of key references, not their values.
-   All `BUSHISA_STAGE_*`, test/barrier, fake-carrier and synthetic consumer flags
-   must be absent/disabled in production. Do not call appsettings-list or
-   connection-string-list with client-side filtering: those retrieve secrets.
+Earlier [Portal/CLI observations](evidence/azure-owner-observations-2026-10-20.json)
+and [capture-availability record](evidence/direct-release-metadata-2026-10-20.json)
+remain historical evidence. The owner DOCX establishes MySQL 8.0.46-azure,
+UTC/REPEATABLE-READ/settings, broad configured-user grants and migrations
+001-004 only. Client TLS success does not establish PHP TLS or new role access.
+No production migration, new grants, worker replacement or recovery is claimed.
+Deployment UUID `25ae3df2-bf75-4dd4-a9ed-625a2b759c24` is still not a source SHA.
+Web-effective sessions, storage/recovery and backup redundancy remain unknown.
+No broad settings/credential export, repeated SQL audit or site download is
+requested to fill the remaining gaps.
 
 ### Full delta to reconcile, not just the latest staging feature
 
-Until capture, the complete **hosted-to-candidate** delta is UNESTABLISHED.
-The reproducible comparison is **known remote main `0bf311f` to the proposed
-candidate**, without asserting main is currently hosted. Use:
+The **complete hosted-to-candidate** delta remains UNESTABLISHED beyond the
+known-code allowlist and reviewed dependencies. Its 75 source matches support
+using **known remote main `0bf311f` to the proposed candidate** for those paths,
+without asserting a complete deployed commit. Reproduce the Git comparison with:
 
 ```bash
 git diff --name-status 0bf311fb6d6a298712fd4cd16d0722305516edd4 <candidate-sha>
@@ -183,7 +138,7 @@ manifest; they cannot change the application/worker code without new verificatio
 | Deployment, UI/API/browser and test changes | Review full root/API/JS package and protected-path exposure. A green reset suite alone is not the full D03 journey. |
 
 Baseline `0bf311f` has only 001-004. Neither 005 nor 016 is declared applied in
-production. Once hosted identity is known, substitute that exact source for
+production. If complete hosted identity is established, substitute that exact source for
 the comparator and reconcile every changed file plus untracked/manual drift.
 Do not deploy until code and schema compatibility are understood.
 
@@ -215,7 +170,7 @@ restricted-role checks and exact CI evidence remain separate.
 | DR12-DR15 | Production broad CLI refuses pre-connection; fake mail rejected by mail-cleanup CLI; SMTP-mode hygiene has no account/chat effects: PASS. No SMTP dispatch occurs in this test. |
 | DR16 | Owned test server SQL-mode/time-zone restoration verified: PASS. |
 | DR17.1-DR17.4 | Actual Bash script in owned fixture: success, cleanup failure still dispatches, dispatcher failure propagates, both fail: PASS. Stub carrier only. |
-| DR-P01 | PARTIAL: later captured-field reconstruction/upgrade, restricted fixture roles and local TLS pass; physical supplement, actual live identities and Azure behavior remain unverified. |
+| DR-P01 | PARTIAL: original and supplemental schema metadata match; reconstruction/upgrade, restricted fixture roles and local TLS pass. Actual Azure restricted identities/definers/PDO behavior remain unverified; metadata collection is complete. |
 | DR-P02 | Previous deployed artifact compatibility with forward schema and protective state: NOT RUN, artifact missing. |
 | DR-P03 | Fresh production backup/media/config verification and witnessed recovery/replay: NOT RUN. |
 | DR-P04 | Owner-controlled live smoke/delivery/worker checks after separate approval: NOT RUN. |
@@ -273,9 +228,19 @@ workflow was invoked. No further application change is authorized by recording C
 
 ## Scheduled behavior, legacy effects and backfill boundaries
 
-Observed schedule stays `0 * * * * *`; no scheduling change is made here.
-The deployed worker's actual package is unknown. The proposed
-[run.sh](../../deploy/mail-webjob/run.sh) executes only:
+Owner Kudu metadata records schedule `0 * * * * *`; no scheduling change is
+made here. The installed `run.sh` now matches baseline bytes: `set -euo pipefail`,
+`cd /home/site/wwwroot`, broad cleanup, then dispatch. Complete package identity
+is still unestablished: installed `settings.job` differs from the preserved ZIP
+and all available Git settings blobs. The mismatch does not prove a different
+schedule. See the [completed artifact comparison](completed-owner-evidence-reconciliation-2026-10-21.md#application-and-installed-worker-comparison).
+
+**Coordinated worker replacement is required during a future approved release.**
+If left installed with the candidate app, this exact old wrapper would exit
+at the candidate broad-cleanup guard (78) before dispatch, because of `set -e`.
+This is static analysis, not an executed production test. Do not weaken the
+guard or change the live worker now. The proposed
+[run.sh](../../deploy/mail-webjob/run.sh) instead executes the two bounded mail CLIs:
 
 The proposed mail CLIs now require dedicated `MAIL_WORKER_DB_USER` and
 `MAIL_WORKER_DB_PASSWORD` in production before DB loading, distinct from the
@@ -460,13 +425,16 @@ maintenance, migration nor replay restarts an original retention deadline.
 |---|---|---|
 | Owner execution information | Maintenance start/end/abort window, exact permitted change set, accepted primary/backup, consenting smoke accounts, existing recovery capacity | Takudzwa supplies actual choices; no invented appointments or budget. |
 | Policy decisions | Production reset throttles before separate activation; Q40 session redesign still proposed; other register proposals unchanged | Owner selects only when needed. Direct release does not approve them; reset stays off. |
-| Executable engineering | Reconcile minimal physical-schema supplement; finish full-D03 restricted-grant checks and complete deployed-source diff; address demonstrated unsafe baseline rollback; legacy anchor/history/cutover compatibility; NGINX/private paths; full D03 routes/geography/media/retention completion | Engineering uses the owner observations and local rehearsal; preserve incomplete history and existing approval boundaries. |
+| Executable engineering | Physical-schema supplement is reconciled; finish full-D03 restricted-grant checks and complete deployed-source coverage; address demonstrated unsafe baseline rollback and old-wrapper dispatch stop; legacy anchor/history/cutover compatibility; NGINX/private paths; full D03 routes/geography/media/retention completion | Engineering uses the owner observations and local rehearsal; preserve incomplete history and existing approval boundaries. |
 | External operational/review | Existing monitoring/alert receipt, SMTP/inbox/header acceptance, monitored support, operators/coverage, qualified security/privacy/safety, actual backup/media/session/replay and witnessed recovery | Named accepted operators/reviewers; synthetic fixtures and old green CI cannot close these. |
 
-**Next concrete owner action:** return only the missing physical-schema supplement
-and complete application/installed-WebJob artifact identity; identify accepted
-DB/security/operator reviewers for the role and maintenance/recovery set. Do not
-repeat the supplied 227-column/nine-hash capture. No paid environment is needed.
+**Next concrete owner action:** run only the prepared
+[installed-settings summary](completed-owner-evidence-reconciliation-2026-10-21.md#next-owner-action-inspect-only-installed-settings-semantics)
+in Azure Application SSH and save 07 beside 01-06. All six existing files are
+accepted; do not repeat schema, worker or application-manifest collection.
+The bounded check resolves schedule semantics only, not complete deployment or
+rollback provenance. Actual role/secret acceptance, unexpected-code/dependency
+coverage, legacy cutover and recovery remain open. No paid environment is needed.
 Next bounded engineering work is the remaining full-D03 grant-path checks and
 legacy continuation/cutover resolution, with rollback writers kept disabled
 until separately demonstrated safe. Only after this evidence and

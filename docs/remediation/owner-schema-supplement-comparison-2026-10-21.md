@@ -62,9 +62,11 @@ OS17's unsafe baseline rollback remains INCOMPATIBLE; actual previous artifact
 compatibility/recovery remain NOT RUN. Managed Azure staging remains DEFERRED,
 all 18 cases NOT RUN, and SC26 production storage/topology remains PARTIAL.
 
-**Next owner collection is step 3 of the
-[collection guide](owner-evidence-collection-2026-10-21.md#3-locate-the-installed-worker-before-hashing):**
-locate `bushisa-mail` through the authenticated Kudu job metadata/file browser,
-then hash its actual installed package. Do not repeat schema steps 1-2 or hash
-only the repository worker copy. PR 8 remains draft; no merge, deployment,
+**Subsequent collection received:** all 01-06 files, including the actual
+installed-worker capture and application manifest, are now
+[reconciled](completed-owner-evidence-reconciliation-2026-10-21.md). Do not
+repeat schema steps 1-2 or installed-worker/application hashing. The recorded
+script is identified; whole artifact identity, unmatched settings/dependency
+coverage and recovery remain separate gaps. The linked record prepares only a
+bounded settings-semantics follow-up. PR 8 remains draft; no merge, deployment,
 live grant/settings change, cleanup or real email occurred.
