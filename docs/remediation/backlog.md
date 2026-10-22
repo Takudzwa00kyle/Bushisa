@@ -1,6 +1,19 @@
 # Bushisa P0-P2 Remediation Backlog
 
-Updated: 2026-10-21, Africa/Harare.
+**22 October local engineering follow-up:** [role/worker evidence](release-roles-worker-evidence-2026-10-22.md)
+records 58 strict-profile checks, 337 affected-regression assertions and focused
+worker/configuration checks. Worker-reachable reads and validation locks
+were narrowed and synthetic connection TLS honored; fixture table-wide users
+UPDATE is no longer treated as least-privilege proof. HR01–HR03 have bounded
+local evidence; HR04/full-D03 runtime route grants remain PARTIAL. Actual Azure
+roles, legacy cutover and recovery remain open. See the [cutover worksheet](legacy-cutover-preparation-2026-10-22.md)
+and [existing-resource recovery options](existing-resource-recovery-options-2026-10-22.md).
+Reviewer/operator assignments stay PENDING without blocking local engineering.
+No production operation, real mail, staging acceptance or recovery acceptance
+is claimed. PR 8 stays draft; hosted CI for these changes is NOT RUN.
+
+
+Updated: 2026-10-22, Africa/Harare.
 
 ## Current release path: controlled direct update, staging deferred
 
@@ -50,9 +63,11 @@ remain explicit. No worker or discovered code was run.
 
 The [local handover review packet](direct-release-handover-review-2026-10-21.md)
 prepares worker compatibility, role separation, all-writer cutover and recovery.
-HR01–HR04 are proposed engineering checks, all NOT RUN. Existing fixture
+The original HR01–HR04 preparation is superseded by the local follow-up above;
+HR01–HR03 have bounded local evidence and HR04 remains PARTIAL. Existing fixture
 table-wide users UPDATE does not establish worker password/suspension denial;
-derive/test a minimum column contract and full-D03 runtime negatives next.
+a column-scoped worker profile is now tested; full-D03 runtime route coverage
+and final privilege/definer acceptance remain open.
 No synthetic role or no-work dispatch result establishes live acceptance.
 
 **Mail rollout blocker:** the installed `set -e` wrapper would stop at the

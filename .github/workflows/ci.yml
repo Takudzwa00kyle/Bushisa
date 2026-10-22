@@ -369,6 +369,8 @@ jobs:
       - run: composer install --no-interaction --prefer-dist
       - name: Worker boundary and independent failure reporting
         run: php tests/unit_mail_worker_schedule.php
+      - name: Installed-byte old wrapper with actual guarded candidate cleanup
+        run: php tests/unit_legacy_worker_compatibility.php
       - name: Historical 004 upgrade under owner-observed SQL mode and UTC
         run: php tests/integration_release_upgrade.php
       - name: Reconstructed owner-observed schema, roles and transition checks
@@ -376,6 +378,20 @@ jobs:
           DB_NAME: bushisa_test_release_observed_ci
           BUSHISA_OBSERVED_TEST_ENGINE_SETUP: "true"
         run: php tests/integration_owner_schema.php
+      - name: Separate runtime, worker and migration allow-deny profiles
+        env:
+          DB_NAME: bushisa_test_release_observed_roles_ci
+          BUSHISA_RELEASE_ROLE_TEST: "true"
+        run: |
+          export BUSHISA_ROLE_SERVER_UUID="$(php tests/support/release_role_identity.php)"
+          php tests/integration_release_roles.php
+      - name: Sanitized role-check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-role-results
+          path: test-results/release-roles.json
+          if-no-files-found: error
       - name: Sanitized release rehearsal evidence
         if: always()
         uses: actions/upload-artifact@v4

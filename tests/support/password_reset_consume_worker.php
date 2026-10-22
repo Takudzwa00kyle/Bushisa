@@ -4,7 +4,7 @@ if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 require_once __DIR__ . '/disposable_database.php';
 $settings = bushisa_require_disposable_test_database('L06 reset worker');
 putenv('BUSHISA_PASSWORD_RESET_SYNTHETIC=true');
-$pdo = new PDO(sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $settings['host'], $settings['port'], $settings['name']), $settings['user'], $settings['password'], [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES=>false]);
+$pdo = new PDO(sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $settings['host'], $settings['port'], $settings['name']), $settings['user'], $settings['password'], bushisa_disposable_database_pdo_options($settings));
 $pdo->exec("SET time_zone='+00:00'");
 require_once __DIR__ . '/../../php/password_reset.php';
 $input = json_decode((string) stream_get_contents(STDIN), true, 8, JSON_THROW_ON_ERROR);

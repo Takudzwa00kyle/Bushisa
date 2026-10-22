@@ -9,7 +9,7 @@ function q11_connect(?array $credentials=null): PDO
     bushisa_q11_synthetic_guard();
     $s=bushisa_require_disposable_test_database('Q11 synthetic fixture');
     $p=new PDO(sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',$s['host'],$s['port'],$s['name']),$credentials['user']??$s['user'],$credentials['password']??$s['password'],
-        [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,PDO::ATTR_EMULATE_PREPARES=>false]);
+        bushisa_disposable_database_pdo_options($s));
     $p->exec("SET time_zone='+00:00'"); return $p;
 }
 function q11_install(PDO $root): void

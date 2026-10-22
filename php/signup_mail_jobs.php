@@ -44,7 +44,8 @@ function bushisa_signup_mail_rows_locked(PDO $pdo,int $mail): ?array
 {
     $hint=bushisa_signup_query($pdo,'SELECT c.user_id FROM mail_outbox m JOIN student_email_approval_codes c ON c.id=m.approval_code_id WHERE m.id=?',[$mail])->fetchColumn();
     if (!$hint) { return null; }
-    $u=bushisa_signup_query($pdo,'SELECT * FROM users WHERE id=? FOR UPDATE',[$hint])->fetch(PDO::FETCH_ASSOC);
+    // Mail workers do not need password hashes or unrelated profile identity.
+    $u=bushisa_signup_query($pdo,'SELECT id,email,created_at,is_verified,is_suspended,is_active,account_status,deleted_at,session_version,signup_attempt_key FROM users WHERE id=? FOR UPDATE',[$hint])->fetch(PDO::FETCH_ASSOC);
     if (!$u) { return null; }
     $expiry=bushisa_signup_expire_locked($pdo,$u);
     $c=bushisa_signup_query($pdo,'SELECT c.* FROM student_email_approval_codes c JOIN mail_outbox m ON m.approval_code_id=c.id WHERE m.id=? FOR UPDATE',[$mail])->fetch(PDO::FETCH_ASSOC);

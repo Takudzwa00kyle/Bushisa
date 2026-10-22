@@ -32,11 +32,12 @@ function bind_creation(PDO $p,int $id): void
 function enqueue(PDO $p,int $id,string $receipt): void
 {
     if (!$p->inTransaction())throw new \LogicException('Attempt job needs expiry transaction');
-    $u=q($p,'SELECT * FROM users WHERE id=? FOR UPDATE',[$id])->fetch(PDO::FETCH_ASSOC);
+    // Enqueue also runs inside the mail worker's Q11 expiry transaction.
+    $u=q($p,'SELECT id,signup_attempt_key FROM users WHERE id=? FOR UPDATE',[$id])->fetch(PDO::FETCH_ASSOC);
     $c=q($p,'SELECT * FROM signup_lifecycle WHERE account_id=? FOR UPDATE',[$id])->fetch(PDO::FETCH_ASSOC);
-    $o=q($p,'SELECT * FROM signup_expiry_obligations WHERE receipt_id=? AND account_id=? FOR UPDATE',[$receipt,$id])->fetch(PDO::FETCH_ASSOC);
+    $o=q($p,'SELECT * FROM signup_expiry_obligations WHERE receipt_id=? AND account_id=? LOCK IN SHARE MODE',[$receipt,$id])->fetch(PDO::FETCH_ASSOC);
     if (!$o)return;
-    $i=q($p,'SELECT * FROM signup_attempt_identities WHERE account_id=? FOR UPDATE',[$id])->fetch(PDO::FETCH_ASSOC);
+    $i=q($p,'SELECT * FROM signup_attempt_identities WHERE account_id=? LOCK IN SHARE MODE',[$id])->fetch(PDO::FETCH_ASSOC);
     $valid=$i && $u && $c && $u['signup_attempt_key']!==null && hash_equals($i['attempt_key'],$u['signup_attempt_key']) && $i['registered_at']===$c['registered_at'];
     q($p,'INSERT IGNORE INTO signup_attempt_erasure_jobs (receipt_id,account_id,attempt_key,registered_at,account_version,clock_version,expires_at,due_at,state,error_code,counts_json,created_at,updated_at)
         VALUES (?,?,?,?,?,?,?,?,?,?,JSON_OBJECT(),?,?)',[$receipt,$id,$valid?$i['attempt_key']:null,$valid?$i['registered_at']:null,$o['account_version'],$c['version']??null,$o['expires_at'],$o['live_purge_due_at'],$valid?'queued':'blocked',$valid?null:'GENERATION_PROOF_REQUIRED',now($p),now($p)]);

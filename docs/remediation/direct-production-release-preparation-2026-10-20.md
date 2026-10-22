@@ -1,5 +1,18 @@
 # Controlled direct-production release preparation
 
+**22 October local engineering follow-up:** [role/worker evidence](release-roles-worker-evidence-2026-10-22.md)
+records 58 strict-profile checks, 337 affected-regression assertions and focused
+worker/configuration checks. Worker-reachable reads and validation locks
+were narrowed and synthetic connection TLS honored; fixture table-wide users
+UPDATE is no longer treated as least-privilege proof. HR01–HR03 have bounded
+local evidence; HR04/full-D03 runtime route grants remain PARTIAL. Actual Azure
+roles, legacy cutover and recovery remain open. See the [cutover worksheet](legacy-cutover-preparation-2026-10-22.md)
+and [existing-resource recovery options](existing-resource-recovery-options-2026-10-22.md).
+Reviewer/operator assignments stay PENDING without blocking local engineering.
+No production operation, real mail, staging acceptance or recovery acceptance
+is claimed. PR 8 stays draft; hosted CI for these changes is NOT RUN.
+
+
 Recorded 20 October 2026, Africa/Harare. **Recommendation: NO-GO for deployment
 until the evidence gates below are met.** Preparation uses the existing B1 app
 and MySQL service plus local disposable tests; it requires no second paid
@@ -454,9 +467,10 @@ method/capacity they can validate. This is responsibility/capability information
 not permission for a production change. No further production file collection
 is requested; all 01–09 evidence is accepted within its stated bounds.
 
-Engineering can independently derive/test the mail-only column grant contract
-and full-D03 runtime negatives (HR01–HR04 NOT RUN), then resolve legacy
-continuation/all-writer cutover using settled decisions. Actual role/secret/TLS
+The mail-only column profile and listed denials now have bounded local
+HR01–HR03 evidence. Engineering continues with full-D03 runtime route coverage
+(HR04 PARTIAL) and legacy continuation/all-writer cutover using settled decisions.
+Reviewer/operator assignments stay pending without stopping that work. Actual role/secret/TLS
 acceptance, compatible fallback/forward repair, independent replay and witnessed
 recovery remain open. Reset stays off; its future throttles and Q40 proposals
 are unchanged. Only after these and the remaining full-scope release criteria

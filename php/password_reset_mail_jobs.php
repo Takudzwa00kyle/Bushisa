@@ -16,7 +16,13 @@ function bushisa_reset_dispatch_one(PDO $pdo,string $id,?callable $transport): s
     if ($account<1) return 'discarded';
     $claim=bin2hex(random_bytes(32));
     $delivery=bushisa_reset_transaction($pdo,function()use($pdo,$id,$account,$claim):?array {
-        $us=$pdo->prepare('SELECT u.*,p.date_of_birth FROM users u LEFT JOIN profiles p ON p.user_id=u.id WHERE u.id=? FOR UPDATE');$us->execute([$account]);$u=$us->fetch(PDO::FETCH_ASSOC);
+        $us=$pdo->prepare('SELECT id,email,is_verified,is_active,is_suspended,account_status,deleted_at,session_version,signup_attempt_key FROM users WHERE id=? FOR UPDATE');$us->execute([$account]);$u=$us->fetch(PDO::FETCH_ASSOC);
+        if ($u) {
+            // Account lock remains first. Eligibility needs a stable DOB read,
+            // not permission for the dispatcher to edit the person's profile.
+            $profile=$pdo->prepare('SELECT date_of_birth FROM profiles WHERE user_id=? LOCK IN SHARE MODE');$profile->execute([$account]);
+            $u['date_of_birth']=$profile->fetchColumn()?:null;
+        }
         $ms=$pdo->prepare('SELECT * FROM password_reset_mail_jobs WHERE mail_id=? FOR UPDATE');$ms->execute([$id]);$m=$ms->fetch(PDO::FETCH_ASSOC);
         if (!$m || !$u || (int)$m['account_id']!==$account) return null;
         $now=bushisa_reset_now($pdo);
@@ -40,7 +46,7 @@ function bushisa_reset_dispatch_one(PDO $pdo,string $id,?callable $transport): s
         $c=null;
         if ($m['purpose']==='password_reset') {
             $cs=$pdo->prepare('SELECT * FROM password_reset_challenges WHERE challenge_id=? FOR UPDATE');$cs->execute([$m['challenge_id']]);$c=$cs->fetch(PDO::FETCH_ASSOC);
-            $stateS=$pdo->prepare('SELECT account_generation,issuance_generation FROM password_reset_state WHERE account_id=? FOR UPDATE');$stateS->execute([$account]);$state=$stateS->fetch(PDO::FETCH_ASSOC);
+            $stateS=$pdo->prepare('SELECT account_generation,issuance_generation FROM password_reset_state WHERE account_id=? LOCK IN SHARE MODE');$stateS->execute([$account]);$state=$stateS->fetch(PDO::FETCH_ASSOC);
             $ok=$c && $state && bushisa_reset_eligible($u) && $c['consumed_at']===null && $c['invalidated_at']===null && $c['token_hash']!==null
                 && $c['expires_at']>$now && hash_equals((string)$c['account_generation'],(string)$u['signup_attempt_key'])
                 && hash_equals((string)$c['account_generation'],(string)$state['account_generation']) && (int)$state['issuance_generation']===(int)$c['issuance_generation']

@@ -57,8 +57,10 @@ function configuration(): array
 function connection(): PDO
 {
     configuration();
-    $p=new PDO(sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',getenv('DB_HOST'),getenv('DB_PORT'),getenv('DB_NAME')),
-        (string)getenv('DB_USER'),(string)getenv('DB_PASSWORD'),[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,PDO::ATTR_EMULATE_PREPARES=>false]);
+    require_once __DIR__.'/../tests/support/disposable_database.php';
+    $settings=\bushisa_require_disposable_test_database('Synthetic session connection');
+    $p=new PDO(sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',$settings['host'],$settings['port'],$settings['name']),
+        $settings['user'],$settings['password'],\bushisa_disposable_database_pdo_options($settings));
     $p->exec("SET time_zone='+00:00'");
     // A second admission check must see a clock/authority update committed while
     // bounded local I/O ran, including the guarded synthetic clock fixture.
@@ -97,7 +99,9 @@ function expire_locked(PDO $p,array $u,string $receipt,string $effective,string 
         q($p,'INSERT IGNORE INTO session_copy_obligations (event_ref,account_id,account_key,source_receipt,effective_at,purge_due_at,policy_ref) VALUES (?,?,?,?,?,?,"Q11")',
             [$id,$u['id'],$u['signup_attempt_key'],$receipt,$effective,$due]);
     }
-    $o=q($p,'SELECT * FROM session_copy_obligations WHERE event_ref=? FOR UPDATE',[$id])->fetch();
+    // This path validates the immutable obligation; it never updates it.
+    // Keep a current locking read without requiring worker UPDATE authority.
+    $o=q($p,'SELECT * FROM session_copy_obligations WHERE event_ref=? LOCK IN SHARE MODE',[$id])->fetch();
     if (!$o || (int)$o['account_id']!==(int)$u['id'] || $o['account_key']!==$u['signup_attempt_key']
         || $o['source_receipt']!==$receipt || $o['effective_at']!==$effective || $o['purge_due_at']!==$due) { throw new RuntimeException('SESSION_OBLIGATION_CONFLICT'); }
     q($p,'UPDATE session_bindings SET state="retired",retired_at=COALESCE(retired_at,?),reason_code="Q11_EXPIRED",revision=revision+1 WHERE account_id=? AND account_key=? AND state="live"',

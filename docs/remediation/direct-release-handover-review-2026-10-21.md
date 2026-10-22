@@ -1,5 +1,18 @@
 # Direct-release handover: worker, roles, cutover and recovery
 
+**22 October local engineering follow-up:** [role/worker evidence](release-roles-worker-evidence-2026-10-22.md)
+records 58 strict-profile checks, 337 affected-regression assertions and focused
+worker/configuration checks. Worker-reachable reads and validation locks
+were narrowed and synthetic connection TLS honored; fixture table-wide users
+UPDATE is no longer treated as least-privilege proof. HR01–HR03 have bounded
+local evidence; HR04/full-D03 runtime route grants remain PARTIAL. Actual Azure
+roles, legacy cutover and recovery remain open. See the [cutover worksheet](legacy-cutover-preparation-2026-10-22.md)
+and [existing-resource recovery options](existing-resource-recovery-options-2026-10-22.md).
+Reviewer/operator assignments stay PENDING without blocking local engineering.
+No production operation, real mail, staging acceptance or recovery acceptance
+is claimed. PR 8 stays draft; hosted CI for these changes is NOT RUN.
+
+
 Prepared locally after [capture 09 reconciliation](code-gap-reconciliation-2026-10-21.md),
 from `de7547a` plus this documentation checkpoint. **Review packet only.** It
 does not authorize grants, configuration, migrations, worker execution, backup
@@ -97,12 +110,12 @@ use a signup challenge reference for reset or turn reset on to test production.
 
 | Proposed local case | Required result | Status |
 |---|---|---|
-| HR01 | Mail-only role runs guarded synthetic cleanup/claim/completion, due Q11 transition and cancellation with exact required rights; preservation of other users/generations. | NOT RUN |
-| HR02 | Password hash, suspension/other administrative columns, DROP/DDL, arbitrary routines and another schema are denied; denied transaction has no partial side effects. | NOT RUN |
-| HR03 | Pending reset cancellation and notice paths have an explicit minimum contract or remain fail-closed; no SMTP, proof/body logging or activation. | NOT RUN |
-| HR04 | Complete D03 runtime write paths and immutable-trigger/definer negatives run under the proposed runtime role, separate migrator only; settings/TLS/UTC match recorded profile. | NOT RUN |
+| HR01 | Mail-only role runs guarded synthetic cleanup/claim/completion, due Q11 transition and cancellation with exact required rights; preservation of other users/generations. | PASS bounded local RP worker operations; see 22 October evidence |
+| HR02 | Password hash, suspension/other administrative columns, DROP/DDL, arbitrary routines and another schema are denied; denied transaction has no partial side effects. | PASS listed local engine denials; final privilege review open |
+| HR03 | Pending reset cancellation and notice paths have an explicit minimum contract or remain fail-closed; no SMTP, proof/body logging or activation. | PASS bounded local purpose paths; production activation gates open |
+| HR04 | Complete D03 runtime write paths and immutable-trigger/definer negatives run under the proposed runtime role, separate migrator only; settings/TLS/UTC match recorded profile. | PARTIAL; bounded runtime/migration checks pass, full D03 route coverage incomplete |
 
-These are proposed focused checks, not additions marked PASS in A/LB/LC or a
+The original proposed checks above now carry bounded local status, not additions marked PASS in A/LB/LC or a
 claim of actual Azure grants. Migration privilege compatibility must be tested
 on the Azure service under accepted principals; upstream MySQL alone cannot
 prove managed-service definer behavior.
@@ -187,13 +200,15 @@ worker-role restriction, old-wrapper stop condition, legacy cutover and recovery
 stop/reopen criteria. This requests real responsibility/capability information,
 not approval to perform the production change, buy resources or enable features.
 
-Engineering can proceed independently with HR01–HR04 in guarded disposable
-fixtures using current approvals, then the bounded legacy continuation/cutover
-design. Existing expiry clocks, consent/restrictions and lifetime budgets do not
+Engineering has completed the bounded local HR01–HR03 checks; HR04 remains
+PARTIAL for full runtime route coverage. The cutover worksheet and recovery
+options are prepared. Continue those engineering gaps while real appointments
+remain pending. Existing expiry clocks, consent/restrictions and lifetime budgets do not
 need reapproval. Reset throttles before future activation and unresolved Q40
 settings remain separate owner policy questions; reset stays off. Qualified
 security/privacy/safety and staffing acceptance remain external gates. All
 managed-stage cases stay DEFERRED/NOT RUN; SC26 production topology stays PARTIAL.
 
-This packet is static local preparation. No new functional tests, DB/session
-access, worker, mail, live grants/settings or recovery operation occurred.
+The original packet was static preparation. Its 22 October follow-up executed
+only guarded local synthetic tests; no production session/DB access, live
+grants/settings, real mail or recovery operation occurred.
