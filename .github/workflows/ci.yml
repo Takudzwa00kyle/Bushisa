@@ -405,7 +405,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-lifecycle-regression
-          path: .tmp/l03a-*/results.json
+          path: .tmp/l03a-*/evidence.json
           include-hidden-files: true
           if-no-files-found: error
       - name: Sanitized role-check results

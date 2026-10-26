@@ -4,7 +4,7 @@
   "attribution": "Uncommitted tested worktree, identified by LF source fingerprints; final Git/CI identity separately recorded",
   "routes_recovery": {
     "format": "bushisa.release-route-recovery.v1",
-    "utc": "2026-10-26T20:15:34+00:00",
+    "utc": "2026-10-26T21:15:37+00:00",
     "php": "8.5.11",
     "os": "Linux",
     "mysql": "8.0.46",
@@ -566,6 +566,7 @@
         "cleanup_failed": false,
         "wrapper_lf_sha256": "a86d696b9d5997e487318a512127394c84fe99af3a66728bb80125abef9a2aee",
         "materialized_wrapper_sha256": "c54445920958df18122864343f00e0ee00f98939f109cbb624841e679925771c",
+        "runtime_credential_intentionally_invalid": true,
         "network_functions_disabled": true,
         "queue": "drained synthetic; no SMTP call"
       },
@@ -654,11 +655,11 @@
       }
     ],
     "timings": {
-      "upgrade_seconds": 11.456907987594604,
-      "dump_seconds": 0.9628250598907471,
+      "upgrade_seconds": 9.598793029785156,
+      "dump_seconds": 0.7570860385894775,
       "dump_bytes": 169373,
-      "restore_seconds": 11.019979000091553,
-      "replay_two_passes_seconds": 0.023286104202270508
+      "restore_seconds": 9.893371105194092,
+      "replay_two_passes_seconds": 0.025716066360473633
     },
     "failure": null,
     "production_recovery": "NOT RUN",
@@ -666,7 +667,7 @@
     "independent_durability": "NOT PROVED",
     "managed_staging": "DEFERRED / NOT RUN",
     "sources_lf_sha256": {
-      "tests/integration_release_routes_recovery.php": "5659a4fcb5ab8169238e7d1bcb472188695e17348038d8dbebb13f76bf113c66",
+      "tests/integration_release_routes_recovery.php": "ee0967354957c558a2ba9b3775159925bbcd1bc6afc90f19aef3bd2d82cfe265",
       "tests/support/release_roles.php": "2f68a49b00514efd386bc86c55b4c30fc5b78586f202a1fcfdba91093c71300f",
       "tests/support/owner_schema_fixture.php": "b05392eb1821c4d5303e0fb8761b59d067d7c333b407eaf19af4465daf5f3b52",
       "php/pair_history.php": "4a0ba893d41de91b68dde0bb549ae372323da102fd8c153021813b6f31eb7311",
@@ -7922,5 +7923,486 @@
   },
   "production_executed": false,
   "external_review": "PENDING",
-  "hosted_ci": "Recorded separately; not inferred from local tests"
+  "hosted_ci": "Recorded separately; not inferred from local tests",
+  "role_probe_local_recheck": {
+    "format": "bushisa.release-role-checks.v1",
+    "executed_utc": "2026-10-26T21:08:28+00:00",
+    "checkout": "319c2a6655047fb943f404db130582be7391b136",
+    "modified_worktree": true,
+    "php": "8.5.11",
+    "os": "Linux",
+    "profile": {
+      "mysql": "8.0.46",
+      "timezone": "+00:00",
+      "isolation": "REPEATABLE-READ",
+      "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+      "collation": "utf8mb4_0900_ai_ci",
+      "require_secure_transport": 1,
+      "log_bin": 1,
+      "trust": 1
+    },
+    "tls": {
+      "Ssl_cipher": "TLS_AES_256_GCM_SHA384",
+      "Ssl_version": "TLSv1.3"
+    },
+    "source_fixture_sha256": "312430bf64bbd03843b119bf714b718284d2b9f81fbf47d9c573d8ac51098392",
+    "grants": {
+      "migration": [
+        "GRANT USAGE ON *.* TO `fixture_migration`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, REFERENCES, INDEX, ALTER, EXECUTE, CREATE ROUTINE, ALTER ROUTINE, TRIGGER ON `bushisa_test_release_observed_roles_local`.* TO `fixture_migration`@`%`"
+      ],
+      "worker": [
+        "GRANT USAGE ON *.* TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT, UPDATE (`last_error`, `payload_json`, `run_after`, `status`) ON `bushisa_test_release_observed_roles_local`.`cleanup_outbox` TO `fixture_worker`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`mail_outbox` TO `fixture_worker`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`password_reset_challenges` TO `fixture_worker`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`password_reset_mail_jobs` TO `fixture_worker`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`password_reset_state` TO `fixture_worker`@`%`",
+        "GRANT SELECT (`date_of_birth`, `user_id`) ON `bushisa_test_release_observed_roles_local`.`profiles` TO `fixture_worker`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`session_bindings` TO `fixture_worker`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`session_copy_coverage` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`session_copy_obligations` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_attempt_erasure_jobs` TO `fixture_worker`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`signup_attempt_identities` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_expiry_obligations` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_lifecycle_alerts` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`signup_lifecycle` TO `fixture_worker`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`signup_mail_jobs` TO `fixture_worker`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`student_email_approval_codes` TO `fixture_worker`@`%`",
+        "GRANT SELECT (`account_status`, `created_at`, `deleted_at`, `email`, `id`, `is_active`, `is_suspended`, `is_verified`, `session_version`, `signup_attempt_key`), UPDATE (`account_status`, `deleted_at`, `is_active`, `is_verified`, `session_version`) ON `bushisa_test_release_observed_roles_local`.`users` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_cleanup_alerts` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_late_results` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_recovery_obligations` TO `fixture_worker`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`verification_retention` TO `fixture_worker`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_attempt_schema_health` TO `fixture_worker`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_pair_trigger_health` TO `fixture_worker`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_verification_schema_health` TO `fixture_worker`@`%`"
+      ],
+      "missing": [
+        "GRANT USAGE ON *.* TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT, UPDATE (`last_error`, `payload_json`, `run_after`, `status`) ON `bushisa_test_release_observed_roles_local`.`cleanup_outbox` TO `fixture_missing`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`mail_outbox` TO `fixture_missing`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`password_reset_challenges` TO `fixture_missing`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`password_reset_mail_jobs` TO `fixture_missing`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`password_reset_state` TO `fixture_missing`@`%`",
+        "GRANT SELECT (`date_of_birth`, `user_id`) ON `bushisa_test_release_observed_roles_local`.`profiles` TO `fixture_missing`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`session_bindings` TO `fixture_missing`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`session_copy_coverage` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`session_copy_obligations` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_attempt_erasure_jobs` TO `fixture_missing`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`signup_attempt_identities` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_expiry_obligations` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_lifecycle_alerts` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`signup_lifecycle` TO `fixture_missing`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`signup_mail_jobs` TO `fixture_missing`@`%`",
+        "GRANT SELECT, UPDATE ON `bushisa_test_release_observed_roles_local`.`student_email_approval_codes` TO `fixture_missing`@`%`",
+        "GRANT SELECT (`account_status`, `created_at`, `deleted_at`, `email`, `id`, `is_active`, `is_suspended`, `is_verified`, `session_version`, `signup_attempt_key`), UPDATE (`account_status`, `deleted_at`, `is_active`, `is_verified`, `session_version`) ON `bushisa_test_release_observed_roles_local`.`users` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_cleanup_alerts` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_late_results` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_recovery_obligations` TO `fixture_missing`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`verification_retention` TO `fixture_missing`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_attempt_schema_health` TO `fixture_missing`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_pair_trigger_health` TO `fixture_missing`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_verification_schema_health` TO `fixture_missing`@`%`"
+      ],
+      "runtime": [
+        "GRANT USAGE ON *.* TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`audit_log` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `bushisa_test_release_observed_roles_local`.`blocks` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE (`last_error`, `payload_json`, `run_after`, `status`) ON `bushisa_test_release_observed_roles_local`.`cleanup_outbox` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`confession_references` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`confession_views` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`confessions` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`consent_records` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`evidence_access_audit` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE (`unresolved_code`) ON `bushisa_test_release_observed_roles_local`.`evidence_case_clocks` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`evidence_lifecycle_alerts` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`evidence_lifecycle_items` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `bushisa_test_release_observed_roles_local`.`find_match_answers` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`mail_outbox` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`matches` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`message_request_sends` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`message_requests` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`messages` TO `fixture_runtime`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`moderation_case_assignments` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`moderation_cases` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`moderation_evidence` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`notification_preferences` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `bushisa_test_release_observed_roles_local`.`notifications` TO `fixture_runtime`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`pair_account_genesis` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`pair_chat_segments` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`pair_decline_restrictions` TO `fixture_runtime`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`pair_ledger_epoch` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`pair_policy_history` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`pair_policy_operations` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`pair_request_counts` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`pair_request_events` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`password_reset_challenges` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`password_reset_mail_jobs` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`password_reset_rate_events` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`password_reset_rate_subjects` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `bushisa_test_release_observed_roles_local`.`password_reset_state` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `bushisa_test_release_observed_roles_local`.`preferences` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `bushisa_test_release_observed_roles_local`.`profile_images` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`profiles` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`protective_replay_events` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `bushisa_test_release_observed_roles_local`.`rate_limits` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`report_action_audit` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`report_block_links` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`report_case_links` TO `fixture_runtime`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`report_evidence_holds` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`report_incidents` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`report_operations` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`report_probation_periods` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`report_submissions` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`reports` TO `fixture_runtime`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`session_bindings` TO `fixture_runtime`@`%`",
+        "GRANT SELECT ON `bushisa_test_release_observed_roles_local`.`session_copy_coverage` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`session_copy_obligations` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_attempt_erasure_jobs` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_attempt_identities` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_expiry_obligations` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`signup_lifecycle_alerts` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`signup_lifecycle` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`signup_mail_jobs` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`student_email_approval_codes` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE, DELETE ON `bushisa_test_release_observed_roles_local`.`swipes` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT (`account_status`, `email`, `is_active`, `is_suspended`, `is_verified`, `nust_student_id`, `password_hash`, `session_version`), UPDATE (`account_status`, `deleted_at`, `email`, `is_active`, `is_suspended`, `is_verified`, `nust_student_id`, `password_hash`, `session_version`, `signup_attempt_key`) ON `bushisa_test_release_observed_roles_local`.`users` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_cleanup_alerts` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_late_results` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT ON `bushisa_test_release_observed_roles_local`.`verification_recovery_obligations` TO `fixture_runtime`@`%`",
+        "GRANT SELECT, INSERT, UPDATE ON `bushisa_test_release_observed_roles_local`.`verification_retention` TO `fixture_runtime`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_attempt_schema_health` TO `fixture_runtime`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_pair_trigger_health` TO `fixture_runtime`@`%`",
+        "GRANT EXECUTE ON PROCEDURE `bushisa_test_release_observed_roles_local`.`bushisa_verification_schema_health` TO `fixture_runtime`@`%`"
+      ]
+    },
+    "cases": [
+      {
+        "case": "RP00.identity",
+        "check": "Owned local server UUID",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-G.production",
+        "check": "Unsafe fixture refuses without a loaded PDO driver",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-G.production_name",
+        "check": "Unsafe fixture refuses without a loaded PDO driver",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-G.remote_host",
+        "check": "Unsafe fixture refuses without a loaded PDO driver",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-G.missing_intent",
+        "check": "Unsafe fixture refuses without a loaded PDO driver",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-G.missing_identity",
+        "check": "Unsafe fixture refuses without a loaded PDO driver",
+        "result": "PASS"
+      },
+      {
+        "case": "RP00.schema",
+        "check": "Observed 001–004 reconstructed before upgrade",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-G.identity_mismatch",
+        "check": "Wrong actual server identity cannot erase or rewrite a fixture",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-M01",
+        "check": "Pending 005–016 permitted under schema migrator",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-M02",
+        "check": "Second migration run skips all sixteen",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-M03",
+        "check": "Migrator ALTER permitted",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-M04.no_drop",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-M05.no_other_schema",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-M06.no_admin",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1227
+      },
+      {
+        "case": "RP-M07.no_grant_option",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-M08.definers",
+        "check": "Upgrade triggers retain controlled migrator definer",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W01.atomic_missing_right",
+        "check": "Missing outbox UPDATE rolls claim back",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W02.delivery",
+        "check": "Strict column-scoped worker accepts once, erases payload and safely retries",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W03.no_password_read",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1143
+      },
+      {
+        "case": "RP-W04.no_password_write",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1143
+      },
+      {
+        "case": "RP-W05.no_suspend",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1143
+      },
+      {
+        "case": "RP-W06.no_email_write",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1143
+      },
+      {
+        "case": "RP-W07.no_generation_write",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1143
+      },
+      {
+        "case": "RP-W08.no_account_insert",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W09.no_private_chat",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W10.no_evidence",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W11.no_ddl",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W12.no_drop",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W13.no_arbitrary_execute",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1370
+      },
+      {
+        "case": "RP-W14.no_other_schema",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W14.no_dob_write",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W14.no_obligation_edit",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W14.no_genesis_edit",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-W15.atomic_denial",
+        "check": "Forbidden mutation rolls back permitted earlier mutation",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W16.expiry",
+        "check": "Due anchored attempt revokes access and creates obligations under strict worker",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W16.cancellation",
+        "check": "Due attempt cancels its linked challenge and ready mail atomically",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W17.expiry_retry",
+        "check": "Expiry retry does not duplicate obligations",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-L01.legacy_anchor",
+        "check": "Missing legacy anchor remains unknown without generation fabrication",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W18.reset_off",
+        "check": "Disabled reset cancellation can invalidate proof with strict worker",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W18.reset_permitted",
+        "check": "Guarded synthetic reset-purpose job can validate current state and fake-accept once",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W19.notice",
+        "check": "Code-free notice fake-accepted once while issuance remains off",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W22.cleanup",
+        "check": "Bounded cleanup functions run under strict role with no account reactivation",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W23.cleanup_mail",
+        "check": "SMTP-shaped CLI with empty queue and network carrier functions disabled",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W23.dispatch_mail",
+        "check": "SMTP-shaped CLI with empty queue and network carrier functions disabled",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-R01.allowed",
+        "check": "Runtime profile and confession writes permitted",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-R02.password_purpose",
+        "check": "Runtime password/session write is distinct from worker denial",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-W20.no_admin",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1227
+      },
+      {
+        "case": "RP-W21.no_grants",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-R03.no_admin",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1227
+      },
+      {
+        "case": "RP-R04.no_grants",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-R05.no_ddl",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-R06.no_drop",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-R07.no_other_schema",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-R08.no_arbitrary_execute",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1370
+      },
+      {
+        "case": "RP-R09.immutable_generation",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1644
+      },
+      {
+        "case": "RP-R10.no_mail_row_delete",
+        "check": "Expected engine denial",
+        "result": "PASS",
+        "engine_error": 1142
+      },
+      {
+        "case": "RP-L02.epoch",
+        "check": "Migration does not activate real cutover or certify genesis",
+        "result": "PASS"
+      },
+      {
+        "case": "RP-X.restore",
+        "check": "Owned fixture roles/schemas removed and engine globals restored",
+        "result": "PASS"
+      }
+    ],
+    "failure": null,
+    "full_D03_runtime_grants": "PARTIAL: bounded write profile; not all routes",
+    "production_grants": "NOT RUN",
+    "recovery_acceptance": "NOT RUN",
+    "production_changes": false
+  }
 }

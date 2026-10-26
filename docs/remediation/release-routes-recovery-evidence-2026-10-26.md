@@ -106,8 +106,8 @@ they are not counted as newly executed here. Full cases, process/connection
 overlap evidence, UTC execution times and source fingerprints are in the
 [machine report](evidence/release-routes-recovery-local-2026-10-26.json).
 
-Measured final local upgrade: 11.457 s; dump: 0.963 s / 169373 bytes;
-restore: 11.020 s; two replay passes: 0.023 s.
+Measured final local upgrade: 9.599 s; dump: 0.757 s / 169373 bytes;
+restore: 9.893 s; two replay passes: 0.026 s.
 The dump was verified against every table's bounded synthetic row digest before
 replay. Event clocks come from fixture-event creation on the server and survive
 repeat replay; restore/read time does not renew them.
@@ -125,7 +125,9 @@ with `/home/site/wwwroot` replaced by the checkout path. Its PHP calls execute
 the actual candidate cleanup/dispatch CLIs under `MAIL_WORKER_DB_USER` /
 `MAIL_WORKER_DB_PASSWORD`, with socket functions disabled and an already drained
 synthetic queue. The report records canonical wrapper and materialized hashes,
-exit status and code-free counters. Nonempty restricted-worker claim, cleanup,
+exit status and code-free counters. Its runtime password is intentionally invalid,
+so successful CLI database queries require the dedicated worker binding rather
+than silently succeeding as the web runtime. Nonempty worker claim, cleanup,
 expiry/cancellation, reset and notice behavior is separately exercised by the
 RP suite's injected synthetic carriers. Empty-wrapper execution alone does
 not prove nonempty SMTP delivery. Real delivery acceptance remains NOT RUN.
@@ -186,6 +188,16 @@ shared ctype for these no-PDO probes, without weakening any target guard.
 Hosted role evidence reports **PHP 8.5.12**, despite the workflow's requested
 8.5.11. Local execution above remains exactly 8.5.11; neither is a new Azure
 runtime observation. These failed initial runs are retained as failed evidence.
+
+Follow-up `cfc3e2f709acddf2f5ebf32dd1e1daeee2e2c6ec` confirmed ctype as
+`shared-extension-required`; 58 role assertions and 131 route/recovery assertions
+passed on hosted PHP 8.5.12 / MySQL 8.0.46. The lifecycle test step also succeeded.
+Its [push run](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/40402016226)
+and [PR run](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/40402025914)
+still failed overall because the upload pattern named `results.json` while the
+suite writes `evidence.json`. That artifact-only path is corrected; these runs
+are not recorded as green. Hosted MySQL service reports secure transport OFF;
+it does not replace the verified-TLS local profile or Azure TLS acceptance.
 
 **Recommendation remains NO-GO.** Engineering can continue without appointments:
 legacy pending-attempt continuation and authentic all-writer cutover/adapters;

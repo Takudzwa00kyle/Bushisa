@@ -239,10 +239,12 @@ try {
     $script=str_replace("\r\n","\n",file_get_contents($repo.'/deploy/mail-webjob/run.sh'));
     file_put_contents($run.'/run.sh',str_replace('cd /home/site/wwwroot','cd '.escapeshellarg($repo),$script));
     mkdir($run.'/path',0700);file_put_contents($run.'/path/php',"#!/bin/sh\nexec ".escapeshellarg(PHP_BINARY)." -d disable_functions=fsockopen,pfsockopen,stream_socket_client \"\$@\"\n");chmod($run.'/path/php',0700);
-    $workerEnv=array_replace($env,['DB_USER'=>$roles['runtime']['user'],'DB_PASSWORD'=>$roles['runtime']['password'],'MAIL_WORKER_DB_USER'=>$roles['worker']['user'],'MAIL_WORKER_DB_PASSWORD'=>$roles['worker']['password'],'MAIL_TRANSPORT'=>'smtp','PATH'=>$run.'/path:'.getenv('PATH')]);
+    // An intentionally unusable runtime password makes successful actual CLI
+    // queries dependent on the dedicated worker binding, even for an empty queue.
+    $workerEnv=array_replace($env,['DB_USER'=>$roles['runtime']['user'],'DB_PASSWORD'=>'synthetic-intentionally-invalid-runtime','MAIL_WORKER_DB_USER'=>$roles['worker']['user'],'MAIL_WORKER_DB_PASSWORD'=>$roles['worker']['password'],'MAIL_TRANSPORT'=>'smtp','PATH'=>$run.'/path:'.getenv('PATH')]);
     $package=child(['bash',$run.'/run.sh'],$workerEnv);
     $counts=array_map(static fn($line)=>json_decode($line,true),array_filter(explode("\n",trim($package['out']))));
-    rc('WK.candidate.package',$package['exit']===0&&str_contains($package['out'],'"policy_cleanup":"gated"')&&str_contains($package['out'],'"sent":0'),['exit'=>$package['exit'],'counts'=>$counts,'cleanup_failed'=>str_contains($package['err'],'MAIL_CLEANUP_FAILED'),'wrapper_lf_sha256'=>hash('sha256',$script),'materialized_wrapper_sha256'=>hash_file('sha256',$run.'/run.sh'),'network_functions_disabled'=>true,'queue'=>'drained synthetic; no SMTP call']);
+    rc('WK.candidate.package',$package['exit']===0&&str_contains($package['out'],'"policy_cleanup":"gated"')&&str_contains($package['out'],'"sent":0'),['exit'=>$package['exit'],'counts'=>$counts,'cleanup_failed'=>str_contains($package['err'],'MAIL_CLEANUP_FAILED'),'wrapper_lf_sha256'=>hash('sha256',$script),'materialized_wrapper_sha256'=>hash_file('sha256',$run.'/run.sh'),'runtime_credential_intentionally_invalid'=>true,'network_functions_disabled'=>true,'queue'=>'drained synthetic; no SMTP call']);
 
     // Logical backup/restoration uses the owned local server only. Mail is
     // deliberately never dispatched from the restored database.
