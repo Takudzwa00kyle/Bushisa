@@ -393,6 +393,7 @@ jobs:
           export BUSHISA_ROLE_SERVER_UUID="$(php tests/support/release_role_identity.php)"
           php tests/integration_release_routes_recovery.php
       - name: Affected text-evidence lifecycle and recovery-interface regressions
+        id: release_lifecycle
         env:
           DB_NAME: bushisa_test_l03a_release_ci
           BUSHISA_L03A_SYNTHETIC: "true"
@@ -400,7 +401,7 @@ jobs:
           MAIL_TRANSPORT: fake
         run: php tests/integration_l03a_lifecycle.php
       - name: Sanitized lifecycle regression results
-        if: always()
+        if: always() && steps.release_lifecycle.outcome != 'skipped'
         uses: actions/upload-artifact@v4
         with:
           name: release-lifecycle-regression

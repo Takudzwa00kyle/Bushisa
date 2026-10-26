@@ -45,6 +45,7 @@ try {
     // Read-only server identity check precedes all fixture/role/global writes.
     rr_check('RP00.identity','Owned local server UUID',hash_equals((string)getenv('BUSHISA_ROLE_SERVER_UUID'),(string)$root->query('SELECT @@server_uuid')->fetchColumn()));
     $authorized=true;
+    $ctypeProbe=rr_child([PHP_BINARY,'-n','-r','echo function_exists("ctype_digit")?"built-in":"shared-extension-required";']);
     foreach ([
         'production'=>['APP_ENV'=>'production'],
         'production_name'=>['DB_NAME'=>'bushi-database'],
@@ -52,7 +53,14 @@ try {
         'missing_intent'=>['BUSHISA_RELEASE_ROLE_TEST'=>'false'],
         'missing_identity'=>['BUSHISA_ROLE_SERVER_UUID'=>''],
     ] as $case=>$changes) {
-        $negative=rr_child([PHP_BINARY,'-n',__FILE__],array_replace(getenv(),$changes));
+        // Hosted PHP builds ctype as a shared extension; -n must keep this
+        // guard prerequisite without loading PDO. The local image builds it
+        // in. Missing ctype is a harness failure, not target-guard evidence.
+        $guardCommand=[PHP_BINARY,'-n'];
+        $ctype=ini_get('extension_dir').DIRECTORY_SEPARATOR.'ctype.'.PHP_SHLIB_SUFFIX;
+        if(is_file($ctype))array_push($guardCommand,'-d','extension='.$ctype);
+        $guardCommand[]=__FILE__;
+        $negative=rr_child($guardCommand,array_replace(getenv(),$changes));
         rr_check('RP-G.'.$case,'Unsafe fixture refuses without a loaded PDO driver',$negative['exit']!==0
             && (str_contains($negative['out'].$negative['err'],'requires a disposable database')||str_contains($negative['out'].$negative['err'],'RELEASE_ROLE_TARGET_REFUSED'))
             && !str_contains($negative['out'].$negative['err'],'Class "PDO" not found'));
@@ -233,7 +241,7 @@ try {
         if(!$cleanupOk)$failure??='FIXTURE_CLEANUP_FAILED';
     }
     $grants=[];foreach($roles as $kind=>$role)$grants[$kind]=$role['grants'];
-    $report=['format'=>'bushisa.release-role-checks.v1','executed_utc'=>gmdate('c'),'checkout'=>trim(rr_child(['git','rev-parse','HEAD'])['out']),'modified_worktree'=>trim(rr_child(['git','status','--porcelain'])['out'])!=='','php'=>PHP_VERSION,'os'=>PHP_OS_FAMILY,'profile'=>$profile??null,'tls'=>$tls??null,'source_fixture_sha256'=>hash_file('sha256',__DIR__.'/fixtures/owner-observed-schema-20261020.json'),'grants'=>$grants,'cases'=>$checks,'failure'=>$failure,'full_D03_runtime_grants'=>'PARTIAL: bounded write profile; not all routes','production_grants'=>'NOT RUN','recovery_acceptance'=>'NOT RUN','production_changes'=>false];
+    $report=['format'=>'bushisa.release-role-checks.v1','executed_utc'=>gmdate('c'),'checkout'=>trim(rr_child(['git','rev-parse','HEAD'])['out']),'modified_worktree'=>trim(rr_child(['git','status','--porcelain'])['out'])!=='','php'=>PHP_VERSION,'os'=>PHP_OS_FAMILY,'php_no_ini_ctype'=>$ctypeProbe['out']??null,'profile'=>$profile??null,'tls'=>$tls??null,'source_fixture_sha256'=>hash_file('sha256',__DIR__.'/fixtures/owner-observed-schema-20261020.json'),'grants'=>$grants,'cases'=>$checks,'failure'=>$failure,'full_D03_runtime_grants'=>'PARTIAL: bounded write profile; not all routes','production_grants'=>'NOT RUN','recovery_acceptance'=>'NOT RUN','production_changes'=>false];
     @mkdir($repo.'/test-results',0700,true);file_put_contents($repo.'/test-results/release-roles.json',json_encode($report,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR)."\n");
 }
 foreach($checks as $check)echo $check['case'].' '.$check['result']."\n";

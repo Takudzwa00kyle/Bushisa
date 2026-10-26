@@ -176,6 +176,17 @@ fixture corrections.
 
 ## Release gates and exact owner input
 
+Hosted implementation candidate `319c2a6655047fb943f404db130582be7391b136`
+initially failed the RP-G.production_name no-PDO guard probe in
+[push CI](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/40399529135)
+and [PR CI](https://github.com/Takudzwa00kyle/Bushisa/actions/runs/40399533718).
+The hosted PHP build separates ctype into a shared extension; `php -n` omitted
+that prerequisite before the database-name guard. The fixture now loads only
+shared ctype for these no-PDO probes, without weakening any target guard.
+Hosted role evidence reports **PHP 8.5.12**, despite the workflow's requested
+8.5.11. Local execution above remains exactly 8.5.11; neither is a new Azure
+runtime observation. These failed initial runs are retained as failed evidence.
+
 **Recommendation remains NO-GO.** Engineering can continue without appointments:
 legacy pending-attempt continuation and authentic all-writer cutover/adapters;
 ingress/write fencing; remaining D03 implementations and permission tests;
