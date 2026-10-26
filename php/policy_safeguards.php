@@ -44,7 +44,7 @@ function bushisa_record_protective_event(PDO $pdo, string $eventType, string $su
 
     $statement = $pdo->prepare(
         'INSERT INTO protective_replay_events (event_type, subject_type, subject_id, actor_user_id, payload_json, occurred_at)
-         VALUES (:event_type, :subject_type, :subject_id, :actor_user_id, :payload_json, UTC_TIMESTAMP())'
+         VALUES (:event_type, :subject_type, :subject_id, :actor_user_id, :payload_json, UTC_TIMESTAMP(6))'
     );
     $statement->execute([
         ':event_type' => $eventType,
@@ -97,13 +97,13 @@ function bushisa_account_is_chat_eligible(PDO $pdo, int $userId): bool
 /**
  * @return array{ok: bool, error: string|null, status: int, match: array<string, mixed>|null, other_user_id: int|null}
  */
-function bushisa_authorize_match_action(PDO $pdo, int $matchId, int $currentUserId, bool $requireApprovedChat, bool $lock = false): array
+function bushisa_authorize_match_action(PDO $pdo, int $matchId, int $currentUserId, bool $requireApprovedChat, bool $lock = false, bool $allowReadOnly = false): array
 {
     ensure_operational_schema($pdo);
 
     $columns = operational_match_columns($pdo);
     $statusFilter = operational_column_exists($pdo, 'matches', 'match_status')
-        ? ' AND match_status = "active"'
+        ? ($requireApprovedChat ? ' AND match_status IN ("active", "unmatched")' : ' AND match_status = "active"')
         : '';
     $lockSql = $lock ? ' FOR UPDATE' : '';
 
@@ -142,7 +142,12 @@ function bushisa_authorize_match_action(PDO $pdo, int $matchId, int $currentUser
     }
 
     if ($requireApprovedChat && !operational_has_message_approval($pdo, $matchId)) {
-        return ['ok' => false, 'error' => 'Chat permission has not been approved', 'status' => 403, 'match' => null, 'other_user_id' => null];
+        $readable=false;
+        if ($allowReadOnly && operational_table_exists($pdo,'pair_chat_segments')) {
+            $history=$pdo->prepare('SELECT 1 FROM pair_chat_segments WHERE match_id=? AND ended_at IS NOT NULL AND read_until>UTC_TIMESTAMP(6) LIMIT 1');
+            $history->execute([$matchId]); $readable=(bool)$history->fetchColumn();
+        }
+        if (!$readable) { return ['ok' => false, 'error' => 'Chat permission has not been approved', 'status' => 403, 'match' => null, 'other_user_id' => null]; }
     }
 
     return ['ok' => true, 'error' => null, 'status' => 200, 'match' => $match, 'other_user_id' => $otherUserId];
@@ -159,6 +164,7 @@ function bushisa_revoke_match_requests(PDO $pdo, int $matchId, string $reason): 
          WHERE match_id = :match_id'
     );
     $statement->execute([':match_id' => $matchId]);
+    bushisa_suppress_chat_notifications_for_match($pdo, $matchId);
 
     bushisa_enqueue_cleanup($pdo, 'message_request_cleanup', 'match', $matchId, [
         'policy_status' => 'proposed',
@@ -166,9 +172,32 @@ function bushisa_revoke_match_requests(PDO $pdo, int $matchId, string $reason): 
     ]);
 }
 
+function bushisa_suppress_chat_notifications_for_match(PDO $pdo, int $matchId): void
+{
+    ensure_operational_schema($pdo);
+
+    $delete = $pdo->prepare(
+        'DELETE FROM notifications
+         WHERE (category = "message_request" OR category = "message_request_response")
+           AND (deep_link = :deep_link
+             OR dedupe_key LIKE :request_dedupe
+             OR dedupe_key LIKE :response_dedupe)'
+    );
+    $delete->execute([
+        ':deep_link' => 'chat.php?match_id=' . $matchId,
+        ':request_dedupe' => 'message_request:' . $matchId . ':%',
+        ':response_dedupe' => 'message_request_response:' . $matchId . ':%',
+    ]);
+}
+
 function bushisa_close_match_between(PDO $pdo, int $actorUserId, int $otherUserId, string $reason): void
 {
     ensure_operational_schema($pdo);
+    require_once __DIR__ . '/pair_history.php';
+    if (bushisa_pair_ready($pdo)) {
+        bushisa_pair_close_relationship($pdo,$actorUserId,$otherUserId,$reason);
+        return;
+    }
 
     $columns = operational_match_columns($pdo);
     $statement = $pdo->prepare(
@@ -209,12 +238,14 @@ function bushisa_close_match_between(PDO $pdo, int $actorUserId, int $otherUserI
             ]);
         }
 
-        bushisa_revoke_match_requests($pdo, $matchId, $reason);
-        bushisa_enqueue_cleanup($pdo, 'closed_conversation_cleanup', 'match', $matchId, [
-            'policy_status' => 'proposed',
-            'purge_due_sql' => 'closed_conversation_plus_90_days',
-            'reason' => $reason,
-        ]);
+        if ($reason !== 'unmatched') {
+            bushisa_revoke_match_requests($pdo, $matchId, $reason);
+            bushisa_enqueue_cleanup($pdo, 'closed_conversation_cleanup', 'match', $matchId, [
+                'policy_status' => 'proposed',
+                'purge_due_sql' => 'closed_conversation_plus_90_days',
+                'reason' => $reason,
+            ]);
+        }
         bushisa_record_protective_event($pdo, 'match_closed', 'match', $matchId, $actorUserId, [
             'reason' => $reason,
             'other_user_id' => $otherUserId,
@@ -318,6 +349,15 @@ function bushisa_capture_case_evidence(PDO $pdo, int $caseId, string $targetType
 
 function bushisa_case_evidence_for_viewer(PDO $pdo, int $caseId, int $viewerUserId, string $reason): array
 {
+    // New intake never inherits the legacy administrator/reason bypass.
+    if (operational_column_exists($pdo, 'moderation_cases', 'intake_contract_version')) {
+        $newCase = $pdo->prepare('SELECT 1 FROM moderation_cases WHERE id = ? AND intake_contract_version = 1 LIMIT 1');
+        $newCase->execute([$caseId]);
+        if ($newCase->fetchColumn()) {
+            require_once __DIR__ . '/report_intake.php';
+            return bushisa_report_review_evidence($pdo, $caseId, $viewerUserId, $_SESSION ?? []);
+        }
+    }
     $roleStatement = $pdo->prepare('SELECT role FROM users WHERE id = :viewer_user_id LIMIT 1');
     $roleStatement->execute([':viewer_user_id' => $viewerUserId]);
     $role = (string) ($roleStatement->fetchColumn() ?: '');
@@ -369,6 +409,8 @@ function bushisa_case_evidence_for_viewer(PDO $pdo, int $caseId, int $viewerUser
 function bushisa_prepare_account_deletion(PDO $pdo, int $userId, int $initiatorId): void
 {
     ensure_operational_schema($pdo);
+    require_once __DIR__ . '/password_reset.php';
+    bushisa_reset_cancel_account($pdo, $userId);
 
     bushisa_record_protective_event($pdo, 'account_deleted', 'user', $userId, $initiatorId, [
         'policy_status' => 'proposed',
@@ -493,39 +535,11 @@ function bushisa_soft_delete_owned_confessions(PDO $pdo, int $userId, int $initi
 
 function bushisa_erase_terminal_signup_material(PDO $pdo, int $userId, string $email): void
 {
-    ensure_operational_schema($pdo);
-
-    $codes = $pdo->prepare(
-        'UPDATE student_email_approval_codes
-         SET code_hash = NULL,
-             terminal_at = COALESCE(terminal_at, UTC_TIMESTAMP()),
-             purged_at = COALESCE(purged_at, UTC_TIMESTAMP())
-         WHERE user_id = :user_id
-           AND (consumed_at IS NOT NULL OR expires_at <= UTC_TIMESTAMP() OR terminal_at IS NOT NULL)'
-    );
-    $codes->execute([':user_id' => $userId]);
-
-    $outbox = $pdo->prepare(
-        'UPDATE mail_outbox
-         SET body = NULL,
-             status = CASE WHEN status = "pending" THEN "failed" ELSE status END,
-             next_attempt_at = NULL,
-             payload_erased_at = COALESCE(payload_erased_at, UTC_TIMESTAMP()),
-             metadata_json = JSON_OBJECT("policy_status", "proposed", "erased_reason", "terminal_signup_code")
-         WHERE recipient_email = :email
-           AND code_bearing = 1
-           AND payload_erased_at IS NULL
-           AND (approval_code_id IS NULL OR EXISTS (
-               SELECT 1 FROM student_email_approval_codes c
-               WHERE c.id = mail_outbox.approval_code_id
-                 AND (c.consumed_at IS NOT NULL OR c.terminal_at IS NOT NULL OR c.expires_at <= UTC_TIMESTAMP())
-           ))'
-    );
-    $outbox->execute([':email' => strtolower($email)]);
-
-    bushisa_enqueue_cleanup($pdo, 'signup_code_cleanup', 'user', $userId, [
-        'policy_status' => 'proposed',
-        'email' => strtolower($email),
-    ]);
+    require_once __DIR__.'/signup_lifecycle.php';
+    bushisa_signup_require_schema($pdo);
+    bushisa_signup_transaction($pdo,function()use($pdo,$userId):void {
+        bushisa_signup_query($pdo,'SELECT id FROM users WHERE id=? FOR UPDATE',[$userId])->fetchColumn();
+        // Identity is the account/code binding, not a caller-supplied address.
+        bushisa_signup_cancel_material_locked($pdo,$userId,'terminal_challenge');
+    });
 }
-

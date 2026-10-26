@@ -3,10 +3,11 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/operational.php';
+require_once __DIR__ . '/signup_mail_jobs.php';
 
 final class BushisaMailTransportException extends RuntimeException
 {
-    public function __construct(public readonly string $category, public readonly bool $retryable)
+    public function __construct(public readonly string $category, public readonly bool $retryable, public readonly bool $uncertain = false)
     {
         parent::__construct($category);
     }
@@ -158,11 +159,32 @@ function bushisa_send_smtp_payload(array $payload, int $outboxId, int $codeId): 
         $authentication = in_array($smtpCode, [530, 535], true);
         $retryable = $smtpCode === 0 || $smtpCode < 500 || $authentication;
         throw new BushisaMailTransportException(
-            $authentication ? 'smtp_authentication_failed' : 'smtp_send_failed', $retryable
+            $authentication ? 'smtp_authentication_failed' : 'smtp_send_failed', $retryable, $smtpCode === 0
         );
     } finally {
         $mail->smtpClose();
     }
+}
+
+/** Purpose-specific reset sender; signup Message-ID and envelope stay intact. */
+function bushisa_send_smtp_reset_payload(array $payload, string $mailId, string $purpose): void
+{
+    $settings = bushisa_smtp_settings();
+    if (($payload['from_address'] ?? null) !== $settings['from_address'] || !in_array($purpose, ['password_reset','password_changed'], true)) {
+        throw new BushisaMailTransportException('sender_configuration_changed', false);
+    }
+    $mail = bushisa_create_smtp_mailer($settings);
+    $mail->addAddress((string) $payload['recipient']);
+    $mail->Subject = (string) $payload['subject'];
+    $mail->Body = (string) $payload['body'];
+    $domain = substr($settings['from_address'], (int) strpos($settings['from_address'], '@') + 1);
+    $mail->MessageID = '<' . $purpose . '-' . $mailId . '@' . $domain . '>';
+    try { $mail->send(); }
+    catch (\PHPMailer\PHPMailer\Exception $exception) {
+        $smtpCode = (int) ($mail->getSMTPInstance()->getError()['smtp_code'] ?? 0);
+        $authentication = in_array($smtpCode, [530,535], true);
+        throw new BushisaMailTransportException($authentication ? 'smtp_authentication_failed' : 'smtp_send_failed', $smtpCode===0 || $smtpCode<500 || $authentication, $smtpCode===0);
+    } finally { $mail->smtpClose(); }
 }
 
 function bushisa_queue_smtp_signup_email(PDO $pdo, int $codeId, string $email, string $code): void
@@ -197,154 +219,31 @@ function bushisa_queue_smtp_signup_email(PDO $pdo, int $codeId, string $email, s
         ':email' => $recipient, ':subject' => $subject, ':body' => $encrypted,
         ':expires_at' => $expiresAt, ':code_id' => $codeId,
     ]);
+    bushisa_signup_register_mail_job($pdo, (int) $pdo->lastInsertId(), $codeId);
 }
 
 function bushisa_finish_mail(PDO $pdo, int $id, string $status, string $reason): void
 {
     $statement = $pdo->prepare(
         'UPDATE mail_outbox
-         SET status = :status, body = NULL, payload_erased_at = UTC_TIMESTAMP(),
-             sent_at = CASE WHEN :accepted = 1 THEN UTC_TIMESTAMP() ELSE sent_at END,
+         SET status = :status, body = NULL, payload_erased_at = COALESCE(payload_erased_at, UTC_TIMESTAMP()),
              metadata_json = JSON_OBJECT("result", :reason), next_attempt_at = NULL
          WHERE id = :id'
     );
     $statement->execute([
-        ':status' => $status, ':accepted' => $status === 'sent' ? 1 : 0,
+        ':status' => $status,
         ':reason' => $reason, ':id' => $id,
     ]);
 }
 
-/**
- * SMTP acceptance is not inbox delivery and never approves an account.
- * Call only after issuance commits. The user/challenge/outbox locks are held
- * through the bounded send so a resend cannot supersede a code mid-dispatch.
- * Transport is injectable for local tests, never through a public endpoint.
- */
+/** SMTP acceptance is not inbox delivery or account approval.
+ * Claim/preflight/receipt transactions surround transport; no row lock is held
+ * across network I/O. Cancellation cannot recall an already in-flight send. */
 function bushisa_dispatch_mail(PDO $pdo, int $limit = 10, ?callable $transport = null): array
 {
-    if ($pdo->inTransaction()) {
-        throw new RuntimeException('Dispatch must run outside an existing transaction.');
-    }
-    $counts = ['sent' => 0, 'retried' => 0, 'discarded' => 0, 'failed' => 0];
-    $lockName = 'bushisa-mail-' . substr(hash('sha256', (string) $pdo->query('SELECT DATABASE()')->fetchColumn()), 0, 32);
-    $lock = $pdo->prepare('SELECT GET_LOCK(:name, 0)');
-    $lock->execute([':name' => $lockName]);
-    if ((int) $lock->fetchColumn() !== 1) {
-        return $counts;
-    }
-    try {
-        // Erase stale payloads even when their next retry is not due yet.
-        $expired = $pdo->exec(
-            'UPDATE mail_outbox SET status = "failed", body = NULL,
-             payload_erased_at = UTC_TIMESTAMP(), next_attempt_at = NULL,
-             metadata_json = JSON_OBJECT("result", "expired")
-             WHERE provider = "smtp" AND status = "pending"
-               AND (expires_at IS NULL OR expires_at <= UTC_TIMESTAMP())'
-        );
-        $counts['discarded'] += $expired;
-        $candidates = $pdo->prepare(
-            'SELECT id, approval_code_id FROM mail_outbox
-             WHERE provider = "smtp" AND status = "pending"
-               AND (next_attempt_at IS NULL OR next_attempt_at <= UTC_TIMESTAMP())
-             ORDER BY id LIMIT :limit'
-        );
-        $candidates->bindValue(':limit', max(1, min(30, $limit)), PDO::PARAM_INT);
-        $candidates->execute();
-        foreach ($candidates->fetchAll() as $candidate) {
-            $pdo->beginTransaction();
-            try {
-                $owner = $pdo->prepare('SELECT user_id FROM student_email_approval_codes WHERE id = :id');
-                $owner->execute([':id' => $candidate['approval_code_id']]);
-                $userId = (int) $owner->fetchColumn();
-                $user = $pdo->prepare('SELECT email, is_verified, account_status FROM users WHERE id = :id FOR UPDATE');
-                $user->execute([':id' => $userId]);
-                $userRow = $user->fetch();
-                $code = $pdo->prepare(
-                    'SELECT *, expires_at > UTC_TIMESTAMP() AS live
-                     FROM student_email_approval_codes WHERE id = :id FOR UPDATE'
-                );
-                $code->execute([':id' => $candidate['approval_code_id']]);
-                $codeRow = $code->fetch();
-                $outbox = $pdo->prepare(
-                    'SELECT *, expires_at > UTC_TIMESTAMP() AS live FROM mail_outbox WHERE id = :id FOR UPDATE'
-                );
-                $outbox->execute([':id' => $candidate['id']]);
-                $row = $outbox->fetch();
-                if (!is_array($row) || $row['status'] !== 'pending') {
-                    $pdo->commit();
-                    continue;
-                }
-                if (!is_array($userRow) || !is_array($codeRow) || !(bool) $row['live'] || !(bool) $codeRow['live']
-                    || (int) $userRow['is_verified'] !== 0 || $userRow['account_status'] !== 'pending_email'
-                    || (int) $codeRow['attempts'] >= bushisa_signup_code_max_attempts()
-                    || $codeRow['consumed_at'] !== null || $codeRow['terminal_at'] !== null || $codeRow['code_hash'] === null
-                    || strtolower($userRow['email']) !== $row['recipient_email']
-                    || strtolower($codeRow['email']) !== $row['recipient_email']
-                    || $row['body'] === null || $row['payload_erased_at'] !== null) {
-                    bushisa_finish_mail($pdo, (int) $row['id'], 'failed', 'obsolete_challenge');
-                    $counts['discarded']++;
-                    $pdo->commit();
-                    continue;
-                }
-                $attempt = (int) $row['attempts'] + 1;
-                if ($attempt > 5) {
-                    bushisa_finish_mail($pdo, (int) $row['id'], 'failed', 'retry_limit');
-                    $counts['failed']++;
-                    $pdo->commit();
-                    continue;
-                }
-                $updateAttempt = $pdo->prepare('UPDATE mail_outbox SET attempts = :attempt WHERE id = :id');
-                $updateAttempt->execute([':attempt' => $attempt, ':id' => $row['id']]);
-                try {
-                    $payload = bushisa_decrypt_mail_payload((string) $row['body'], (int) $codeRow['id'], $row['recipient_email']);
-                } catch (Throwable $exception) {
-                    bushisa_finish_mail($pdo, (int) $row['id'], 'failed', 'payload_authentication_failed');
-                    $counts['failed']++;
-                    $pdo->commit();
-                    continue;
-                }
-                if (($payload['recipient'] ?? null) !== $row['recipient_email']) {
-                    bushisa_finish_mail($pdo, (int) $row['id'], 'failed', 'payload_recipient_mismatch');
-                    $counts['failed']++;
-                    $pdo->commit();
-                    continue;
-                }
-                try {
-                    ($transport ?? 'bushisa_send_smtp_payload')($payload, (int) $row['id'], (int) $codeRow['id']);
-                    bushisa_finish_mail($pdo, (int) $row['id'], 'sent', 'smtp_accepted');
-                    $counts['sent']++;
-                } catch (Throwable $exception) {
-                    $delay = min(300, 30 * (2 ** min(4, $attempt - 1)));
-                    $canRetry = $exception instanceof BushisaMailTransportException && $exception->retryable && $attempt < 5
-                        && strtotime((string) $row['expires_at'] . ' UTC') > time() + $delay;
-                    $reason = $exception instanceof BushisaMailTransportException ? $exception->category : 'sender_configuration_failed';
-                    if ($canRetry) {
-                        $retry = $pdo->prepare(
-                            'UPDATE mail_outbox SET next_attempt_at = DATE_ADD(UTC_TIMESTAMP(), INTERVAL :delay SECOND),
-                             metadata_json = JSON_OBJECT("result", :reason) WHERE id = :id'
-                        );
-                        $retry->bindValue(':delay', $delay, PDO::PARAM_INT);
-                        $retry->bindValue(':reason', $reason, PDO::PARAM_STR);
-                        $retry->bindValue(':id', (int) $row['id'], PDO::PARAM_INT);
-                        $retry->execute();
-                        $counts['retried']++;
-                    } else {
-                        bushisa_finish_mail($pdo, (int) $row['id'], 'failed', $reason);
-                        $counts['failed']++;
-                    }
-                }
-                $pdo->commit();
-            } catch (Throwable $exception) {
-                if ($pdo->inTransaction()) {
-                    $pdo->rollBack();
-                }
-                throw $exception;
-            }
-        }
-    } finally {
-        $release = $pdo->prepare('SELECT RELEASE_LOCK(:name)');
-        $release->execute([':name' => $lockName]);
-    }
-
-    return $counts;
+    $signup = bushisa_dispatch_signup_jobs($pdo, $limit, $transport);
+    require_once __DIR__ . '/password_reset_mail_jobs.php';
+    $reset = bushisa_dispatch_reset_jobs($pdo, $limit, $transport);
+    foreach ($reset as $key => $value) $signup[$key] = ($signup[$key] ?? 0) + $value;
+    return $signup;
 }

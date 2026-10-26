@@ -1,5 +1,24 @@
 # Bushisa Operational Feasibility Study
 
+## Current decision and evidence authority: 2026-10-15
+
+This 5 October report is a historical contract assessment. Its missing-feature
+observations and copy-ready prompts are not a fresh inspection of the current
+checkout. Use [remediation/decisions.md](remediation/decisions.md),
+[Q01-Q48 reconciliation](remediation/owner-policy-reconciliation-2026-10-15.md),
+[retention inventory](remediation/data-inventory-retention-matrix.md) and the
+dated route/CI evidence before implementation. D03 preserves the full next-release
+scope and existing Azure hosting. In particular, unmatching preserves approved
+chat, unsent entries disappear without a placeholder, and original-text deletion
+has only the recorded already-preserved report exception. Older prompt text
+below is superseded to that extent, not a new approval to change those rules.
+
+D04/D05/D12 and operational readiness remain open despite partial product
+selections. Use the [bounded implementation backlog](remediation/backlog.md#q01-q48-implementation-backlog)
+and [read-only configuration checklist](remediation/configuration-impact-checklist-2026-10-15.md).
+This documentation task changes no app, migration, live setting or user notice
+and claims no new runtime test, deployment, restore or qualified acceptance.
+
 Prepared: 5 October 2026  
 Scope: frontend/backend contract feasibility after applying the frontend layer from `Bushisa_Figma_Copilot_Spec.md` and `Bushisa_Frontend_Prompt_Workflow.md`.
 

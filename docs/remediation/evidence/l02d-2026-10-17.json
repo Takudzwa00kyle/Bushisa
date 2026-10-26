@@ -1,0 +1,4647 @@
+{
+  "format": "bushisa.l02d-checkpoint-evidence.v1",
+  "baseline": "12b8ff70301fbad8c8eb8da20bd0f7982a7ba5ae",
+  "branch": "codex/l02d-synthetic-import-20261016",
+  "attribution": "Local working-tree executions based on the baseline; LF-normalized hashes bind the tested code to the containing checkpoint. No remote CI run is claimed.",
+  "environment": {
+    "php": "8.5.11 NTS",
+    "os": "Windows",
+    "mysql": "9.6.0",
+    "host": "127.0.0.1",
+    "port": 3331,
+    "app_env": "development",
+    "app_debug": false,
+    "runtime_ddl": false,
+    "test_database": true,
+    "mail_provider": "fake",
+    "fixtures": "Synthetic accounts and owned local files only; no real user exports"
+  },
+  "contract_case_status": {
+    "LB01": {
+      "status": "PASS",
+      "scope": "Existing complete fictional prefix/tail plan; actual import yields three, preserves fixed clocks and legacy state, no grant/epoch."
+    },
+    "LB02": {
+      "status": "PASS",
+      "scope": "Rerun offline positive-origin zero versus missing-prefix unknown."
+    },
+    "LB03": {
+      "status": "PASS",
+      "scope": "Rerun offline incompleteness; applying incomplete source has whole-database zero-write verification."
+    },
+    "LB04": {
+      "status": "PASS",
+      "scope": "Rerun offline original-account/incarnation/alias ambiguity rejection."
+    },
+    "LB05": {
+      "status": "PASS",
+      "scope": "Rerun immutable conflict checks; actual conflicting input/stored immutable expiry rejected with whole-database state unchanged."
+    },
+    "LB06": {
+      "status": "PASS",
+      "scope": "Rerun equal-time/no-causal-order fixture remains incomplete."
+    },
+    "LB07": {
+      "status": "PASS",
+      "scope": "Rerun unknown ender/time/deadline and invalid policy/anchor checks."
+    },
+    "LB08": {
+      "status": "PASS",
+      "scope": "Actual identical retry, catalogued JSON reordering/reformatting, duplicate copies and new-key alias return one receipt without repeated effects; changed valid intent conflicts."
+    },
+    "LB09": {
+      "status": "PASS",
+      "scope": "Rerun overlap proof; actual equivalent source/native identities persist three raw facts/one equivalence but count one request beyond the prefix. Retry has no effects; fresh current bundle stages zero repeated facts."
+    },
+    "LB10": {
+      "status": "PASS",
+      "scope": "Rerun unexplained four/explained five; actual overlapping floor is three, not four."
+    },
+    "LB11": {
+      "status": "PASS",
+      "scope": "Four real precommit rollback stages; no receipt/effects; safe retries. Forced first 40001 rolls back then commits once on attempt two, not real-deadlock evidence."
+    },
+    "LB12": {
+      "status": "PASS",
+      "scope": "Actual postcommit CLI exit/no response; status discovers commit; retry preserves it. Unknown key, key alias and receipt integrity checks executed."
+    },
+    "LB13": {
+      "status": "PARTIAL",
+      "scope": "Offline stale version plus actual competing bundles: one commits, other replans without overwriting. Native request/ending HTTP overlap NOT RUN."
+    },
+    "LB14": {
+      "status": "PARTIAL",
+      "scope": "Offline report/purge fingerprint; actual clearance change without pair bump rejects. Concurrent attachment/cleanup/clearance HTTP variants NOT RUN."
+    },
+    "LB15": {
+      "status": "PARTIAL",
+      "scope": "Actual parent-committed session increment precedes two rejected importer guards; offline deletion rejects. Deletion/ban/consent writers racing inside apply NOT RUN."
+    },
+    "LB16": {
+      "status": "PARTIAL",
+      "scope": "Captured restrictions/grants/session metadata unchanged; unsupported restoration/review facts rejected; real creator-unblock with exact block ID still requires clearance. All historical action-proof families and mixed HTTP variants NOT RUN."
+    },
+    "LB17": {
+      "status": "PARTIAL",
+      "scope": "Exact existing case/probation state preserved; report/probation source actions remain unsupported/non-applying; no mail. A reviewed historical action-proof profile and its application variants NOT RUN."
+    },
+    "LB18": {
+      "status": "PASS",
+      "scope": "Rerun global-window/probation coverage gap stays incomplete."
+    },
+    "LB19": {
+      "status": "PARTIAL",
+      "scope": "Rerun missing-writer/boundary/tail/quiescence checks. Actual deployed writers/cutover and long-transaction capture UNVERIFIED."
+    },
+    "LB20": {
+      "status": "PARTIAL",
+      "scope": "Rerun synthetic committed-tail union. Actual snapshot/change-stream, deletion and long-transaction observation NOT RUN."
+    },
+    "LB21": {
+      "status": "PASS",
+      "scope": "Preconnection guards with PDO disabled; unsafe production environment and wrong marker zero writes; actual HTTP executor returns empty 404; no force/production mode."
+    },
+    "LB22": {
+      "status": "PASS",
+      "scope": "Rerun bounded parser suite plus actual malformed duplicate-key/unsupported input with whole-database zero writes and pure forged-plan rejection."
+    },
+    "LB23": {
+      "status": "PARTIAL",
+      "scope": "Rerun raw bytes/custody/scope/proof mismatch checks; bytes revalidated before connection. Real custody/signer authenticity UNVERIFIED."
+    },
+    "LB24": {
+      "status": "PARTIAL",
+      "scope": "Offline path remains isolated/read-only and deterministic. SQL read-only planner adapter is absent; its missing-ledger/SQL-identity variant NOT RUN."
+    },
+    "LB25": {
+      "status": "PARTIAL",
+      "scope": "Rerun original expiry tests; source valid at plan time but expired at server-time apply rejects with zero writes. Physical staging/detail purge and compaction NOT RUN."
+    },
+    "LB26": {
+      "status": "PARTIAL",
+      "scope": "Original clocks/native metadata preserved; imported private facts cannot mint an ordinary report proof; affected closed-text regression passes. Full import/media/new-segment/cleanup race NOT RUN."
+    },
+    "LB27": {
+      "status": "PARTIAL",
+      "scope": "Actual missing fact/receipt/key frontier and corrupt receipt fail closed. Independent stale-restore/deletion/consent replay NOT RUN; co-located counts are not restore proof."
+    },
+    "LB28": {
+      "status": "PASS",
+      "scope": "Five distinct CLI PID/connection rendezvous scenarios; same/different keys, conflicting intents/bundles and fresh-state rejection. No HTTP overlap claim."
+    },
+    "LB29": {
+      "status": "PARTIAL",
+      "scope": "Actual five-second advisory timeout, no writes, status NOT_COMMITTED. Importer plus two HTTP workers across request/block/review/unmatch/end and actual InnoDB deadlock NOT RUN."
+    },
+    "LB30": {
+      "status": "PASS",
+      "scope": "Caller-managed first pair commits; invalid different pair is unchanged; first receipt survives. Each invocation is pair-atomic, no whole-batch success claim."
+    },
+    "LB31": {
+      "status": "PASS",
+      "scope": "Rerun native-genesis/authority rejection; SQL identity cannot alter certification/accounts/blocks/DDL; real request denies incomplete history despite unused budget, messages deny chat and imported private facts issue no report proof."
+    },
+    "LB32": {
+      "status": "PARTIAL",
+      "scope": "Old committed receipt after newer suspension/session increment returns metadata only, with whole-database no-write proof. Independent restore, inverse-SQL proposal review and operational recovery NOT RUN."
+    },
+    "LB33": {
+      "status": "PASS",
+      "scope": "Rerun one creation/pending/approved observations, true actor/action/time and contradictory/missing-action checks."
+    }
+  },
+  "contract_totals": {
+    "PASS": 19,
+    "PARTIAL": 14,
+    "NOT_RUN": 0
+  },
+  "status_scope": "Combined LB01-LB33 synthetic observations only. PARTIAL rows retain explicitly unexecuted or UNVERIFIED variants; no complete-matrix, real-provenance, deployment, staffing or restore claim.",
+  "earlier_a_matrix": {
+    "scope": "Historical A01-A45 unchanged; regression runs below do not relabel its cases",
+    "PASS": 24,
+    "PARTIAL": 19,
+    "NOT_RUN": 2
+  },
+  "nested_scope_notice": "The embedded offline rerun retains its offline-only 13/13/7 status labels. They do not replace the combined current LB matrix above.",
+  "runs": {
+    "integration": {
+      "format": "bushisa.l02d-execution.v1",
+      "started_at": "2026-10-16T22:45:25+00:00",
+      "ended_at": "2026-10-16T22:46:53+00:00",
+      "php": "8.5.11",
+      "os": "Windows",
+      "mysql": "9.6.0",
+      "database": "bushisa_test_l02d_main",
+      "root_connection_id": "17",
+      "checks": [
+        {
+          "case": "LD-M01",
+          "check": "Fresh 001-008 migrations",
+          "result": "PASS"
+        },
+        {
+          "case": "LD-M02",
+          "check": "Fresh repeat migration skips 008",
+          "result": "PASS"
+        },
+        {
+          "case": "LD-M01",
+          "check": "Fresh schema has no import authorization or writer activation",
+          "result": "PASS"
+        },
+        {
+          "case": "LD-M03",
+          "check": "Upgrade preserves users, text, pair budgets, cutoff and blocks",
+          "result": "PASS"
+        },
+        {
+          "case": "LD-M04",
+          "check": "Upgrade repeat creates no marker or genesis",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Executor SQL identity cannot mutate accounts/blocks/certification/DDL 0",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Executor SQL identity cannot mutate accounts/blocks/certification/DDL 1",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Executor SQL identity cannot mutate accounts/blocks/certification/DDL 2",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Executor SQL identity cannot mutate accounts/blocks/certification/DDL 3",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Executor SQL identity cannot mutate accounts/blocks/certification/DDL 4",
+          "result": "PASS"
+        },
+        {
+          "case": "LB03",
+          "check": "Incomplete source is rejected with whole database unchanged",
+          "result": "PASS"
+        },
+        {
+          "case": "LB05",
+          "check": "Contradictory immutable attribution has zero writes",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "check": "Unsupported input version has zero writes",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "check": "Unsupported action proof restored stays non-applying",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "check": "Unsupported action proof mutual_matched stays non-applying",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "check": "Unsupported action proof block_cleared stays non-applying",
+          "result": "PASS"
+        },
+        {
+          "case": "LB17",
+          "check": "Unsupported action proof report_accepted stays non-applying",
+          "result": "PASS"
+        },
+        {
+          "case": "LB17",
+          "check": "Unsupported action proof probation_started stays non-applying",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "check": "Malformed duplicate-key JSON has zero database writes",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Unsafe production environment refuses before connection",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Wrong destination capability refuses after connection but before mutation",
+          "result": "PASS"
+        },
+        {
+          "case": "LB12",
+          "check": "Unknown key status is NOT_COMMITTED without writes",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "First synthetic import commits",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "check": "Only permitted floors/version change; grants, blocks, clearance, sessions, deadlines and all other captured metadata survive",
+          "result": "PASS"
+        },
+        {
+          "case": "LB17",
+          "check": "Existing case and exact probation clocks survive without new reports or sanctions",
+          "result": "PASS"
+        },
+        {
+          "case": "LB10",
+          "check": "Permitted floor raises request count 1 to 3, not 4",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Import leaves runtime legacy and writer epoch inactive",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "Identical retry resolves committed receipt before old pre-state",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "Retry has identical receipt and zero duplicate effects",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "Reordered and reformatted catalogued JSON returns existing receipt",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "JSON representation cannot duplicate effects",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "Different key for same bundle returns existing receipt",
+          "result": "PASS"
+        },
+        {
+          "case": "LB12",
+          "check": "New key alias can discover the original commit",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "Duplicate source copies have same effect intent",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "Duplicate copy retry creates no effect or key when original key used",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "check": "Same identifier with a different valid intent conflicts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "check": "Fresh bundle can reuse already stored immutable facts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "check": "Cross-bundle dedup stages zero repeated facts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB05",
+          "check": "Stored immutable identity cannot acquire different expiry/content",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "check": "Proved alternate native identity persists its equivalence atomically",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "check": "Two raw request identities plus one historical fact still produce lifetime count three",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "check": "Equivalence retry returns same receipt",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "check": "Equivalence retry has no duplicate fact/proof/floor effects",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Actual rollback at after_facts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "No commit receipt after after_facts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Safe retry after rolled-back after_facts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Actual rollback at after_counts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "No commit receipt after after_counts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Safe retry after rolled-back after_counts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Actual rollback at after_receipt",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "No commit receipt after after_receipt",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Safe retry after rolled-back after_receipt",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Actual rollback at after_key",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "No commit receipt after after_key",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Safe retry after rolled-back after_key",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Bounded forced 40001 retry revalidates a rolled-back transaction",
+          "result": "PASS"
+        },
+        {
+          "case": "LB11",
+          "check": "Forced retry commits once on attempt two, not a real-deadlock claim",
+          "result": "PASS"
+        },
+        {
+          "case": "LB12",
+          "check": "Actual CLI exits 75 without a response after commit",
+          "result": "PASS"
+        },
+        {
+          "case": "LB12",
+          "check": "Status discovers post-commit interrupted result",
+          "result": "PASS"
+        },
+        {
+          "case": "LB12",
+          "check": "Interrupted retry",
+          "result": "PASS"
+        },
+        {
+          "case": "LB12",
+          "check": "Interrupted client retry has no second effects",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Distinct importer PIDs AND actual database connection IDs reached pre-lock rendezvous",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Concurrent same-key worker succeeds/replays",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Concurrent same-key worker succeeds/replays",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Concurrent same-key commit increments version once",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Distinct importer PIDs AND actual database connection IDs reached pre-lock rendezvous",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Concurrent different keys share one pair/bundle receipt",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Distinct importer PIDs AND actual database connection IDs reached pre-lock rendezvous",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Concurrent conflicting same-key intents yield one commit and one conflict",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Distinct importer PIDs AND actual database connection IDs reached pre-lock rendezvous",
+          "result": "PASS"
+        },
+        {
+          "case": "LB13",
+          "check": "Concurrent different bundles cannot overwrite the first newer commit",
+          "result": "PASS"
+        },
+        {
+          "case": "LB28",
+          "check": "Distinct importer PIDs AND actual database connection IDs reached pre-lock rendezvous",
+          "result": "PASS"
+        },
+        {
+          "case": "LB15",
+          "check": "New session version committed before both guards rejects stale plan",
+          "result": "PASS"
+        },
+        {
+          "case": "LB15",
+          "check": "New session version committed before both guards rejects stale plan",
+          "result": "PASS"
+        },
+        {
+          "case": "LB14",
+          "check": "Report clearance change without pair bump rejects with zero writes",
+          "result": "PASS"
+        },
+        {
+          "case": "LB25",
+          "check": "Source was valid at the old plan observation",
+          "result": "PASS"
+        },
+        {
+          "case": "LB25",
+          "check": "Server time rejects source expired after planning without writes",
+          "result": "PASS"
+        },
+        {
+          "case": "LB29",
+          "check": "Actual five-second advisory-lock timeout leaves zero import writes",
+          "result": "PASS"
+        },
+        {
+          "case": "LB29",
+          "check": "Timed-out key is discoverably NOT_COMMITTED",
+          "result": "PASS"
+        },
+        {
+          "case": "LB32",
+          "check": "Dedicated old-receipt recovery fixture",
+          "result": "PASS"
+        },
+        {
+          "case": "LB32",
+          "check": "Old committed receipt resolves after a newer ban and session change",
+          "result": "PASS"
+        },
+        {
+          "case": "LB32",
+          "check": "Recovery returns metadata only and preserves newer ban/session state",
+          "result": "PASS"
+        },
+        {
+          "case": "LB12",
+          "check": "Dedicated receipt integrity fixture",
+          "result": "PASS"
+        },
+        {
+          "case": "LB27",
+          "check": "Corrupt receipt is unavailable and cannot convey a grant",
+          "result": "PASS"
+        },
+        {
+          "case": "LB27",
+          "check": "Local registry gap fixture 0",
+          "result": "PASS"
+        },
+        {
+          "case": "LB27",
+          "check": "Premature detail/receipt/key purge fails closed 0",
+          "result": "PASS"
+        },
+        {
+          "case": "LB27",
+          "check": "Local registry gap fixture 1",
+          "result": "PASS"
+        },
+        {
+          "case": "LB27",
+          "check": "Premature detail/receipt/key purge fails closed 1",
+          "result": "PASS"
+        },
+        {
+          "case": "LB27",
+          "check": "Local registry gap fixture 2",
+          "result": "PASS"
+        },
+        {
+          "case": "LB27",
+          "check": "Premature detail/receipt/key purge fails closed 2",
+          "result": "PASS"
+        },
+        {
+          "case": "LB30",
+          "check": "First pair of a caller-managed batch commits",
+          "result": "PASS"
+        },
+        {
+          "case": "LB30",
+          "check": "Rejected different pair does not undo an earlier committed pair",
+          "result": "PASS"
+        },
+        {
+          "case": "LB30",
+          "check": "Earlier pair remains discoverable and rejected pair unchanged",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Unblocked synthetic route fixture imports without certification",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Real request route denies imported legacy history with unused budget",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Real message route grants no chat from imported facts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "check": "Imported private fact cannot mint an ordinary report proof",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "check": "Real creator-unblock route still requires exact current reviewer clearance",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Executor is unavailable through actual HTTP",
+          "result": "PASS"
+        },
+        {
+          "case": "LB17",
+          "check": "No authentication mail queued by imports",
+          "result": "PASS"
+        }
+      ],
+      "assertion_count": 100,
+      "overlaps": [
+        {
+          "barrier": "l02d-e57cc0585a4c7ff428b5e8313542b1e4",
+          "participants": [
+            {
+              "connection_id": 48,
+              "entered_at": "2026-10-16T22:46:16.311526Z",
+              "pid": 26980
+            },
+            {
+              "connection_id": 49,
+              "entered_at": "2026-10-16T22:46:16.311562Z",
+              "pid": 32192
+            }
+          ],
+          "results": [
+            {
+              "code": 0,
+              "outcome": "SYNTHETIC_IMPORT_COMMITTED",
+              "reason": null
+            },
+            {
+              "code": 0,
+              "outcome": "SYNTHETIC_IMPORT_COMMITTED",
+              "reason": null
+            }
+          ]
+        },
+        {
+          "barrier": "l02d-1693bbc4365bb5c4c005bb4cad79b36b",
+          "participants": [
+            {
+              "connection_id": 50,
+              "entered_at": "2026-10-16T22:46:18.325544Z",
+              "pid": 23992
+            },
+            {
+              "connection_id": 51,
+              "entered_at": "2026-10-16T22:46:18.339120Z",
+              "pid": 972
+            }
+          ],
+          "results": [
+            {
+              "code": 0,
+              "outcome": "SYNTHETIC_IMPORT_COMMITTED",
+              "reason": null
+            },
+            {
+              "code": 0,
+              "outcome": "SYNTHETIC_IMPORT_COMMITTED",
+              "reason": null
+            }
+          ]
+        },
+        {
+          "barrier": "l02d-66505eb51bb21b474985ca21c7277a50",
+          "participants": [
+            {
+              "connection_id": 52,
+              "entered_at": "2026-10-16T22:46:19.639085Z",
+              "pid": 25464
+            },
+            {
+              "connection_id": 53,
+              "entered_at": "2026-10-16T22:46:19.644307Z",
+              "pid": 3976
+            }
+          ],
+          "results": [
+            {
+              "code": 2,
+              "outcome": "CONFLICT_NO_APPLY",
+              "reason": "IMPORT_KEY_CONFLICT"
+            },
+            {
+              "code": 0,
+              "outcome": "SYNTHETIC_IMPORT_COMMITTED",
+              "reason": null
+            }
+          ]
+        },
+        {
+          "barrier": "l02d-026c54bcf2dfbda1db117f54b145d6aa",
+          "participants": [
+            {
+              "connection_id": 55,
+              "entered_at": "2026-10-16T22:46:20.917056Z",
+              "pid": 19644
+            },
+            {
+              "connection_id": 54,
+              "entered_at": "2026-10-16T22:46:20.903394Z",
+              "pid": 28028
+            }
+          ],
+          "results": [
+            {
+              "code": 2,
+              "outcome": "REPLAN_REQUIRED",
+              "reason": "STALE_LIVE_STATE"
+            },
+            {
+              "code": 0,
+              "outcome": "SYNTHETIC_IMPORT_COMMITTED",
+              "reason": null
+            }
+          ]
+        },
+        {
+          "barrier": "l02d-d2e9e657071fa37b4f8e81fd8369c2c3",
+          "participants": [
+            {
+              "connection_id": 57,
+              "entered_at": "2026-10-16T22:46:22.643136Z",
+              "pid": 23052
+            },
+            {
+              "connection_id": 56,
+              "entered_at": "2026-10-16T22:46:22.639125Z",
+              "pid": 8016
+            }
+          ],
+          "results": [
+            {
+              "code": 2,
+              "outcome": "REPLAN_REQUIRED",
+              "reason": "STALE_LIVE_STATE"
+            },
+            {
+              "code": 2,
+              "outcome": "REPLAN_REQUIRED",
+              "reason": "STALE_LIVE_STATE"
+            }
+          ]
+        }
+      ],
+      "sources_lf_sha256": {
+        "database/migrations/008_synthetic_legacy_import.sql": "907c31dde332788374d4f36d43673b236fcf7310d2689fa7188ef82f7a0c10c4",
+        "php/synthetic_legacy_import.php": "dfa80c0276910167dbdac995b39b0cc1cb8fdfa05fc6c84ed77328554e043a5e",
+        "bin/synthetic_legacy_import.php": "4d319904d3f5b031865f138154215bf0fa3626517355fc1f53ae5d081bdd8dc9",
+        "tests/support/synthetic_import_fixture.php": "26547fd548827cacfdc1d7b6be6fb9ffee69b3420be6d9ee9364586a4d1b2905",
+        "tests/integration_l02d_imports.php": "d5bb2b0a58c6efc8baaccb6ecf422e5c9b1271f20cdd39b708788c03132b331c"
+      },
+      "production_authenticity": "NOT_VERIFIED"
+    },
+    "guards": {
+      "started_at": "2026-10-16T22:21:34+00:00",
+      "ended_at": "2026-10-16T22:21:34+00:00",
+      "php": "8.5.11",
+      "checks": [
+        {
+          "case": "LB21",
+          "check": "Explicit synthetic preconnection settings accepted without opening PDO",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting APP_ENV",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting APP_DEBUG",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting BUSHISA_ALLOW_RUNTIME_DDL",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting BUSHISA_TEST_DATABASE",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting BUSHISA_SYNTHETIC_IMPORT_ENABLE",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting MAIL_PROVIDER",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting DB_HOST",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting DB_PORT",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting DB_NAME",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting DB_USER",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject unsafe setting BUSHISA_ALLOW_REMOTE_TEST_DATABASE",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Missing explicit APP_ENV is default-deny",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Missing explicit DB_HOST is default-deny",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Missing explicit DB_PORT is default-deny",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Missing explicit DB_NAME is default-deny",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Missing explicit DB_USER is default-deny",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Missing explicit BUSHISA_SYNTHETIC_IMPORT_ENABLE is default-deny",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject permit mismatch database",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject permit mismatch host",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject permit mismatch incarnation",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject permit mismatch nonce",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject permit mismatch server_uuid",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject permit mismatch expires_at",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject permit mismatch domain",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Reject permit mismatch format",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "check": "Permit cannot carry a force/production override",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "check": "Existing synthetic v1 passes pure preflight without a database",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "check": "Reject forged plan field request_union",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "check": "Reject forged plan field actual_write_set",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "check": "Reject forged plan field grants_chat",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "check": "Reject forged plan field raw_custody_check",
+          "result": "PASS"
+        },
+        {
+          "case": "LB03",
+          "check": "Incomplete source rejected before database access",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "check": "Unsupported input version rejected before database access",
+          "result": "PASS"
+        }
+      ],
+      "assertion_count": 34,
+      "sources_lf_sha256": {
+        "php/synthetic_legacy_import.php": "dfa80c0276910167dbdac995b39b0cc1cb8fdfa05fc6c84ed77328554e043a5e",
+        "tests/unit_synthetic_import_guard.php": "69f19cc190c0d4f7443cdcb3d5a766a4672a1dfbc6789d4156e0567ae8dc98cf"
+      },
+      "database_connections": 0,
+      "scope": "Pure guards/preflight; no connection API invoked"
+    },
+    "offline": {
+      "format": "bushisa.l02c-execution.v1",
+      "started_at": "2026-10-16T22:47:08+00:00",
+      "ended_at": "2026-10-16T22:47:11+00:00",
+      "php": "8.5.11",
+      "os": "Windows",
+      "test_pid": 21244,
+      "assertion_count": 105,
+      "checks": [
+        {
+          "case": "LB01",
+          "variant": "F: exact prefix plus overlapping native tail totals three",
+          "result": "PASS"
+        },
+        {
+          "case": "LB01",
+          "variant": "No grant/session/runtime promotion and no production authenticity claim",
+          "result": "PASS"
+        },
+        {
+          "case": "LB01",
+          "variant": "Deterministic repeated pure run",
+          "result": "PASS"
+        },
+        {
+          "case": "LB02",
+          "variant": "Positive certified account-origin coverage may prove zero",
+          "result": "PASS"
+        },
+        {
+          "case": "LB02",
+          "variant": "Empty surviving rows without prefix never prove zero",
+          "result": "PASS"
+        },
+        {
+          "case": "LB03",
+          "variant": "Incomplete history retains positive lower bound with unknown exact total",
+          "result": "PASS"
+        },
+        {
+          "case": "LB03",
+          "variant": "Unrecognized verified-marker field cannot certify history",
+          "result": "PASS"
+        },
+        {
+          "case": "LB04",
+          "variant": "Ambiguous original-account mapping rejected",
+          "result": "PASS"
+        },
+        {
+          "case": "LB04",
+          "variant": "Alias mismatch is conflicting, never a new match",
+          "result": "PASS"
+        },
+        {
+          "case": "LB04",
+          "variant": "Reused source incarnation conflicts with independent catalogue",
+          "result": "PASS"
+        },
+        {
+          "case": "LB05",
+          "variant": "One immutable identity with different actor conflicts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB06",
+          "variant": "Equal timestamp and missing within-commit order stays incomplete",
+          "result": "PASS"
+        },
+        {
+          "case": "LB07",
+          "variant": "Unknown ender is not replaced with importer identity",
+          "result": "PASS"
+        },
+        {
+          "case": "LB07",
+          "variant": "Unknown ending time remains unknown",
+          "result": "PASS"
+        },
+        {
+          "case": "LB07",
+          "variant": "Unknown current cooldown blocks completeness",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "variant": "Duplicate source copy does not alter canonical bundle or projected count",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "variant": "JSON property ordering preserves bundle digest and full output",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "variant": "Source/native same identity counts once",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "variant": "Explicit evidence-backed alias equivalence deduplicates",
+          "result": "PASS"
+        },
+        {
+          "case": "LB09",
+          "variant": "Unproved overlap cannot enable a plan",
+          "result": "PASS"
+        },
+        {
+          "case": "LB10",
+          "variant": "Unexplained current higher count conflicts without reduction",
+          "result": "PASS"
+        },
+        {
+          "case": "LB10",
+          "variant": "Proved union above lifetime budget stays five, not clamped or reset",
+          "result": "PASS"
+        },
+        {
+          "case": "LB13",
+          "variant": "Changed pair version requires replan",
+          "result": "PASS"
+        },
+        {
+          "case": "LB14",
+          "variant": "Changed report attachment scope with same pair version requires replan",
+          "result": "PASS"
+        },
+        {
+          "case": "LB14",
+          "variant": "Native cleanup changes full fingerprint even without pair-version bump",
+          "result": "PASS"
+        },
+        {
+          "case": "LB14",
+          "variant": "Changed active like with same pair version requires replan",
+          "result": "PASS"
+        },
+        {
+          "case": "LB15",
+          "variant": "Session increment requires replan and never refreshes sessions",
+          "result": "PASS"
+        },
+        {
+          "case": "LB15",
+          "variant": "Deleted original account rejects destination",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "variant": "Preserve independent ban without access decisions",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "variant": "Preserve independent withdrawal without access decisions",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "variant": "Supplied grant authority rejected",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "variant": "Two-ending cutoff cannot become access through planning",
+          "result": "PASS"
+        },
+        {
+          "case": "LB17",
+          "variant": "Invalid extended probation conflicts, never adjusted by planner",
+          "result": "PASS"
+        },
+        {
+          "case": "LB17",
+          "variant": "Duplicate historical report cannot activate, extend or shorten a period",
+          "result": "PASS"
+        },
+        {
+          "case": "LB18",
+          "variant": "Pair-only proof cannot certify global windows/probation",
+          "result": "PASS"
+        },
+        {
+          "case": "LB19",
+          "variant": "Omitted cleanup/direct writer is incomplete",
+          "result": "PASS"
+        },
+        {
+          "case": "LB19",
+          "variant": "Missing snapshot/catch-up commit interval is incomplete",
+          "result": "PASS"
+        },
+        {
+          "case": "LB19",
+          "variant": "Claimed all-writer epoch after snapshot cannot cover the gap",
+          "result": "PASS"
+        },
+        {
+          "case": "LB20",
+          "variant": "Synthetic committed suffix includes post-B native event exactly once",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "variant": "Every database destination mode is unsupported",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "variant": "Wrong destination incarnation cannot be planned",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "variant": "Host/connection fields are not accepted by offline schema",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 0",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 1",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 2",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 3",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 4",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 5",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 6",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 7",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 8",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 9",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Bounded parser rejection 10",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 0",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 1",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 2",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 3",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 4",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 5",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 6",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 7",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Strict schema rejection 8",
+          "result": "PASS"
+        },
+        {
+          "case": "LB23",
+          "variant": "Modified artifact/semantic digest fails catalogue check",
+          "result": "PASS"
+        },
+        {
+          "case": "LB23",
+          "variant": "Contradictory custody is a conflict",
+          "result": "PASS"
+        },
+        {
+          "case": "LB23",
+          "variant": "Missing source authority stays incomplete even with matching digest",
+          "result": "PASS"
+        },
+        {
+          "case": "LB23",
+          "variant": "Named proof labels without scoped records are incomplete and never labelled covered",
+          "result": "PASS"
+        },
+        {
+          "case": "LB23",
+          "variant": "Proof from wrong pair/boundary/mapping scope conflicts",
+          "result": "PASS"
+        },
+        {
+          "case": "LB25",
+          "variant": "Expiry boundary is exclusive; no import/read renewal",
+          "result": "PASS"
+        },
+        {
+          "case": "LB25",
+          "variant": "Own original event-detail expiry cannot be reset by fresh bundle",
+          "result": "PASS"
+        },
+        {
+          "case": "LB25",
+          "variant": "Earliest proof expiry also bounds proposed plan retention",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "variant": "Native genesis destination cannot be downgraded/imported",
+          "result": "PASS"
+        },
+        {
+          "case": "LB31",
+          "variant": "Epoch authority supplied in bundle rejected",
+          "result": "PASS"
+        },
+        {
+          "case": "LB33",
+          "variant": "Pending then approved observations count one creation with separate actual action",
+          "result": "PASS"
+        },
+        {
+          "case": "LB33",
+          "variant": "Capture time does not invent missing actual approval action",
+          "result": "PASS"
+        },
+        {
+          "case": "LB07",
+          "variant": "Unknown request actor never guesses a direction/count",
+          "result": "PASS"
+        },
+        {
+          "case": "LB19",
+          "variant": "Post-H fact needs the captured destination tail",
+          "result": "PASS"
+        },
+        {
+          "case": "LB19",
+          "variant": "Quiescence label cannot replace a frozen boundary proof",
+          "result": "PASS"
+        },
+        {
+          "case": "LB10",
+          "variant": "Observed prefix send contradicts certified zero",
+          "result": "PASS"
+        },
+        {
+          "case": "LB07",
+          "variant": "Snapshot cannot replace a request original expiry",
+          "result": "PASS"
+        },
+        {
+          "case": "LB07",
+          "variant": "Declared approved policy cannot validate an eight-day request",
+          "result": "PASS"
+        },
+        {
+          "case": "LB07",
+          "variant": "Stored cooldown without its original terminal anchor stays incomplete",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "variant": "Reverse pending request does not clear existing directional decline",
+          "result": "PASS"
+        },
+        {
+          "case": "LB26",
+          "variant": "Closed-history read deadline cannot be extended by snapshot",
+          "result": "PASS"
+        },
+        {
+          "case": "LB33",
+          "variant": "Only recipient may be the actual approval actor",
+          "result": "PASS"
+        },
+        {
+          "case": "LB33",
+          "variant": "Approval before creation cannot prove a valid transition",
+          "result": "PASS"
+        },
+        {
+          "case": "LB33",
+          "variant": "Contradictory decisions on same request are not reconciled by last writer",
+          "result": "PASS"
+        },
+        {
+          "case": "LB33",
+          "variant": "Unknown observation target supplies no private lookup or permission",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "variant": "Bare restoration action lacks both fresh consents and stays gated",
+          "result": "PASS"
+        },
+        {
+          "case": "LB16",
+          "variant": "Historical clearance action cannot stand in for current reviewer authority",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Computed count union is also bounded",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "NUL object property rejected without PHP property exception",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Node budget limits shallow but massive arrays",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Fact-list budget enforced before reconciliation",
+          "result": "PASS"
+        },
+        {
+          "case": "LB24",
+          "variant": "Actual CLI works with database classes and network/mail/process/mutation functions disabled",
+          "result": "PASS"
+        },
+        {
+          "case": "LB24",
+          "variant": "Actual repeat run byte-identical and input snapshot/catalogue unchanged",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "variant": "Actual CLI rejects apply/database/wrapper/duplicate options 0",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "variant": "Actual CLI rejects apply/database/wrapper/duplicate options 1",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "variant": "Actual CLI rejects apply/database/wrapper/duplicate options 2",
+          "result": "PASS"
+        },
+        {
+          "case": "LB21",
+          "variant": "Actual CLI rejects apply/database/wrapper/duplicate options 3",
+          "result": "PASS"
+        },
+        {
+          "case": "LB24",
+          "variant": "Offline bundle validation cannot certify absent destination",
+          "result": "PASS"
+        },
+        {
+          "case": "LB26",
+          "variant": "Closed deadline snapshot remains unchanged by planner",
+          "result": "PASS"
+        },
+        {
+          "case": "LB23",
+          "variant": "Actual CLI checks raw bytes separately from semantic bundle digest",
+          "result": "PASS"
+        },
+        {
+          "case": "LB08",
+          "variant": "Separately catalogued layout change has same semantic projection",
+          "result": "PASS"
+        },
+        {
+          "case": "LB22",
+          "variant": "Actual local reader rejects wrappers before file access",
+          "result": "PASS"
+        },
+        {
+          "case": "LB24",
+          "variant": "Observed child has zero PDO drivers and no pdo_mysql/curl/mysqli modules",
+          "result": "PASS"
+        }
+      ],
+      "sources_lf_sha256": {
+        "php/legacy_history.php": "e415496bfbdd98d476f798eab932844bb8d1785ec84353ed2aa8989b2216eb49",
+        "bin/legacy_history.php": "e52d570fbc059701770d86056d886f6796612d345b1a657f4d04830248c13a8f",
+        "tests/support/legacy_history_fixture.php": "001467e6d04bbef0b25fb1e334539a5becf29de28c8f639bcccfc06b78f064f5",
+        "tests/unit_legacy_history.php": "d7878b0c921db0ca09a69f6d72b41821e732c35e193ec97e106c3c573ce5ad15",
+        ".github/workflows/ci.yml": "28a9325f7dea6c64acbcc0c6c4f7bcb398b8bae59e4abba57dfa8797a0f9e893"
+      },
+      "contract_case_status": {
+        "LB01": "PASS",
+        "LB02": "PASS",
+        "LB03": "PASS",
+        "LB04": "PASS",
+        "LB05": "PASS",
+        "LB06": "PASS",
+        "LB07": "PASS",
+        "LB08": "PARTIAL",
+        "LB09": "PASS",
+        "LB10": "PASS",
+        "LB11": "NOT RUN",
+        "LB12": "NOT RUN",
+        "LB13": "PARTIAL",
+        "LB14": "PARTIAL",
+        "LB15": "PARTIAL",
+        "LB16": "PARTIAL",
+        "LB17": "PARTIAL",
+        "LB18": "PASS",
+        "LB19": "PARTIAL",
+        "LB20": "PARTIAL",
+        "LB21": "PARTIAL",
+        "LB22": "PASS",
+        "LB23": "PARTIAL",
+        "LB24": "PARTIAL",
+        "LB25": "PARTIAL",
+        "LB26": "PARTIAL",
+        "LB27": "NOT RUN",
+        "LB28": "NOT RUN",
+        "LB29": "NOT RUN",
+        "LB30": "NOT RUN",
+        "LB31": "PASS",
+        "LB32": "NOT RUN",
+        "LB33": "PASS"
+      },
+      "status_scope": "Synthetic validator/offline planner only. PARTIAL keeps application and real-world variants open.",
+      "planner_mode": "offline-synthetic",
+      "database_connections": 0,
+      "database_adapter": "ABSENT",
+      "observed_child_extensions": [
+        "Core",
+        "bcmath",
+        "calendar",
+        "ctype",
+        "date",
+        "hash",
+        "iconv",
+        "json",
+        "lexbor",
+        "uri",
+        "pcre",
+        "random",
+        "readline",
+        "Reflection",
+        "SPL",
+        "session",
+        "tokenizer",
+        "zlib",
+        "standard",
+        "filter",
+        "mysqlnd",
+        "Zend OPcache",
+        "PDO",
+        "Phar",
+        "libxml",
+        "SimpleXML",
+        "dom",
+        "xml",
+        "xmlreader",
+        "xmlwriter"
+      ],
+      "observed_pdo_drivers": [],
+      "isolation_ini_options": [
+        "-d",
+        "disable_functions=stream_socket_client,fsockopen,pfsockopen,mail,file_put_contents,mkdir,unlink,rename,copy,touch,chmod,exec,shell_exec,system,passthru,proc_open,dl",
+        "-d",
+        "disable_classes=PDO,mysqli"
+      ],
+      "input_files_sha256_before": [
+        "64105ef37c308f3f4d355701542e68b33b0afd96f15367b08e6c2b8af825efec",
+        "74d25c4271489281186ef0b928521afdac17ed476be9eb21127711d6d4a9b52f",
+        "5184e64afbfe3425094fce2de49b216e871019a1453231ee5c91a0b3d3b76748"
+      ],
+      "input_files_sha256_after": [
+        "64105ef37c308f3f4d355701542e68b33b0afd96f15367b08e6c2b8af825efec",
+        "74d25c4271489281186ef0b928521afdac17ed476be9eb21127711d6d4a9b52f",
+        "5184e64afbfe3425094fce2de49b216e871019a1453231ee5c91a0b3d3b76748"
+      ],
+      "overlap_claim": "NONE; no apply/HTTP workers",
+      "production_authenticity": "NOT_VERIFIED"
+    },
+    "pairs": {
+      "suite": "L02a guarded synthetic pair integration",
+      "result": "PASS",
+      "started_utc": "2026-10-16T22:22:13+00:00",
+      "finished_utc": "2026-10-16T22:22:50+00:00",
+      "php": "8.5.11",
+      "os": "Windows",
+      "mysql": "9.6.0",
+      "database": "bushisa_test_l02d_pairreg",
+      "host": "127.0.0.1",
+      "port": "3331",
+      "http_topology": "Two separate loopback PHP workers ports 8107/8108",
+      "checks": [
+        {
+          "check": "M01 fresh 001-007",
+          "result": "PASS"
+        },
+        {
+          "check": "M02 fresh second migration run",
+          "result": "PASS"
+        },
+        {
+          "check": "M02 migration alone never attests all application writers",
+          "result": "PASS"
+        },
+        {
+          "check": "M02 writer epoch rerun immutable, no retroactive account certification",
+          "result": "PASS"
+        },
+        {
+          "check": "M03 upgrade preserves user values",
+          "result": "PASS"
+        },
+        {
+          "check": "M04 upgrade preserves ordinary text",
+          "result": "PASS"
+        },
+        {
+          "check": "M04 precision widening preserves the existing request instant",
+          "result": "PASS"
+        },
+        {
+          "check": "M05 old accounts/pairs never certified, including old verified marker",
+          "result": "PASS"
+        },
+        {
+          "check": "M06 upgrade second run no duplicate or retroactive genesis",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L01 legacy status explicit",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 503 (actual 503)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 missing legacy history cannot spend allowance",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 503 (actual 503)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L03 missing ledger/old attestation cannot fabricate clean history",
+          "result": "PASS"
+        },
+        {
+          "check": "L09 observed approved legacy alias remains readable before a block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L10 duplicate legacy match cannot bypass pair-scoped post-block history gate HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "C01 same-key HTTP concurrent requests share committed outcome",
+          "result": "PASS"
+        },
+        {
+          "check": "C02 one send, lifetime increment and immutable identity",
+          "result": "PASS"
+        },
+        {
+          "check": "B01 original seven-day request expiry",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 request report proof HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 pending request report while unmatched HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request approve HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship restore HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "R01 other participant cannot undo creator unmatch alone",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship restore HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "R02 mutual restore leaves original pending expiry",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request approve HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 active send HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 chat survives unmatch send HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 server-rendered chat remains available after unmatch",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 post-unmatch report HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 no new grant or ending from unmatch/report",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship restore HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship restore HTTP 429 (actual 429)",
+          "result": "PASS"
+        },
+        {
+          "check": "R03 rolling restore cap atomically leaves pair unmatched",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship restore HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C03 overlapping ending retries count once",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "B02 explicitly ended history read-only for seven days HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B03 ending disables send HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request approve HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B04 resumed session send HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A27 old/new sessions have distinct immutable segments",
+          "result": "PASS"
+        },
+        {
+          "check": "B05 restart does not renew old history or schedule new messages for old cleanup",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 overwritten old request proof remains attributable HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 retained event selector HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 own selected event proof returned without restoring relationship",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request revoke HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B06 second explicit ending records original-pair cutoff",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B07 unblock cannot bypass ending cutoff HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B08 genuine rematch never resets cutoff",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 immediate chat on eligible unblock without prior approval HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B09 block cycles consume neither request nor explicit ending",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C04 committed old unblock retry cannot remove a later block",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request decline HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship restore HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship restore HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "R04 fresh mutual likes advance generation, undo did not",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request cancel HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request decline HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 429 (actual 429)",
+          "result": "PASS"
+        },
+        {
+          "check": "B10 three lifetime directional requests survive undo/rematches",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B11 reverse direction has its separate approved budget",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request approve HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A07 source HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A07 report after incoming block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A07 no unseen post-block version capture",
+          "result": "PASS"
+        },
+        {
+          "check": "A07 incoming block remains effective HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L04 protected preview list HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L05 blocked profile and preview absent",
+          "result": "PASS"
+        },
+        {
+          "check": "L06 old chat page cannot expose blocked profile/text",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 own block independently remains HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 pending proof HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 combined report HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 pending cleared atomically without explicit chat ending",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 assigned review scope HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 exact reviewer clearance HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 reviewer clearance alone never unblocks",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 approved immediate chat after combined review and creator action HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 committed combined retry after unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 retry neither reblocks nor duplicates grant/probation",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 suspended target stays denied after creator removal HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request approve HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B12 closed-session source HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C05 concurrent different ending intents cannot double-count",
+          "result": "PASS"
+        },
+        {
+          "check": "C06 same committed key changed intent conflicts HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "C07 concurrent restore agreements serialize by version",
+          "result": "PASS"
+        },
+        {
+          "check": "R05 neither participant undoes the other unmatch",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 relationship restore HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "R06 both explicit own undos and fresh agreements complete restoration",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B13 unblock after first ending creates separate grant HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B14 old deadline enforced before physical purge HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B15 new grant never renews old history access",
+          "result": "PASS"
+        },
+        {
+          "check": "B16 actual old-session cleanup preserves later messages",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request approve HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A20 source HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A20 proof issuance/block observes one permitted ordering",
+          "result": "PASS"
+        },
+        {
+          "check": "A20 subsequent reads denied by block HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "A20 pre-block proof filing retains no access grant HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A20 unmatch/proof overlap preserves approved chat without ending",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A20 filing/unmatch overlap never restores a relationship or duplicates grant",
+          "result": "PASS"
+        },
+        {
+          "check": "A20 both actual workers wait before session revocation",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A20 locked current-session recheck denies proof issuance and filing after revocation",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 503 (actual 503)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L07 unblock cannot manufacture an unproved grant HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 actual purged current row uses retained event HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A27 distinct old event report HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A17 unpurged event deadline denies proof HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "L08 cleanup removes expired event but preserves lifetime ledger",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request revoke HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request approve HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "B17 expiry does not spend a second request or extend the old pending clock",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request cancel HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request cancel HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "B18 mutable-row deletion cannot erase cancellation cooldown",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "C08 different-key request overlap cannot spend twice",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request approve HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C09 clearance race source HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 safety block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C09 first report attaches block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C09 exact pre-race review scope HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C09 initial clearance HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 concurrent new attachment cannot be bypassed by stale clearance",
+          "result": "PASS"
+        },
+        {
+          "check": "C10 block/report race is one atomic order, no orphan uncleared link",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C11 original unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached pair_transition_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "C12 fresh mutual likes serialize against one original-pair version",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C13 one recreated match, no reset of earlier ending",
+          "result": "PASS"
+        },
+        {
+          "check": "C14 committed old unmatch retry HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "C15 old unmatch retry cannot revoke newly restored consent",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 swipe prepare HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 actual mutual-like route HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 new account genesis establishes complete original pair",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L11 expiry cleanup source request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L12 expired receipt cannot reactivate even before purge HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L13 cleanup terminalizes from stored expiry and erases overdue pending metadata",
+          "result": "PASS"
+        },
+        {
+          "check": "L14 old version remains closed after receipt/event purge HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 own pair state HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L02 request request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "L15 valid next request after purge continues original lifetime count",
+          "result": "PASS"
+        },
+        {
+          "check": "No real or fake mail queued",
+          "result": "PASS"
+        }
+      ],
+      "overlaps": [
+        {
+          "barrier": "l02a-35ea7435280b34bd718b7b0c",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            21020,
+            15840
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l02a-2dcd03945c4a250bcefb283e",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            15840,
+            21020
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l02a-500cf4be983f496a16c98019",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            21020,
+            15840
+          ],
+          "results": [
+            200,
+            409
+          ]
+        },
+        {
+          "barrier": "l02a-0e566e8fa44e2bcd0e7bdd24",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            21020,
+            15840
+          ],
+          "results": [
+            409,
+            200
+          ]
+        },
+        {
+          "barrier": "l02a-6589540524165cc485689c37",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            21020,
+            15840
+          ],
+          "results": [
+            403,
+            200
+          ]
+        },
+        {
+          "barrier": "l02a-b26aff22dbb5ad97870dab57",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            21020,
+            15840
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l02a-9251548967e92ff7a31e77bd",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            21020,
+            15840
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l02a-6b4429fd277088fd8a5051fa",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            21020,
+            15840
+          ],
+          "results": [
+            401,
+            401
+          ]
+        },
+        {
+          "barrier": "l02a-286c8c92110f067b78d70063",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            21020,
+            15840
+          ],
+          "results": [
+            409,
+            200
+          ]
+        },
+        {
+          "barrier": "l02a-63c3f64cec4b0d34951b2931",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            15840,
+            21020
+          ],
+          "results": [
+            409,
+            200
+          ]
+        },
+        {
+          "barrier": "l02a-e4842a5ea538d3de47dace42",
+          "point": "pair_transition_before_transaction",
+          "workers": [
+            15840,
+            21020
+          ],
+          "results": [
+            200,
+            409
+          ]
+        }
+      ],
+      "failure": null,
+      "sources_lf_sha256": {
+        "api/pairs.php": "4c9340810561ca1a49ceaf04e9f5f47122bf11221252263fea23e9ad50a0ac03",
+        "api/swipe.php": "69e05b5b9512b003f7818574cb76fca3cdc8d4f9ee02fff90618d11224426d5e",
+        "api/message_requests.php": "032b2bed3ea9f648ec26dd4126e708cc752c15203b0535ba50992cb7fb438e34",
+        "api/messages.php": "98d85cb51418170e6bd164a158ff55c0dcafb4805991f6e1e6c598422f724ee7",
+        "api/matches.php": "c4916e928bf8558b49f88a93f1cf61ec849800ddc42f0e5827454effb5ade845",
+        "api/safety.php": "c390cbafe0d772dee8c1dcee2581ae8b9f5db152cc96137d9d4ccaad3a63fdde",
+        "php/pair_history.php": "80f70560dfc0870f8dd9e9964d076b0880e63979d5222c58337d9f0a6821a55d",
+        "php/pair_messages.php": "525da3adabb11d2c41d26a9f34b81b24721bccca437bb814c57685fab885fabf",
+        "php/pair_migration.php": "59a84f3b5e450c2e7082756d53b50071378e38e54fa18474f3508f23b677e47b",
+        "php/report_intake.php": "6d2549d1acbc5f25280053a423923ccedaf18bcc2e4037b74f8cb85a3fce0ec7",
+        "php/block_handler.php": "68ced770cb5c07b5e7e5bb3373498cb4972cf0043de712b9e5bf1952e8f7ce69",
+        "php/policy_safeguards.php": "e37a31650714a0e887eb352529cd324400c4d98c1f747f78d732905402b37e03",
+        "php/operational.php": "9df681bbae94877c28ba17ad23772cc1989b0bab4812e4e1c39bac36aa4b2986",
+        "php/http_test_barrier.php": "9311ea08fc20a36a619445d4437f901a1f9ebc7873f645f64ef8433ca086681b",
+        "php/matching/service.php": "21db16ca1c7c32b7d30a18f8e75e18b88eb89a8d595ea75ae5500acad09d34a4",
+        "bin/migrate.php": "e8da51a6964a2f87c0538300a9506fdb21550d27072cf3d106b9fbe4726eb099",
+        "bin/cleanup_policy.php": "6343de350f31bd3be552bb583e4fecfd29adf43be6f94b959dfb265fb0e02e36",
+        "chat.php": "d4a06627e4ce02f544e0ea239c92dbcd9f7d6d47a1ccb0d3844a163ae1f2f87d",
+        "matches.php": "ba59152f75493213af18bde4fe5a99a2d7f199f17263969606bb917c956da26d",
+        "js/discover.js": "45248b897b03a59a53a34f1f5d85aaac92a93a31c9a250343b8b2d3e4161197f",
+        "database/migrations/007_pair_history.sql": "d3e247460a607f2a3c8c3c3e679e29cf6cff38efa5524c3bf0e6e0ee42d83adc",
+        "tests/integration_l02a_pairs.php": "4241498175ab58266a1f5eda85c773e4cb0cbe76d95f1c8789c500f42383dbde",
+        "tests/support/activate_pair_ledger.php": "3513904194ba6415c94b8422044c933c846adc344b389dffc33a7f1f5eaa9bf5",
+        "tests/integration_l01b_reports.php": "49073d890d9b967857b6bd1d96ca750aa48edbcb8b3cc84eec6cfb7299de63b0",
+        "tests/policy_safeguards_p0_flows.php": "0e53a387d6698055aeb86c80318660ef18ad2f47e77b6cfe9f50838816c1d121"
+      }
+    },
+    "reports": {
+      "suite": "L01b guarded synthetic integration",
+      "result": "PASS",
+      "started_utc": "2026-10-16T22:24:22+00:00",
+      "finished_utc": "2026-10-16T22:25:01+00:00",
+      "php": "8.5.11",
+      "os": "Windows",
+      "mysql": "9.6.0",
+      "database": "bushisa_test_l02d_reportreg",
+      "host": "127.0.0.1",
+      "port": "3331",
+      "http_topology": "Two separate loopback PHP built-in server processes, ports 8097/8098",
+      "checks": [
+        {
+          "check": "M01 fresh migrations 001-006",
+          "result": "PASS"
+        },
+        {
+          "check": "M02 migration rerun skips 006",
+          "result": "PASS"
+        },
+        {
+          "check": "M03 real pre-006 schema",
+          "result": "PASS"
+        },
+        {
+          "check": "M04 upgrade preserves all user values",
+          "result": "PASS"
+        },
+        {
+          "check": "M05 upgrade preserves message body",
+          "result": "PASS"
+        },
+        {
+          "check": "M06 existing request event backfilled once",
+          "result": "PASS"
+        },
+        {
+          "check": "M06 migration never certifies unknown older pair history",
+          "result": "PASS"
+        },
+        {
+          "check": "M06 legacy case values preserved without retrospective probation",
+          "result": "PASS"
+        },
+        {
+          "check": "M07 repeat migration does not repeat backfill",
+          "result": "PASS"
+        },
+        {
+          "check": "M08 source revision trigger catches direct edits",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A01 authorized discovery HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A01 proof belongs to actually returned card",
+          "result": "PASS"
+        },
+        {
+          "check": "A01 account report without prior match HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A01 report grants no relationship",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A02 authorized message with own context HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A02/A39 exact bounded evidence",
+          "result": "PASS"
+        },
+        {
+          "check": "A02 safe opaque receipt only",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 actual author probation",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 fixed 168 hours",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 allegation is not a finding/ban",
+          "result": "PASS"
+        },
+        {
+          "check": "A23 exact retry HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A23 same receipt no repeated effect",
+          "result": "PASS"
+        },
+        {
+          "check": "A23 active key rotation on distinct worker HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A23 old key digest remains resolvable",
+          "result": "PASS"
+        },
+        {
+          "check": "A25 changed same-key intent HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "A25 operation namespace cannot reuse key HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A26 equivalent context HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A26 equivalent envelopes deduplicate information",
+          "result": "PASS"
+        },
+        {
+          "check": "A11 inaccessible and absent targets share unavailable projection",
+          "result": "PASS"
+        },
+        {
+          "check": "A12 cross-reporter proof HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "A12 forged authority field HTTP 400 (actual 400)",
+          "result": "PASS"
+        },
+        {
+          "check": "A14 other receipt HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "A15 raw ID without proof HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "A10 CSRF required HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "A22/A39 self primary HTTP 400 (actual 400)",
+          "result": "PASS"
+        },
+        {
+          "check": "A22 Unicode length without truncation HTTP 400 (actual 400)",
+          "result": "PASS"
+        },
+        {
+          "check": "A22 unsupported image/URL authority HTTP 400 (actual 400)",
+          "result": "PASS"
+        },
+        {
+          "check": "A13 wrong generation fails closed HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A21 cross-segment context denied HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A21 eleven preceding items denied HTTP 400 (actual 400)",
+          "result": "PASS"
+        },
+        {
+          "check": "A21 excess context rolls back all new evidence",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A32 new active-period report HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A32 active period never resets/extends",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A16 stale version metadata HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A16 later version not captured",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A08 actual HTTP unsend HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A08 metadata report after unsend HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A08 no erased-original recapture",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A19 report-first serial order HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A19 unsend after report HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A19 only pre-existing evidence survives unsend",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached report_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A19 report/unsend overlap report HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A19 report/unsend overlap unsend HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A19 overlap has one serialized capture or metadata-only result",
+          "result": "PASS"
+        },
+        {
+          "check": "A08 ordinary reader after unsend HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A08 unsent entry disappears",
+          "result": "PASS"
+        },
+        {
+          "check": "A18 old operation remains receipt-only HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A18 another case cannot select existing evidence",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A17 source deadline applies before cleanup HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "A17 proof at expiry HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A09 unavailable physical target HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 own request event HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03/A09 explicit pair fallback HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 unmatched inbound pending request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 report inbound pending event while unmatched HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 no unmatched approval HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 terminal declined event HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 retained terminal request HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A27 distinct request-state event HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A03 reporting does not renew request expiry",
+          "result": "PASS"
+        },
+        {
+          "check": "A04 board response HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A04 independent board response HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A04 no private author in returned post",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached report_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A28 reporter A HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A28 reporter C HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A28 private independent cases one initial period",
+          "result": "PASS"
+        },
+        {
+          "check": "A04 filing never sets global finding/flag",
+          "result": "PASS"
+        },
+        {
+          "check": "A05 actual reference with deleted source HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A37 quote author, never original source author",
+          "result": "PASS"
+        },
+        {
+          "check": "A05 source never reconstructed",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 anonymous-attribution response HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 accepted ambiguous attribution HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 no guessed actor probation",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 own pair proof HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 ambiguous conduct participant HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 never penalize both pair participants",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 attribution exposure HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 disputed attribution accepted for review HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A38 no guessed sanction or unseen revised capture",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 reporter A context HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 reporter C context HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 controlled validation wait lock",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 both actual HTTP receipts precede controlled release",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached report_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 delayed worker A HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 delayed worker C HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 stored original UTC receipts precede expiry",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 receipt during active period never renews after worker delay",
+          "result": "PASS"
+        },
+        {
+          "check": "A45 reporter A context HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A45 reporter C context HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached report_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A45 renewal worker A HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A45 renewal worker C HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A45 two new qualifying reports create one fresh fixed period",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 retry exposure HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A24/A40 bounded forced-40001 retry HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A24/A40 retry preserves original receipt, one capture, no expiry renewal",
+          "result": "PASS"
+        },
+        {
+          "check": "A35 late-fault exposure HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A35 pre-existing ordinary block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A35 final write failure HTTP 503 (actual 503)",
+          "result": "PASS"
+        },
+        {
+          "check": "A35 full rollback preserves only the pre-existing block",
+          "result": "PASS"
+        },
+        {
+          "check": "A24 retry after rolled-back final failure HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A24 initial probation created once after successful retry",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached report_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A24 worker 1 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A24 worker 2 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A24 same-key once-only atomic result",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached report_before_transaction",
+          "result": "PASS"
+        },
+        {
+          "check": "A26 worker 1 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A26 worker 2 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A26 concurrent incident and info dedup",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A35 failed block attachment HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "A35 no orphan case/evidence/outcome",
+          "result": "PASS"
+        },
+        {
+          "check": "A24 same key usable after full rollback HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A33 old trigger replay after expiry HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A33 retries cannot renew",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A33/A44 new qualifying event linked to existing case HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A33 fresh period starts once",
+          "result": "PASS"
+        },
+        {
+          "check": "A44 case reuse does not suppress new qualifying event",
+          "result": "PASS"
+        },
+        {
+          "check": "A29 own narrative addendum HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A44 narrative update is not a new sanction",
+          "result": "PASS"
+        },
+        {
+          "check": "A40 exact boundary and delayed active-period validation",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 missing history proof cannot be treated as a fresh allowance HTTP 503 (actual 503)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 probation successful send 0 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 probation successful send 1 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached message_request_before_mutation",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 concurrent send attempts cannot overspend remaining allowance",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 fourth probation send denied HTTP 429 (actual 429)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 active probation counts prior 24 hours HTTP 429 (actual 429)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 normal 12-hour allowance after actual expiry HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 no lifetime send reset",
+          "result": "PASS"
+        },
+        {
+          "check": "A10 restrictions dominate unused allowance HTTP 401 (actual 401)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 20 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 21 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 22 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 23 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 24 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 25 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 26 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 27 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 incoming-budget setup successful send 28 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "distinct HTTP workers reached message_request_before_mutation",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 concurrent incoming ceiling remains ten per 12 hours",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 lifetime setup send 0 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 cancel without lifetime reset 0 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 lifetime setup send 1 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 cancel without lifetime reset 1 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 lifetime setup send 2 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 cancel without lifetime reset 2 HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 rolling timestamp cleanup preserves minimal lifetime count",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 lifetime fourth send denied after rolling cleanup HTTP 429 (actual 429)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 directional decline setup HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 recipient records decline HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 approved reverse direction remains available HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 reverse requester may cancel HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A31 reverse request cannot erase original directional decline HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 unmatch preserves chat grant",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 approved chat stays readable HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 report after unmatch HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A06 report does not undo unmatch",
+          "result": "PASS"
+        },
+        {
+          "check": "A07 ordinary block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A07 report attached after block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A07 report does not restore chat HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 creator cannot bypass clearance HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 unassigned admin cannot clear HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "A10/A41 MFA required HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 assigned reviewer current scope HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 new information after review HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 stale clearance cannot approve unseen attachment HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 new attachment remains uncleared HTTP 409 (actual 409)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 refreshed reviewer scope HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 assigned MFA reviewer clearance HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 clearance alone keeps personal block",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 other participant cannot remove creator block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 wrong creator changes no block",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 reverse block is independent HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 creator explicitly removes cleared block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 eligible creator removal",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 another personal block remains",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 reverse block still denies chat HTTP 403 (actual 403)",
+          "result": "PASS"
+        },
+        {
+          "check": "A41 reverse creator removes own ordinary block HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 combined existing incident HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 combo review scope HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 combo clearance HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 later deliberate unblock HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 completed combined retry HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A34 retry never reblocks",
+          "result": "PASS"
+        },
+        {
+          "check": "A18/A29 already anchored evidence link HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A18/A29 no duplicate capture or effect from case link",
+          "result": "PASS"
+        },
+        {
+          "check": "A10/A30 revoked session overrides retained receipt HTTP 401 (actual 401)",
+          "result": "PASS"
+        },
+        {
+          "check": "A10 unassigned privileged evidence read denied",
+          "result": "PASS"
+        },
+        {
+          "check": "A10 assigned MFA evidence read is scoped and audited",
+          "result": "PASS"
+        },
+        {
+          "check": "A10 removed assignment immediately denies evidence",
+          "result": "PASS"
+        },
+        {
+          "check": "authorized message reader HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A23 initial erasure-retry receipt HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A23 erased source and rotated active key HTTP 200 (actual 200)",
+          "result": "PASS"
+        },
+        {
+          "check": "A23 replay is receipt-only after source erasure",
+          "result": "PASS"
+        },
+        {
+          "check": "A23 unsupported stored contract cannot create fresh operation HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "A30 expired receipt unavailable HTTP 404 (actual 404)",
+          "result": "PASS"
+        },
+        {
+          "check": "A30 intake copies physically purged at final-resolution bound",
+          "result": "PASS"
+        },
+        {
+          "check": "A36 only specifically held text survives ordinary purge",
+          "result": "PASS"
+        },
+        {
+          "check": "A36 hold does not restore ordinary expired evidence access",
+          "result": "PASS"
+        },
+        {
+          "check": "A36 released already-expired evidence purged without a new clock",
+          "result": "PASS"
+        },
+        {
+          "check": "A29/A30 cleanup does not renew expiry",
+          "result": "PASS"
+        },
+        {
+          "check": "A30 final accidental case uses 30-day evidence deadline",
+          "result": "PASS"
+        },
+        {
+          "check": "No real or synthetic mail queued",
+          "result": "PASS"
+        }
+      ],
+      "overlaps": [
+        {
+          "barrier": "l01b-b87ea463660be22674b5c0d8",
+          "point": "report_before_transaction",
+          "workers": [
+            19628,
+            30328
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l01b-35fff510d25f524152f34fd4",
+          "point": "report_before_transaction",
+          "workers": [
+            30328,
+            19628
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l01b-5d874fff3c22348bd3030a85",
+          "point": "report_before_transaction",
+          "workers": [
+            19628,
+            30328
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l01b-63674dcbf8dd40c3e5953690",
+          "point": "report_before_transaction",
+          "workers": [
+            30328,
+            19628
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l01b-3aa3058288df0233b66e1cec",
+          "point": "report_before_transaction",
+          "workers": [
+            19628,
+            30328
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l01b-c9a31bbf52f0979725ac1dd7",
+          "point": "report_before_transaction",
+          "workers": [
+            30328,
+            19628
+          ],
+          "results": [
+            200,
+            200
+          ]
+        },
+        {
+          "barrier": "l01b-747f8dfe702c8832ee77674a",
+          "point": "message_request_before_mutation",
+          "workers": [
+            30328,
+            19628
+          ],
+          "results": [
+            429,
+            200
+          ]
+        },
+        {
+          "barrier": "l01b-ec35b96e25e5e460191645c7",
+          "point": "message_request_before_mutation",
+          "workers": [
+            30328,
+            19628
+          ],
+          "results": [
+            200,
+            429
+          ]
+        }
+      ],
+      "failure": null,
+      "sources_lf_sha256": {
+        "api/safety.php": "c390cbafe0d772dee8c1dcee2581ae8b9f5db152cc96137d9d4ccaad3a63fdde",
+        "api/confessions.php": "be0eb94be8d41b8e3c3566f0feb344bd6d365353542dcde791433725a7c93ad1",
+        "api/discover.php": "98021921a37a4677b71f152e646f06fcaf69a6614aedb0470ac615c7b8078206",
+        "api/messages.php": "98d85cb51418170e6bd164a158ff55c0dcafb4805991f6e1e6c598422f724ee7",
+        "api/message_requests.php": "032b2bed3ea9f648ec26dd4126e708cc752c15203b0535ba50992cb7fb438e34",
+        "bin/migrate.php": "e8da51a6964a2f87c0538300a9506fdb21550d27072cf3d106b9fbe4726eb099",
+        "bin/cleanup_policy.php": "6343de350f31bd3be552bb583e4fecfd29adf43be6f94b959dfb265fb0e02e36",
+        "database/migrations/006_report_intake.sql": "dd7b8821710910aa005b75393e3eb98ba5440aded0e624044b14fb3d0781a21d",
+        "php/report_intake.php": "6d2549d1acbc5f25280053a423923ccedaf18bcc2e4037b74f8cb85a3fce0ec7",
+        "php/report_migration.php": "f82808f88ee12268287e6972b0b2b10a56bec0a65e411a9fbf1840103fea7cf3",
+        "php/block_handler.php": "68ced770cb5c07b5e7e5bb3373498cb4972cf0043de712b9e5bf1952e8f7ce69",
+        "php/report_handler.php": "5cfe9a87f6f940750affd967820b9a687652fa7b6d018d6f750f3439cf666948",
+        "php/policy_safeguards.php": "e37a31650714a0e887eb352529cd324400c4d98c1f747f78d732905402b37e03",
+        "php/operational.php": "9df681bbae94877c28ba17ad23772cc1989b0bab4812e4e1c39bac36aa4b2986",
+        "js/confessions.js": "92e86482fc51e5827ff7a156fba3a73e241166e8d2693b8851e1a0bdd13e8132",
+        "tests/integration_l01b_reports.php": "49073d890d9b967857b6bd1d96ca750aa48edbcb8b3cc84eec6cfb7299de63b0"
+      }
+    }
+  },
+  "additional_checks": {
+    "policy_safeguards_p0_flows": {
+      "result": "PASS",
+      "database": "bushisa_test_l02d_regression",
+      "exit_code": 0,
+      "start_end": "Not captured per command"
+    },
+    "integration_core_p0_flows": {
+      "result": "PASS",
+      "database": "bushisa_test_l02d_regression",
+      "exit_code": 0,
+      "start_end": "Not captured per command"
+    },
+    "unit_disposable_database_guard": {
+      "result": "PASS",
+      "exit_code": 0,
+      "start_end": "Not captured per command"
+    },
+    "php_lint": {
+      "result": "PASS",
+      "files": [
+        "php/synthetic_legacy_import.php",
+        "bin/synthetic_legacy_import.php",
+        "tests/support/synthetic_import_fixture.php",
+        "tests/integration_l02d_imports.php",
+        "tests/unit_synthetic_import_guard.php"
+      ]
+    },
+    "ci_workflow": {
+      "change": "Adds pure guards, guarded synthetic integration suite and its cURL extension",
+      "remote_run": "NOT RUN"
+    }
+  },
+  "sources_lf_sha256": {
+    "database/migrations/008_synthetic_legacy_import.sql": "907c31dde332788374d4f36d43673b236fcf7310d2689fa7188ef82f7a0c10c4",
+    "php/synthetic_legacy_import.php": "dfa80c0276910167dbdac995b39b0cc1cb8fdfa05fc6c84ed77328554e043a5e",
+    "bin/synthetic_legacy_import.php": "4d319904d3f5b031865f138154215bf0fa3626517355fc1f53ae5d081bdd8dc9",
+    "tests/support/synthetic_import_fixture.php": "26547fd548827cacfdc1d7b6be6fb9ffee69b3420be6d9ee9364586a4d1b2905",
+    "tests/integration_l02d_imports.php": "d5bb2b0a58c6efc8baaccb6ecf422e5c9b1271f20cdd39b708788c03132b331c",
+    "tests/unit_synthetic_import_guard.php": "69f19cc190c0d4f7443cdcb3d5a766a4672a1dfbc6789d4156e0567ae8dc98cf",
+    "php/legacy_history.php": "e415496bfbdd98d476f798eab932844bb8d1785ec84353ed2aa8989b2216eb49",
+    "bin/legacy_history.php": "e52d570fbc059701770d86056d886f6796612d345b1a657f4d04830248c13a8f",
+    "tests/support/legacy_history_fixture.php": "001467e6d04bbef0b25fb1e334539a5becf29de28c8f639bcccfc06b78f064f5",
+    "tests/unit_legacy_history.php": "d7878b0c921db0ca09a69f6d72b41821e732c35e193ec97e106c3c573ce5ad15",
+    ".github/workflows/ci.yml": "28a9325f7dea6c64acbcc0c6c4f7bcb398b8bae59e4abba57dfa8797a0f9e893",
+    "api/pairs.php": "4c9340810561ca1a49ceaf04e9f5f47122bf11221252263fea23e9ad50a0ac03",
+    "api/swipe.php": "69e05b5b9512b003f7818574cb76fca3cdc8d4f9ee02fff90618d11224426d5e",
+    "api/message_requests.php": "032b2bed3ea9f648ec26dd4126e708cc752c15203b0535ba50992cb7fb438e34",
+    "api/messages.php": "98d85cb51418170e6bd164a158ff55c0dcafb4805991f6e1e6c598422f724ee7",
+    "api/matches.php": "c4916e928bf8558b49f88a93f1cf61ec849800ddc42f0e5827454effb5ade845",
+    "api/safety.php": "c390cbafe0d772dee8c1dcee2581ae8b9f5db152cc96137d9d4ccaad3a63fdde",
+    "php/pair_history.php": "80f70560dfc0870f8dd9e9964d076b0880e63979d5222c58337d9f0a6821a55d",
+    "php/pair_messages.php": "525da3adabb11d2c41d26a9f34b81b24721bccca437bb814c57685fab885fabf",
+    "php/pair_migration.php": "59a84f3b5e450c2e7082756d53b50071378e38e54fa18474f3508f23b677e47b",
+    "php/report_intake.php": "6d2549d1acbc5f25280053a423923ccedaf18bcc2e4037b74f8cb85a3fce0ec7",
+    "php/block_handler.php": "68ced770cb5c07b5e7e5bb3373498cb4972cf0043de712b9e5bf1952e8f7ce69",
+    "php/policy_safeguards.php": "e37a31650714a0e887eb352529cd324400c4d98c1f747f78d732905402b37e03",
+    "php/operational.php": "9df681bbae94877c28ba17ad23772cc1989b0bab4812e4e1c39bac36aa4b2986",
+    "php/http_test_barrier.php": "9311ea08fc20a36a619445d4437f901a1f9ebc7873f645f64ef8433ca086681b",
+    "php/matching/service.php": "21db16ca1c7c32b7d30a18f8e75e18b88eb89a8d595ea75ae5500acad09d34a4",
+    "bin/migrate.php": "e8da51a6964a2f87c0538300a9506fdb21550d27072cf3d106b9fbe4726eb099",
+    "bin/cleanup_policy.php": "6343de350f31bd3be552bb583e4fecfd29adf43be6f94b959dfb265fb0e02e36",
+    "chat.php": "d4a06627e4ce02f544e0ea239c92dbcd9f7d6d47a1ccb0d3844a163ae1f2f87d",
+    "matches.php": "ba59152f75493213af18bde4fe5a99a2d7f199f17263969606bb917c956da26d",
+    "js/discover.js": "45248b897b03a59a53a34f1f5d85aaac92a93a31c9a250343b8b2d3e4161197f",
+    "database/migrations/007_pair_history.sql": "d3e247460a607f2a3c8c3c3e679e29cf6cff38efa5524c3bf0e6e0ee42d83adc",
+    "tests/integration_l02a_pairs.php": "4241498175ab58266a1f5eda85c773e4cb0cbe76d95f1c8789c500f42383dbde",
+    "tests/support/activate_pair_ledger.php": "3513904194ba6415c94b8422044c933c846adc344b389dffc33a7f1f5eaa9bf5",
+    "tests/integration_l01b_reports.php": "49073d890d9b967857b6bd1d96ca750aa48edbcb8b3cc84eec6cfb7299de63b0",
+    "tests/policy_safeguards_p0_flows.php": "0e53a387d6698055aeb86c80318660ef18ad2f47e77b6cfe9f50838816c1d121",
+    "api/confessions.php": "be0eb94be8d41b8e3c3566f0feb344bd6d365353542dcde791433725a7c93ad1",
+    "api/discover.php": "98021921a37a4677b71f152e646f06fcaf69a6614aedb0470ac615c7b8078206",
+    "database/migrations/006_report_intake.sql": "dd7b8821710910aa005b75393e3eb98ba5440aded0e624044b14fb3d0781a21d",
+    "php/report_migration.php": "f82808f88ee12268287e6972b0b2b10a56bec0a65e411a9fbf1840103fea7cf3",
+    "php/report_handler.php": "5cfe9a87f6f940750affd967820b9a687652fa7b6d018d6f750f3439cf666948",
+    "js/confessions.js": "92e86482fc51e5827ff7a156fba3a73e241166e8d2693b8851e1a0bdd13e8132",
+    "tests/support/disposable_database.php": "8d0000cd47b5b72154da68edfe138e2a3b13384bde74f5330ebaa8d7fe44b39e",
+    "database/bushisa.sql": "141b594e09a468b897b038a1e8770334254252ca3266835b071907500edd8729",
+    "database/migrations/001_operational_contract.sql": "08357ccaf971f50316ee0b07b602508fe40de130010abcb0d8e8eae119f5ab2a",
+    "database/migrations/002_policy_safeguards.sql": "d6b6fdfd7dc917c8d82e5cb46a1a53498f70d19d2ef28ab78acbe072f3029cac",
+    "database/migrations/003_restore_replay_safeguards.sql": "bf4d2536cdeb66875cd1fb505a1453e1cf83c9a9e0d0d4867eff36c3fe977996",
+    "database/migrations/004_smtp_outbox.sql": "c2a0ee0410f695bf82e8ab2b53dfb80dd0efc5b22bfb18784103265f8180722b",
+    "database/migrations/005_protective_replay_event_precision.sql": "476b2e95d6aade75fa96a331b9b04432273b539e5a9ccc6684139afe5b39f105"
+  },
+  "owned_test_server_shutdown": {
+    "started_at": "2026-10-16T22:47:51+00:00",
+    "shutdown_observed_at": "2026-10-16T22:47:51+00:00",
+    "launcher_pid": 21168,
+    "server_pid": 17452,
+    "port": 3331,
+    "data_directory": ".tmp/l02d-mysql-20261016-234837",
+    "identity_verified": true,
+    "listening_after_shutdown": false
+  },
+  "open_requirements": [
+    "LB29 mixed importer/two-HTTP-worker variants and actual InnoDB deadlock",
+    "Row/range protocol and runtime privilege/engine portability review",
+    "Authentic original-account/source custody and effective historical policy",
+    "Observed all-writer production snapshot/cutover and uninterrupted coverage",
+    "Qualified privacy/security/safety review and named operators/MFA/coverage",
+    "Privacy-reviewed staging/receipt retention, physical cleanup and safe frontier compaction",
+    "Independent deletion/block/consent replay and separately authorized restore evidence"
+  ],
+  "production_migration_application": {
+    "005": "UNVERIFIED",
+    "007": "UNVERIFIED",
+    "008": "UNVERIFIED"
+  },
+  "actual_restore_rehearsal": "NOT RUN",
+  "production_authenticity": "NOT_VERIFIED",
+  "production_cutover_attested": false,
+  "legacy_pairs_enabled": false,
+  "real_imports": false,
+  "real_email": false,
+  "push_merge_deploy": false,
+  "owner_acceptance_instant": "Historical exact UTC/Africa-Harare acceptance instant not captured; existing approvals are not reopened",
+  "documentation_validation": {
+    "observed_at": "2026-10-16T22:50:05.754Z",
+    "scope": "Documentation/cross-reference/status/source-attribution validation only; not additional functional test execution",
+    "local_links": 89,
+    "heading_targets": 6,
+    "consecutive_LB_cases": 33,
+    "totals": {
+      "PASS": 19,
+      "PARTIAL": 14,
+      "NOT RUN": 0
+    },
+    "source_hashes": 49,
+    "retention_arithmetic": "Conditional 7+35+7=49 unchanged; no universal import timer",
+    "result": "PASS"
+  }
+}

@@ -1,0 +1,27 @@
+{
+    "base_checkout":  "4e76a7de361f32a17062ea8189e875844ee10660",
+    "production_execution":  false,
+    "null_seed":  {
+                      "executed_utc":  "2026-10-20T20:53:41+00:00",
+                      "fixture":  "synthetic only",
+                      "null_request_times":  2,
+                      "sqlstate":  "23000",
+                      "engine_error":  1048,
+                      "reason":  "NULL legacy request cannot be inserted into non-null send-event time"
+                  },
+    "metadata_failure":  {
+                             "observed":  "Undefined array key data_type; RuntimeException Unexpected request timestamp definition",
+                             "resolution":  "OS05 PASS in final 29-case report",
+                             "case":  "OS05",
+                             "reproduced_by":  "powershell -NoProfile -File .tmp/run-owner-schema.ps1 -Suite .tmp/diagnose-observed-migrate.php",
+                             "cause":  "MySQL information_schema keys returned uppercase; repaired by CASE_LOWER normalization"
+                         },
+    "modified_worktree":  true,
+    "probe_failure":  {
+                          "observed":  "Docker inspect failed; subsequent PowerShell NullArray",
+                          "resolution":  "Wrapper refuses missing/invalid inspection before indexing; authorized owned Docker retry succeeded",
+                          "database_command_executed":  false,
+                          "cause":  "Docker CLI/sandbox access failure before an owned-container object was returned"
+                      },
+    "format":  "bushisa.observed-schema-reproduced-failures.v1"
+}

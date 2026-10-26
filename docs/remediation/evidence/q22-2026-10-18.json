@@ -1,0 +1,5050 @@
+{
+  "checkpoint": "1c3f5874d4e2e5e832275b916bbda245ab5d31db",
+  "branch": "codex/q22-terminal-mail-cleanup-20261018",
+  "capture_utc": "2026-10-18T10:34:25.345907+00:00",
+  "capture_africa_harare": "2026-10-18T12:34:25.345907+02:00",
+  "approval_time": "Historical exact owner acceptance instant unavailable; execution is not acceptance",
+  "scope": "New-writer signup verification detail/payload/ordinary delivery metadata; minimal recovery and unresolved carrier receipts preserved",
+  "totals": {
+    "PASS": 32,
+    "PARTIAL": 0,
+    "NOT_RUN": 0
+  },
+  "profiles": {
+    "native": {
+      "commands": [
+        {
+          "mode": "q22",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:32:19.4772470Z",
+          "finished_utc": "2026-10-18T10:32:42.4375597Z",
+          "log": ".tmp/q22-runtime/native-q22.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode q22",
+          "started_africa_harare": "2026-10-18T12:32:19+02:00",
+          "finished_africa_harare": "2026-10-18T12:32:42+02:00"
+        },
+        {
+          "mode": "q11",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:19:50.0004025Z",
+          "finished_utc": "2026-10-18T10:20:22.8971021Z",
+          "log": ".tmp/q22-runtime/native-q11.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode q11",
+          "started_africa_harare": "2026-10-18T12:19:50+02:00",
+          "finished_africa_harare": "2026-10-18T12:20:22+02:00"
+        },
+        {
+          "mode": "erasure",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:20:22.9009533Z",
+          "finished_utc": "2026-10-18T10:21:01.1322995Z",
+          "log": ".tmp/q22-runtime/native-erasure.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode erasure",
+          "started_africa_harare": "2026-10-18T12:20:22+02:00",
+          "finished_africa_harare": "2026-10-18T12:21:01+02:00"
+        },
+        {
+          "mode": "unit",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:21:01.1404738Z",
+          "finished_utc": "2026-10-18T10:21:01.8901082Z",
+          "log": ".tmp/q22-runtime/native-unit.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode unit",
+          "started_africa_harare": "2026-10-18T12:21:01+02:00",
+          "finished_africa_harare": "2026-10-18T12:21:01+02:00"
+        },
+        {
+          "mode": "mailunit",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:21:01.8939909Z",
+          "finished_utc": "2026-10-18T10:21:02.4951580Z",
+          "log": ".tmp/q22-runtime/native-mailunit.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode mailunit",
+          "started_africa_harare": "2026-10-18T12:21:01+02:00",
+          "finished_africa_harare": "2026-10-18T12:21:02+02:00"
+        },
+        {
+          "mode": "signup",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:21:02.4951580Z",
+          "finished_utc": "2026-10-18T10:21:03.8677099Z",
+          "log": ".tmp/q22-runtime/native-signup.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode signup",
+          "started_africa_harare": "2026-10-18T12:21:02+02:00",
+          "finished_africa_harare": "2026-10-18T12:21:03+02:00"
+        },
+        {
+          "mode": "smtp",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:21:03.8712351Z",
+          "finished_utc": "2026-10-18T10:21:07.5418339Z",
+          "log": ".tmp/q22-runtime/native-smtp.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode smtp",
+          "started_africa_harare": "2026-10-18T12:21:03+02:00",
+          "finished_africa_harare": "2026-10-18T12:21:07+02:00"
+        },
+        {
+          "mode": "core",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:21:07.5418339Z",
+          "finished_utc": "2026-10-18T10:21:09.9882317Z",
+          "log": ".tmp/q22-runtime/native-core.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode core",
+          "started_africa_harare": "2026-10-18T12:21:07+02:00",
+          "finished_africa_harare": "2026-10-18T12:21:09+02:00"
+        },
+        {
+          "mode": "policy",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:21:09.9926779Z",
+          "finished_utc": "2026-10-18T10:21:15.4516810Z",
+          "log": ".tmp/q22-runtime/native-policy.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode policy",
+          "started_africa_harare": "2026-10-18T12:21:09+02:00",
+          "finished_africa_harare": "2026-10-18T12:21:15+02:00"
+        },
+        {
+          "mode": "reports",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:21:15.4528201Z",
+          "finished_utc": "2026-10-18T10:22:06.6762553Z",
+          "log": ".tmp/q22-runtime/native-reports.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode reports",
+          "started_africa_harare": "2026-10-18T12:21:15+02:00",
+          "finished_africa_harare": "2026-10-18T12:22:06+02:00"
+        },
+        {
+          "mode": "pairs",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:22:06.6802330Z",
+          "finished_utc": "2026-10-18T10:23:06.7319410Z",
+          "log": ".tmp/q22-runtime/native-pairs.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode pairs",
+          "started_africa_harare": "2026-10-18T12:22:06+02:00",
+          "finished_africa_harare": "2026-10-18T12:23:06+02:00"
+        }
+      ],
+      "suites": {
+        "q22": {
+          "source": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/q22-20261018-103219-8db56cfe/evidence.json",
+          "record": {
+            "suite": "Q22 terminal challenge and mail cleanup",
+            "started_utc": "2026-10-18T10:32:19+00:00",
+            "finished_utc": "2026-10-18T10:32:42+00:00",
+            "environment": {
+              "php": "8.5.11",
+              "os": "Windows",
+              "mysql": "9.6.0",
+              "mysqlnd": "mysqlnd 8.5.11",
+              "database": "bushisa_test_q11_q22_native",
+              "port": "3371",
+              "settings": {
+                "server_uuid": "cd20b7f3-cada-11f1-8e15-040e3ca062fa",
+                "utc": "+00:00",
+                "isolation_level": "REPEATABLE-READ",
+                "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+              },
+              "worker_grants": [
+                "GRANT USAGE ON *.* TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT SELECT ON `bushisa_test_q11_q22_native`.* TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`audit_log` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`cleanup_outbox` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_native`.`mail_outbox` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`preferences` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`profiles` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_native`.`rate_limits` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_erasure_jobs` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_identities` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_expiry_obligations` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_lifecycle_alerts` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_lifecycle` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_native`.`signup_mail_jobs` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`student_email_approval_codes` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`users` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_cleanup_alerts` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_cleanup_receipts` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_late_results` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_recovery_obligations` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_retention` TO `q11_exec_479d37fb`@`localhost`",
+                "GRANT EXECUTE ON PROCEDURE `bushisa_test_q11_q22_native`.`bushisa_verification_schema_health` TO `q11_exec_479d37fb`@`localhost`"
+              ]
+            },
+            "migrations": [
+              {
+                "kind": "fresh-repeat",
+                "exit": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "kind": "partial-retry",
+                "exit": [
+                  0
+                ]
+              },
+              {
+                "kind": "012-upgrade-repeat",
+                "exit": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "checks": [
+              {
+                "case": "QM01",
+                "check": "disabled cleanup refuses before connection",
+                "result": "PASS"
+              },
+              {
+                "case": "QM01",
+                "check": "invalid batch refused before connection",
+                "result": "PASS"
+              },
+              {
+                "case": "QM02",
+                "check": "fresh and repeat 013 migration",
+                "result": "PASS"
+              },
+              {
+                "case": "QM02",
+                "check": "partial DDL retry validates exact identities and health procedure",
+                "result": "PASS"
+              },
+              {
+                "case": "QM03",
+                "check": "new issuance and queue have immutable generation-bound anchors",
+                "result": "PASS"
+              },
+              {
+                "case": "QM03",
+                "check": "even fixture SQL cannot mutate a bound source generation",
+                "result": "PASS"
+              },
+              {
+                "case": "QM04",
+                "check": "verification at expiry -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QM04",
+                "check": "verification at expiry +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QM04",
+                "check": "verification at expiry +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QM05",
+                "check": "use erases HMAC immediately and anchors detail deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QM06",
+                "check": "details retained just before original 24h deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QM06",
+                "check": "details erased at exact deadline without losing anchors",
+                "result": "PASS"
+              },
+              {
+                "case": "QM06",
+                "check": "after boundary and repeated reads do not renew obligations",
+                "result": "PASS"
+              },
+              {
+                "case": "QM07",
+                "check": "delayed expiry uses original expiry, never cleanup time",
+                "result": "PASS"
+              },
+              {
+                "case": "QM08",
+                "check": "old details purge preserves a newer active challenge",
+                "result": "PASS"
+              },
+              {
+                "case": "QM09",
+                "check": "terminal attempts erased without restoring code or rate budget",
+                "result": "PASS"
+              },
+              {
+                "case": "QM10",
+                "check": "payload expiry -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QM10",
+                "check": "payload expiry +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QM10",
+                "check": "payload expiry +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QM11",
+                "check": "acceptance erases body immediately; seven days does not extend it",
+                "result": "PASS"
+              },
+              {
+                "case": "QM12",
+                "check": "code-free ordinary metadata before seven days is present",
+                "result": "PASS"
+              },
+              {
+                "case": "QM12",
+                "check": "ordinary mail/job metadata removed at exact seven days",
+                "result": "PASS"
+              },
+              {
+                "case": "QM12",
+                "check": "after boundary retry finds same completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QM13",
+                "check": "expired payload does not fabricate a terminal in-flight outcome",
+                "result": "PASS"
+              },
+              {
+                "case": "QM14",
+                "check": "unknown carrier survives only as a minimal result verifier",
+                "result": "PASS"
+              },
+              {
+                "case": "QM15",
+                "check": "late result is once-only and cannot recreate content or authorize access",
+                "result": "PASS"
+              },
+              {
+                "case": "QM16",
+                "check": "unknown status erases expired payload but leaves explicit unresolved metadata",
+                "result": "PASS"
+              },
+              {
+                "case": "QM17",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM17",
+                "check": "cleanup/claim cannot dispatch expired mail",
+                "result": "PASS"
+              },
+              {
+                "case": "QM18",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM18",
+                "check": "cancellation and cleanup preserve original mail deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QM19",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM19",
+                "check": "finish versus metadata purge keeps one result without content resurrection",
+                "result": "PASS"
+              },
+              {
+                "case": "QM20",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM20",
+                "check": "known nonacceptance retry never renews useful delivery",
+                "result": "PASS"
+              },
+              {
+                "case": "QM21",
+                "check": "blocked fake carrier overlaps purge then records late acceptance",
+                "result": "PASS"
+              },
+              {
+                "case": "QM22",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM22",
+                "check": "duplicate workers write exactly one detail receipt",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "process crash rolls back after_intent",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "retry completes original obligation after_intent",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "process crash rolls back after_erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "retry completes original obligation after_erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "process crash rolls back before_commit",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "retry completes original obligation before_commit",
+                "result": "PASS"
+              },
+              {
+                "case": "QM24",
+                "check": "lost result discovers committed receipt and idempotent completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QM25",
+                "check": "missing deletion grant rolls back entire metadata transaction",
+                "result": "PASS"
+              },
+              {
+                "case": "QM25",
+                "check": "restored intended privilege permits same original obligation",
+                "result": "PASS"
+              },
+              {
+                "case": "QM26",
+                "check": "unreviewed cascade blocks deletion with child intact",
+                "result": "PASS"
+              },
+              {
+                "case": "QM26",
+                "check": "reviewed fixture removal allows retry",
+                "result": "PASS"
+              },
+              {
+                "case": "QM27",
+                "check": "stale/replaced account identity fails closed",
+                "result": "PASS"
+              },
+              {
+                "case": "QM28",
+                "check": "enable flag cannot substitute a fixture for independent recovery",
+                "result": "PASS"
+              },
+              {
+                "case": "QM28",
+                "check": "recovery interface is read-only and copy bounds remain unknown",
+                "result": "PASS"
+              },
+              {
+                "case": "QM28",
+                "check": "retained receipts/recovery/diagnostics contain no address or payload fields",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "ordinary details erased while a scoped evidence hold remains active",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected users",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected signup_lifecycle",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected signup_expiry_obligations",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected signup_attempt_erasure_recovery",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected consent_records",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected reports",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected moderation_cases",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected moderation_evidence",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected evidence_lifecycle_holds",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected blocks",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected pair_request_counts",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected rate_limits",
+                "result": "PASS"
+              },
+              {
+                "case": "QM30",
+                "check": "resend cannot repopulate erased old challenge details",
+                "result": "PASS"
+              },
+              {
+                "case": "QM30",
+                "check": "reused numeric source ID with a different generation is preserved",
+                "result": "PASS"
+              },
+              {
+                "case": "QM31",
+                "check": "late successful cleanup records original missed deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QM31",
+                "check": "one bounded batch processes at most one durable record",
+                "result": "PASS"
+              },
+              {
+                "case": "QM31",
+                "check": "worker has no user deletion, clock or migration privilege",
+                "result": "PASS"
+              },
+              {
+                "case": "QM32",
+                "check": "missing earlier detail clock stays unresolved while expired HMAC is erased",
+                "result": "PASS"
+              },
+              {
+                "case": "QM32",
+                "check": "missing earlier mail clock cannot extend metadata or retain expired body",
+                "result": "PASS"
+              },
+              {
+                "case": "QM02",
+                "check": "012 upgrade/repeat preserves old rows with NULL generation",
+                "result": "PASS"
+              },
+              {
+                "case": "QM27",
+                "check": "unknown legacy anchors become explicit review obligations, never guessed purge",
+                "result": "PASS"
+              }
+            ],
+            "races": [
+              {
+                "case": "QM17",
+                "participants": [
+                  {
+                    "pid": 3316,
+                    "connection_id": 730,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 20712,
+                    "connection_id": 729,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 730,
+                    "blocking_connection": 726
+                  },
+                  {
+                    "requesting_connection": 729,
+                    "blocking_connection": 726
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "payload_erased"
+                  },
+                  {
+                    "exit": 0,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "case": "QM18",
+                "participants": [
+                  {
+                    "pid": 13132,
+                    "connection_id": 731,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 32952,
+                    "connection_id": 732,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 731,
+                    "blocking_connection": 726
+                  },
+                  {
+                    "requesting_connection": 732,
+                    "blocking_connection": 726
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "payload_erased"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "cancelled"
+                  }
+                ]
+              },
+              {
+                "case": "QM19",
+                "participants": [
+                  {
+                    "pid": 32964,
+                    "connection_id": 733,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 39860,
+                    "connection_id": 734,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 734,
+                    "blocking_connection": 726
+                  },
+                  {
+                    "requesting_connection": 733,
+                    "blocking_connection": 726
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "complete"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "sent"
+                  }
+                ]
+              },
+              {
+                "case": "QM20",
+                "participants": [
+                  {
+                    "pid": 33588,
+                    "connection_id": 735,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 32532,
+                    "connection_id": 736,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 735,
+                    "blocking_connection": 726
+                  },
+                  {
+                    "requesting_connection": 736,
+                    "blocking_connection": 726
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "active"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "retried"
+                  }
+                ]
+              },
+              {
+                "case": "QM21",
+                "carrier": {
+                  "pid": 39516,
+                  "connection_id": 737,
+                  "transaction_open": false
+                },
+                "consumer": {
+                  "pid": 11132,
+                  "connection_id": 727
+                },
+                "worker_exit": 0
+              },
+              {
+                "case": "QM22",
+                "participants": [
+                  {
+                    "pid": 33012,
+                    "connection_id": 738,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 36540,
+                    "connection_id": 739,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 739,
+                    "blocking_connection": 726
+                  },
+                  {
+                    "requesting_connection": 738,
+                    "blocking_connection": 726
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "complete"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "complete"
+                  }
+                ]
+              }
+            ],
+            "totals": {
+              "assertions": 75,
+              "passed": 75
+            },
+            "failure": null
+          }
+        },
+        "q11": {
+          "source": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/q11-20261018-101950-f1503349/evidence.json",
+          "record": {
+            "suite": "Q11 synthetic signup expiry",
+            "started_utc": "2026-10-18T10:19:50+00:00",
+            "finished_utc": "2026-10-18T10:20:22+00:00",
+            "environment": {
+              "php": "8.5.11",
+              "os": "Windows",
+              "mysql": "9.6.0",
+              "mysqlnd": "mysqlnd 8.5.11",
+              "database": "bushisa_test_q11_q22_native",
+              "host": "127.0.0.1",
+              "port": "3371",
+              "settings": {
+                "server_uuid": "cd20b7f3-cada-11f1-8e15-040e3ca062fa",
+                "time_zone": "+00:00",
+                "isolation_level": "REPEATABLE-READ",
+                "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+              },
+              "runtime_grants": [
+                "GRANT USAGE ON *.* TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT SELECT ON `bushisa_test_q11_q22_native`.* TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`audit_log` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`cleanup_outbox` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`mail_outbox` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`preferences` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`profiles` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_native`.`rate_limits` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_erasure_jobs` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_identities` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_expiry_obligations` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_lifecycle_alerts` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_lifecycle` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_mail_jobs` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`student_email_approval_codes` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`users` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_cleanup_alerts` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_cleanup_receipts` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_late_results` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_recovery_obligations` TO `q11_exec_d7c4106b`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_retention` TO `q11_exec_d7c4106b`@`localhost`"
+              ]
+            },
+            "migration": [
+              {
+                "kind": "fresh-repeat",
+                "results": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "kind": "010-upgrade-repeat",
+                "results": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "checks": [
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects APP_ENV",
+                "result": "PASS"
+              },
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects DB_NAME",
+                "result": "PASS"
+              },
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects DB_HOST",
+                "result": "PASS"
+              },
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects MAIL_TRANSPORT",
+                "result": "PASS"
+              },
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects BUSHISA_TEST_DATABASE",
+                "result": "PASS"
+              },
+              {
+                "case": "QS02",
+                "check": "fresh 011 and repeat",
+                "result": "PASS"
+              },
+              {
+                "case": "QS04",
+                "check": "registration persists original creation+72h in the creation transaction",
+                "result": "PASS"
+              },
+              {
+                "case": "QS04",
+                "check": "queue failure rolls back account and creation anchor",
+                "result": "PASS"
+              },
+              {
+                "case": "QS05",
+                "check": "72h -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS05",
+                "check": "72h +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS05",
+                "check": "72h +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS06",
+                "check": "7d -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS06",
+                "check": "7d +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS06",
+                "check": "7d +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS07",
+                "check": "resend preserves creation deadline and cancels old generation",
+                "result": "PASS"
+              },
+              {
+                "case": "QS08",
+                "check": "first email approval succeeds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS08",
+                "check": "reads, repeat verification and resend cannot renew first approval",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "unknown legacy anchors observed without deletion/backfill",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "unknown legacy anchors observed without deletion/backfill",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "unknown legacy continuation cannot manufacture approval",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "contradictory expiry is neither a deletion anchor nor a displayed deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "legacy cleanup erases without inventing acceptance time",
+                "result": "PASS"
+              },
+              {
+                "case": "QS10",
+                "check": "suspension survives cleanup and cannot be activated",
+                "result": "PASS"
+              },
+              {
+                "case": "QS11",
+                "check": "atomic rollback at after_cancellation",
+                "result": "PASS"
+              },
+              {
+                "case": "QS11",
+                "check": "atomic rollback at before_commit",
+                "result": "PASS"
+              },
+              {
+                "case": "QS11",
+                "check": "retries preserve receipt, version and original overdue obligation",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "obligations stay pending/unpublished with no invented backup bound",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves moderation_cases",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves moderation_evidence",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves evidence_lifecycle_holds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves protective_replay_events",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves evidence_recovery_outbox",
+                "result": "PASS"
+              },
+              {
+                "case": "QS11",
+                "check": "actual cleanup CLI keeps pending physical-erasure obligations honest",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves moderation_cases",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves moderation_evidence",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves evidence_lifecycle_holds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves protective_replay_events",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves evidence_recovery_outbox",
+                "result": "PASS"
+              },
+              {
+                "case": "QS13",
+                "check": "immutable useful deadline is min(queue+5m, challenge-60s, account deadline)",
+                "result": "PASS"
+              },
+              {
+                "case": "QS14",
+                "check": "known non-acceptance retries within original deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QS13",
+                "check": "exact useful deadline discards without sending",
+                "result": "PASS"
+              },
+              {
+                "case": "QS14",
+                "check": "ambiguous transport is terminal uncertain, never automatic resend",
+                "result": "PASS"
+              },
+              {
+                "case": "QS15",
+                "check": "expired claim cannot deliver after replacement",
+                "result": "PASS"
+              },
+              {
+                "case": "QS15",
+                "check": "abandoned inflight becomes uncertain without resend",
+                "result": "PASS"
+              },
+              {
+                "case": "QS13",
+                "check": "useful delivery boundary -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS13",
+                "check": "useful delivery boundary +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "challenge boundary -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "challenge boundary +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "repeat code cleanup is idempotent",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "challenge boundary +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "repeat code cleanup is idempotent",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "verification before expiry wins",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "exact expiry prevents verification",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "onboarding before expiry wins",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "expiry prevents stale onboarding activation",
+                "result": "PASS"
+              },
+              {
+                "case": "QS18",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS18",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS18",
+                "check": "expiry versus resend leaves no live challenge or queued body",
+                "result": "PASS"
+              },
+              {
+                "case": "QS19",
+                "check": "overlapping HTTP resend cancels inflight without pretending recall",
+                "result": "PASS"
+              },
+              {
+                "case": "QS19",
+                "check": "overlapping HTTP expiry cancels inflight without pretending recall",
+                "result": "PASS"
+              },
+              {
+                "case": "QS20",
+                "check": "HTTP supersession cancels an existing claim before delivery",
+                "result": "PASS"
+              },
+              {
+                "case": "QS21",
+                "check": "actual protected route revokes expired session",
+                "result": "PASS"
+              },
+              {
+                "case": "QS21",
+                "check": "stale session version cannot activate",
+                "result": "PASS"
+              },
+              {
+                "case": "QS03",
+                "check": "010 upgrade/repeat preserves original fields and has no anchor/generation backfill",
+                "result": "PASS"
+              },
+              {
+                "case": "QS22",
+                "check": "runtime cannot fabricate clock or perform DDL",
+                "result": "PASS"
+              },
+              {
+                "case": "QS23",
+                "check": "diagnostics contain no payload/code/token fields",
+                "result": "PASS"
+              }
+            ],
+            "races": [
+              {
+                "case": "QS16",
+                "participants": [
+                  {
+                    "pid": 29152,
+                    "connection_id": 108,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:10+00:00",
+                    "uri": ""
+                  },
+                  {
+                    "pid": 10392,
+                    "connection_id": 107,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:10+00:00",
+                    "uri": "/verify_email.php"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 107,
+                    "blocking_connection": 104
+                  },
+                  {
+                    "requesting_connection": 108,
+                    "blocking_connection": 104
+                  }
+                ],
+                "first": "HTTP",
+                "http_status": 302,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "live",
+                  "expires_at": "2026-10-28 10:20:09.999999"
+                }
+              },
+              {
+                "case": "QS16",
+                "participants": [
+                  {
+                    "pid": 10392,
+                    "connection_id": 109,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:10+00:00",
+                    "uri": "/verify_email.php"
+                  },
+                  {
+                    "pid": 33664,
+                    "connection_id": 110,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:10+00:00",
+                    "uri": ""
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 110,
+                    "blocking_connection": 104
+                  },
+                  {
+                    "requesting_connection": 109,
+                    "blocking_connection": 104
+                  }
+                ],
+                "first": "expiry",
+                "http_status": 200,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "expired",
+                  "receipt": "6ba43782f94a628189c2601221862cd80a87f3451669e7f6b1f4a0f7040dc27b",
+                  "expires_at": "2026-10-21 10:20:10.000000",
+                  "live_purge_due_at": "2026-10-22 10:20:10.000000"
+                }
+              },
+              {
+                "case": "QS17",
+                "participants": [
+                  {
+                    "pid": 35360,
+                    "connection_id": 112,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:11+00:00",
+                    "uri": ""
+                  },
+                  {
+                    "pid": 10392,
+                    "connection_id": 111,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:11+00:00",
+                    "uri": "/onboarding.php"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 111,
+                    "blocking_connection": 104
+                  },
+                  {
+                    "requesting_connection": 112,
+                    "blocking_connection": 104
+                  }
+                ],
+                "first": "HTTP",
+                "http_status": 302,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "live",
+                  "expires_at": "2026-10-25 10:20:11.056864"
+                }
+              },
+              {
+                "case": "QS17",
+                "participants": [
+                  {
+                    "pid": 31704,
+                    "connection_id": 114,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:12+00:00",
+                    "uri": ""
+                  },
+                  {
+                    "pid": 10392,
+                    "connection_id": 113,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:12+00:00",
+                    "uri": "/onboarding.php"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 114,
+                    "blocking_connection": 104
+                  },
+                  {
+                    "requesting_connection": 113,
+                    "blocking_connection": 104
+                  }
+                ],
+                "first": "expiry",
+                "http_status": 302,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "expired",
+                  "receipt": "fc9da2edbbb65d85370e3540e160e0e48a385f9de9e8697ed2f9d8f59de42667",
+                  "expires_at": "2026-10-25 10:20:11.763458",
+                  "live_purge_due_at": "2026-10-26 10:20:11.763458"
+                }
+              },
+              {
+                "case": "QS18",
+                "participants": [
+                  {
+                    "pid": 12012,
+                    "connection_id": 116,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:12+00:00",
+                    "uri": ""
+                  },
+                  {
+                    "pid": 10392,
+                    "connection_id": 115,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:12+00:00",
+                    "uri": "/verify_email.php"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 116,
+                    "blocking_connection": 104
+                  },
+                  {
+                    "requesting_connection": 115,
+                    "blocking_connection": 104
+                  }
+                ],
+                "first": "expiry",
+                "http_status": 200,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "expired",
+                  "receipt": "b9bfc7c4f66d223c580d1e3c9230091f9ae317995aa72b832faf58ee16d6bef2",
+                  "expires_at": "2026-10-21 10:20:12.000000",
+                  "live_purge_due_at": "2026-10-22 10:20:12.000000"
+                }
+              },
+              {
+                "case": "QS19",
+                "variant": "resend",
+                "carrier": {
+                  "pid": 34576,
+                  "connection_id": 117,
+                  "transaction_open": false
+                },
+                "http_server_pid": 18672,
+                "http_connection": 118,
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 118,
+                    "blocking_connection": 104
+                  }
+                ],
+                "state": "accepted_after_cancel"
+              },
+              {
+                "case": "QS19",
+                "variant": "expiry",
+                "carrier": {
+                  "pid": 37244,
+                  "connection_id": 119,
+                  "transaction_open": false
+                },
+                "http_server_pid": 18672,
+                "http_connection": 120,
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 120,
+                    "blocking_connection": 104
+                  }
+                ],
+                "state": "accepted_after_cancel"
+              }
+            ],
+            "totals": {
+              "assertions": 74,
+              "passed": 74
+            },
+            "failure": null
+          }
+        },
+        "erasure": {
+          "source": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa/.tmp/qe-20261018-102023-6c4202e0/evidence.json",
+          "record": {
+            "suite": "Q11 ordinary attempt erasure",
+            "started_utc": "2026-10-18T10:20:23+00:00",
+            "finished_utc": "2026-10-18T10:21:00+00:00",
+            "environment": {
+              "php": "8.5.11",
+              "os": "Windows",
+              "mysql": "9.6.0",
+              "mysqlnd": "mysqlnd 8.5.11",
+              "database": "bushisa_test_q11_q22_native",
+              "port": "3371",
+              "settings": {
+                "server_uuid": "cd20b7f3-cada-11f1-8e15-040e3ca062fa",
+                "utc": "+00:00",
+                "isolation_level": "REPEATABLE-READ",
+                "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+              },
+              "worker_grants": [
+                "GRANT USAGE ON *.* TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT SELECT ON `bushisa_test_q11_q22_native`.* TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`audit_log` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`cleanup_outbox` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT DELETE ON `bushisa_test_q11_q22_native`.`find_match_answers` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`mail_outbox` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT DELETE ON `bushisa_test_q11_q22_native`.`notification_preferences` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_native`.`preferences` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT DELETE ON `bushisa_test_q11_q22_native`.`profile_images` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_native`.`profiles` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_native`.`rate_limits` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_erasure_jobs` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_erasure_objects` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_erasure_receipts` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_erasure_recovery` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_attempt_identities` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_expiry_obligations` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_lifecycle_alerts` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_lifecycle` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`signup_mail_jobs` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`student_email_approval_codes` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`users` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_cleanup_alerts` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_cleanup_receipts` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_late_results` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_recovery_obligations` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_native`.`verification_retention` TO `q11_exec_8e9d160e`@`localhost`",
+                "GRANT EXECUTE ON PROCEDURE `bushisa_test_q11_q22_native`.`bushisa_attempt_schema_health` TO `q11_exec_8e9d160e`@`localhost`"
+              ]
+            },
+            "migrations": [
+              {
+                "kind": "fresh-repeat",
+                "exit": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "kind": "partial-retry",
+                "exit": [
+                  0
+                ]
+              },
+              {
+                "kind": "011-upgrade-repeat",
+                "exit": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "checks": [
+              {
+                "case": "QE01",
+                "check": "consumer default-denies before connecting",
+                "result": "PASS"
+              },
+              {
+                "case": "QE02",
+                "check": "fresh 012 migration and repeat",
+                "result": "PASS"
+              },
+              {
+                "case": "QE02",
+                "check": "partial DDL retry validates existing trigger/routine without replacement",
+                "result": "PASS"
+              },
+              {
+                "case": "QE03",
+                "check": "eligible pending-email ordinary data verified erased",
+                "result": "PASS"
+              },
+              {
+                "case": "QE03",
+                "check": "minimal identity/status/session version retained without reactivation",
+                "result": "PASS"
+              },
+              {
+                "case": "QE04",
+                "check": "unfinished email-approved onboarding uses same bounded erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "protected rows do not force retention of ordinary credentials",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves consent_records",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves reports",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves moderation_cases",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves moderation_evidence",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves evidence_lifecycle_holds",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves blocks",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves pair_request_counts",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves pair_account_genesis",
+                "result": "PASS"
+              },
+              {
+                "case": "QE06",
+                "check": "missing anchors never create an erasure authority",
+                "result": "PASS"
+              },
+              {
+                "case": "QE07",
+                "check": "newer account version blocks erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE07",
+                "check": "altered job deadline cannot replace the original obligation",
+                "result": "PASS"
+              },
+              {
+                "case": "QE09",
+                "check": "stored generation cannot be changed through UPDATE",
+                "result": "PASS"
+              },
+              {
+                "case": "QE08",
+                "check": "old continuation never selects a new account by shared email",
+                "result": "PASS"
+              },
+              {
+                "case": "QE09",
+                "check": "reused numeric ID with different generation is preserved",
+                "result": "PASS"
+              },
+              {
+                "case": "QE10",
+                "check": "unknown child cascade blocks all erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE11",
+                "check": "SQL failure rolls back recovery intent and ordinary erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE11",
+                "check": "safe retry completes one receipt",
+                "result": "PASS"
+              },
+              {
+                "case": "QE12",
+                "check": "bounded address chunk and durable cursor",
+                "result": "PASS"
+              },
+              {
+                "case": "QE12",
+                "check": "resume finishes remaining chunks without duplicate receipts",
+                "result": "PASS"
+              },
+              {
+                "case": "QE13",
+                "check": "two actual worker PIDs/connections overlap on account row",
+                "result": "PASS"
+              },
+              {
+                "case": "QE13",
+                "check": "duplicate workers cause one completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE14",
+                "check": "stale lease token cannot mutate current job",
+                "result": "PASS"
+              },
+              {
+                "case": "QE15",
+                "check": "crash leaves durable resumable claim",
+                "result": "PASS"
+              },
+              {
+                "case": "QE15",
+                "check": "retry reconciles committed stage exactly once",
+                "result": "PASS"
+              },
+              {
+                "case": "QE16",
+                "check": "crash leaves durable resumable claim",
+                "result": "PASS"
+              },
+              {
+                "case": "QE16",
+                "check": "retry reconciles committed stage exactly once",
+                "result": "PASS"
+              },
+              {
+                "case": "QE17",
+                "check": "manifested local fixture files are verified absent",
+                "result": "PASS"
+              },
+              {
+                "case": "QE18",
+                "check": "partial storage failure never acknowledges completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE18",
+                "check": "partial storage retry completes remaining object",
+                "result": "PASS"
+              },
+              {
+                "case": "QE19",
+                "check": "unlink crash preserves deletion intent without false receipt",
+                "result": "PASS"
+              },
+              {
+                "case": "QE19",
+                "check": "missing file after committed intent reconciles safely",
+                "result": "PASS"
+              },
+              {
+                "case": "QE20",
+                "check": "changed storage generation is never deleted",
+                "result": "PASS"
+              },
+              {
+                "case": "QE21",
+                "check": "unsafe locator blocks before any erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE22",
+                "check": "evidence-file reference remains protected and incomplete",
+                "result": "PASS"
+              },
+              {
+                "case": "QE22",
+                "check": "synthetic evidence-reference release preserves original obligation",
+                "result": "PASS"
+              },
+              {
+                "case": "QE23",
+                "check": "consumer erases linked addresses during an inflight send",
+                "result": "PASS"
+              },
+              {
+                "case": "QE23",
+                "check": "late fake acceptance cannot restore access",
+                "result": "PASS"
+              },
+              {
+                "case": "QE24",
+                "check": "separate HTTP/consumer workers overlap and completed onboarding survives",
+                "result": "PASS"
+              },
+              {
+                "case": "QE25",
+                "check": "newer version blocks a resumed external deletion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE21",
+                "check": "hardlink target is untouched",
+                "result": "PASS"
+              },
+              {
+                "case": "QE17",
+                "check": "unavailable operational storage adapter cannot claim deletion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE26",
+                "check": "configuration flag cannot fabricate an independent recovery provider",
+                "result": "PASS"
+              },
+              {
+                "case": "QE26",
+                "check": "resumed stages also require a trusted recovery provider",
+                "result": "PASS"
+              },
+              {
+                "case": "QE11",
+                "check": "overdue alert uses original missed deadline and no completion receipt",
+                "result": "PASS"
+              },
+              {
+                "case": "QE26",
+                "check": "runtime has no user DELETE, clock mutation or schema DDL",
+                "result": "PASS"
+              },
+              {
+                "case": "QE27",
+                "check": "client exits after completion commits but before receiving result",
+                "result": "PASS"
+              },
+              {
+                "case": "QE27",
+                "check": "interrupted clients can discover committed completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE28",
+                "check": "recovery interface reads only; no independent durability invented",
+                "result": "PASS"
+              },
+              {
+                "case": "QE02",
+                "check": "011 upgrade and repeat preserve legacy fields",
+                "result": "PASS"
+              },
+              {
+                "case": "QE06",
+                "check": "old 011 expiry receipt cannot fabricate generation",
+                "result": "PASS"
+              }
+            ],
+            "races": [
+              {
+                "case": "QE13",
+                "participants": [
+                  {
+                    "pid": 34440,
+                    "connection_id": 134,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 5368,
+                    "connection_id": 135,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 134,
+                    "blocking_connection": 131
+                  },
+                  {
+                    "requesting_connection": 135,
+                    "blocking_connection": 131
+                  }
+                ],
+                "answers": [
+                  {
+                    "exit": 0,
+                    "result": "complete"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "skipped"
+                  }
+                ]
+              },
+              {
+                "case": "QE23",
+                "sender": {
+                  "pid": 34148,
+                  "connection_id": 139,
+                  "transaction_open": false
+                },
+                "consumer": {
+                  "pid": 30444,
+                  "connection_id": 132
+                },
+                "carrier_waited_while_consumer_completed": true,
+                "carrier_exit": 0
+              },
+              {
+                "case": "QE24",
+                "participants": [
+                  {
+                    "pid": 33144,
+                    "connection_id": 140,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:46+00:00",
+                    "uri": "/onboarding.php"
+                  },
+                  {
+                    "pid": 39172,
+                    "connection_id": 141,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:20:46+00:00",
+                    "uri": ""
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 140,
+                    "blocking_connection": 131
+                  },
+                  {
+                    "requesting_connection": 141,
+                    "blocking_connection": 131
+                  }
+                ],
+                "http_status": 302,
+                "consumer_exit": 0
+              }
+            ],
+            "variants": [
+              {
+                "case": "QE21",
+                "variant": "symlink",
+                "result": "NOT RUN",
+                "reason": "fixture link creation unavailable"
+              },
+              {
+                "case": "QE21",
+                "variant": "hardlink",
+                "result": "PASS"
+              }
+            ],
+            "totals": {
+              "assertions": 57,
+              "passed": 57
+            },
+            "failure": null
+          }
+        },
+        "unit": {
+          "log_sha256": "1fab8d9905420142821f4509c82032b1e70f16cbad7fbae42e3d4750ba1b2375",
+          "summary": "unit_signup_verification PASS"
+        },
+        "mailunit": {
+          "log_sha256": "a54516fe484f8a41f7a4bcb2969ab40d6db4bae4668bff8bce4f80a1f90680a4",
+          "summary": "unit_mail_configuration PASS"
+        },
+        "signup": {
+          "log_sha256": "058c4a146741f33cc5c175d896f493944cd22651be05111a3c7953b20d4c3799",
+          "summary": "integration_p0_flows PASS"
+        },
+        "smtp": {
+          "log_sha256": "3f44284ff0cddf71b2089ba43b698902ca0f5abfa8c6bed5d903c74a80dcf1bc",
+          "summary": "integration_smtp_outbox PASS"
+        },
+        "core": {
+          "log_sha256": "6a08d95dbf432b69c7d37070331a20be8c1848d73a80b6ca49a4f25d66fbcb03",
+          "summary": "integration_core_p0_flows PASS"
+        },
+        "policy": {
+          "log_sha256": "3877bb826d8bb3cd8f17ae8f1ca9fba6fad447e66f257b344a365ebd3ea50a71",
+          "summary": "policy_safeguards_p0_flows PASS"
+        },
+        "reports": {
+          "log_sha256": "7835816c2bdc979126e7b55debadfcad65acfa720fd73c5719ee2fc80cb9938c",
+          "summary": "{\"result\":\"PASS\",\"checks\":245,\"overlaps\":8,\"evidence\":\"D:\\\\Documents\\\\Uni\\\\Sem 2.1\\\\COMPUTER SCIENCE 2.1\\\\scs2114 Internet And Web\\\\Bushisa\\\\Bushisa\\/.tmp\\/l01b-20261018-102115-c66ba2\\/results.json\"}"
+        },
+        "pairs": {
+          "log_sha256": "7002dd9896bdeac597e9818b75d710dfd1416a38fdd594bfc2506c0ab9877374",
+          "summary": "{\"result\":\"PASS\",\"checks\":396,\"overlaps\":11,\"evidence\":\"D:\\\\Documents\\\\Uni\\\\Sem 2.1\\\\COMPUTER SCIENCE 2.1\\\\scs2114 Internet And Web\\\\Bushisa\\\\Bushisa\\/.tmp\\/l02a-20261018-102207-8a7345\\/results.json\"}"
+        }
+      },
+      "reused_unaffected_regressions": "Earlier Q11/QE and eight affected suites reused after only the Q22 consumer missing-anchor repair and QM32 test expansion; Q22 rerun on final source",
+      "prior_q22_execution": {
+        "mode": "q22",
+        "exit": 0,
+        "started_utc": "2026-10-18T10:19:14.7525888Z",
+        "finished_utc": "2026-10-18T10:19:49.7629211Z",
+        "log": ".tmp/q22-runtime/native-q22.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-native.ps1 -Mode q22"
+      },
+      "prior_q22_log_sha256": "c3e0659877b35be08656d61c04a07fb377726aa26968c217fb4ec9048c6a530a"
+    },
+    "linux": {
+      "commands": [
+        {
+          "mode": "q22",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:32:40.5770113Z",
+          "finished_utc": "2026-10-18T10:33:34.5419543Z",
+          "log": ".tmp/q22-runtime/linux-q22.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode q22",
+          "started_africa_harare": "2026-10-18T12:32:40+02:00",
+          "finished_africa_harare": "2026-10-18T12:33:34+02:00"
+        },
+        {
+          "mode": "q11",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:20:54.4136659Z",
+          "finished_utc": "2026-10-18T10:21:57.5328320Z",
+          "log": ".tmp/q22-runtime/linux-q11.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode q11",
+          "started_africa_harare": "2026-10-18T12:20:54+02:00",
+          "finished_africa_harare": "2026-10-18T12:21:57+02:00"
+        },
+        {
+          "mode": "erasure",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:21:57.5375896Z",
+          "finished_utc": "2026-10-18T10:23:32.1164149Z",
+          "log": ".tmp/q22-runtime/linux-erasure.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode erasure",
+          "started_africa_harare": "2026-10-18T12:21:57+02:00",
+          "finished_africa_harare": "2026-10-18T12:23:32+02:00"
+        },
+        {
+          "mode": "unit",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:23:32.1279728Z",
+          "finished_utc": "2026-10-18T10:23:35.8145520Z",
+          "log": ".tmp/q22-runtime/linux-unit.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode unit",
+          "started_africa_harare": "2026-10-18T12:23:32+02:00",
+          "finished_africa_harare": "2026-10-18T12:23:35+02:00"
+        },
+        {
+          "mode": "mailunit",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:23:35.8220654Z",
+          "finished_utc": "2026-10-18T10:23:38.5715494Z",
+          "log": ".tmp/q22-runtime/linux-mailunit.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode mailunit",
+          "started_africa_harare": "2026-10-18T12:23:35+02:00",
+          "finished_africa_harare": "2026-10-18T12:23:38+02:00"
+        },
+        {
+          "mode": "signup",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:23:38.5845169Z",
+          "finished_utc": "2026-10-18T10:23:43.3322706Z",
+          "log": ".tmp/q22-runtime/linux-signup.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode signup",
+          "started_africa_harare": "2026-10-18T12:23:38+02:00",
+          "finished_africa_harare": "2026-10-18T12:23:43+02:00"
+        },
+        {
+          "mode": "smtp",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:23:43.3423104Z",
+          "finished_utc": "2026-10-18T10:23:50.0856024Z",
+          "log": ".tmp/q22-runtime/linux-smtp.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode smtp",
+          "started_africa_harare": "2026-10-18T12:23:43+02:00",
+          "finished_africa_harare": "2026-10-18T12:23:50+02:00"
+        },
+        {
+          "mode": "core",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:23:50.0898244Z",
+          "finished_utc": "2026-10-18T10:23:53.3736610Z",
+          "log": ".tmp/q22-runtime/linux-core.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode core",
+          "started_africa_harare": "2026-10-18T12:23:50+02:00",
+          "finished_africa_harare": "2026-10-18T12:23:53+02:00"
+        },
+        {
+          "mode": "policy",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:23:53.3809126Z",
+          "finished_utc": "2026-10-18T10:23:58.0887515Z",
+          "log": ".tmp/q22-runtime/linux-policy.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode policy",
+          "started_africa_harare": "2026-10-18T12:23:53+02:00",
+          "finished_africa_harare": "2026-10-18T12:23:58+02:00"
+        },
+        {
+          "mode": "reports",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:23:58.0920979Z",
+          "finished_utc": "2026-10-18T10:25:24.0096298Z",
+          "log": ".tmp/q22-runtime/linux-reports.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode reports",
+          "started_africa_harare": "2026-10-18T12:23:58+02:00",
+          "finished_africa_harare": "2026-10-18T12:25:24+02:00"
+        },
+        {
+          "mode": "pairs",
+          "exit": 0,
+          "started_utc": "2026-10-18T10:25:24.0146078Z",
+          "finished_utc": "2026-10-18T10:26:47.8085049Z",
+          "log": ".tmp/q22-runtime/linux-pairs.log",
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode pairs",
+          "started_africa_harare": "2026-10-18T12:25:24+02:00",
+          "finished_africa_harare": "2026-10-18T12:26:47+02:00"
+        }
+      ],
+      "suites": {
+        "q22": {
+          "source": "/workspace/.tmp/q22-20261018-103243-40d1b660/evidence.json",
+          "record": {
+            "suite": "Q22 terminal challenge and mail cleanup",
+            "started_utc": "2026-10-18T10:32:43+00:00",
+            "finished_utc": "2026-10-18T10:33:34+00:00",
+            "environment": {
+              "php": "8.4.26",
+              "os": "Linux",
+              "mysql": "8.0.45",
+              "mysqlnd": "mysqlnd 8.4.26",
+              "database": "bushisa_test_q11_q22_linux",
+              "port": "3306",
+              "settings": {
+                "server_uuid": "6675324b-cadc-11f1-b79e-36001e7a77d9",
+                "utc": "+00:00",
+                "isolation_level": "REPEATABLE-READ",
+                "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+              },
+              "worker_grants": [
+                "GRANT USAGE ON *.* TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT SELECT ON `bushisa_test_q11_q22_linux`.* TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`audit_log` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`cleanup_outbox` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_linux`.`mail_outbox` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`preferences` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`profiles` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_linux`.`rate_limits` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_erasure_jobs` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_identities` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_expiry_obligations` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_lifecycle_alerts` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_lifecycle` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_linux`.`signup_mail_jobs` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`student_email_approval_codes` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`users` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_cleanup_alerts` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_cleanup_receipts` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_late_results` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_recovery_obligations` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_retention` TO `q11_exec_076928f2`@`127.0.0.1`",
+                "GRANT EXECUTE ON PROCEDURE `bushisa_test_q11_q22_linux`.`bushisa_verification_schema_health` TO `q11_exec_076928f2`@`127.0.0.1`"
+              ]
+            },
+            "migrations": [
+              {
+                "kind": "fresh-repeat",
+                "exit": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "kind": "partial-retry",
+                "exit": [
+                  0
+                ]
+              },
+              {
+                "kind": "012-upgrade-repeat",
+                "exit": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "checks": [
+              {
+                "case": "QM01",
+                "check": "disabled cleanup refuses before connection",
+                "result": "PASS"
+              },
+              {
+                "case": "QM01",
+                "check": "invalid batch refused before connection",
+                "result": "PASS"
+              },
+              {
+                "case": "QM02",
+                "check": "fresh and repeat 013 migration",
+                "result": "PASS"
+              },
+              {
+                "case": "QM02",
+                "check": "partial DDL retry validates exact identities and health procedure",
+                "result": "PASS"
+              },
+              {
+                "case": "QM03",
+                "check": "new issuance and queue have immutable generation-bound anchors",
+                "result": "PASS"
+              },
+              {
+                "case": "QM03",
+                "check": "even fixture SQL cannot mutate a bound source generation",
+                "result": "PASS"
+              },
+              {
+                "case": "QM04",
+                "check": "verification at expiry -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QM04",
+                "check": "verification at expiry +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QM04",
+                "check": "verification at expiry +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QM05",
+                "check": "use erases HMAC immediately and anchors detail deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QM06",
+                "check": "details retained just before original 24h deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QM06",
+                "check": "details erased at exact deadline without losing anchors",
+                "result": "PASS"
+              },
+              {
+                "case": "QM06",
+                "check": "after boundary and repeated reads do not renew obligations",
+                "result": "PASS"
+              },
+              {
+                "case": "QM07",
+                "check": "delayed expiry uses original expiry, never cleanup time",
+                "result": "PASS"
+              },
+              {
+                "case": "QM08",
+                "check": "old details purge preserves a newer active challenge",
+                "result": "PASS"
+              },
+              {
+                "case": "QM09",
+                "check": "terminal attempts erased without restoring code or rate budget",
+                "result": "PASS"
+              },
+              {
+                "case": "QM10",
+                "check": "payload expiry -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QM10",
+                "check": "payload expiry +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QM10",
+                "check": "payload expiry +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QM11",
+                "check": "acceptance erases body immediately; seven days does not extend it",
+                "result": "PASS"
+              },
+              {
+                "case": "QM12",
+                "check": "code-free ordinary metadata before seven days is present",
+                "result": "PASS"
+              },
+              {
+                "case": "QM12",
+                "check": "ordinary mail/job metadata removed at exact seven days",
+                "result": "PASS"
+              },
+              {
+                "case": "QM12",
+                "check": "after boundary retry finds same completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QM13",
+                "check": "expired payload does not fabricate a terminal in-flight outcome",
+                "result": "PASS"
+              },
+              {
+                "case": "QM14",
+                "check": "unknown carrier survives only as a minimal result verifier",
+                "result": "PASS"
+              },
+              {
+                "case": "QM15",
+                "check": "late result is once-only and cannot recreate content or authorize access",
+                "result": "PASS"
+              },
+              {
+                "case": "QM16",
+                "check": "unknown status erases expired payload but leaves explicit unresolved metadata",
+                "result": "PASS"
+              },
+              {
+                "case": "QM17",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM17",
+                "check": "cleanup/claim cannot dispatch expired mail",
+                "result": "PASS"
+              },
+              {
+                "case": "QM18",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM18",
+                "check": "cancellation and cleanup preserve original mail deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QM19",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM19",
+                "check": "finish versus metadata purge keeps one result without content resurrection",
+                "result": "PASS"
+              },
+              {
+                "case": "QM20",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM20",
+                "check": "known nonacceptance retry never renews useful delivery",
+                "result": "PASS"
+              },
+              {
+                "case": "QM21",
+                "check": "blocked fake carrier overlaps purge then records late acceptance",
+                "result": "PASS"
+              },
+              {
+                "case": "QM22",
+                "check": "separate processes and SQL connections actually overlap",
+                "result": "PASS"
+              },
+              {
+                "case": "QM22",
+                "check": "duplicate workers write exactly one detail receipt",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "process crash rolls back after_intent",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "retry completes original obligation after_intent",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "process crash rolls back after_erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "retry completes original obligation after_erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "process crash rolls back before_commit",
+                "result": "PASS"
+              },
+              {
+                "case": "QM23",
+                "check": "retry completes original obligation before_commit",
+                "result": "PASS"
+              },
+              {
+                "case": "QM24",
+                "check": "lost result discovers committed receipt and idempotent completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QM25",
+                "check": "missing deletion grant rolls back entire metadata transaction",
+                "result": "PASS"
+              },
+              {
+                "case": "QM25",
+                "check": "restored intended privilege permits same original obligation",
+                "result": "PASS"
+              },
+              {
+                "case": "QM26",
+                "check": "unreviewed cascade blocks deletion with child intact",
+                "result": "PASS"
+              },
+              {
+                "case": "QM26",
+                "check": "reviewed fixture removal allows retry",
+                "result": "PASS"
+              },
+              {
+                "case": "QM27",
+                "check": "stale/replaced account identity fails closed",
+                "result": "PASS"
+              },
+              {
+                "case": "QM28",
+                "check": "enable flag cannot substitute a fixture for independent recovery",
+                "result": "PASS"
+              },
+              {
+                "case": "QM28",
+                "check": "recovery interface is read-only and copy bounds remain unknown",
+                "result": "PASS"
+              },
+              {
+                "case": "QM28",
+                "check": "retained receipts/recovery/diagnostics contain no address or payload fields",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "ordinary details erased while a scoped evidence hold remains active",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected users",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected signup_lifecycle",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected signup_expiry_obligations",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected signup_attempt_erasure_recovery",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected consent_records",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected reports",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected moderation_cases",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected moderation_evidence",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected evidence_lifecycle_holds",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected blocks",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected pair_request_counts",
+                "result": "PASS"
+              },
+              {
+                "case": "QM29",
+                "check": "preserves protected rate_limits",
+                "result": "PASS"
+              },
+              {
+                "case": "QM30",
+                "check": "resend cannot repopulate erased old challenge details",
+                "result": "PASS"
+              },
+              {
+                "case": "QM30",
+                "check": "reused numeric source ID with a different generation is preserved",
+                "result": "PASS"
+              },
+              {
+                "case": "QM31",
+                "check": "late successful cleanup records original missed deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QM31",
+                "check": "one bounded batch processes at most one durable record",
+                "result": "PASS"
+              },
+              {
+                "case": "QM31",
+                "check": "worker has no user deletion, clock or migration privilege",
+                "result": "PASS"
+              },
+              {
+                "case": "QM32",
+                "check": "missing earlier detail clock stays unresolved while expired HMAC is erased",
+                "result": "PASS"
+              },
+              {
+                "case": "QM32",
+                "check": "missing earlier mail clock cannot extend metadata or retain expired body",
+                "result": "PASS"
+              },
+              {
+                "case": "QM02",
+                "check": "012 upgrade/repeat preserves old rows with NULL generation",
+                "result": "PASS"
+              },
+              {
+                "case": "QM27",
+                "check": "unknown legacy anchors become explicit review obligations, never guessed purge",
+                "result": "PASS"
+              }
+            ],
+            "races": [
+              {
+                "case": "QM17",
+                "participants": [
+                  {
+                    "pid": 12,
+                    "connection_id": 717,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 13,
+                    "connection_id": 718,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 717,
+                    "blocking_connection": 714
+                  },
+                  {
+                    "requesting_connection": 718,
+                    "blocking_connection": 714
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "payload_erased"
+                  },
+                  {
+                    "exit": 0,
+                    "result": false
+                  }
+                ]
+              },
+              {
+                "case": "QM18",
+                "participants": [
+                  {
+                    "pid": 14,
+                    "connection_id": 720,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 15,
+                    "connection_id": 719,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 719,
+                    "blocking_connection": 714
+                  },
+                  {
+                    "requesting_connection": 720,
+                    "blocking_connection": 714
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "payload_erased"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "cancelled"
+                  }
+                ]
+              },
+              {
+                "case": "QM19",
+                "participants": [
+                  {
+                    "pid": 16,
+                    "connection_id": 721,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 17,
+                    "connection_id": 722,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 721,
+                    "blocking_connection": 714
+                  },
+                  {
+                    "requesting_connection": 722,
+                    "blocking_connection": 714
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "complete"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "sent"
+                  }
+                ]
+              },
+              {
+                "case": "QM20",
+                "participants": [
+                  {
+                    "pid": 18,
+                    "connection_id": 723,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 19,
+                    "connection_id": 724,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 724,
+                    "blocking_connection": 714
+                  },
+                  {
+                    "requesting_connection": 723,
+                    "blocking_connection": 714
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "active"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "retried"
+                  }
+                ]
+              },
+              {
+                "case": "QM21",
+                "carrier": {
+                  "pid": 20,
+                  "connection_id": 725,
+                  "transaction_open": false
+                },
+                "consumer": {
+                  "pid": 1,
+                  "connection_id": 715
+                },
+                "worker_exit": 0
+              },
+              {
+                "case": "QM22",
+                "participants": [
+                  {
+                    "pid": 21,
+                    "connection_id": 726,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 22,
+                    "connection_id": 727,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 726,
+                    "blocking_connection": 714
+                  },
+                  {
+                    "requesting_connection": 727,
+                    "blocking_connection": 714
+                  }
+                ],
+                "results": [
+                  {
+                    "exit": 0,
+                    "result": "complete"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "complete"
+                  }
+                ]
+              }
+            ],
+            "totals": {
+              "assertions": 75,
+              "passed": 75
+            },
+            "failure": null
+          }
+        },
+        "q11": {
+          "source": "/workspace/.tmp/q11-20261018-102056-f26114da/evidence.json",
+          "record": {
+            "suite": "Q11 synthetic signup expiry",
+            "started_utc": "2026-10-18T10:20:56+00:00",
+            "finished_utc": "2026-10-18T10:21:57+00:00",
+            "environment": {
+              "php": "8.4.26",
+              "os": "Linux",
+              "mysql": "8.0.45",
+              "mysqlnd": "mysqlnd 8.4.26",
+              "database": "bushisa_test_q11_q22_linux",
+              "host": "127.0.0.1",
+              "port": "3306",
+              "settings": {
+                "server_uuid": "6675324b-cadc-11f1-b79e-36001e7a77d9",
+                "time_zone": "+00:00",
+                "isolation_level": "REPEATABLE-READ",
+                "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+              },
+              "runtime_grants": [
+                "GRANT USAGE ON *.* TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT SELECT ON `bushisa_test_q11_q22_linux`.* TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`audit_log` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`cleanup_outbox` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`mail_outbox` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`preferences` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`profiles` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_linux`.`rate_limits` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_erasure_jobs` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_identities` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_expiry_obligations` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_lifecycle_alerts` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_lifecycle` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_mail_jobs` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`student_email_approval_codes` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`users` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_cleanup_alerts` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_cleanup_receipts` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_late_results` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_recovery_obligations` TO `q11_exec_03974dc1`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_retention` TO `q11_exec_03974dc1`@`127.0.0.1`"
+              ]
+            },
+            "migration": [
+              {
+                "kind": "fresh-repeat",
+                "results": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "kind": "010-upgrade-repeat",
+                "results": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "checks": [
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects APP_ENV",
+                "result": "PASS"
+              },
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects DB_NAME",
+                "result": "PASS"
+              },
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects DB_HOST",
+                "result": "PASS"
+              },
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects MAIL_TRANSPORT",
+                "result": "PASS"
+              },
+              {
+                "case": "QS01",
+                "check": "pre-connection guard rejects BUSHISA_TEST_DATABASE",
+                "result": "PASS"
+              },
+              {
+                "case": "QS02",
+                "check": "fresh 011 and repeat",
+                "result": "PASS"
+              },
+              {
+                "case": "QS04",
+                "check": "registration persists original creation+72h in the creation transaction",
+                "result": "PASS"
+              },
+              {
+                "case": "QS04",
+                "check": "queue failure rolls back account and creation anchor",
+                "result": "PASS"
+              },
+              {
+                "case": "QS05",
+                "check": "72h -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS05",
+                "check": "72h +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS05",
+                "check": "72h +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS06",
+                "check": "7d -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS06",
+                "check": "7d +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS06",
+                "check": "7d +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS07",
+                "check": "resend preserves creation deadline and cancels old generation",
+                "result": "PASS"
+              },
+              {
+                "case": "QS08",
+                "check": "first email approval succeeds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS08",
+                "check": "reads, repeat verification and resend cannot renew first approval",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "unknown legacy anchors observed without deletion/backfill",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "unknown legacy anchors observed without deletion/backfill",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "unknown legacy continuation cannot manufacture approval",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "contradictory expiry is neither a deletion anchor nor a displayed deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QS09",
+                "check": "legacy cleanup erases without inventing acceptance time",
+                "result": "PASS"
+              },
+              {
+                "case": "QS10",
+                "check": "suspension survives cleanup and cannot be activated",
+                "result": "PASS"
+              },
+              {
+                "case": "QS11",
+                "check": "atomic rollback at after_cancellation",
+                "result": "PASS"
+              },
+              {
+                "case": "QS11",
+                "check": "atomic rollback at before_commit",
+                "result": "PASS"
+              },
+              {
+                "case": "QS11",
+                "check": "retries preserve receipt, version and original overdue obligation",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "obligations stay pending/unpublished with no invented backup bound",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves moderation_cases",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves moderation_evidence",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves evidence_lifecycle_holds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves protective_replay_events",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "preserves evidence_recovery_outbox",
+                "result": "PASS"
+              },
+              {
+                "case": "QS11",
+                "check": "actual cleanup CLI keeps pending physical-erasure obligations honest",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves moderation_cases",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves moderation_evidence",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves evidence_lifecycle_holds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves protective_replay_events",
+                "result": "PASS"
+              },
+              {
+                "case": "QS12",
+                "check": "cleanup CLI preserves evidence_recovery_outbox",
+                "result": "PASS"
+              },
+              {
+                "case": "QS13",
+                "check": "immutable useful deadline is min(queue+5m, challenge-60s, account deadline)",
+                "result": "PASS"
+              },
+              {
+                "case": "QS14",
+                "check": "known non-acceptance retries within original deadline",
+                "result": "PASS"
+              },
+              {
+                "case": "QS13",
+                "check": "exact useful deadline discards without sending",
+                "result": "PASS"
+              },
+              {
+                "case": "QS14",
+                "check": "ambiguous transport is terminal uncertain, never automatic resend",
+                "result": "PASS"
+              },
+              {
+                "case": "QS15",
+                "check": "expired claim cannot deliver after replacement",
+                "result": "PASS"
+              },
+              {
+                "case": "QS15",
+                "check": "abandoned inflight becomes uncertain without resend",
+                "result": "PASS"
+              },
+              {
+                "case": "QS13",
+                "check": "useful delivery boundary -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS13",
+                "check": "useful delivery boundary +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "challenge boundary -1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "challenge boundary +0 seconds",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "repeat code cleanup is idempotent",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "challenge boundary +1 microsecond",
+                "result": "PASS"
+              },
+              {
+                "case": "QS24",
+                "check": "repeat code cleanup is idempotent",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "verification before expiry wins",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS16",
+                "check": "exact expiry prevents verification",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "onboarding before expiry wins",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS17",
+                "check": "expiry prevents stale onboarding activation",
+                "result": "PASS"
+              },
+              {
+                "case": "QS18",
+                "check": "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                "result": "PASS"
+              },
+              {
+                "case": "QS18",
+                "check": "HTTP and expiry workers complete",
+                "result": "PASS"
+              },
+              {
+                "case": "QS18",
+                "check": "expiry versus resend leaves no live challenge or queued body",
+                "result": "PASS"
+              },
+              {
+                "case": "QS19",
+                "check": "overlapping HTTP resend cancels inflight without pretending recall",
+                "result": "PASS"
+              },
+              {
+                "case": "QS19",
+                "check": "overlapping HTTP expiry cancels inflight without pretending recall",
+                "result": "PASS"
+              },
+              {
+                "case": "QS20",
+                "check": "HTTP supersession cancels an existing claim before delivery",
+                "result": "PASS"
+              },
+              {
+                "case": "QS21",
+                "check": "actual protected route revokes expired session",
+                "result": "PASS"
+              },
+              {
+                "case": "QS21",
+                "check": "stale session version cannot activate",
+                "result": "PASS"
+              },
+              {
+                "case": "QS03",
+                "check": "010 upgrade/repeat preserves original fields and has no anchor/generation backfill",
+                "result": "PASS"
+              },
+              {
+                "case": "QS22",
+                "check": "runtime cannot fabricate clock or perform DDL",
+                "result": "PASS"
+              },
+              {
+                "case": "QS23",
+                "check": "diagnostics contain no payload/code/token fields",
+                "result": "PASS"
+              }
+            ],
+            "races": [
+              {
+                "case": "QS16",
+                "participants": [
+                  {
+                    "pid": 10,
+                    "connection_id": 95,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:32+00:00",
+                    "uri": "/verify_email.php"
+                  },
+                  {
+                    "pid": 12,
+                    "connection_id": 96,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:31+00:00",
+                    "uri": ""
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 95,
+                    "blocking_connection": 92
+                  },
+                  {
+                    "requesting_connection": 96,
+                    "blocking_connection": 92
+                  }
+                ],
+                "first": "HTTP",
+                "http_status": 302,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "live",
+                  "expires_at": "2026-10-28 10:21:30.999999"
+                }
+              },
+              {
+                "case": "QS16",
+                "participants": [
+                  {
+                    "pid": 13,
+                    "connection_id": 98,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:32+00:00",
+                    "uri": ""
+                  },
+                  {
+                    "pid": 10,
+                    "connection_id": 97,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:32+00:00",
+                    "uri": "/verify_email.php"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 98,
+                    "blocking_connection": 92
+                  },
+                  {
+                    "requesting_connection": 97,
+                    "blocking_connection": 92
+                  }
+                ],
+                "first": "expiry",
+                "http_status": 200,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "expired",
+                  "receipt": "96897e01f8624e51bb1d878f1fb8f77acb3d8767aa37b761fcaaf69d5746ec97",
+                  "expires_at": "2026-10-21 10:21:32.000000",
+                  "live_purge_due_at": "2026-10-22 10:21:32.000000"
+                }
+              },
+              {
+                "case": "QS17",
+                "participants": [
+                  {
+                    "pid": 10,
+                    "connection_id": 99,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:33+00:00",
+                    "uri": "/onboarding.php"
+                  },
+                  {
+                    "pid": 14,
+                    "connection_id": 100,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:33+00:00",
+                    "uri": ""
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 99,
+                    "blocking_connection": 92
+                  },
+                  {
+                    "requesting_connection": 100,
+                    "blocking_connection": 92
+                  }
+                ],
+                "first": "HTTP",
+                "http_status": 302,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "live",
+                  "expires_at": "2026-10-25 10:21:32.980878"
+                }
+              },
+              {
+                "case": "QS17",
+                "participants": [
+                  {
+                    "pid": 15,
+                    "connection_id": 102,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:34+00:00",
+                    "uri": ""
+                  },
+                  {
+                    "pid": 10,
+                    "connection_id": 101,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:34+00:00",
+                    "uri": "/onboarding.php"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 102,
+                    "blocking_connection": 92
+                  },
+                  {
+                    "requesting_connection": 101,
+                    "blocking_connection": 92
+                  }
+                ],
+                "first": "expiry",
+                "http_status": 302,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "expired",
+                  "receipt": "19d4653a9356dd7f366066612d51564773929e722835e13723c1a51a86cc9742",
+                  "expires_at": "2026-10-25 10:21:33.768994",
+                  "live_purge_due_at": "2026-10-26 10:21:33.768994"
+                }
+              },
+              {
+                "case": "QS18",
+                "participants": [
+                  {
+                    "pid": 10,
+                    "connection_id": 103,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:34+00:00",
+                    "uri": "/verify_email.php"
+                  },
+                  {
+                    "pid": 16,
+                    "connection_id": 104,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:21:35+00:00",
+                    "uri": ""
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 104,
+                    "blocking_connection": 92
+                  },
+                  {
+                    "requesting_connection": 103,
+                    "blocking_connection": 92
+                  }
+                ],
+                "first": "expiry",
+                "http_status": 200,
+                "worker_exit": 0,
+                "expiry_result": {
+                  "state": "expired",
+                  "receipt": "8bb209d36b563ee695f6136fc2de59fcefe83077c60af602f5ae7dca6ca295e9",
+                  "expires_at": "2026-10-21 10:21:35.000000",
+                  "live_purge_due_at": "2026-10-22 10:21:35.000000"
+                }
+              },
+              {
+                "case": "QS19",
+                "variant": "resend",
+                "carrier": {
+                  "pid": 17,
+                  "connection_id": 105,
+                  "transaction_open": false
+                },
+                "http_server_pid": 11,
+                "http_connection": 106,
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 106,
+                    "blocking_connection": 92
+                  }
+                ],
+                "state": "accepted_after_cancel"
+              },
+              {
+                "case": "QS19",
+                "variant": "expiry",
+                "carrier": {
+                  "pid": 18,
+                  "connection_id": 107,
+                  "transaction_open": false
+                },
+                "http_server_pid": 11,
+                "http_connection": 108,
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 108,
+                    "blocking_connection": 92
+                  }
+                ],
+                "state": "accepted_after_cancel"
+              }
+            ],
+            "totals": {
+              "assertions": 74,
+              "passed": 74
+            },
+            "failure": null
+          }
+        },
+        "erasure": {
+          "source": "/workspace/.tmp/qe-20261018-102159-96b8866b/evidence.json",
+          "record": {
+            "suite": "Q11 ordinary attempt erasure",
+            "started_utc": "2026-10-18T10:21:59+00:00",
+            "finished_utc": "2026-10-18T10:23:31+00:00",
+            "environment": {
+              "php": "8.4.26",
+              "os": "Linux",
+              "mysql": "8.0.45",
+              "mysqlnd": "mysqlnd 8.4.26",
+              "database": "bushisa_test_q11_q22_linux",
+              "port": "3306",
+              "settings": {
+                "server_uuid": "6675324b-cadc-11f1-b79e-36001e7a77d9",
+                "utc": "+00:00",
+                "isolation_level": "REPEATABLE-READ",
+                "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+              },
+              "worker_grants": [
+                "GRANT USAGE ON *.* TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT SELECT ON `bushisa_test_q11_q22_linux`.* TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`audit_log` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`cleanup_outbox` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT DELETE ON `bushisa_test_q11_q22_linux`.`find_match_answers` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`mail_outbox` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT DELETE ON `bushisa_test_q11_q22_linux`.`notification_preferences` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_linux`.`preferences` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT DELETE ON `bushisa_test_q11_q22_linux`.`profile_images` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_linux`.`profiles` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE, DELETE ON `bushisa_test_q11_q22_linux`.`rate_limits` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_erasure_jobs` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_erasure_objects` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_erasure_receipts` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_erasure_recovery` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_attempt_identities` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_expiry_obligations` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_lifecycle_alerts` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_lifecycle` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`signup_mail_jobs` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`student_email_approval_codes` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`users` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_cleanup_alerts` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_cleanup_receipts` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_late_results` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_recovery_obligations` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT INSERT, UPDATE ON `bushisa_test_q11_q22_linux`.`verification_retention` TO `q11_exec_345f818f`@`127.0.0.1`",
+                "GRANT EXECUTE ON PROCEDURE `bushisa_test_q11_q22_linux`.`bushisa_attempt_schema_health` TO `q11_exec_345f818f`@`127.0.0.1`"
+              ]
+            },
+            "migrations": [
+              {
+                "kind": "fresh-repeat",
+                "exit": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "kind": "partial-retry",
+                "exit": [
+                  0
+                ]
+              },
+              {
+                "kind": "011-upgrade-repeat",
+                "exit": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ],
+            "checks": [
+              {
+                "case": "QE01",
+                "check": "consumer default-denies before connecting",
+                "result": "PASS"
+              },
+              {
+                "case": "QE02",
+                "check": "fresh 012 migration and repeat",
+                "result": "PASS"
+              },
+              {
+                "case": "QE02",
+                "check": "partial DDL retry validates existing trigger/routine without replacement",
+                "result": "PASS"
+              },
+              {
+                "case": "QE03",
+                "check": "eligible pending-email ordinary data verified erased",
+                "result": "PASS"
+              },
+              {
+                "case": "QE03",
+                "check": "minimal identity/status/session version retained without reactivation",
+                "result": "PASS"
+              },
+              {
+                "case": "QE04",
+                "check": "unfinished email-approved onboarding uses same bounded erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "protected rows do not force retention of ordinary credentials",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves consent_records",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves reports",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves moderation_cases",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves moderation_evidence",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves evidence_lifecycle_holds",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves blocks",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves pair_request_counts",
+                "result": "PASS"
+              },
+              {
+                "case": "QE05",
+                "check": "preserves pair_account_genesis",
+                "result": "PASS"
+              },
+              {
+                "case": "QE06",
+                "check": "missing anchors never create an erasure authority",
+                "result": "PASS"
+              },
+              {
+                "case": "QE07",
+                "check": "newer account version blocks erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE07",
+                "check": "altered job deadline cannot replace the original obligation",
+                "result": "PASS"
+              },
+              {
+                "case": "QE09",
+                "check": "stored generation cannot be changed through UPDATE",
+                "result": "PASS"
+              },
+              {
+                "case": "QE08",
+                "check": "old continuation never selects a new account by shared email",
+                "result": "PASS"
+              },
+              {
+                "case": "QE09",
+                "check": "reused numeric ID with different generation is preserved",
+                "result": "PASS"
+              },
+              {
+                "case": "QE10",
+                "check": "unknown child cascade blocks all erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE11",
+                "check": "SQL failure rolls back recovery intent and ordinary erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE11",
+                "check": "safe retry completes one receipt",
+                "result": "PASS"
+              },
+              {
+                "case": "QE12",
+                "check": "bounded address chunk and durable cursor",
+                "result": "PASS"
+              },
+              {
+                "case": "QE12",
+                "check": "resume finishes remaining chunks without duplicate receipts",
+                "result": "PASS"
+              },
+              {
+                "case": "QE13",
+                "check": "two actual worker PIDs/connections overlap on account row",
+                "result": "PASS"
+              },
+              {
+                "case": "QE13",
+                "check": "duplicate workers cause one completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE14",
+                "check": "stale lease token cannot mutate current job",
+                "result": "PASS"
+              },
+              {
+                "case": "QE15",
+                "check": "crash leaves durable resumable claim",
+                "result": "PASS"
+              },
+              {
+                "case": "QE15",
+                "check": "retry reconciles committed stage exactly once",
+                "result": "PASS"
+              },
+              {
+                "case": "QE16",
+                "check": "crash leaves durable resumable claim",
+                "result": "PASS"
+              },
+              {
+                "case": "QE16",
+                "check": "retry reconciles committed stage exactly once",
+                "result": "PASS"
+              },
+              {
+                "case": "QE17",
+                "check": "manifested local fixture files are verified absent",
+                "result": "PASS"
+              },
+              {
+                "case": "QE18",
+                "check": "partial storage failure never acknowledges completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE18",
+                "check": "partial storage retry completes remaining object",
+                "result": "PASS"
+              },
+              {
+                "case": "QE19",
+                "check": "unlink crash preserves deletion intent without false receipt",
+                "result": "PASS"
+              },
+              {
+                "case": "QE19",
+                "check": "missing file after committed intent reconciles safely",
+                "result": "PASS"
+              },
+              {
+                "case": "QE20",
+                "check": "changed storage generation is never deleted",
+                "result": "PASS"
+              },
+              {
+                "case": "QE21",
+                "check": "unsafe locator blocks before any erasure",
+                "result": "PASS"
+              },
+              {
+                "case": "QE22",
+                "check": "evidence-file reference remains protected and incomplete",
+                "result": "PASS"
+              },
+              {
+                "case": "QE22",
+                "check": "synthetic evidence-reference release preserves original obligation",
+                "result": "PASS"
+              },
+              {
+                "case": "QE23",
+                "check": "consumer erases linked addresses during an inflight send",
+                "result": "PASS"
+              },
+              {
+                "case": "QE23",
+                "check": "late fake acceptance cannot restore access",
+                "result": "PASS"
+              },
+              {
+                "case": "QE24",
+                "check": "separate HTTP/consumer workers overlap and completed onboarding survives",
+                "result": "PASS"
+              },
+              {
+                "case": "QE25",
+                "check": "newer version blocks a resumed external deletion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE21",
+                "check": "symlink target is untouched",
+                "result": "PASS"
+              },
+              {
+                "case": "QE21",
+                "check": "hardlink target is untouched",
+                "result": "PASS"
+              },
+              {
+                "case": "QE17",
+                "check": "unavailable operational storage adapter cannot claim deletion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE26",
+                "check": "configuration flag cannot fabricate an independent recovery provider",
+                "result": "PASS"
+              },
+              {
+                "case": "QE26",
+                "check": "resumed stages also require a trusted recovery provider",
+                "result": "PASS"
+              },
+              {
+                "case": "QE11",
+                "check": "overdue alert uses original missed deadline and no completion receipt",
+                "result": "PASS"
+              },
+              {
+                "case": "QE26",
+                "check": "runtime has no user DELETE, clock mutation or schema DDL",
+                "result": "PASS"
+              },
+              {
+                "case": "QE27",
+                "check": "client exits after completion commits but before receiving result",
+                "result": "PASS"
+              },
+              {
+                "case": "QE27",
+                "check": "interrupted clients can discover committed completion",
+                "result": "PASS"
+              },
+              {
+                "case": "QE28",
+                "check": "recovery interface reads only; no independent durability invented",
+                "result": "PASS"
+              },
+              {
+                "case": "QE02",
+                "check": "011 upgrade and repeat preserve legacy fields",
+                "result": "PASS"
+              },
+              {
+                "case": "QE06",
+                "check": "old 011 expiry receipt cannot fabricate generation",
+                "result": "PASS"
+              }
+            ],
+            "races": [
+              {
+                "case": "QE13",
+                "participants": [
+                  {
+                    "pid": 10,
+                    "connection_id": 123,
+                    "sapi": "cli"
+                  },
+                  {
+                    "pid": 11,
+                    "connection_id": 122,
+                    "sapi": "cli"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 123,
+                    "blocking_connection": 119
+                  },
+                  {
+                    "requesting_connection": 122,
+                    "blocking_connection": 119
+                  }
+                ],
+                "answers": [
+                  {
+                    "exit": 0,
+                    "result": "complete"
+                  },
+                  {
+                    "exit": 0,
+                    "result": "skipped"
+                  }
+                ]
+              },
+              {
+                "case": "QE23",
+                "sender": {
+                  "pid": 15,
+                  "connection_id": 127,
+                  "transaction_open": false
+                },
+                "consumer": {
+                  "pid": 1,
+                  "connection_id": 120
+                },
+                "carrier_waited_while_consumer_completed": true,
+                "carrier_exit": 0
+              },
+              {
+                "case": "QE24",
+                "participants": [
+                  {
+                    "pid": 17,
+                    "connection_id": 129,
+                    "sapi": "cli",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:23:03+00:00",
+                    "uri": ""
+                  },
+                  {
+                    "pid": 16,
+                    "connection_id": 128,
+                    "sapi": "cli-server",
+                    "point": "q11_mixed",
+                    "entered_at": "2026-10-18T10:23:03+00:00",
+                    "uri": "/onboarding.php"
+                  }
+                ],
+                "observed_row_waits": [
+                  {
+                    "requesting_connection": 128,
+                    "blocking_connection": 119
+                  },
+                  {
+                    "requesting_connection": 129,
+                    "blocking_connection": 119
+                  }
+                ],
+                "http_status": 302,
+                "consumer_exit": 0
+              }
+            ],
+            "variants": [
+              {
+                "case": "QE21",
+                "variant": "symlink",
+                "result": "PASS"
+              },
+              {
+                "case": "QE21",
+                "variant": "hardlink",
+                "result": "PASS"
+              }
+            ],
+            "totals": {
+              "assertions": 58,
+              "passed": 58
+            },
+            "failure": null
+          }
+        },
+        "unit": {
+          "log_sha256": "1fab8d9905420142821f4509c82032b1e70f16cbad7fbae42e3d4750ba1b2375",
+          "summary": "unit_signup_verification PASS"
+        },
+        "mailunit": {
+          "log_sha256": "a54516fe484f8a41f7a4bcb2969ab40d6db4bae4668bff8bce4f80a1f90680a4",
+          "summary": "unit_mail_configuration PASS"
+        },
+        "signup": {
+          "log_sha256": "058c4a146741f33cc5c175d896f493944cd22651be05111a3c7953b20d4c3799",
+          "summary": "integration_p0_flows PASS"
+        },
+        "smtp": {
+          "log_sha256": "3f44284ff0cddf71b2089ba43b698902ca0f5abfa8c6bed5d903c74a80dcf1bc",
+          "summary": "integration_smtp_outbox PASS"
+        },
+        "core": {
+          "log_sha256": "6a08d95dbf432b69c7d37070331a20be8c1848d73a80b6ca49a4f25d66fbcb03",
+          "summary": "integration_core_p0_flows PASS"
+        },
+        "policy": {
+          "log_sha256": "3877bb826d8bb3cd8f17ae8f1ca9fba6fad447e66f257b344a365ebd3ea50a71",
+          "summary": "policy_safeguards_p0_flows PASS"
+        },
+        "reports": {
+          "log_sha256": "1f12947ad61e4ac604dc1ad74c2c6406765bd1362b91a001d4d5587df1b00007",
+          "summary": "{\"result\":\"PASS\",\"checks\":245,\"overlaps\":8,\"evidence\":\"\\/workspace\\/.tmp\\/l01b-20261018-102359-8d4712\\/results.json\"}"
+        },
+        "pairs": {
+          "log_sha256": "d28cb95d6457f37cf13557b9df2c1d645491dc25e2495448503e1ed2c9900caf",
+          "summary": "{\"result\":\"PASS\",\"checks\":396,\"overlaps\":11,\"evidence\":\"\\/workspace\\/.tmp\\/l02a-20261018-102526-038bb1\\/results.json\"}"
+        }
+      },
+      "reused_unaffected_regressions": "Earlier Q11/QE and eight affected suites reused after only the Q22 consumer missing-anchor repair and QM32 test expansion; Q22 rerun on final source",
+      "prior_q22_execution": {
+        "mode": "q22",
+        "exit": 0,
+        "started_utc": "2026-10-18T10:19:43.4400706Z",
+        "finished_utc": "2026-10-18T10:20:54.2152775Z",
+        "log": ".tmp/q22-runtime/linux-q22.log",
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .tmp/q22-run-linux.ps1 -Mode q22"
+      },
+      "prior_q22_log_sha256": "e9865c128dc60eccfaf7ac2bce23a18baf89fb351abdfbb403cee6dbbcb93277"
+    }
+  },
+  "cases": [
+    {
+      "case": "QM01",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM01",
+            "check": "disabled cleanup refuses before connection",
+            "result": "PASS"
+          },
+          {
+            "case": "QM01",
+            "check": "invalid batch refused before connection",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM01",
+            "check": "disabled cleanup refuses before connection",
+            "result": "PASS"
+          },
+          {
+            "case": "QM01",
+            "check": "invalid batch refused before connection",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM02",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM02",
+            "check": "fresh and repeat 013 migration",
+            "result": "PASS"
+          },
+          {
+            "case": "QM02",
+            "check": "partial DDL retry validates exact identities and health procedure",
+            "result": "PASS"
+          },
+          {
+            "case": "QM02",
+            "check": "012 upgrade/repeat preserves old rows with NULL generation",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM02",
+            "check": "fresh and repeat 013 migration",
+            "result": "PASS"
+          },
+          {
+            "case": "QM02",
+            "check": "partial DDL retry validates exact identities and health procedure",
+            "result": "PASS"
+          },
+          {
+            "case": "QM02",
+            "check": "012 upgrade/repeat preserves old rows with NULL generation",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM03",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM03",
+            "check": "new issuance and queue have immutable generation-bound anchors",
+            "result": "PASS"
+          },
+          {
+            "case": "QM03",
+            "check": "even fixture SQL cannot mutate a bound source generation",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM03",
+            "check": "new issuance and queue have immutable generation-bound anchors",
+            "result": "PASS"
+          },
+          {
+            "case": "QM03",
+            "check": "even fixture SQL cannot mutate a bound source generation",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM04",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM04",
+            "check": "verification at expiry -1 microsecond",
+            "result": "PASS"
+          },
+          {
+            "case": "QM04",
+            "check": "verification at expiry +0 seconds",
+            "result": "PASS"
+          },
+          {
+            "case": "QM04",
+            "check": "verification at expiry +1 microsecond",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM04",
+            "check": "verification at expiry -1 microsecond",
+            "result": "PASS"
+          },
+          {
+            "case": "QM04",
+            "check": "verification at expiry +0 seconds",
+            "result": "PASS"
+          },
+          {
+            "case": "QM04",
+            "check": "verification at expiry +1 microsecond",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM05",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM05",
+            "check": "use erases HMAC immediately and anchors detail deadline",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM05",
+            "check": "use erases HMAC immediately and anchors detail deadline",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM06",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM06",
+            "check": "details retained just before original 24h deadline",
+            "result": "PASS"
+          },
+          {
+            "case": "QM06",
+            "check": "details erased at exact deadline without losing anchors",
+            "result": "PASS"
+          },
+          {
+            "case": "QM06",
+            "check": "after boundary and repeated reads do not renew obligations",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM06",
+            "check": "details retained just before original 24h deadline",
+            "result": "PASS"
+          },
+          {
+            "case": "QM06",
+            "check": "details erased at exact deadline without losing anchors",
+            "result": "PASS"
+          },
+          {
+            "case": "QM06",
+            "check": "after boundary and repeated reads do not renew obligations",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM07",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM07",
+            "check": "delayed expiry uses original expiry, never cleanup time",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM07",
+            "check": "delayed expiry uses original expiry, never cleanup time",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM08",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM08",
+            "check": "old details purge preserves a newer active challenge",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM08",
+            "check": "old details purge preserves a newer active challenge",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM09",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM09",
+            "check": "terminal attempts erased without restoring code or rate budget",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM09",
+            "check": "terminal attempts erased without restoring code or rate budget",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM10",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM10",
+            "check": "payload expiry -1 microsecond",
+            "result": "PASS"
+          },
+          {
+            "case": "QM10",
+            "check": "payload expiry +0 seconds",
+            "result": "PASS"
+          },
+          {
+            "case": "QM10",
+            "check": "payload expiry +1 microsecond",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM10",
+            "check": "payload expiry -1 microsecond",
+            "result": "PASS"
+          },
+          {
+            "case": "QM10",
+            "check": "payload expiry +0 seconds",
+            "result": "PASS"
+          },
+          {
+            "case": "QM10",
+            "check": "payload expiry +1 microsecond",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM11",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM11",
+            "check": "acceptance erases body immediately; seven days does not extend it",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM11",
+            "check": "acceptance erases body immediately; seven days does not extend it",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM12",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM12",
+            "check": "code-free ordinary metadata before seven days is present",
+            "result": "PASS"
+          },
+          {
+            "case": "QM12",
+            "check": "ordinary mail/job metadata removed at exact seven days",
+            "result": "PASS"
+          },
+          {
+            "case": "QM12",
+            "check": "after boundary retry finds same completion",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM12",
+            "check": "code-free ordinary metadata before seven days is present",
+            "result": "PASS"
+          },
+          {
+            "case": "QM12",
+            "check": "ordinary mail/job metadata removed at exact seven days",
+            "result": "PASS"
+          },
+          {
+            "case": "QM12",
+            "check": "after boundary retry finds same completion",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM13",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM13",
+            "check": "expired payload does not fabricate a terminal in-flight outcome",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM13",
+            "check": "expired payload does not fabricate a terminal in-flight outcome",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM14",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM14",
+            "check": "unknown carrier survives only as a minimal result verifier",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM14",
+            "check": "unknown carrier survives only as a minimal result verifier",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM15",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM15",
+            "check": "late result is once-only and cannot recreate content or authorize access",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM15",
+            "check": "late result is once-only and cannot recreate content or authorize access",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM16",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM16",
+            "check": "unknown status erases expired payload but leaves explicit unresolved metadata",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM16",
+            "check": "unknown status erases expired payload but leaves explicit unresolved metadata",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM17",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM17",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM17",
+            "check": "cleanup/claim cannot dispatch expired mail",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM17",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM17",
+            "check": "cleanup/claim cannot dispatch expired mail",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM18",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM18",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM18",
+            "check": "cancellation and cleanup preserve original mail deadline",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM18",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM18",
+            "check": "cancellation and cleanup preserve original mail deadline",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM19",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM19",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM19",
+            "check": "finish versus metadata purge keeps one result without content resurrection",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM19",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM19",
+            "check": "finish versus metadata purge keeps one result without content resurrection",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM20",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM20",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM20",
+            "check": "known nonacceptance retry never renews useful delivery",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM20",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM20",
+            "check": "known nonacceptance retry never renews useful delivery",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM21",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM21",
+            "check": "blocked fake carrier overlaps purge then records late acceptance",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM21",
+            "check": "blocked fake carrier overlaps purge then records late acceptance",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM22",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM22",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM22",
+            "check": "duplicate workers write exactly one detail receipt",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM22",
+            "check": "separate processes and SQL connections actually overlap",
+            "result": "PASS"
+          },
+          {
+            "case": "QM22",
+            "check": "duplicate workers write exactly one detail receipt",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM23",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM23",
+            "check": "process crash rolls back after_intent",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "retry completes original obligation after_intent",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "process crash rolls back after_erasure",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "retry completes original obligation after_erasure",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "process crash rolls back before_commit",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "retry completes original obligation before_commit",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM23",
+            "check": "process crash rolls back after_intent",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "retry completes original obligation after_intent",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "process crash rolls back after_erasure",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "retry completes original obligation after_erasure",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "process crash rolls back before_commit",
+            "result": "PASS"
+          },
+          {
+            "case": "QM23",
+            "check": "retry completes original obligation before_commit",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM24",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM24",
+            "check": "lost result discovers committed receipt and idempotent completion",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM24",
+            "check": "lost result discovers committed receipt and idempotent completion",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM25",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM25",
+            "check": "missing deletion grant rolls back entire metadata transaction",
+            "result": "PASS"
+          },
+          {
+            "case": "QM25",
+            "check": "restored intended privilege permits same original obligation",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM25",
+            "check": "missing deletion grant rolls back entire metadata transaction",
+            "result": "PASS"
+          },
+          {
+            "case": "QM25",
+            "check": "restored intended privilege permits same original obligation",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM26",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM26",
+            "check": "unreviewed cascade blocks deletion with child intact",
+            "result": "PASS"
+          },
+          {
+            "case": "QM26",
+            "check": "reviewed fixture removal allows retry",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM26",
+            "check": "unreviewed cascade blocks deletion with child intact",
+            "result": "PASS"
+          },
+          {
+            "case": "QM26",
+            "check": "reviewed fixture removal allows retry",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM27",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM27",
+            "check": "stale/replaced account identity fails closed",
+            "result": "PASS"
+          },
+          {
+            "case": "QM27",
+            "check": "unknown legacy anchors become explicit review obligations, never guessed purge",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM27",
+            "check": "stale/replaced account identity fails closed",
+            "result": "PASS"
+          },
+          {
+            "case": "QM27",
+            "check": "unknown legacy anchors become explicit review obligations, never guessed purge",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM28",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM28",
+            "check": "enable flag cannot substitute a fixture for independent recovery",
+            "result": "PASS"
+          },
+          {
+            "case": "QM28",
+            "check": "recovery interface is read-only and copy bounds remain unknown",
+            "result": "PASS"
+          },
+          {
+            "case": "QM28",
+            "check": "retained receipts/recovery/diagnostics contain no address or payload fields",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM28",
+            "check": "enable flag cannot substitute a fixture for independent recovery",
+            "result": "PASS"
+          },
+          {
+            "case": "QM28",
+            "check": "recovery interface is read-only and copy bounds remain unknown",
+            "result": "PASS"
+          },
+          {
+            "case": "QM28",
+            "check": "retained receipts/recovery/diagnostics contain no address or payload fields",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM29",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM29",
+            "check": "ordinary details erased while a scoped evidence hold remains active",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected users",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected signup_lifecycle",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected signup_expiry_obligations",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected signup_attempt_erasure_recovery",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected consent_records",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected reports",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected moderation_cases",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected moderation_evidence",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected evidence_lifecycle_holds",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected blocks",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected pair_request_counts",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected rate_limits",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM29",
+            "check": "ordinary details erased while a scoped evidence hold remains active",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected users",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected signup_lifecycle",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected signup_expiry_obligations",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected signup_attempt_erasure_recovery",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected consent_records",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected reports",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected moderation_cases",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected moderation_evidence",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected evidence_lifecycle_holds",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected blocks",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected pair_request_counts",
+            "result": "PASS"
+          },
+          {
+            "case": "QM29",
+            "check": "preserves protected rate_limits",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM30",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM30",
+            "check": "resend cannot repopulate erased old challenge details",
+            "result": "PASS"
+          },
+          {
+            "case": "QM30",
+            "check": "reused numeric source ID with a different generation is preserved",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM30",
+            "check": "resend cannot repopulate erased old challenge details",
+            "result": "PASS"
+          },
+          {
+            "case": "QM30",
+            "check": "reused numeric source ID with a different generation is preserved",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM31",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM31",
+            "check": "late successful cleanup records original missed deadline",
+            "result": "PASS"
+          },
+          {
+            "case": "QM31",
+            "check": "one bounded batch processes at most one durable record",
+            "result": "PASS"
+          },
+          {
+            "case": "QM31",
+            "check": "worker has no user deletion, clock or migration privilege",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM31",
+            "check": "late successful cleanup records original missed deadline",
+            "result": "PASS"
+          },
+          {
+            "case": "QM31",
+            "check": "one bounded batch processes at most one durable record",
+            "result": "PASS"
+          },
+          {
+            "case": "QM31",
+            "check": "worker has no user deletion, clock or migration privilege",
+            "result": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "case": "QM32",
+      "result": "PASS",
+      "checks": {
+        "native": [
+          {
+            "case": "QM32",
+            "check": "missing earlier detail clock stays unresolved while expired HMAC is erased",
+            "result": "PASS"
+          },
+          {
+            "case": "QM32",
+            "check": "missing earlier mail clock cannot extend metadata or retain expired body",
+            "result": "PASS"
+          }
+        ],
+        "linux": [
+          {
+            "case": "QM32",
+            "check": "missing earlier detail clock stays unresolved while expired HMAC is erased",
+            "result": "PASS"
+          },
+          {
+            "case": "QM32",
+            "check": "missing earlier mail clock cannot extend metadata or retain expired body",
+            "result": "PASS"
+          }
+        ]
+      }
+    }
+  ],
+  "tested_source_sha256_lf": {
+    ".github/workflows/ci.yml": "c291459ab33cfe5f4fd76d169deba06d9cd55876cbfa6c91656c772eb2f95356",
+    "bin/migrate.php": "c159df131a9b1496b7f66cce6b0b2c0e9e83da802a06ec024b58b9c9ce539dc4",
+    "bin/cleanup_verification.php": "98b3552ec00cc5b52a473bbbcfc78457a3afa8183a7c0dfb8e98999fb890a155",
+    "database/migrations/013_challenge_mail_retention.sql": "1c30a83c5d304c33c69a5369214dc8601d6a4d40f46d29e73a0dd94b84ba6eb3",
+    "php/verification_retention.php": "6fade93fc955a124570ade52c41b541c891e0202ccda11a1ccda618b4221461f",
+    "php/verification_retention_migration.php": "51c16ab865204eb22c0003ca835a00ac0555093191a392eac0bdbb718a8ddbe8",
+    "php/signup_verification.php": "22320524abf61641570432b932b2006f256edf0831363cc61fbacb8ef18ca90f",
+    "php/signup_lifecycle.php": "9883bb35b465ce188141c0c30fef932e4660a87901d3cb8717616849d7439f07",
+    "php/signup_mail_jobs.php": "9ec0b27718dfad7f5f421be3092ddf83828acd16cb6c31a284338cf2d2cca949",
+    "tests/integration_verification_retention.php": "fd010c94fd710927d5c0fe530a9b85bdc67e7d98ae4072eacd4fddf427252c87",
+    "tests/support/verification_retention_fixture.php": "e3e42b8ad89f9b198dcb293c41411b8a3ac819f7e4cb6fb1d332c39a1fb4e08e",
+    "tests/support/verification_retention_worker.php": "dcf958b44b98303f4547392fd6f25c193feb98122de77f6c43e67b99c616bfdb",
+    "tests/support/q11_fixture.php": "10d17ea596e7f5ba4e117b18ae1603e46774511fd0dff4cd3a7e4e1d190ad706",
+    "tests/integration_q11_signup_expiry.php": "e04ad2b4b390b8552e44fb6ea4251603b59c4377e349e76a5cc7b7d0ab9d6ce1",
+    "tests/integration_smtp_outbox.php": "639cd3c3ad920abdb24eaf0a812d6d7f05aa6243b5d81499f114aa3af6762732"
+  },
+  "ci": {
+    "status": "NOT RUN",
+    "note": "Local CI step only; no run attribution or production-version approval"
+  },
+  "historical_status_unchanged": {
+    "A": "24 PASS / 19 PARTIAL / 2 NOT RUN",
+    "LB": "21 PASS / 12 PARTIAL / 0 wholly NOT RUN",
+    "LC": "13 PASS / 5 PARTIAL / 0 wholly NOT RUN",
+    "QS": "24 PASS / 0 PARTIAL / 0 NOT RUN",
+    "QE": "27 PASS / 1 PARTIAL / 0 wholly NOT RUN; Windows symlink variant NOT RUN"
+  },
+  "external_variants_not_run": [
+    "Operational independent recovery publication/copy inventory and shell/receipt retirement",
+    "Actual provider/storage/session copy inventory",
+    "Startup/mail restore replay and witnessed restore",
+    "Authentic legacy provenance and observed production writer cutover",
+    "Qualified privacy/security/safety review and real operator coverage/alerts/scheduling",
+    "Actual production runtime/provider/inbox acceptance"
+  ],
+  "local_correction": "Observed old-snapshot late-result lookup race repaired using pre-existing identity plus current locking receipt read; final profiles rerun",
+  "no_production_operations": true,
+  "test_entrypoint": "php tests/integration_verification_retention.php",
+  "required_environment": {
+    "APP_ENV": "development",
+    "APP_DEBUG": "false",
+    "BUSHISA_ALLOW_RUNTIME_DDL": "false",
+    "BUSHISA_TEST_DATABASE": "true",
+    "BUSHISA_Q11_SYNTHETIC": "true",
+    "BUSHISA_Q11_QUEUE_FAKE": "true",
+    "BUSHISA_Q22_CLEANUP_ENABLED": "true",
+    "BUSHISA_Q22_SYNTHETIC": "true",
+    "BUSHISA_TEST_HTTP_OVERLAP": "true",
+    "MAIL_PROVIDER": "fake",
+    "MAIL_TRANSPORT": "fake",
+    "DB_HOST": "127.0.0.1",
+    "DB_NAME": "bushisa_test_q11_*",
+    "DB_PORT": "explicit isolated fixture port",
+    "DB_USER": "separate fixture setup identity; generated restricted worker thereafter",
+    "DB_PASSWORD": "disposable fixture only; not retained in evidence"
+  },
+  "documentation_validation": {
+    "local_links": 142,
+    "heading_targets": 5,
+    "matrix_cases": 32,
+    "tested_source_hashes": 15,
+    "policy_historical_evidence_paths_unchanged": 12,
+    "clock_examples": "conditional Q11 1+35+7=43; Q14 7+35+7=49; neither hard-coded",
+    "php_syntax": "13 changed PHP files, 0 failures"
+  },
+  "owned_fixture_teardown": {
+    "native": {
+      "server_uuid": "cd20b7f3-cada-11f1-8e15-040e3ca062fa",
+      "port": 3371,
+      "datadir": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa\\.tmp\\qe-mysql-71c92a7548fe4a0fabb24f104217b184\\",
+      "pid_file": "D:\\Documents\\Uni\\Sem 2.1\\COMPUTER SCIENCE 2.1\\scs2114 Internet And Web\\Bushisa\\Bushisa\\.tmp\\qe-mysql-71c92a7548fe4a0fabb24f104217b184\\server.pid",
+      "version": "9.6.0",
+      "pid": 31028,
+      "shutdown_requested_utc": "2026-10-18T10:34:45+00:00",
+      "shutdown_exit": 0
+    },
+    "docker": {
+      "label": "bushisa.task=q22",
+      "stopped_utc": "2026-10-18T10:36:23.4194017Z",
+      "id": "6f3c439ec2bc80e0eb606b781c98c1642803379314b05671e1d9e92dde8bcf46",
+      "stop_exit": 0
+    }
+  },
+  "finalized_utc": "2026-10-18T10:37:50.753085+00:00"
+}

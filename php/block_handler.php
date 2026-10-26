@@ -25,46 +25,55 @@ CREATE TABLE IF NOT EXISTS blocks (
  * @param int $blocked_id
  * @return bool
  */
-function block_user(PDO $pdo, int $blocker_id, int $blocked_id): bool
+function block_user(PDO $pdo, int $blocker_id, int $blocked_id, ?int $sessionVersion = null, ?array $intent = null): bool
 {
-    ensure_operational_schema($pdo);
-    $pdo->beginTransaction();
-
-    try {
-        $statement = $pdo->prepare('INSERT IGNORE INTO blocks (blocker_id, blocked_id) VALUES (:blocker_id, :blocked_id)');
-        $statement->execute([
-            ':blocker_id' => $blocker_id,
-            ':blocked_id' => $blocked_id,
-        ]);
-
-        bushisa_close_match_between($pdo, $blocker_id, $blocked_id, 'blocked');
-
-        $pdo->commit();
-        return true;
-    } catch (Throwable $throwable) {
-        if ($pdo->inTransaction()) {
-            $pdo->rollBack();
+    require_once __DIR__ . '/report_intake.php';
+    require_once __DIR__ . '/pair_history.php';
+    return bushisa_report_transaction($pdo, function () use ($pdo, $blocker_id, $blocked_id, $sessionVersion, $intent): bool {
+        if ($blocker_id === $blocked_id || !bushisa_report_actor_ok($pdo, $blocker_id, $sessionVersion)) {
+            throw new BushisaReportError(403, 'This action is unavailable');
         }
-        throw $throwable;
-    }
+        $pair=bushisa_pair_ensure($pdo,$blocker_id,$blocked_id);
+        $work=function() use($pdo,$blocker_id,$blocked_id):array {
+            $statement = $pdo->prepare('INSERT IGNORE INTO blocks (blocker_id, blocked_id) SELECT ?, id FROM users WHERE id = ?');
+            $statement->execute([$blocker_id, $blocked_id]);
+            bushisa_pair_close_relationship($pdo,$blocker_id,$blocked_id,'blocked',false);
+            return [];
+        };
+        if ($intent!==null) { bushisa_pair_operation($pdo,$blocker_id,$pair,$intent,$work); }
+        else { $work(); bushisa_pair_bump($pdo,$pair); }
+        return true;
+    });
 }
 
-/**
- * Remove a block relationship.
- *
- * @param PDO $pdo
- * @param int $blocker_id
- * @param int $blocked_id
- * @return bool
- */
-function unblock_user(PDO $pdo, int $blocker_id, int $blocked_id): bool
+/** Only the creator can remove their own cleared personal block. */
+function unblock_user(PDO $pdo, int $blocker_id, int $blocked_id, ?int $sessionVersion = null, ?array $intent = null): bool
 {
-    ensure_operational_schema($pdo);
-    $statement = $pdo->prepare('DELETE FROM blocks WHERE blocker_id = :blocker_id AND blocked_id = :blocked_id');
-    return $statement->execute([
-        ':blocker_id' => $blocker_id,
-        ':blocked_id' => $blocked_id,
-    ]);
+    require_once __DIR__ . '/report_intake.php';
+    require_once __DIR__ . '/pair_history.php';
+    return bushisa_report_transaction($pdo, function () use ($pdo, $blocker_id, $blocked_id, $sessionVersion, $intent): bool {
+        if (!bushisa_report_actor_ok($pdo, $blocker_id, $sessionVersion)) {
+            throw new BushisaReportError(403, 'This action is unavailable');
+        }
+        $pair=bushisa_pair_ensure($pdo,$blocker_id,$blocked_id);
+        $work=function() use($pdo,$blocker_id,$blocked_id,$intent):array {
+        $statement = $pdo->prepare('SELECT id FROM blocks WHERE blocker_id = ? AND blocked_id = ? FOR UPDATE');
+        $statement->execute([$blocker_id, $blocked_id]);
+        $block = $statement->fetchColumn();
+        if ($block === false) {
+            return []; // No other person's block is changed, no grant on replay.
+        }
+        if ($intent!==null && (int)($intent['block_id']??0)!==(int)$block) { throw new BushisaReportError(409,'Block state changed; refresh before choosing again'); }
+        bushisa_report_guard_unblock($pdo, (int) $block);
+        $statement = $pdo->prepare('DELETE FROM blocks WHERE id = ? AND blocker_id = ?');
+        $statement->execute([(int) $block, $blocker_id]);
+        bushisa_pair_unblock_grant($pdo,$blocker_id,$blocked_id);
+        return [];
+        };
+        if ($intent!==null) { bushisa_pair_operation($pdo,$blocker_id,$pair,$intent,$work); }
+        else { $work(); bushisa_pair_bump($pdo,$pair); }
+        return true;
+    });
 }
 
 /**

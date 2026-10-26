@@ -5,6 +5,7 @@
   const NAMESPACE_NAME = 'Bushisa';
   const DISCOVER_ENDPOINT = 'api/discover.php';
   const SWIPE_ENDPOINT = 'api/swipe.php';
+  const swipeIntents = new WeakMap();
   const BATCH_SIZE = 10;
   const PREFETCH_THRESHOLD = 2;
   const SWIPE_DISTANCE = 100;
@@ -615,12 +616,24 @@
       throw new Error('Discovery services are unavailable.');
     }
 
+    let intents = swipeIntents.get(candidate);
+    if (!intents) {
+      intents = new Map();
+      swipeIntents.set(candidate, intents);
+    }
+    let intent = intents.get(direction);
+    if (!intent) {
+      const prepared = await apiFetch('api/pairs.php?user_id=' + encodeURIComponent(candidate.id));
+      const state = prepared?.data ?? prepared;
+      const key = Array.from(crypto.getRandomValues(new Uint8Array(32)), value => value.toString(16).padStart(2, '0')).join('');
+      intent = { target_id: candidate.id, pair_version: state.pair_version, idempotency_key: key, direction };
+      // A transport retry retains its original consent/version. A newly loaded
+      // card is a new object; stale cards never silently refresh their intent.
+      intents.set(direction, intent);
+    }
     const response = await apiFetch(SWIPE_ENDPOINT, {
       method: 'POST',
-      body: {
-        target_id: candidate.id,
-        direction
-      }
+      body: intent
     });
 
     if (response && typeof response === 'object') {

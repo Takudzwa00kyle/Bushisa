@@ -30,19 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Invalid form submission. Please try again.';
     } else {
         $dateOfBirth = isset($_POST['date_of_birth']) && is_string($_POST['date_of_birth']) ? $_POST['date_of_birth'] : '';
-        $result = bushisa_complete_adult_onboarding($pdo, $userId, $dateOfBirth);
+        $oldVersion = (int) ($_SESSION['session_version'] ?? 0);
+        session_write_close();
+        $result = bushisa_complete_adult_onboarding($pdo, $userId, $dateOfBirth, $oldVersion);
         if (!empty($result['success'])) {
-            $_SESSION['session_version'] = (int) ($_SESSION['session_version'] ?? 0) + 1;
+            bushisa_resume_transition_session($pdo, $userId, $oldVersion, (int) $result['session_version']);
             redirect('discover.php');
         }
 
         $error = is_string($result['error'] ?? null) ? $result['error'] : 'Adult onboarding failed.';
         $freshUser = find_user_by_id($pdo, $userId);
         if ($freshUser !== null && (string) ($freshUser['account_status'] ?? '') === 'underage_blocked') {
+            start_secure_session();
             destroy_session();
         }
     }
 }
+$deadline = bushisa_signup_deadline($pdo, $userId);
 
 render_auth_start('Adult onboarding', $csrfToken);
 ?>
@@ -50,6 +54,9 @@ render_auth_start('Adult onboarding', $csrfToken);
     <span class="brand-mark" aria-hidden="true">B</span>
     <h1 id="onboarding-title">Adult eligibility</h1>
     <p class="auth-card__lead">Bushisa discovery is restricted to students who are at least 18 years old.</p>
+    <p>Finish within 7 days of your first successful email approval. Visits and retries do not extend this deadline.</p>
+    <?php if ($deadline !== null): ?><p>Onboarding deadline: <?= e($deadline) ?> UTC.</p><?php endif; ?>
+    <p>An expired signup is disabled and scheduled for cleanup. A fresh signup after cleanup must repeat email approval and adult onboarding.</p>
 
     <?php render_flash($error, $success); ?>
 

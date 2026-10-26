@@ -31,6 +31,16 @@ function validate_password(string $password): array
     return $errors;
 }
 
+/** Registration and recovery use the same complete policy. */
+function validate_account_password(string $password): array
+{
+    $errors = validate_password($password);
+    if ($password !== '' && !preg_match('/[^A-Za-z0-9]/', $password)) {
+        $errors[] = 'Password must contain at least one special character.';
+    }
+    return $errors;
+}
+
 /**
  * Hash a password using bcrypt.
  *

@@ -1,0 +1,555 @@
+{
+    "production_acceptance":  false,
+    "managed_azure_cases":  "18 NOT RUN",
+    "draft":  true,
+    "merge_parents":  [
+                          "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+                          "3dbcb50bbb8e3401e2d7688143c4d406dbf0d426"
+                      ],
+    "format":  "bushisa.direct-release-hosted-ci.v1",
+    "source_sha":  "3dbcb50bbb8e3401e2d7688143c4d406dbf0d426",
+    "captured_utc":  "2026-10-20T22:07:36.0124410Z",
+    "test_merge":  "e67b43137a971c939d83e09737f1744d631bec0a",
+    "merged":  false,
+    "runs":  [
+                 {
+                     "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504799952",
+                     "id":  39504799952,
+                     "global_settings_restored":  true,
+                     "conclusion":  "success",
+                     "release_cases":  [
+                                           {
+                                               "case":  "DR01",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR02",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR03",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR04",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR05",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR06",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR07",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR08",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR09",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR10",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR11",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR12",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR13",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR14",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR15",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR16",
+                                               "result":  "PASS"
+                                           }
+                                       ],
+                     "event":  "pull_request",
+                     "jobs":  [
+                                  {
+                                      "name":  "browser-route-session-overlap",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504799952/job/118910937364"
+                                  },
+                                  {
+                                      "name":  "smtp-outbox-integration",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504799952/job/118910937748"
+                                  },
+                                  {
+                                      "name":  "l06-recovery-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504799952/job/118910937767"
+                                  },
+                                  {
+                                      "name":  "guarded-staging-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504799952/job/118910937852"
+                                  },
+                                  {
+                                      "name":  "direct-release-compatibility",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504799952/job/118910937862"
+                                  },
+                                  {
+                                      "name":  "lint-and-unit",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504799952/job/118910937947"
+                                  }
+                              ],
+                     "php":  "8.5.11",
+                     "checkout_sha":  "e67b43137a971c939d83e09737f1744d631bec0a",
+                     "mysql_profile":  {
+                                           "mysql":  "8.0.46",
+                                           "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+                                           "time_zone":  "+00:00",
+                                           "isolation":  "REPEATABLE-READ",
+                                           "charset":  "utf8mb4",
+                                           "collation":  "utf8mb4_0900_ai_ci",
+                                           "require_secure_transport":  0,
+                                           "log_bin":  1,
+                                           "log_bin_trust_function_creators":  0
+                                       },
+                     "artifact":  {
+                                      "sha256":  "89484934287bd61ac826f1de8f3a7d2041434d275c973619ddc708d787b0dd09",
+                                      "id":  12302503156,
+                                      "digest_verified":  true
+                                  },
+                     "source_sha":  "3dbcb50bbb8e3401e2d7688143c4d406dbf0d426",
+                     "owner_schema":  {
+                                          "actual_previous_artifact":  "NOT RUN: complete artifact unknown",
+                                          "physical_fidelity":  "PARTIAL: supplemental metadata still required",
+                                          "local_TLS_case":  "NOT RUN in this hosted plain-loopback profile",
+                                          "tls":  {
+                                                      "Ssl_cipher":  "",
+                                                      "Ssl_version":  ""
+                                                  },
+                                          "recovery":  "NOT RUN",
+                                          "rollback":  "INCOMPATIBLE: actual old HTTP writer bypasses new pair provenance",
+                                          "profile":  {
+                                                          "mysql":  "8.0.46",
+                                                          "global_time_zone":  "+00:00",
+                                                          "session_time_zone":  "+00:00",
+                                                          "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+                                                          "isolation":  "REPEATABLE-READ",
+                                                          "charset":  "utf8mb4",
+                                                          "collation":  "utf8mb4_0900_ai_ci",
+                                                          "require_secure_transport":  0,
+                                                          "log_bin":  1,
+                                                          "log_bin_trust_function_creators":  1
+                                                      },
+                                          "checkout_sha":  "e67b43137a971c939d83e09737f1744d631bec0a",
+                                          "modified_worktree":  false,
+                                          "source_sha":  "3dbcb50bbb8e3401e2d7688143c4d406dbf0d426",
+                                          "cases":  [
+                                                        {
+                                                            "case":  "OS01",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS02.bootstrap",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS02",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS03",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS04",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS04.partial005",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS04.partial006",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS05",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS06",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS07",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS08",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS09",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS09.null_history",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS10",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS11",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS12",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS13",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS14",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS14.CLI",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS14.cleanupCLI",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS15.immutable",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS15.worker",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS15.runtime",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS16",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS17.counterexample",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS18",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS19",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS20.restore",
+                                                            "result":  "PASS"
+                                                        }
+                                                    ],
+                                          "digest_verified":  true,
+                                          "artifact_id":  12303058647,
+                                          "php":  "8.5.11",
+                                          "sha256":  "e1ebf7f6f8b7bf73ec5f538691a1d6e67dcd46a6c6d29e4853b81dc03caf1b18"
+                                      }
+                 },
+                 {
+                     "url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504794381",
+                     "id":  39504794381,
+                     "global_settings_restored":  true,
+                     "conclusion":  "success",
+                     "release_cases":  [
+                                           {
+                                               "case":  "DR01",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR02",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR03",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR04",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR05",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR06",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR07",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR08",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR09",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR10",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR11",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR12",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR13",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR14",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR15",
+                                               "result":  "PASS"
+                                           },
+                                           {
+                                               "case":  "DR16",
+                                               "result":  "PASS"
+                                           }
+                                       ],
+                     "event":  "push",
+                     "jobs":  [
+                                  {
+                                      "name":  "lint-and-unit",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504794381/job/118910919576"
+                                  },
+                                  {
+                                      "name":  "direct-release-compatibility",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504794381/job/118910919777"
+                                  },
+                                  {
+                                      "name":  "browser-route-session-overlap",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504794381/job/118910919791"
+                                  },
+                                  {
+                                      "name":  "l06-recovery-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504794381/job/118910919836"
+                                  },
+                                  {
+                                      "name":  "smtp-outbox-integration",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504794381/job/118910919847"
+                                  },
+                                  {
+                                      "name":  "guarded-staging-acceptance",
+                                      "conclusion":  "success",
+                                      "html_url":  "https://github.com/Takudzwa00kyle/Bushisa/actions/runs/39504794381/job/118910920113"
+                                  }
+                              ],
+                     "php":  "8.5.11",
+                     "checkout_sha":  "3dbcb50bbb8e3401e2d7688143c4d406dbf0d426",
+                     "mysql_profile":  {
+                                           "mysql":  "8.0.46",
+                                           "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+                                           "time_zone":  "+00:00",
+                                           "isolation":  "REPEATABLE-READ",
+                                           "charset":  "utf8mb4",
+                                           "collation":  "utf8mb4_0900_ai_ci",
+                                           "require_secure_transport":  0,
+                                           "log_bin":  1,
+                                           "log_bin_trust_function_creators":  0
+                                       },
+                     "artifact":  {
+                                      "sha256":  "a18a80ea10fd8b8e138f7b7970e08e54449385fab8469341acec41b24a5d257b",
+                                      "id":  12302114003,
+                                      "digest_verified":  true
+                                  },
+                     "source_sha":  "3dbcb50bbb8e3401e2d7688143c4d406dbf0d426",
+                     "owner_schema":  {
+                                          "actual_previous_artifact":  "NOT RUN: complete artifact unknown",
+                                          "physical_fidelity":  "PARTIAL: supplemental metadata still required",
+                                          "local_TLS_case":  "NOT RUN in this hosted plain-loopback profile",
+                                          "tls":  {
+                                                      "Ssl_cipher":  "",
+                                                      "Ssl_version":  ""
+                                                  },
+                                          "recovery":  "NOT RUN",
+                                          "rollback":  "INCOMPATIBLE: actual old HTTP writer bypasses new pair provenance",
+                                          "profile":  {
+                                                          "mysql":  "8.0.46",
+                                                          "global_time_zone":  "+00:00",
+                                                          "session_time_zone":  "+00:00",
+                                                          "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+                                                          "isolation":  "REPEATABLE-READ",
+                                                          "charset":  "utf8mb4",
+                                                          "collation":  "utf8mb4_0900_ai_ci",
+                                                          "require_secure_transport":  0,
+                                                          "log_bin":  1,
+                                                          "log_bin_trust_function_creators":  1
+                                                      },
+                                          "checkout_sha":  "3dbcb50bbb8e3401e2d7688143c4d406dbf0d426",
+                                          "modified_worktree":  false,
+                                          "source_sha":  "3dbcb50bbb8e3401e2d7688143c4d406dbf0d426",
+                                          "cases":  [
+                                                        {
+                                                            "case":  "OS01",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS02.bootstrap",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS02",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS03",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS04",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS04.partial005",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS04.partial006",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS05",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS06",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS07",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS08",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS09",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS09.null_history",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS10",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS11",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS12",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS13",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS14",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS14.CLI",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS14.cleanupCLI",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS15.immutable",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS15.worker",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS15.runtime",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS16",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS17.counterexample",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS18",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS19",
+                                                            "result":  "PASS"
+                                                        },
+                                                        {
+                                                            "case":  "OS20.restore",
+                                                            "result":  "PASS"
+                                                        }
+                                                    ],
+                                          "digest_verified":  true,
+                                          "artifact_id":  12301968333,
+                                          "php":  "8.5.11",
+                                          "sha256":  "fbfe457822eff0fdbca31591630e016587fa0b332dfa934dbc1fe12c5364624f"
+                                      }
+                 }
+             ],
+    "sc26_production":  "PARTIAL",
+    "pr":  8,
+    "source_and_merge_tree":  "199d598b79be7135768cdce4a2089d7c5de2af72"
+}

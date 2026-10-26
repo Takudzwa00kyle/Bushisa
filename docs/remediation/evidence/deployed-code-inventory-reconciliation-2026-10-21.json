@@ -1,0 +1,1219 @@
+{
+  "format": "bushisa.owner-code-inventory-reconciliation.v1",
+  "recorded_utc": "2026-10-21T13:02:51.019875+00:00",
+  "checkout": "a3d2cf0055e6dc8efecf85413ed5ecd306cdb9d1",
+  "source_file": "08-deployed-code-names.txt",
+  "source_sha256": "2c564889f6f8e7bc6fc7f4c7bfb2f1b75e2b36bbb53225e3bc54939fab14c0e4",
+  "source_bytes": 7755,
+  "owner_metadata": {
+    "capture_utc": "2026-10-21T12:41:11Z",
+    "physical_root": "/home/site/wwwroot",
+    "visited_entries": "190",
+    "excluded_entries": "10",
+    "row_count": "166",
+    "capture_end_utc": "2026-10-21T12:41:11Z"
+  },
+  "capture_harare": "2026-10-21T14:41:11+02:00",
+  "summary": {
+    "code_paths": 154,
+    "top_directories": 12,
+    "missing_directories": 0,
+    "known_capture05_hash_paths_seen": 93,
+    "additional_paths": 61,
+    "additional_git_tooling": 1,
+    "additional_dependency_paths": 59,
+    "additional_dependency_language_files": 57,
+    "unidentified_root_html": 1
+  },
+  "additional_paths": [
+    {
+      "path": "hostingstart.html",
+      "classification": "UNIDENTIFIED_ROOT_STATIC_HTML_CONTENT_UNVERIFIED",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": null,
+      "host_content_verified": false
+    },
+    {
+      "path": "playwright.config.js",
+      "classification": "GIT_TRACKED_TOOLING_UNHASHED_ON_HOST",
+      "present_baseline_git": true,
+      "present_candidate_git": true,
+      "git_history_commits": [
+        "8b40e9e72c80cc54488c443a90ee81bf8c6aad70",
+        "438397e4656d8506c9144134eb53c48110ffb7fc",
+        "e0222262f27dbb7013f1e7d832b0c220cd0eea77",
+        "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+      ],
+      "local_sha256": "1e0dcf281be4402f1a849c82e04e6d12059b8d7e055df17c122ceb4da2323752",
+      "host_content_verified": false,
+      "baseline_sha256": "f3f5ec772279978f7d0ae3d93fbcee9ca28fc6126469c4ba178b469f0e69b04a",
+      "candidate_sha256": "1e0dcf281be4402f1a849c82e04e6d12059b8d7e055df17c122ceb4da2323752"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/composer.json",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "0d29d0a9c86be376433530333bee758ba563e7267347300c181299f5a1d920a4",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "0d29d0a9c86be376433530333bee758ba563e7267347300c181299f5a1d920a4"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/get_oauth_token.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "c461d8181348df478a5639013af6719e89182bd6153b2e48469525763371f743",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "c461d8181348df478a5639013af6719e89182bd6153b2e48469525763371f743"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-af.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "d4c5272712f1b1cd6b3d08f83a89fbdae257de308a58e6eee1f4e7f519c86062",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "d4c5272712f1b1cd6b3d08f83a89fbdae257de308a58e6eee1f4e7f519c86062"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ar.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "ad11ffbf21f84fe6e812a0cf4f82df4412dd232ab6f6b6fe47e2c760845ec04f",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "ad11ffbf21f84fe6e812a0cf4f82df4412dd232ab6f6b6fe47e2c760845ec04f"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-as.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "8aaaa3925b2e79a475ffd7b65e29406b1e86c8ea48a666ec32243668f5e28494",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "8aaaa3925b2e79a475ffd7b65e29406b1e86c8ea48a666ec32243668f5e28494"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-az.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "8b116561af83e2bd1ef3319ff8103f169883e89efab592115d98c9ae7c09d6df",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "8b116561af83e2bd1ef3319ff8103f169883e89efab592115d98c9ae7c09d6df"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ba.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "df573ba9a9431bff2c602b7b297040e0f9cf9b319562f17c686f01f1ed4ebfad",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "df573ba9a9431bff2c602b7b297040e0f9cf9b319562f17c686f01f1ed4ebfad"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-be.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "47c51cef7371142b993b58764c0abd4e82fe7213f9bd85b6dcfb24d0acd223ec",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "47c51cef7371142b993b58764c0abd4e82fe7213f9bd85b6dcfb24d0acd223ec"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-bg.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "9a556b5ad45ead80d7331f5ed713799e7fb810c52f8d7913725585fbeff084c2",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "9a556b5ad45ead80d7331f5ed713799e7fb810c52f8d7913725585fbeff084c2"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-bn.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "ff7842ce6fdc7cbb846b16f292e126fbc578e0c27da48092e4a5f44d928aebe6",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "ff7842ce6fdc7cbb846b16f292e126fbc578e0c27da48092e4a5f44d928aebe6"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ca.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "2b62db0921d2d321c80869bc9544b744747fd7cf398cc17358c0ae0b2533548c",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "2b62db0921d2d321c80869bc9544b744747fd7cf398cc17358c0ae0b2533548c"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-cs.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "4bdb6445032c31fa1c41d65b8840f4fed0c30b96a6e68418ea6968e6de49f664",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "4bdb6445032c31fa1c41d65b8840f4fed0c30b96a6e68418ea6968e6de49f664"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-da.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "bd266892cb528bdb3a691d1716f139c3c84435272e93ca7e6a0b70e74f3e1ce2",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "bd266892cb528bdb3a691d1716f139c3c84435272e93ca7e6a0b70e74f3e1ce2"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-de.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "41e9bee22a8b00d42b28ebadae85ba531134a2482108489c0e5ced6ddc25b062",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "41e9bee22a8b00d42b28ebadae85ba531134a2482108489c0e5ced6ddc25b062"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-el.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "3760e138e5c0fdc17a896718d2d86239b6d2d936abc0cf016fc5350ee034a8dd",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "3760e138e5c0fdc17a896718d2d86239b6d2d936abc0cf016fc5350ee034a8dd"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-eo.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "bf02aaf8e09a94ec0e20355dfb6e0f1a37a56ae06944014c277de208e39b16f9",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "bf02aaf8e09a94ec0e20355dfb6e0f1a37a56ae06944014c277de208e39b16f9"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-es.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "182270f8e64be0dcbb5c22c6c672efc5a3da4c0295b4d2d69373e18424657a91",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "182270f8e64be0dcbb5c22c6c672efc5a3da4c0295b4d2d69373e18424657a91"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-et.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "7a854b796bc5058913ab5f5ad489b02ed246ad49220e844a1c3fbb0ffa908fa6",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "7a854b796bc5058913ab5f5ad489b02ed246ad49220e844a1c3fbb0ffa908fa6"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fa.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "7e38e2e75326d9d7bbb87fc4f6dc5c40ce79c9ce43016a707e84af9d7e332102",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "7e38e2e75326d9d7bbb87fc4f6dc5c40ce79c9ce43016a707e84af9d7e332102"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fi.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "3efb47c9e164860b45ee3a9f707975210d7f87bbc356a7dada075528fc37052c",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "3efb47c9e164860b45ee3a9f707975210d7f87bbc356a7dada075528fc37052c"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fo.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "2b778d73170ff1864126bd65839d39098a9dde290e31fe6ea6719b68a030daa2",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "2b778d73170ff1864126bd65839d39098a9dde290e31fe6ea6719b68a030daa2"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fr.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "1d816ccae7fa8eea24907686ffeeeeb5861ffdf794690e6a91c142d49d05efd7",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "1d816ccae7fa8eea24907686ffeeeeb5861ffdf794690e6a91c142d49d05efd7"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-gl.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "fe2fd5068446a04e73ca767ca05eba81f6648fcb93988a307a4dbd619054780a",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "fe2fd5068446a04e73ca767ca05eba81f6648fcb93988a307a4dbd619054780a"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-he.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "7d944fe5e073d0dfb8a53cf9f8e9c409d40f5f0149ce6d47c1f4088cb28d69fe",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "7d944fe5e073d0dfb8a53cf9f8e9c409d40f5f0149ce6d47c1f4088cb28d69fe"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hi.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "2a260e1b5f0d7efbfccc436ea040aa172ecd5ac8ea394482c0dd9a2e7c9d3206",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "2a260e1b5f0d7efbfccc436ea040aa172ecd5ac8ea394482c0dd9a2e7c9d3206"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hr.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "b337f280f2e5f087daaa44bd1f359bbc41e01062cbd07a5c67345a45a01ccbaf",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "b337f280f2e5f087daaa44bd1f359bbc41e01062cbd07a5c67345a45a01ccbaf"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hu.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "94045618ef5a86dc4f8176f3ebae3fbb1e29b7ef7cb1ce99ba57ee4724aef3be",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "94045618ef5a86dc4f8176f3ebae3fbb1e29b7ef7cb1ce99ba57ee4724aef3be"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hy.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "52fc3f40d24d55ef95702a59ec006c4c5996a22e54a6b00e54a25707db341629",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "52fc3f40d24d55ef95702a59ec006c4c5996a22e54a6b00e54a25707db341629"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-id.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "a9c606b5da1470c02140c96c1ef3fc5ba1175ad0ce119b6f2d93e02c112d2ae1",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "a9c606b5da1470c02140c96c1ef3fc5ba1175ad0ce119b6f2d93e02c112d2ae1"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-it.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "06e7faf9dc2dabebe8ea8c684eb9b798ffd241ce039945a8e5583993705b1c3e",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "06e7faf9dc2dabebe8ea8c684eb9b798ffd241ce039945a8e5583993705b1c3e"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ja.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "c1cb38a994fb2f1b523dc622174dd4f7b9e9ba20e8cd864ae44744bd2b8050fc",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "c1cb38a994fb2f1b523dc622174dd4f7b9e9ba20e8cd864ae44744bd2b8050fc"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ka.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "0bf765b1e28e33947df929657c325cd957c506ec42d44d2a32b3d30794f09b31",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "0bf765b1e28e33947df929657c325cd957c506ec42d44d2a32b3d30794f09b31"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ko.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "674f7f333694475a3a6164c1c5cb84e25f94a5b0d3118cb49ff2e5a318260c64",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "674f7f333694475a3a6164c1c5cb84e25f94a5b0d3118cb49ff2e5a318260c64"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ku.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "4cc2ad8c0516ce01090997c802c7cdc3362e974e55ea26823140e60d50328f71",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "4cc2ad8c0516ce01090997c802c7cdc3362e974e55ea26823140e60d50328f71"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-lt.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "ee21a138a136caf9b213b3fe9f070afb9c20f4cdd51178045798bb60ccc82865",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "ee21a138a136caf9b213b3fe9f070afb9c20f4cdd51178045798bb60ccc82865"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-lv.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "a986f934cb4a2b9cf5bad1c150f0af9d8a0c7745d36b9904882d68b1bb07fb5d",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "a986f934cb4a2b9cf5bad1c150f0af9d8a0c7745d36b9904882d68b1bb07fb5d"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-mg.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "eebd4b1c9caa2b0ad5637b623cad66a0b67363a2e752cbd86eacb2139636fd85",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "eebd4b1c9caa2b0ad5637b623cad66a0b67363a2e752cbd86eacb2139636fd85"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-mn.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "e1b246c27568a92fef27a44e9601ce3ff41ca0dac0f564782dc46bfd03f42724",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "e1b246c27568a92fef27a44e9601ce3ff41ca0dac0f564782dc46bfd03f42724"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ms.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "f6b8ec01f2734624eadb3e9135e408a5a6da20a5a684b5577d7ba29bddd4b5aa",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "f6b8ec01f2734624eadb3e9135e408a5a6da20a5a684b5577d7ba29bddd4b5aa"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-nb.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "ab8d4793108063c90914114c6686aacf79aba80a1e7c7194885851942dcdd520",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "ab8d4793108063c90914114c6686aacf79aba80a1e7c7194885851942dcdd520"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-nl.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "fdc521f74bcf25bde2395483441c7920919b26f7b181d89602fe0807868620d9",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "fdc521f74bcf25bde2395483441c7920919b26f7b181d89602fe0807868620d9"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pl.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "9c00369f9bd935c4fa6faaf2692a8511369993119a0294c1badc33313f8d6e91",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "9c00369f9bd935c4fa6faaf2692a8511369993119a0294c1badc33313f8d6e91"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pt.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "588e547a80a7c867594f2e956ca12625d3b48446b16cd0e47f48fea71ef3ed2c",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "588e547a80a7c867594f2e956ca12625d3b48446b16cd0e47f48fea71ef3ed2c"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pt_br.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "8965d817b5667787efd6ffe58b15af236e51ff085594562fafccaf85d9f1bcd8",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "8965d817b5667787efd6ffe58b15af236e51ff085594562fafccaf85d9f1bcd8"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ro.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "f0cf6c8032723215293095e7a9b2f2a9c1159bb51221511efb6163f4096b9232",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "f0cf6c8032723215293095e7a9b2f2a9c1159bb51221511efb6163f4096b9232"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ru.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "981aa0630326df0b5dd48da086c19c4a329571a7426c36f6e08ff6470f24687d",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "981aa0630326df0b5dd48da086c19c4a329571a7426c36f6e08ff6470f24687d"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-si.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "502364f4ccb0c546093c13b4fc2a9ef15e0d47b4e4b789729d72b6cb33c6871e",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "502364f4ccb0c546093c13b4fc2a9ef15e0d47b4e4b789729d72b6cb33c6871e"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sk.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "b3327b7d377f16e0aeabca54ca2c8906e23c5a77cdb19d2d4fb85f0bbd39d3cd",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "b3327b7d377f16e0aeabca54ca2c8906e23c5a77cdb19d2d4fb85f0bbd39d3cd"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sl.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "642ab71b9a02ee00abc39516e6d005957beff6dde91948155d0f25ce4f98630d",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "642ab71b9a02ee00abc39516e6d005957beff6dde91948155d0f25ce4f98630d"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sr.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "9982802bafa971f1d2e376fca86f8da86c7e43158ef6d3cb6f7c3ff51cc1c7e9",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "9982802bafa971f1d2e376fca86f8da86c7e43158ef6d3cb6f7c3ff51cc1c7e9"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sr_latn.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "0f67cf31fa3b5f2db2a2c74911096a73892377096c966923c0dc1fbbbc612a32",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "0f67cf31fa3b5f2db2a2c74911096a73892377096c966923c0dc1fbbbc612a32"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sv.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "c1cb0390311cdff2f93ab37fff165b389fa74dca7f6341ce08240eca886b5ac3",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "c1cb0390311cdff2f93ab37fff165b389fa74dca7f6341ce08240eca886b5ac3"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-tl.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "48fa60bb2a88fdeb53960878fd0cdf88f7a59736a9efa487787b61de1c5d9db9",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "48fa60bb2a88fdeb53960878fd0cdf88f7a59736a9efa487787b61de1c5d9db9"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-tr.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "5a12fa276a53c54fbe3d3940d982142c64736aeea8eb12ce712552e2350b43d8",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "5a12fa276a53c54fbe3d3940d982142c64736aeea8eb12ce712552e2350b43d8"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-uk.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "767609225673b2983c2cf7b208ae954d49d7728287da2c2cb859ca8c9273efd3",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "767609225673b2983c2cf7b208ae954d49d7728287da2c2cb859ca8c9273efd3"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ur.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "4404c38f4f64a1098678e0d30a62c63cd1dd56949fcc7f6ea89557fbf0693e06",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "4404c38f4f64a1098678e0d30a62c63cd1dd56949fcc7f6ea89557fbf0693e06"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-vi.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "3b5acbfceceb34f90dc7f905f044a51e48cce7f79cbf998b579b8bf00fa1fabc",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "3b5acbfceceb34f90dc7f905f044a51e48cce7f79cbf998b579b8bf00fa1fabc"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-zh.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "ad235ae24994a85b63ff1bd2dadab9de1f2806a9764c162cf047459fa037814c",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "ad235ae24994a85b63ff1bd2dadab9de1f2806a9764c162cf047459fa037814c"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-zh_cn.php",
+      "classification": "LOCKED_DEPENDENCY_EXPECTED_PATH_UNHASHED_ON_HOST",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "git_history_commits": [],
+      "local_sha256": "cd53b733c64eeac233b140e33a6d58d337cd1ac28d6a5cd3231d87169f548c07",
+      "host_content_verified": false,
+      "local_cached_locked_dist_match": true,
+      "cached_dist_sha256": "cd53b733c64eeac233b140e33a6d58d337cd1ac28d6a5cd3231d87169f548c07"
+    }
+  ],
+  "top_directories": [
+    "admin",
+    "api",
+    "bin",
+    "config",
+    "css",
+    "database",
+    "deploy",
+    "js",
+    "php",
+    "public",
+    "sql",
+    "vendor"
+  ],
+  "known_git_auxiliary_paths": [
+    {
+      "path": "deploy/mail-webjob/run.sh",
+      "present_baseline_git": true,
+      "present_candidate_git": true,
+      "classification": "tracked shell worker wrapper; application deploy copy, not installed WebJob",
+      "baseline_sha256": "8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015",
+      "candidate_sha256": "a86d696b9d5997e487318a512127394c84fe99af3a66728bb80125abef9a2aee"
+    },
+    {
+      "path": "deploy/mail-webjob/settings.job",
+      "present_baseline_git": true,
+      "present_candidate_git": true,
+      "classification": "tracked schedule JSON; application deploy copy, not installed WebJob",
+      "baseline_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+      "candidate_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6"
+    },
+    {
+      "path": "deploy/release/prepare-owner-code-identity.ps1",
+      "present_baseline_git": false,
+      "present_candidate_git": false,
+      "classification": "tracked local evidence-command generator; do not execute on production",
+      "baseline_sha256": null,
+      "candidate_sha256": null
+    },
+    {
+      "path": "deploy/release/read-only-metadata.sql",
+      "present_baseline_git": false,
+      "present_candidate_git": true,
+      "classification": "tracked read-only metadata collection SQL; never execute in this file collection",
+      "baseline_sha256": null,
+      "candidate_sha256": "e9b306f55c508e6662f8fce7e7b8405f684001288540819cc1b4820bc3ba1343"
+    },
+    {
+      "path": "deploy/release/supplemental-schema-metadata.sql",
+      "present_baseline_git": false,
+      "present_candidate_git": true,
+      "classification": "tracked read-only metadata collection SQL; never execute in this file collection",
+      "baseline_sha256": null,
+      "candidate_sha256": "b41f97e27436fa3c788fc073334fbaac5beb37f4e139eaa1353b07196bd1493e"
+    },
+    {
+      "path": "sql/.gitkeep",
+      "present_baseline_git": true,
+      "present_candidate_git": true,
+      "classification": "empty directory marker; no content hash requested",
+      "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "candidate_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "sql/schema.sql",
+      "present_baseline_git": true,
+      "present_candidate_git": true,
+      "classification": "tracked legacy schema/bootstrap SQL template; deployed file content remains unverified; never execute during collection",
+      "git_statement_categories": {
+        "CREATE": 8,
+        "INSERT": 0,
+        "UPDATE": 0,
+        "DELETE": 0,
+        "DROP": 0,
+        "ALTER": 0
+      },
+      "baseline_sha256": "659a2690f8c40ad0bf0092ce0f391d884892e53495ef162bd2547971b0718280",
+      "candidate_sha256": "659a2690f8c40ad0bf0092ce0f391d884892e53495ef162bd2547971b0718280"
+    }
+  ],
+  "installed_php_local_hypothesis_comparison": {
+    "local_sha256": "28af8b356c620326b02f421fc159de740e2b6708a6c8ff5fcbbd44422a279617",
+    "owner_sha256": "43bff47902412561900e0817be4b91641e1293acae1e42a771ab908a7e87e0a9",
+    "enumerated_git_references": 84,
+    "matches": [
+      {
+        "root_reference": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+        "root_dev": true,
+        "newlines": "LF",
+        "final_newline": "preserved",
+        "candidate_sha256": "43bff47902412561900e0817be4b91641e1293acae1e42a771ab908a7e87e0a9"
+      }
+    ],
+    "no_execution": true,
+    "no_new_host_read": true,
+    "original_local_root_reference": "6ed126d31ce6d2a5e046cf0ace98744345a8e934",
+    "root_reference_occurrences_changed": 2,
+    "interpretation": "exact generated candidate digest match; 17 raw local matches plus one generated-root metadata match; not a whole app identity or new host read"
+  },
+  "locked_package": {
+    "name": "phpmailer/phpmailer",
+    "version": "v7.1.1",
+    "source_reference": "1bc1716a507a65e039d4ac9d9adebbbd0d346e15",
+    "dist_url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/1bc1716a507a65e039d4ac9d9adebbbd0d346e15"
+  },
+  "deployment_identity_complete": false,
+  "public_accessibility": "NOT TESTED; filenames do not prove HTTP exposure",
+  "excluded_entries": {
+    "count": 10,
+    "actual_names_unrecorded": true
+  },
+  "nonmatching_extension_count": "NOT RECORDED; visited_entries minus output rows is not this count",
+  "cached_locked_package_comparison": {
+    "archive_sha256": "b40f8f2ceb2bfbcb0fe2010e8961537fbbd81316c620e61c3c4db3b0aa13da08",
+    "archive_bytes": 157309,
+    "archive_root": "PHPMailer-PHPMailer-1bc1716/",
+    "archive_members": 75,
+    "lock_reference": "1bc1716a507a65e039d4ac9d9adebbbd0d346e15",
+    "lock_dist_checksum": "empty; cache origin not independently authenticated in this comparison",
+    "expected_additional_paths": 59,
+    "all_additional_local_hashes_match_cache": true,
+    "files": [
+      {
+        "path": "vendor/phpmailer/phpmailer/composer.json",
+        "sha256": "0d29d0a9c86be376433530333bee758ba563e7267347300c181299f5a1d920a4",
+        "bytes": 3016
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/get_oauth_token.php",
+        "sha256": "c461d8181348df478a5639013af6719e89182bd6153b2e48469525763371f743",
+        "bytes": 6304
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-af.php",
+        "sha256": "d4c5272712f1b1cd6b3d08f83a89fbdae257de308a58e6eee1f4e7f519c86062",
+        "bytes": 1584
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ar.php",
+        "sha256": "ad11ffbf21f84fe6e812a0cf4f82df4412dd232ab6f6b6fe47e2c760845ec04f",
+        "bytes": 2024
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-as.php",
+        "sha256": "8aaaa3925b2e79a475ffd7b65e29406b1e86c8ea48a666ec32243668f5e28494",
+        "bytes": 3792
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-az.php",
+        "sha256": "8b116561af83e2bd1ef3319ff8103f169883e89efab592115d98c9ae7c09d6df",
+        "bytes": 1749
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ba.php",
+        "sha256": "df573ba9a9431bff2c602b7b297040e0f9cf9b319562f17c686f01f1ed4ebfad",
+        "bytes": 1745
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-be.php",
+        "sha256": "47c51cef7371142b993b58764c0abd4e82fe7213f9bd85b6dcfb24d0acd223ec",
+        "bytes": 2178
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-bg.php",
+        "sha256": "9a556b5ad45ead80d7331f5ed713799e7fb810c52f8d7913725585fbeff084c2",
+        "bytes": 2196
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-bn.php",
+        "sha256": "ff7842ce6fdc7cbb846b16f292e126fbc578e0c27da48092e4a5f44d928aebe6",
+        "bytes": 3845
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ca.php",
+        "sha256": "2b62db0921d2d321c80869bc9544b744747fd7cf398cc17358c0ae0b2533548c",
+        "bytes": 1730
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-cs.php",
+        "sha256": "4bdb6445032c31fa1c41d65b8840f4fed0c30b96a6e68418ea6968e6de49f664",
+        "bytes": 1798
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-da.php",
+        "sha256": "bd266892cb528bdb3a691d1716f139c3c84435272e93ca7e6a0b70e74f3e1ce2",
+        "bytes": 2752
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-de.php",
+        "sha256": "41e9bee22a8b00d42b28ebadae85ba531134a2482108489c0e5ced6ddc25b062",
+        "bytes": 1886
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-el.php",
+        "sha256": "3760e138e5c0fdc17a896718d2d86239b6d2d936abc0cf016fc5350ee034a8dd",
+        "bytes": 3307
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-eo.php",
+        "sha256": "bf02aaf8e09a94ec0e20355dfb6e0f1a37a56ae06944014c277de208e39b16f9",
+        "bytes": 2766
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-es.php",
+        "sha256": "182270f8e64be0dcbb5c22c6c672efc5a3da4c0295b4d2d69373e18424657a91",
+        "bytes": 2831
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-et.php",
+        "sha256": "7a854b796bc5058913ab5f5ad489b02ed246ad49220e844a1c3fbb0ffa908fa6",
+        "bytes": 1744
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fa.php",
+        "sha256": "7e38e2e75326d9d7bbb87fc4f6dc5c40ce79c9ce43016a707e84af9d7e332102",
+        "bytes": 2079
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fi.php",
+        "sha256": "3efb47c9e164860b45ee3a9f707975210d7f87bbc356a7dada075528fc37052c",
+        "bytes": 1659
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fo.php",
+        "sha256": "2b778d73170ff1864126bd65839d39098a9dde290e31fe6ea6719b68a030daa2",
+        "bytes": 1637
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-fr.php",
+        "sha256": "1d816ccae7fa8eea24907686ffeeeeb5861ffdf794690e6a91c142d49d05efd7",
+        "bytes": 2732
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-gl.php",
+        "sha256": "fe2fd5068446a04e73ca767ca05eba81f6648fcb93988a307a4dbd619054780a",
+        "bytes": 1742
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-he.php",
+        "sha256": "7d944fe5e073d0dfb8a53cf9f8e9c409d40f5f0149ce6d47c1f4088cb28d69fe",
+        "bytes": 1812
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hi.php",
+        "sha256": "2a260e1b5f0d7efbfccc436ea040aa172ecd5ac8ea394482c0dd9a2e7c9d3206",
+        "bytes": 3768
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hr.php",
+        "sha256": "b337f280f2e5f087daaa44bd1f359bbc41e01062cbd07a5c67345a45a01ccbaf",
+        "bytes": 1754
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hu.php",
+        "sha256": "94045618ef5a86dc4f8176f3ebae3fbb1e29b7ef7cb1ce99ba57ee4724aef3be",
+        "bytes": 1717
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-hy.php",
+        "sha256": "52fc3f40d24d55ef95702a59ec006c4c5996a22e54a6b00e54a25707db341629",
+        "bytes": 2185
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-id.php",
+        "sha256": "a9c606b5da1470c02140c96c1ef3fc5ba1175ad0ce119b6f2d93e02c112d2ae1",
+        "bytes": 1997
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-it.php",
+        "sha256": "06e7faf9dc2dabebe8ea8c684eb9b798ffd241ce039945a8e5583993705b1c3e",
+        "bytes": 1819
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ja.php",
+        "sha256": "c1cb38a994fb2f1b523dc622174dd4f7b9e9ba20e8cd864ae44744bd2b8050fc",
+        "bytes": 2934
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ka.php",
+        "sha256": "0bf765b1e28e33947df929657c325cd957c506ec42d44d2a32b3d30794f09b31",
+        "bytes": 2884
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ko.php",
+        "sha256": "674f7f333694475a3a6164c1c5cb84e25f94a5b0d3118cb49ff2e5a318260c64",
+        "bytes": 1771
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ku.php",
+        "sha256": "4cc2ad8c0516ce01090997c802c7cdc3362e974e55ea26823140e60d50328f71",
+        "bytes": 2238
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-lt.php",
+        "sha256": "ee21a138a136caf9b213b3fe9f070afb9c20f4cdd51178045798bb60ccc82865",
+        "bytes": 1627
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-lv.php",
+        "sha256": "a986f934cb4a2b9cf5bad1c150f0af9d8a0c7745d36b9904882d68b1bb07fb5d",
+        "bytes": 1643
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-mg.php",
+        "sha256": "eebd4b1c9caa2b0ad5637b623cad66a0b67363a2e752cbd86eacb2139636fd85",
+        "bytes": 1782
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-mn.php",
+        "sha256": "e1b246c27568a92fef27a44e9601ce3ff41ca0dac0f564782dc46bfd03f42724",
+        "bytes": 2186
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ms.php",
+        "sha256": "f6b8ec01f2734624eadb3e9135e408a5a6da20a5a684b5577d7ba29bddd4b5aa",
+        "bytes": 1734
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-nb.php",
+        "sha256": "ab8d4793108063c90914114c6686aacf79aba80a1e7c7194885851942dcdd520",
+        "bytes": 2698
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-nl.php",
+        "sha256": "fdc521f74bcf25bde2395483441c7920919b26f7b181d89602fe0807868620d9",
+        "bytes": 2801
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pl.php",
+        "sha256": "9c00369f9bd935c4fa6faaf2692a8511369993119a0294c1badc33313f8d6e91",
+        "bytes": 2676
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pt.php",
+        "sha256": "588e547a80a7c867594f2e956ca12625d3b48446b16cd0e47f48fea71ef3ed2c",
+        "bytes": 2465
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-pt_br.php",
+        "sha256": "8965d817b5667787efd6ffe58b15af236e51ff085594562fafccaf85d9f1bcd8",
+        "bytes": 2719
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ro.php",
+        "sha256": "f0cf6c8032723215293095e7a9b2f2a9c1159bb51221511efb6163f4096b9232",
+        "bytes": 2448
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ru.php",
+        "sha256": "981aa0630326df0b5dd48da086c19c4a329571a7426c36f6e08ff6470f24687d",
+        "bytes": 3297
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-si.php",
+        "sha256": "502364f4ccb0c546093c13b4fc2a9ef15e0d47b4e4b789729d72b6cb33c6871e",
+        "bytes": 3425
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sk.php",
+        "sha256": "b3327b7d377f16e0aeabca54ca2c8906e23c5a77cdb19d2d4fb85f0bbd39d3cd",
+        "bytes": 1909
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sl.php",
+        "sha256": "642ab71b9a02ee00abc39516e6d005957beff6dde91948155d0f25ce4f98630d",
+        "bytes": 2577
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sr.php",
+        "sha256": "9982802bafa971f1d2e376fca86f8da86c7e43158ef6d3cb6f7c3ff51cc1c7e9",
+        "bytes": 2301
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sr_latn.php",
+        "sha256": "0f67cf31fa3b5f2db2a2c74911096a73892377096c966923c0dc1fbbbc612a32",
+        "bytes": 1814
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-sv.php",
+        "sha256": "c1cb0390311cdff2f93ab37fff165b389fa74dca7f6341ce08240eca886b5ac3",
+        "bytes": 1610
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-tl.php",
+        "sha256": "48fa60bb2a88fdeb53960878fd0cdf88f7a59736a9efa487787b61de1c5d9db9",
+        "bytes": 1721
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-tr.php",
+        "sha256": "5a12fa276a53c54fbe3d3940d982142c64736aeea8eb12ce712552e2350b43d8",
+        "bytes": 3053
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-uk.php",
+        "sha256": "767609225673b2983c2cf7b208ae954d49d7728287da2c2cb859ca8c9273efd3",
+        "bytes": 2282
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-ur.php",
+        "sha256": "4404c38f4f64a1098678e0d30a62c63cd1dd56949fcc7f6ea89557fbf0693e06",
+        "bytes": 2265
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-vi.php",
+        "sha256": "3b5acbfceceb34f90dc7f905f044a51e48cce7f79cbf998b579b8bf00fa1fabc",
+        "bytes": 1793
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-zh.php",
+        "sha256": "ad235ae24994a85b63ff1bd2dadab9de1f2806a9764c162cf047459fa037814c",
+        "bytes": 1669
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/language/phpmailer.lang-zh_cn.php",
+        "sha256": "cd53b733c64eeac233b140e33a6d58d337cd1ac28d6a5cd3231d87169f548c07",
+        "bytes": 2333
+      }
+    ],
+    "existing_core_hash_matches": [
+      {
+        "path": "vendor/phpmailer/phpmailer/src/DSNConfigurator.php",
+        "cache_sha256_matches_capture05": true
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/src/Exception.php",
+        "cache_sha256_matches_capture05": true
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/src/OAuth.php",
+        "cache_sha256_matches_capture05": true
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/src/OAuthTokenProvider.php",
+        "cache_sha256_matches_capture05": true
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/src/PHPMailer.php",
+        "cache_sha256_matches_capture05": true
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/src/POP3.php",
+        "cache_sha256_matches_capture05": true
+      },
+      {
+        "path": "vendor/phpmailer/phpmailer/src/SMTP.php",
+        "cache_sha256_matches_capture05": true
+      }
+    ],
+    "oauth_helper_static_classification": {
+      "contains_session_start": true,
+      "contains_autoload_load": true,
+      "contains_token_helper_words": true,
+      "executed": false
+    },
+    "unexpected_cached_php_paths": [],
+    "archive_modified": false
+  },
+  "other_collector_boundary_templates": [
+    {
+      "path": "database/bushisa.sql",
+      "classification": "tracked destructive bootstrap schema SQL; never execute",
+      "baseline_sha256": "141b594e09a468b897b038a1e8770334254252ca3266835b071907500edd8729",
+      "host_presence": "UNVERIFIED; 08 traversed migrations only",
+      "candidate_sha256": "141b594e09a468b897b038a1e8770334254252ca3266835b071907500edd8729"
+    },
+    {
+      "path": "database/seed.php",
+      "classification": "tracked legacy database-seeding tool; never execute",
+      "baseline_sha256": "b89d701a9473d651cd5b3c62bcad01983a3d0831ad6350e5e53b5b2e1d084787",
+      "host_presence": "UNVERIFIED; 08 traversed migrations only",
+      "candidate_sha256": "0b135baf0952b03652d333fc18d5ceb3af3cdafba57f1dd41ac850f9932b43b1"
+    }
+  ],
+  "consolidated_09_hash_target_count": 68,
+  "collector_boundaries": {
+    "roots_traversed_in_08": [
+      "admin",
+      "api",
+      "bin",
+      "config",
+      "css",
+      "js",
+      "php",
+      "public",
+      "vendor",
+      "database/migrations"
+    ],
+    "top_only_in_08": [
+      "deploy",
+      "sql"
+    ],
+    "database_other_than_migrations": "not traversed",
+    "hidden_private_exclusions": "10 aggregate exclusions; individual names/content unknown",
+    "extension_filter": "php[0-9]?,inc,phtml,phar,js,mjs,cjs,css,html/htm,svg,sql,sh; selected manifests; vendor JSON; .htaccess/.user.ini exceptions",
+    "unselected_extensions_examples": [
+      "ps1",
+      "job",
+      "yml",
+      "yaml",
+      "md",
+      "txt",
+      "other ini/json/binary types"
+    ],
+    "outside_webroot_and_effective_nginx_php_overrides": "not inspected; filenames cannot establish runtime inclusion or HTTP accessibility"
+  },
+  "documentation_validation": {
+    "recorded_utc": "2026-10-21T14:20:51.040770+00:00",
+    "relative_links": 123,
+    "anchor_links": 5,
+    "unchanged_owner_source_hashes": 8,
+    "existing_fixture_results_reused_after_template_spec_script_digest_check": true,
+    "git_diff_check": "PASS",
+    "no_application_tests_rerun": true,
+    "no_azure_collection": true
+  }
+}

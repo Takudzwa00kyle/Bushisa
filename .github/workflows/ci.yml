@@ -12,20 +12,46 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: pdo_mysql, mbstring, fileinfo, openssl
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, ctype
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Install Node dependencies
+        run: npm ci
       - name: PHP syntax
         run: find . -name '*.php' -not -path './.git/*' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
       - name: JavaScript syntax
-        run: find js -name '*.js' -print0 | xargs -0 -n1 node --check
+        run: |
+          find js -name '*.js' -print0 | xargs -0 -n1 node --check
+          node --check playwright.config.js
+          node --check tests/support/disposable-database.js
+          node --check tests/unit_playwright_config_guard.js
+          node --check tests/browser/p0-rendered-flows.spec.js
+          node --check tests/browser/prompt02-session-routes.spec.js
+          node --check tests/browser/prompt02-chat-routes.spec.js
+          node --check tests/browser/prompt02-http-overlap.spec.js
+          node --check tests/browser/prompt02-chat-overlap.spec.js
+          node --check playwright.l06.config.js
+          node --check tests/browser/l06-password-reset.spec.js
+          node --check tests/support/l06_browser_server.js
+          node --check tests/support/browser_overlap.js
+          node --check tests/support/l06_browser_reporter.js
+          node --check bin/managed_stage_driver.js
+          node --check tests/support/stage_tls_proxy.js
       - name: Unit checks
         run: |
           php tests/unit_signup_verification.php
           php tests/unit_mail_configuration.php
+          php -n tests/unit_mail_worker_config.php
+          php tests/unit_disposable_database_guard.php
+          php -n -d extension=ctype tests/unit_staging_guard.php --expect-no-mysql
+          php tests/unit_legacy_history.php
+          php -n -d extension=ctype -d disable_classes=PDO tests/unit_synthetic_import_guard.php
+          php -n -d extension=ctype -d disable_classes=PDO tests/unit_l02e_controls.php
+          php -n -d extension=ctype -d disable_classes=PDO tests/unit_session_fence_guard.php
+          node tests/unit_playwright_config_guard.js
           python3 tests/smtp_transport_test.py
 
   smtp-outbox-integration:
@@ -35,7 +61,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: synthetic-ci-password
-          MYSQL_DATABASE: bushisa_db
+          MYSQL_DATABASE: bushisa_test_ci
         ports:
           - 3306:3306
         options: >-
@@ -48,7 +74,7 @@ jobs:
       APP_DEBUG: "false"
       DB_HOST: 127.0.0.1
       DB_PORT: "3306"
-      DB_NAME: bushisa_db
+      DB_NAME: bushisa_test_ci
       DB_USER: root
       DB_PASSWORD: synthetic-ci-password
       MAIL_PROVIDER: fake
@@ -59,16 +85,349 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: pdo_mysql, mbstring, fileinfo, openssl
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, curl
       - name: Install PHP dependencies
         run: composer install --no-interaction --prefer-dist
       - name: Bootstrap isolated test database
         run: |
-          php -r '$pdo = new PDO("mysql:host=127.0.0.1;dbname=bushisa_db", "root", getenv("DB_PASSWORD")); $pdo->exec(file_get_contents("database/bushisa.sql"));'
+          php tests/bootstrap_database.php
           php bin/migrate.php
           php bin/migrate.php
       - name: Signup and outbox regressions
         run: |
           php tests/integration_p0_flows.php
+          php tests/integration_core_p0_flows.php
           php tests/policy_safeguards_p0_flows.php
           php tests/integration_smtp_outbox.php
+          php tests/overlap_db_p0_flows.php
+      - name: Guarded synthetic import transactions
+        env:
+          DB_NAME: bushisa_test_l02d_ci
+        run: php tests/integration_l02d_imports.php
+      - name: Report intake and pair-ledger regressions
+        run: |
+          DB_NAME=bushisa_test_l01b_ci php tests/integration_l01b_reports.php
+          DB_NAME=bushisa_test_l02a_ci php tests/integration_l02a_pairs.php
+      - name: Mixed HTTP and importer races, real engine retries, restricted roles
+        env:
+          DB_NAME: bushisa_test_l02d_e_ci
+        run: php tests/integration_l02e_races.php
+      - name: Signup expiry anchors and HTTP mail-cancellation races
+        env:
+          DB_NAME: bushisa_test_q11_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_q11_signup_expiry.php
+      - name: Guarded ordinary signup-attempt erasure
+        env:
+          DB_NAME: bushisa_test_q11_erasure_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_ATTEMPT_ERASURE_ENABLED: "true"
+          BUSHISA_ATTEMPT_ERASURE_SYNTHETIC: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_attempt_erasure.php
+      - name: Terminal verification and code-free mail retention
+        env:
+          DB_NAME: bushisa_test_q11_retention_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_Q22_CLEANUP_ENABLED: "true"
+          BUSHISA_Q22_SYNTHETIC: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_verification_retention.php
+      - name: New-attempt session binding and write fence
+        env:
+          DB_NAME: bushisa_test_q11_session_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_ATTEMPT_ERASURE_ENABLED: "true"
+          BUSHISA_ATTEMPT_ERASURE_SYNTHETIC: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_session_fence.php
+      - name: Q11-only synthetic session-copy physical consumer
+        env:
+          DB_NAME: bushisa_test_q11_session_cleanup_ci
+          MAIL_TRANSPORT: fake
+          BUSHISA_Q11_SYNTHETIC: "true"
+          BUSHISA_Q11_QUEUE_FAKE: "true"
+          BUSHISA_ATTEMPT_ERASURE_ENABLED: "true"
+          BUSHISA_ATTEMPT_ERASURE_SYNTHETIC: "true"
+          BUSHISA_TEST_HTTP_OVERLAP: "true"
+        run: php tests/integration_session_copy_cleanup.php
+
+  browser-route-session-overlap:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+          MYSQL_DATABASE: bushisa_test_ci_browser
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_test_ci_browser
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+      BUSHISA_TEST_HTTP_OVERLAP: "true"
+      PHP_CLI_SERVER_WORKERS: "4"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+      - name: Install Node dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser, session and HTTP overlap regressions
+        run: npx playwright test tests/browser/p0-rendered-flows.spec.js tests/browser/prompt02-session-routes.spec.js tests/browser/prompt02-chat-routes.spec.js tests/browser/prompt02-http-overlap.spec.js tests/browser/prompt02-chat-overlap.spec.js
+
+  l06-recovery-acceptance:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_test_q11_l06_http_ci
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      MAIL_TRANSPORT: fake
+      BUSHISA_Q11_SYNTHETIC: "true"
+      BUSHISA_Q11_QUEUE_FAKE: "true"
+      BUSHISA_PASSWORD_RESET_SYNTHETIC: "true"
+      PASSWORD_RESET_ENABLED: "true"
+      PASSWORD_RESET_RESEND_COOLDOWN_SECONDS: "1"
+      PASSWORD_RESET_MAX_REQUESTS_PER_HOUR: "100"
+      PASSWORD_RESET_MAX_REQUESTS_PER_DAY: "200"
+      L06_CI_REPORT: "true"
+      L06_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, curl
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: composer install --no-interaction --prefer-dist
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: L06 guarded HTTP and concurrent-consume acceptance
+        run: php tests/integration_l06_password_reset.php
+      - name: L06 rendered password-reset acceptance
+        if: ${{ !cancelled() }}
+        env:
+          DB_NAME: bushisa_test_q11_l06_browser_ci
+        run: npx playwright test --config=playwright.l06.config.js
+      - name: L06 safe result artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: l06-recovery-results
+          path: |
+            test-results/l06-browser.json
+            test-results/l06-http.json
+          if-no-files-found: error
+
+  guarded-staging-acceptance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_test_stage_ci
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      MAIL_TRANSPORT: fake
+      STAGE_RUN_BROWSER: "true"
+      BUSHISA_STAGE_TEST_ENGINE_SETUP: "true"
+      STAGE_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, curl, ctype
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: composer install --no-interaction --prefer-dist
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Allow the owned loopback HTTPS fixture on port 443
+        # Ephemeral CI runner only, no cloud or application configuration.
+        run: sudo sysctl -w net.ipv4.ip_unprivileged_port_start=0 > /dev/null
+      - name: Pure staging guards without the MySQL driver
+        run: php -n -d extension=ctype tests/unit_staging_guard.php --expect-no-mysql
+      - name: Guarded carrier, actual HTTPS ingress driver and concurrent consume
+        run: php tests/integration_staging.php
+      - name: Sanitized staging implementation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: guarded-staging-results
+          path: test-results/staging-local.json
+          if-no-files-found: error
+
+  direct-release-compatibility:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    services:
+      mysql:
+        image: mysql:8.0.46
+        env:
+          MYSQL_ROOT_PASSWORD: synthetic-ci-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      APP_ENV: development
+      APP_DEBUG: "false"
+      BUSHISA_ALLOW_RUNTIME_DDL: "false"
+      BUSHISA_TEST_DATABASE: "true"
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+      DB_NAME: bushisa_test_release_ci
+      DB_USER: root
+      DB_PASSWORD: synthetic-ci-password
+      MAIL_PROVIDER: fake
+      MAIL_TRANSPORT: fake
+      RELEASE_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5.11'
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, curl, ctype
+      - run: composer install --no-interaction --prefer-dist
+      - name: Worker boundary and independent failure reporting
+        run: php tests/unit_mail_worker_schedule.php
+      - name: Installed-byte old wrapper with actual guarded candidate cleanup
+        run: php tests/unit_legacy_worker_compatibility.php
+      - name: Historical 004 upgrade under owner-observed SQL mode and UTC
+        run: php tests/integration_release_upgrade.php
+      - name: Reconstructed owner-observed schema, roles and transition checks
+        env:
+          DB_NAME: bushisa_test_release_observed_ci
+          BUSHISA_OBSERVED_TEST_ENGINE_SETUP: "true"
+        run: php tests/integration_owner_schema.php
+      - name: Separate runtime, worker and migration allow-deny profiles
+        env:
+          DB_NAME: bushisa_test_release_observed_roles_ci
+          BUSHISA_RELEASE_ROLE_TEST: "true"
+        run: |
+          export BUSHISA_ROLE_SERVER_UUID="$(php tests/support/release_role_identity.php)"
+          php tests/integration_release_roles.php
+      - name: Restricted runtime HTTP routes and local synthetic logical recovery
+        env:
+          DB_NAME: bushisa_test_release_observed_roles_routes_ci
+          BUSHISA_RELEASE_ROLE_TEST: "true"
+        run: |
+          export BUSHISA_ROLE_SERVER_UUID="$(php tests/support/release_role_identity.php)"
+          php tests/integration_release_routes_recovery.php
+      - name: Affected text-evidence lifecycle and recovery-interface regressions
+        id: release_lifecycle
+        env:
+          DB_NAME: bushisa_test_l03a_release_ci
+          BUSHISA_L03A_SYNTHETIC: "true"
+          MAIL_PROVIDER: fake
+          MAIL_TRANSPORT: fake
+        run: php tests/integration_l03a_lifecycle.php
+      - name: Sanitized lifecycle regression results
+        if: always() && steps.release_lifecycle.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-lifecycle-regression
+          path: .tmp/l03a-*/evidence.json
+          include-hidden-files: true
+          if-no-files-found: error
+      - name: Sanitized role-check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-role-results
+          path: |
+            test-results/release-roles.json
+            test-results/release-routes-recovery.json
+          if-no-files-found: error
+      - name: Sanitized release rehearsal evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: direct-release-compatibility
+          path: test-results/direct-release.json
+          if-no-files-found: error
+      - name: Owner-schema comparison and bounded rehearsal evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: owner-observed-schema-results
+          path: test-results/owner-schema.json
+          if-no-files-found: error

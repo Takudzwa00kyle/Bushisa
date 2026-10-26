@@ -1,0 +1,1592 @@
+{
+    "command":  "powershell -NoProfile -File .tmp/run-owner-regressions.ps1 -Group lifecycle",
+    "all_existing_matrix_statuses_preserved":  true,
+    "profile":  "Linux PHP 8.5.11 / MySQL 8.0.46; exact owner SQL mode; older loopback regression connectors did not use TLS; owned transport restored",
+    "format":  "bushisa.observed-schema-regressions.v1",
+    "base_checkout":  "4e76a7de361f32a17062ea8189e875844ee10660",
+    "suite_results":  [
+                          {
+                              "failure":  null,
+                              "totals":  {
+                                             "assertions":  74,
+                                             "passed":  74
+                                         },
+                              "checks":  [
+                                             {
+                                                 "case":  "QS01",
+                                                 "check":  "pre-connection guard rejects APP_ENV",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS01",
+                                                 "check":  "pre-connection guard rejects DB_NAME",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS01",
+                                                 "check":  "pre-connection guard rejects DB_HOST",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS01",
+                                                 "check":  "pre-connection guard rejects MAIL_TRANSPORT",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS01",
+                                                 "check":  "pre-connection guard rejects BUSHISA_TEST_DATABASE",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS02",
+                                                 "check":  "fresh 011 and repeat",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS04",
+                                                 "check":  "registration persists original creation+72h in the creation transaction",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS04",
+                                                 "check":  "queue failure rolls back account and creation anchor",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS05",
+                                                 "check":  "72h -1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS05",
+                                                 "check":  "72h +0 seconds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS05",
+                                                 "check":  "72h +1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS06",
+                                                 "check":  "7d -1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS06",
+                                                 "check":  "7d +0 seconds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS06",
+                                                 "check":  "7d +1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS07",
+                                                 "check":  "resend preserves creation deadline and cancels old generation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS08",
+                                                 "check":  "first email approval succeeds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS08",
+                                                 "check":  "reads, repeat verification and resend cannot renew first approval",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS09",
+                                                 "check":  "unknown legacy anchors observed without deletion/backfill",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS09",
+                                                 "check":  "unknown legacy anchors observed without deletion/backfill",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS09",
+                                                 "check":  "unknown legacy continuation cannot manufacture approval",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS09",
+                                                 "check":  "contradictory expiry is neither a deletion anchor nor a displayed deadline",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS09",
+                                                 "check":  "legacy cleanup erases without inventing acceptance time",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS10",
+                                                 "check":  "suspension survives cleanup and cannot be activated",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS11",
+                                                 "check":  "atomic rollback at after_cancellation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS11",
+                                                 "check":  "atomic rollback at before_commit",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS11",
+                                                 "check":  "retries preserve receipt, version and original overdue obligation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "obligations stay pending/unpublished with no invented backup bound",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "preserves moderation_cases",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "preserves moderation_evidence",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "preserves evidence_lifecycle_holds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "preserves protective_replay_events",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "preserves evidence_recovery_outbox",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS11",
+                                                 "check":  "actual cleanup CLI keeps pending physical-erasure obligations honest",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "cleanup CLI preserves moderation_cases",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "cleanup CLI preserves moderation_evidence",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "cleanup CLI preserves evidence_lifecycle_holds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "cleanup CLI preserves protective_replay_events",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS12",
+                                                 "check":  "cleanup CLI preserves evidence_recovery_outbox",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS13",
+                                                 "check":  "immutable useful deadline is min(queue+5m, challenge-60s, account deadline)",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS14",
+                                                 "check":  "known non-acceptance retries within original deadline",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS13",
+                                                 "check":  "exact useful deadline discards without sending",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS14",
+                                                 "check":  "ambiguous transport is terminal uncertain, never automatic resend",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS15",
+                                                 "check":  "expired claim cannot deliver after replacement",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS15",
+                                                 "check":  "abandoned inflight becomes uncertain without resend",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS13",
+                                                 "check":  "useful delivery boundary -1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS13",
+                                                 "check":  "useful delivery boundary +1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS24",
+                                                 "check":  "challenge boundary -1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS24",
+                                                 "check":  "challenge boundary +0 seconds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS24",
+                                                 "check":  "repeat code cleanup is idempotent",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS24",
+                                                 "check":  "challenge boundary +1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS24",
+                                                 "check":  "repeat code cleanup is idempotent",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS16",
+                                                 "check":  "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS16",
+                                                 "check":  "HTTP and expiry workers complete",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS16",
+                                                 "check":  "verification before expiry wins",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS16",
+                                                 "check":  "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS16",
+                                                 "check":  "HTTP and expiry workers complete",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS16",
+                                                 "check":  "exact expiry prevents verification",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS17",
+                                                 "check":  "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS17",
+                                                 "check":  "HTTP and expiry workers complete",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS17",
+                                                 "check":  "onboarding before expiry wins",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS17",
+                                                 "check":  "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS17",
+                                                 "check":  "HTTP and expiry workers complete",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS17",
+                                                 "check":  "expiry prevents stale onboarding activation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS18",
+                                                 "check":  "distinct HTTP/CLI PIDs and SQL connections with simultaneous engine-observed row waits",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS18",
+                                                 "check":  "HTTP and expiry workers complete",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS18",
+                                                 "check":  "expiry versus resend leaves no live challenge or queued body",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS19",
+                                                 "check":  "overlapping HTTP resend cancels inflight without pretending recall",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS19",
+                                                 "check":  "overlapping HTTP expiry cancels inflight without pretending recall",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS20",
+                                                 "check":  "HTTP supersession cancels an existing claim before delivery",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS21",
+                                                 "check":  "actual protected route revokes expired session",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS21",
+                                                 "check":  "stale session version cannot activate",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS03",
+                                                 "check":  "010 upgrade/repeat preserves original fields and has no anchor/generation backfill",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS22",
+                                                 "check":  "runtime cannot fabricate clock or perform DDL",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QS23",
+                                                 "check":  "diagnostics contain no payload/code/token fields",
+                                                 "result":  "PASS"
+                                             }
+                                         ],
+                              "suite":  "Q11",
+                              "source_fixture_evidence":  ".tmp/q11-20261020-213757-c28d303d/evidence.json",
+                              "races":  [
+                                            {
+                                                "case":  "QS16",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  322,
+                                                                         "connection_id":  818,
+                                                                         "sapi":  "cli",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:25+00:00",
+                                                                         "uri":  ""
+                                                                     },
+                                                                     {
+                                                                         "pid":  320,
+                                                                         "connection_id":  817,
+                                                                         "sapi":  "cli-server",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:25+00:00",
+                                                                         "uri":  "/verify_email.php"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  817,
+                                                                               "blocking_connection":  812
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  818,
+                                                                               "blocking_connection":  812
+                                                                           }
+                                                                       ],
+                                                "first":  "HTTP",
+                                                "http_status":  302,
+                                                "worker_exit":  0,
+                                                "expiry_result":  {
+                                                                      "state":  "live",
+                                                                      "expires_at":  "2026-10-30 21:38:24.999999"
+                                                                  }
+                                            },
+                                            {
+                                                "case":  "QS16",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  323,
+                                                                         "connection_id":  820,
+                                                                         "sapi":  "cli",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:26+00:00",
+                                                                         "uri":  ""
+                                                                     },
+                                                                     {
+                                                                         "pid":  320,
+                                                                         "connection_id":  819,
+                                                                         "sapi":  "cli-server",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:25+00:00",
+                                                                         "uri":  "/verify_email.php"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  820,
+                                                                               "blocking_connection":  812
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  819,
+                                                                               "blocking_connection":  812
+                                                                           }
+                                                                       ],
+                                                "first":  "expiry",
+                                                "http_status":  200,
+                                                "worker_exit":  0,
+                                                "expiry_result":  {
+                                                                      "state":  "expired",
+                                                                      "receipt":  "8e909bb3587988b97ca8f021437fbb48fbc4bc76d9225d68746b7b1518b5583f",
+                                                                      "expires_at":  "2026-10-23 21:38:25.000000",
+                                                                      "live_purge_due_at":  "2026-10-24 21:38:25.000000"
+                                                                  }
+                                            },
+                                            {
+                                                "case":  "QS17",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  324,
+                                                                         "connection_id":  822,
+                                                                         "sapi":  "cli",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:26+00:00",
+                                                                         "uri":  ""
+                                                                     },
+                                                                     {
+                                                                         "pid":  320,
+                                                                         "connection_id":  821,
+                                                                         "sapi":  "cli-server",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:26+00:00",
+                                                                         "uri":  "/onboarding.php"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  821,
+                                                                               "blocking_connection":  812
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  822,
+                                                                               "blocking_connection":  812
+                                                                           }
+                                                                       ],
+                                                "first":  "HTTP",
+                                                "http_status":  302,
+                                                "worker_exit":  0,
+                                                "expiry_result":  {
+                                                                      "state":  "live",
+                                                                      "expires_at":  "2026-10-27 21:38:26.210942"
+                                                                  }
+                                            },
+                                            {
+                                                "case":  "QS17",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  325,
+                                                                         "connection_id":  825,
+                                                                         "sapi":  "cli",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:27+00:00",
+                                                                         "uri":  ""
+                                                                     },
+                                                                     {
+                                                                         "pid":  320,
+                                                                         "connection_id":  824,
+                                                                         "sapi":  "cli-server",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:27+00:00",
+                                                                         "uri":  "/onboarding.php"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  825,
+                                                                               "blocking_connection":  812
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  824,
+                                                                               "blocking_connection":  812
+                                                                           }
+                                                                       ],
+                                                "first":  "expiry",
+                                                "http_status":  302,
+                                                "worker_exit":  0,
+                                                "expiry_result":  {
+                                                                      "state":  "expired",
+                                                                      "receipt":  "7603803905b655d939ad1adbd0efa18cfd629228d4906bec446a4855ec3437d4",
+                                                                      "expires_at":  "2026-10-27 21:38:26.910984",
+                                                                      "live_purge_due_at":  "2026-10-28 21:38:26.910984"
+                                                                  }
+                                            },
+                                            {
+                                                "case":  "QS18",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  320,
+                                                                         "connection_id":  826,
+                                                                         "sapi":  "cli-server",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:28+00:00",
+                                                                         "uri":  "/verify_email.php"
+                                                                     },
+                                                                     {
+                                                                         "pid":  326,
+                                                                         "connection_id":  827,
+                                                                         "sapi":  "cli",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:38:28+00:00",
+                                                                         "uri":  ""
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  827,
+                                                                               "blocking_connection":  812
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  826,
+                                                                               "blocking_connection":  812
+                                                                           }
+                                                                       ],
+                                                "first":  "expiry",
+                                                "http_status":  200,
+                                                "worker_exit":  0,
+                                                "expiry_result":  {
+                                                                      "state":  "expired",
+                                                                      "receipt":  "aa02a549206f2f8f70664d2ed39b4af45b7562cd441a6a21c7dcb456a8f29314",
+                                                                      "expires_at":  "2026-10-23 21:38:28.000000",
+                                                                      "live_purge_due_at":  "2026-10-24 21:38:28.000000"
+                                                                  }
+                                            },
+                                            {
+                                                "case":  "QS19",
+                                                "variant":  "resend",
+                                                "carrier":  {
+                                                                "pid":  327,
+                                                                "connection_id":  828,
+                                                                "transaction_open":  false
+                                                            },
+                                                "http_server_pid":  321,
+                                                "http_connection":  829,
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  829,
+                                                                               "blocking_connection":  812
+                                                                           }
+                                                                       ],
+                                                "state":  "accepted_after_cancel"
+                                            },
+                                            {
+                                                "case":  "QS19",
+                                                "variant":  "expiry",
+                                                "carrier":  {
+                                                                "pid":  328,
+                                                                "connection_id":  830,
+                                                                "transaction_open":  false
+                                                            },
+                                                "http_server_pid":  321,
+                                                "http_connection":  831,
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  831,
+                                                                               "blocking_connection":  812
+                                                                           }
+                                                                       ],
+                                                "state":  "accepted_after_cancel"
+                                            }
+                                        ]
+                          },
+                          {
+                              "failure":  null,
+                              "totals":  {
+                                             "assertions":  75,
+                                             "passed":  75
+                                         },
+                              "checks":  [
+                                             {
+                                                 "case":  "QM01",
+                                                 "check":  "disabled cleanup refuses before connection",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM01",
+                                                 "check":  "invalid batch refused before connection",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM02",
+                                                 "check":  "fresh and repeat 013 migration",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM02",
+                                                 "check":  "partial DDL retry validates exact identities and health procedure",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM03",
+                                                 "check":  "new issuance and queue have immutable generation-bound anchors",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM03",
+                                                 "check":  "even fixture SQL cannot mutate a bound source generation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM04",
+                                                 "check":  "verification at expiry -1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM04",
+                                                 "check":  "verification at expiry +0 seconds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM04",
+                                                 "check":  "verification at expiry +1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM05",
+                                                 "check":  "use erases HMAC immediately and anchors detail deadline",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM06",
+                                                 "check":  "details retained just before original 24h deadline",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM06",
+                                                 "check":  "details erased at exact deadline without losing anchors",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM06",
+                                                 "check":  "after boundary and repeated reads do not renew obligations",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM07",
+                                                 "check":  "delayed expiry uses original expiry, never cleanup time",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM08",
+                                                 "check":  "old details purge preserves a newer active challenge",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM09",
+                                                 "check":  "terminal attempts erased without restoring code or rate budget",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM10",
+                                                 "check":  "payload expiry -1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM10",
+                                                 "check":  "payload expiry +0 seconds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM10",
+                                                 "check":  "payload expiry +1 microsecond",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM11",
+                                                 "check":  "acceptance erases body immediately; seven days does not extend it",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM12",
+                                                 "check":  "code-free ordinary metadata before seven days is present",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM12",
+                                                 "check":  "ordinary mail/job metadata removed at exact seven days",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM12",
+                                                 "check":  "after boundary retry finds same completion",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM13",
+                                                 "check":  "expired payload does not fabricate a terminal in-flight outcome",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM14",
+                                                 "check":  "unknown carrier survives only as a minimal result verifier",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM15",
+                                                 "check":  "late result is once-only and cannot recreate content or authorize access",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM16",
+                                                 "check":  "unknown status erases expired payload but leaves explicit unresolved metadata",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM17",
+                                                 "check":  "separate processes and SQL connections actually overlap",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM17",
+                                                 "check":  "cleanup/claim cannot dispatch expired mail",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM18",
+                                                 "check":  "separate processes and SQL connections actually overlap",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM18",
+                                                 "check":  "cancellation and cleanup preserve original mail deadline",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM19",
+                                                 "check":  "separate processes and SQL connections actually overlap",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM19",
+                                                 "check":  "finish versus metadata purge keeps one result without content resurrection",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM20",
+                                                 "check":  "separate processes and SQL connections actually overlap",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM20",
+                                                 "check":  "known nonacceptance retry never renews useful delivery",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM21",
+                                                 "check":  "blocked fake carrier overlaps purge then records late acceptance",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM22",
+                                                 "check":  "separate processes and SQL connections actually overlap",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM22",
+                                                 "check":  "duplicate workers write exactly one detail receipt",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM23",
+                                                 "check":  "process crash rolls back after_intent",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM23",
+                                                 "check":  "retry completes original obligation after_intent",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM23",
+                                                 "check":  "process crash rolls back after_erasure",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM23",
+                                                 "check":  "retry completes original obligation after_erasure",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM23",
+                                                 "check":  "process crash rolls back before_commit",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM23",
+                                                 "check":  "retry completes original obligation before_commit",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM24",
+                                                 "check":  "lost result discovers committed receipt and idempotent completion",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM25",
+                                                 "check":  "missing deletion grant rolls back entire metadata transaction",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM25",
+                                                 "check":  "restored intended privilege permits same original obligation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM26",
+                                                 "check":  "unreviewed cascade blocks deletion with child intact",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM26",
+                                                 "check":  "reviewed fixture removal allows retry",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM27",
+                                                 "check":  "stale/replaced account identity fails closed",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM28",
+                                                 "check":  "enable flag cannot substitute a fixture for independent recovery",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM28",
+                                                 "check":  "recovery interface is read-only and copy bounds remain unknown",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM28",
+                                                 "check":  "retained receipts/recovery/diagnostics contain no address or payload fields",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "ordinary details erased while a scoped evidence hold remains active",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected users",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected signup_lifecycle",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected signup_expiry_obligations",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected signup_attempt_erasure_recovery",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected consent_records",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected reports",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected moderation_cases",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected moderation_evidence",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected evidence_lifecycle_holds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected blocks",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected pair_request_counts",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM29",
+                                                 "check":  "preserves protected rate_limits",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM30",
+                                                 "check":  "resend cannot repopulate erased old challenge details",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM30",
+                                                 "check":  "reused numeric source ID with a different generation is preserved",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM31",
+                                                 "check":  "late successful cleanup records original missed deadline",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM31",
+                                                 "check":  "one bounded batch processes at most one durable record",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM31",
+                                                 "check":  "worker has no user deletion, clock or migration privilege",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM32",
+                                                 "check":  "missing earlier detail clock stays unresolved while expired HMAC is erased",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM32",
+                                                 "check":  "missing earlier mail clock cannot extend metadata or retain expired body",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM02",
+                                                 "check":  "012 upgrade/repeat preserves old rows with NULL generation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QM27",
+                                                 "check":  "unknown legacy anchors become explicit review obligations, never guessed purge",
+                                                 "result":  "PASS"
+                                             }
+                                         ],
+                              "suite":  "Q22",
+                              "source_fixture_evidence":  ".tmp/q22-20261020-213853-b1157a12/evidence.json",
+                              "races":  [
+                                            {
+                                                "case":  "QM17",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  343,
+                                                                         "connection_id":  855,
+                                                                         "sapi":  "cli"
+                                                                     },
+                                                                     {
+                                                                         "pid":  344,
+                                                                         "connection_id":  854,
+                                                                         "sapi":  "cli"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  855,
+                                                                               "blocking_connection":  850
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  854,
+                                                                               "blocking_connection":  850
+                                                                           }
+                                                                       ],
+                                                "results":  [
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "payload_erased"
+                                                                },
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  false
+                                                                }
+                                                            ]
+                                            },
+                                            {
+                                                "case":  "QM18",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  345,
+                                                                         "connection_id":  857,
+                                                                         "sapi":  "cli"
+                                                                     },
+                                                                     {
+                                                                         "pid":  346,
+                                                                         "connection_id":  856,
+                                                                         "sapi":  "cli"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  857,
+                                                                               "blocking_connection":  850
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  856,
+                                                                               "blocking_connection":  850
+                                                                           }
+                                                                       ],
+                                                "results":  [
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "payload_erased"
+                                                                },
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "cancelled"
+                                                                }
+                                                            ]
+                                            },
+                                            {
+                                                "case":  "QM19",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  347,
+                                                                         "connection_id":  859,
+                                                                         "sapi":  "cli"
+                                                                     },
+                                                                     {
+                                                                         "pid":  348,
+                                                                         "connection_id":  858,
+                                                                         "sapi":  "cli"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  859,
+                                                                               "blocking_connection":  850
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  858,
+                                                                               "blocking_connection":  850
+                                                                           }
+                                                                       ],
+                                                "results":  [
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "complete"
+                                                                },
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "sent"
+                                                                }
+                                                            ]
+                                            },
+                                            {
+                                                "case":  "QM20",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  349,
+                                                                         "connection_id":  860,
+                                                                         "sapi":  "cli"
+                                                                     },
+                                                                     {
+                                                                         "pid":  350,
+                                                                         "connection_id":  861,
+                                                                         "sapi":  "cli"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  860,
+                                                                               "blocking_connection":  850
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  861,
+                                                                               "blocking_connection":  850
+                                                                           }
+                                                                       ],
+                                                "results":  [
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "active"
+                                                                },
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "retried"
+                                                                }
+                                                            ]
+                                            },
+                                            {
+                                                "case":  "QM21",
+                                                "carrier":  {
+                                                                "pid":  351,
+                                                                "connection_id":  863,
+                                                                "transaction_open":  false
+                                                            },
+                                                "consumer":  {
+                                                                 "pid":  332,
+                                                                 "connection_id":  851
+                                                             },
+                                                "worker_exit":  0
+                                            },
+                                            {
+                                                "case":  "QM22",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  352,
+                                                                         "connection_id":  864,
+                                                                         "sapi":  "cli"
+                                                                     },
+                                                                     {
+                                                                         "pid":  353,
+                                                                         "connection_id":  865,
+                                                                         "sapi":  "cli"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  864,
+                                                                               "blocking_connection":  850
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  865,
+                                                                               "blocking_connection":  850
+                                                                           }
+                                                                       ],
+                                                "results":  [
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "complete"
+                                                                },
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "complete"
+                                                                }
+                                                            ]
+                                            }
+                                        ]
+                          },
+                          {
+                              "failure":  null,
+                              "totals":  {
+                                             "assertions":  58,
+                                             "passed":  58
+                                         },
+                              "checks":  [
+                                             {
+                                                 "case":  "QE01",
+                                                 "check":  "consumer default-denies before connecting",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE02",
+                                                 "check":  "fresh 012 migration and repeat",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE02",
+                                                 "check":  "partial DDL retry validates existing trigger/routine without replacement",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE03",
+                                                 "check":  "eligible pending-email ordinary data verified erased",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE03",
+                                                 "check":  "minimal identity/status/session version retained without reactivation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE04",
+                                                 "check":  "unfinished email-approved onboarding uses same bounded erasure",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "protected rows do not force retention of ordinary credentials",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "preserves consent_records",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "preserves reports",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "preserves moderation_cases",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "preserves moderation_evidence",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "preserves evidence_lifecycle_holds",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "preserves blocks",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "preserves pair_request_counts",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE05",
+                                                 "check":  "preserves pair_account_genesis",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE06",
+                                                 "check":  "missing anchors never create an erasure authority",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE07",
+                                                 "check":  "newer account version blocks erasure",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE07",
+                                                 "check":  "altered job deadline cannot replace the original obligation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE09",
+                                                 "check":  "stored generation cannot be changed through UPDATE",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE08",
+                                                 "check":  "old continuation never selects a new account by shared email",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE09",
+                                                 "check":  "reused numeric ID with different generation is preserved",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE10",
+                                                 "check":  "unknown child cascade blocks all erasure",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE11",
+                                                 "check":  "SQL failure rolls back recovery intent and ordinary erasure",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE11",
+                                                 "check":  "safe retry completes one receipt",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE12",
+                                                 "check":  "bounded address chunk and durable cursor",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE12",
+                                                 "check":  "resume finishes remaining chunks without duplicate receipts",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE13",
+                                                 "check":  "two actual worker PIDs/connections overlap on account row",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE13",
+                                                 "check":  "duplicate workers cause one completion",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE14",
+                                                 "check":  "stale lease token cannot mutate current job",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE15",
+                                                 "check":  "crash leaves durable resumable claim",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE15",
+                                                 "check":  "retry reconciles committed stage exactly once",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE16",
+                                                 "check":  "crash leaves durable resumable claim",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE16",
+                                                 "check":  "retry reconciles committed stage exactly once",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE17",
+                                                 "check":  "manifested local fixture files are verified absent",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE18",
+                                                 "check":  "partial storage failure never acknowledges completion",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE18",
+                                                 "check":  "partial storage retry completes remaining object",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE19",
+                                                 "check":  "unlink crash preserves deletion intent without false receipt",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE19",
+                                                 "check":  "missing file after committed intent reconciles safely",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE20",
+                                                 "check":  "changed storage generation is never deleted",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE21",
+                                                 "check":  "unsafe locator blocks before any erasure",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE22",
+                                                 "check":  "evidence-file reference remains protected and incomplete",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE22",
+                                                 "check":  "synthetic evidence-reference release preserves original obligation",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE23",
+                                                 "check":  "consumer erases linked addresses during an inflight send",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE23",
+                                                 "check":  "late fake acceptance cannot restore access",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE24",
+                                                 "check":  "separate HTTP/consumer workers overlap and completed onboarding survives",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE25",
+                                                 "check":  "newer version blocks a resumed external deletion",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE21",
+                                                 "check":  "symlink target is untouched",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE21",
+                                                 "check":  "hardlink target is untouched",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE17",
+                                                 "check":  "unavailable operational storage adapter cannot claim deletion",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE26",
+                                                 "check":  "configuration flag cannot fabricate an independent recovery provider",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE26",
+                                                 "check":  "resumed stages also require a trusted recovery provider",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE11",
+                                                 "check":  "overdue alert uses original missed deadline and no completion receipt",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE26",
+                                                 "check":  "runtime has no user DELETE, clock mutation or schema DDL",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE27",
+                                                 "check":  "client exits after completion commits but before receiving result",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE27",
+                                                 "check":  "interrupted clients can discover committed completion",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE28",
+                                                 "check":  "recovery interface reads only; no independent durability invented",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE02",
+                                                 "check":  "011 upgrade and repeat preserve legacy fields",
+                                                 "result":  "PASS"
+                                             },
+                                             {
+                                                 "case":  "QE06",
+                                                 "check":  "old 011 expiry receipt cannot fabricate generation",
+                                                 "result":  "PASS"
+                                             }
+                                         ],
+                              "suite":  "Attempt erasure",
+                              "source_fixture_evidence":  ".tmp/qe-20261020-213945-00c67d66/evidence.json",
+                              "races":  [
+                                            {
+                                                "case":  "QE13",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  372,
+                                                                         "connection_id":  894,
+                                                                         "sapi":  "cli"
+                                                                     },
+                                                                     {
+                                                                         "pid":  373,
+                                                                         "connection_id":  893,
+                                                                         "sapi":  "cli"
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  894,
+                                                                               "blocking_connection":  888
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  893,
+                                                                               "blocking_connection":  888
+                                                                           }
+                                                                       ],
+                                                "answers":  [
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "complete"
+                                                                },
+                                                                {
+                                                                    "exit":  0,
+                                                                    "result":  "skipped"
+                                                                }
+                                                            ]
+                                            },
+                                            {
+                                                "case":  "QE23",
+                                                "sender":  {
+                                                               "pid":  377,
+                                                               "connection_id":  899,
+                                                               "transaction_open":  false
+                                                           },
+                                                "consumer":  {
+                                                                 "pid":  362,
+                                                                 "connection_id":  889
+                                                             },
+                                                "carrier_waited_while_consumer_completed":  true,
+                                                "carrier_exit":  0
+                                            },
+                                            {
+                                                "case":  "QE24",
+                                                "participants":  [
+                                                                     {
+                                                                         "pid":  378,
+                                                                         "connection_id":  901,
+                                                                         "sapi":  "cli-server",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:40:25+00:00",
+                                                                         "uri":  "/onboarding.php"
+                                                                     },
+                                                                     {
+                                                                         "pid":  379,
+                                                                         "connection_id":  902,
+                                                                         "sapi":  "cli",
+                                                                         "point":  "q11_mixed",
+                                                                         "entered_at":  "2026-10-20T21:40:25+00:00",
+                                                                         "uri":  ""
+                                                                     }
+                                                                 ],
+                                                "observed_row_waits":  [
+                                                                           {
+                                                                               "requesting_connection":  901,
+                                                                               "blocking_connection":  888
+                                                                           },
+                                                                           {
+                                                                               "requesting_connection":  902,
+                                                                               "blocking_connection":  888
+                                                                           }
+                                                                       ],
+                                                "http_status":  302,
+                                                "consumer_exit":  0
+                                            }
+                                        ]
+                          }
+                      ],
+    "worker_units":  {
+                         "command":  "php -n tests/unit_mail_worker_config.php",
+                         "cases":  "MW01-MW12",
+                         "pass":  12
+                     },
+    "modified_worktree":  true,
+    "production_execution":  false
+}

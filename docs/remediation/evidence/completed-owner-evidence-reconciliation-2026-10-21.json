@@ -1,0 +1,2696 @@
+{
+  "format": "bushisa.owner-application-worker-reconciliation.v1",
+  "recorded_utc": "2026-10-21T08:00:00.297223+00:00",
+  "checkout": "ba800431a9bcecddb2645f9b0a267948c54dbe25",
+  "source_kind": "01-05 and 07-08 owner-collected Azure observations; 06 local agent archive inspection; no new agent Azure/DB/application-acceptance execution",
+  "owner_sources": {
+    "01-schema-context.txt": {
+      "sha256": "89a5e870ccec6f4fe0de248bd8ebd781048244c964b55c5423713d18ce81659a",
+      "bytes": 393
+    },
+    "02-schema-supplement.txt": {
+      "sha256": "c69868ae261f6b47693eba07b0da2021452720f482a5e4502540bf9c1d77d693",
+      "bytes": 29255
+    },
+    "03-worker-location.txt": {
+      "sha256": "e94447c212a459ce5a9288c6c202949ab02078771fcd77e46541ca57fe37ff1e",
+      "bytes": 1206
+    },
+    "04-installed-webjob-sha256.txt": {
+      "sha256": "39484cea701a98a83bf8ab8e258b5dfe57c975aec3fd0ad63ece66b38a8a31b7",
+      "bytes": 368
+    },
+    "05-application-code-sha256.txt": {
+      "sha256": "fe56e9108d57986f946acd54d7fca6c8b287d7c0f65f82187a84118b2832e548",
+      "bytes": 10810
+    },
+    "06-artifact-provenance.txt": {
+      "sha256": "0a1c52bd008f4748cef3a0b3d9e588cd4412518ecca765ba74de288b17e1b15a",
+      "bytes": 10134
+    },
+    "07-installed-settings-summary.txt": {
+      "sha256": "8eaf1b74bccd942cce68072b757713fc5f2ba535eb5021b89cbd76a7d01708ab",
+      "bytes": 253
+    },
+    "08-deployed-code-names.txt": {
+      "sha256": "2c564889f6f8e7bc6fc7f4c7bfb2f1b75e2b36bbb53225e3bc54939fab14c0e4",
+      "bytes": 7755
+    },
+    "09-code-gap-evidence.txt": {
+      "bytes": 9590,
+      "sha256": "b7805f13fec935c0f5fa40d7875670b0b1128e33d92a807c1b547953c55ad770",
+      "source": "owner Application SSH metadata; see code-gap reconciliation for capture times and comparison"
+    }
+  },
+  "original_docx_sha256": "90ca70375d3fb2a3844bb80064cd1f6620224411d36eb8b490e94937cbede233",
+  "schema": "Reuse completed MATCH; source hashes unchanged; all six missing groups resolved within captured metadata scope",
+  "baseline": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+  "candidate": "888a2c273711c1ac5f3d1dc3d26d649f1e636235",
+  "summary": {
+    "digest_rows": 93,
+    "tracked_rows": 75,
+    "raw_baseline_matches": 75,
+    "raw_candidate_matches": 45,
+    "unmatched_tracked": 0,
+    "dependency_rows": 18,
+    "dependency_local_raw_matches": 17,
+    "missing_rows": 54,
+    "missing_baseline_tracked": 0,
+    "missing_candidate_tracked": 53
+  },
+  "files": [
+    {
+      "path": ".htaccess",
+      "owner_sha256": "43736694cc0e52f9b79ff0c56b6332683da5db99db1780b9c767581c0ae65a94",
+      "git_history": [
+        {
+          "blob": "ca3374494739b5c5eca56668665651b0a260439a",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "9ac2c2558754b44a2e64521a7110bd9b882eed44"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "ca3374494739b5c5eca56668665651b0a260439a",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "ca3374494739b5c5eca56668665651b0a260439a",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "account_delete.php",
+      "owner_sha256": "1194879d1c0661d6581ec6cf2822db5b2c9c6c02a04965368ab036b0096b46ff",
+      "git_history": [
+        {
+          "blob": "25f31a78e8655490391b77d56df26995d54f4ee5",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "25f31a78e8655490391b77d56df26995d54f4ee5",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "25f31a78e8655490391b77d56df26995d54f4ee5",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "admin/dashboard.php",
+      "owner_sha256": "9c4bb187048a1efae298db7a238b69a0e7852ca166374f50ea502a6c93d63fc8",
+      "git_history": [
+        {
+          "blob": "139671f21633240cdc8d51e368cc82904c21aeb9",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "139671f21633240cdc8d51e368cc82904c21aeb9",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "139671f21633240cdc8d51e368cc82904c21aeb9",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "admin/moderation.php",
+      "owner_sha256": "acdfdef9c31d1fb299b730f6b0cf636601db87ce9f5d82c3bda2adc0c2f5707f",
+      "git_history": [
+        {
+          "blob": "d87fb74806b303788c27421ae6ae849b5c0c4c47",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "d87fb74806b303788c27421ae6ae849b5c0c4c47",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "d87fb74806b303788c27421ae6ae849b5c0c4c47",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "admin/reports.php",
+      "owner_sha256": "a11af58ddca544f586b6a36ef06a98ce15e3fb8e4775ce49ea4dbcaa1c45b8d0",
+      "git_history": [
+        {
+          "blob": "0e8263374537c716d72c177b1e92047a73ae690c",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "0e8263374537c716d72c177b1e92047a73ae690c",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "0e8263374537c716d72c177b1e92047a73ae690c",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/account.php",
+      "owner_sha256": "e5a5f252e8a50b5268d548cd88f098bbfd0c12080c6a5a0222a17d6cf851b35e",
+      "git_history": [
+        {
+          "blob": "facc5941c9cd6bc66906c819c013c1798bdfa081",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "facc5941c9cd6bc66906c819c013c1798bdfa081",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "11a9fe6dc6fda513376318d08fc95fb5da636b7c",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/confessions.php",
+      "owner_sha256": "038478ad4bb52ee9c7a94459ea71ed6198b73259fbaf9af1c97253298fa455ba",
+      "git_history": [
+        {
+          "blob": "f8e56ec6bfb05fd40864b204aba0fefcecebba85",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "f8e56ec6bfb05fd40864b204aba0fefcecebba85",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "9d8af9e1a34360659dd86e8a40152d00d76dba98",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/discover.php",
+      "owner_sha256": "b4fadf617d58e2bc82623180bea8c43ee0da52a5c855381d78bf9ad700145d67",
+      "git_history": [
+        {
+          "blob": "cafb945ee2bb2afe0781bf5d4fb0a342f9f4bf83",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "cafb945ee2bb2afe0781bf5d4fb0a342f9f4bf83",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "299a3905ee0c1a5c2ec2bab6626423e853f9a5c9",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/find_match.php",
+      "owner_sha256": "3585875064cafecdd9ce98e5fe7b0bb35c17f68df91915d6fbc1c1a1f2d4fd54",
+      "git_history": [
+        {
+          "blob": "bfe2512fe696fc659a9ff1e9f8030a133bdcf0d5",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "ecf6217ceda74cc257d75483f253862b932dfe9d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "bfe2512fe696fc659a9ff1e9f8030a133bdcf0d5",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "bfe2512fe696fc659a9ff1e9f8030a133bdcf0d5",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/matches.php",
+      "owner_sha256": "2434b9f6b71af73231f197e05378523038a84b0eca6c361aaac854d1780c79c6",
+      "git_history": [
+        {
+          "blob": "6a2d8857006cf83960f069c53c366deb73a4eed2",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "6a2d8857006cf83960f069c53c366deb73a4eed2",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "91c7098eefb78bdaefeed071aba76f5e33994854",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/message_requests.php",
+      "owner_sha256": "236add574b3ff24612c60e99dc2829bc13fcc7e8284f1a413bd91ea67f9824fd",
+      "git_history": [
+        {
+          "blob": "40754a567d6b308b0ecfd6015f10a31fc1ee60a0",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "40754a567d6b308b0ecfd6015f10a31fc1ee60a0",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "001588076a34a46d75703a9ebccfa6174fa6d8d0",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/messages.php",
+      "owner_sha256": "ee633a3411697e376783f4281d166960b2124c81bd28593bd40b9eed1552a44f",
+      "git_history": [
+        {
+          "blob": "3c3b8c027b60304eaa3b633d0d77944e240f0d1f",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "3c3b8c027b60304eaa3b633d0d77944e240f0d1f",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "219d0962a43dac6622526462d58fd239f23024b0",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/notifications.php",
+      "owner_sha256": "bd94b6e2cfe91ef1552dcd7e4d914944f236dbb5ea234809836e4c5cb0301195",
+      "git_history": [
+        {
+          "blob": "b6cccab265659951ce208210009f25a9b0b78ac8",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "b6cccab265659951ce208210009f25a9b0b78ac8",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "b6cccab265659951ce208210009f25a9b0b78ac8",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/questionnaire.php",
+      "owner_sha256": "9a2f005f0009dfe7835e8499dbacdcd53b0de9725b140f0e7c85b5a2a42456c2",
+      "git_history": [
+        {
+          "blob": "0624a3b1a52ad779ebb2bb2e869bc03036c4157a",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "ecf6217ceda74cc257d75483f253862b932dfe9d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "0624a3b1a52ad779ebb2bb2e869bc03036c4157a",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "0624a3b1a52ad779ebb2bb2e869bc03036c4157a",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/safety.php",
+      "owner_sha256": "b951386ab00f2a21a9855dcd6bf6542bfe93dbc19dc2baa34f018aac924ec5ef",
+      "git_history": [
+        {
+          "blob": "13d9bcd1bd40836ec1a976f34e70e699b3380b42",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "13d9bcd1bd40836ec1a976f34e70e699b3380b42",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "434f10b683d6ee205beef84f1539f8db0e9dab62",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "api/swipe.php",
+      "owner_sha256": "fed9f46ef55b8b50185ca72ded1cba55c967dd2d4f2e4cc3e85b3ae0ba418433",
+      "git_history": [
+        {
+          "blob": "6c0ea44469082b9a85574138d6241184a8f765b8",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "6c0ea44469082b9a85574138d6241184a8f765b8",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "6db7c82d4138b6e8d265efeed838f5776fa77ab4",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "bin/cleanup_policy.php",
+      "owner_sha256": "a9a073e119f32a39943a705e787c399eefcab70f0a5decb55367d43658e25057",
+      "git_history": [
+        {
+          "blob": "a8b673819703e7e441873880619c30e0ad506de8",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "a8b673819703e7e441873880619c30e0ad506de8",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "126ef7165311b76ad0e195f5d4117bc70187ba14",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "bin/dispatch_mail.php",
+      "owner_sha256": "8e16065cc67455f05127782e5e1efbea94ebaa09d1a2853c4b9975b2bf62f0c6",
+      "git_history": [
+        {
+          "blob": "a5f3e22f6fbe60c7485502b05afa9998aea58c18",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "a5f3e22f6fbe60c7485502b05afa9998aea58c18",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "9c48a4243e2e530cb5732dbc712e1fd301f57a02",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "bin/migrate.php",
+      "owner_sha256": "979a69437a3952d93b4a5471a9f914315240533a41c15fe0eac19eefdc9fb21c",
+      "git_history": [
+        {
+          "blob": "33c65e7ec24b3d63b886fc3aab895179de59815b",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "33c65e7ec24b3d63b886fc3aab895179de59815b",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "12e825f30d27466b6d90f7eb51c8355e20a8a4de",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "chat.php",
+      "owner_sha256": "c9e2b3b44997f5f04888af0af318db68d3f9fedc25ebcd96e0862fca998af937",
+      "git_history": [
+        {
+          "blob": "608359cb64a980a3ec3c8a226f8f26dc964439f5",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "608359cb64a980a3ec3c8a226f8f26dc964439f5",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "60b066dc4d1b44dc703278417d19a670c7c935d7",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "community_guidelines.php",
+      "owner_sha256": "bcf9859ae20d4255377e8efb464149a9aa2fe2cfc053d37c4faed069c0ee9470",
+      "git_history": [
+        {
+          "blob": "ee0bafd278989790aa7fb7d039ef9541c75bb9bf",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "ee0bafd278989790aa7fb7d039ef9541c75bb9bf",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "ee0bafd278989790aa7fb7d039ef9541c75bb9bf",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "composer.json",
+      "owner_sha256": "ec352cc5554bb7b5083f933433883856cf9ac285bda47c1c122d524ea341113a",
+      "git_history": [
+        {
+          "blob": "53fc26d462c4c9ca0364b3f016e6804a70075acc",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "53fc26d462c4c9ca0364b3f016e6804a70075acc",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "53fc26d462c4c9ca0364b3f016e6804a70075acc",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "composer.lock",
+      "owner_sha256": "c8d82495a3d4ed0879f805a94da34160af92ff3690ec017c8be89cf5a5fda2a2",
+      "git_history": [
+        {
+          "blob": "7345aeff51c6228648d5b2e87eabf424b049cae4",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "7345aeff51c6228648d5b2e87eabf424b049cae4",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "7345aeff51c6228648d5b2e87eabf424b049cae4",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "confessions.php",
+      "owner_sha256": "8ac85d00728d01276f3248cfd245de20ebed26518abb649d829ac57f1b270ac4",
+      "git_history": [
+        {
+          "blob": "a3efe5096dc46a9122e9a7966bf6264c769305f3",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "a3efe5096dc46a9122e9a7966bf6264c769305f3",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "a3efe5096dc46a9122e9a7966bf6264c769305f3",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "config/database_settings.php",
+      "owner_sha256": "5a23196a89c9500bc2d438a5efcc912e45cc8012eb8cf1c0fb351bef657398b0",
+      "git_history": [
+        {
+          "blob": "86c833de22ba316559b9283537d00325d1f91d29",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "86c833de22ba316559b9283537d00325d1f91d29",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "86c833de22ba316559b9283537d00325d1f91d29",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "config/db.php",
+      "owner_sha256": "546db8dec972481561550f9804cb073033c1912e1f8bd3fd4a29c7838d284250",
+      "git_history": [
+        {
+          "blob": "d463df9852c490beb9beaa3556c3a7ef1b8600d8",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "3e5988023b0a85d8de21a05fb49a9e15b32edfa3"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "d463df9852c490beb9beaa3556c3a7ef1b8600d8",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "15cef17e676cfb32302fce0bee62e5efe187907b",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "css/style.css",
+      "owner_sha256": "5dd70d67f4a830cc0b5aca48584e85aa41e55c586abb5f3789164da2332e0204",
+      "git_history": [
+        {
+          "blob": "54dca608bb79a81f14727dae994ccb5a2735c329",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "54dca608bb79a81f14727dae994ccb5a2735c329",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "54dca608bb79a81f14727dae994ccb5a2735c329",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "database/migrations/001_operational_contract.sql",
+      "owner_sha256": "08357ccaf971f50316ee0b07b602508fe40de130010abcb0d8e8eae119f5ab2a",
+      "git_history": [
+        {
+          "blob": "5a836e4b39836b28fb790fd501fc2645e384dd49",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "5a836e4b39836b28fb790fd501fc2645e384dd49",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "5a836e4b39836b28fb790fd501fc2645e384dd49",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "database/migrations/002_policy_safeguards.sql",
+      "owner_sha256": "0f2b6ccdd776eae5a8297e599596cc8829cc0a7c0a379344d8d018b8f93447f5",
+      "git_history": [
+        {
+          "blob": "4a917e26838bbe27d5548759bea9b577b43bbe33",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "4a917e26838bbe27d5548759bea9b577b43bbe33",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "faef0f8963b7bf1bd79a28842efafbcd5fd3e3dc",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "database/migrations/003_restore_replay_safeguards.sql",
+      "owner_sha256": "bf4d2536cdeb66875cd1fb505a1453e1cf83c9a9e0d0d4867eff36c3fe977996",
+      "git_history": [
+        {
+          "blob": "b5759adec67b25410e172a2d5db14e8461666dee",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "b5759adec67b25410e172a2d5db14e8461666dee",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "b5759adec67b25410e172a2d5db14e8461666dee",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "database/migrations/004_smtp_outbox.sql",
+      "owner_sha256": "c2a0ee0410f695bf82e8ab2b53dfb80dd0efc5b22bfb18784103265f8180722b",
+      "git_history": [
+        {
+          "blob": "dd0e9975dd1a306e51f6aed6c031d4de725ccede",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "dd0e9975dd1a306e51f6aed6c031d4de725ccede",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "dd0e9975dd1a306e51f6aed6c031d4de725ccede",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "discover.php",
+      "owner_sha256": "bda03392429ee762dfdccc9205f3fabfb2a6e54c7b4fbdbf18852ddc0601f5ba",
+      "git_history": [
+        {
+          "blob": "8793030f634c3257db056d8c1ac5e951f1cd0f3c",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "8793030f634c3257db056d8c1ac5e951f1cd0f3c",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "8793030f634c3257db056d8c1ac5e951f1cd0f3c",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "index.php",
+      "owner_sha256": "5693aea7007ffebe4d92e3e098dba68b905e55653b707998d3752c284b439530",
+      "git_history": [
+        {
+          "blob": "a31f9c442e70473fec137f31cf228767cf89af08",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "a31f9c442e70473fec137f31cf228767cf89af08",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "a31f9c442e70473fec137f31cf228767cf89af08",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "js/app.js",
+      "owner_sha256": "8c8a103bb5ace77ea2be183ba5f0f429de854782182252f8432059778ee63995",
+      "git_history": [
+        {
+          "blob": "b7a9047a7b7a816b62255584e1fb0d9dfd21be09",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "b7a9047a7b7a816b62255584e1fb0d9dfd21be09",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "b7a9047a7b7a816b62255584e1fb0d9dfd21be09",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "js/auth.js",
+      "owner_sha256": "27d3985db95e876a8cf9724ef350927a2cd12a977f61b9790799f0a80f844bc4",
+      "git_history": [
+        {
+          "blob": "bc55963a21cf6fb21aa4625d1084f6a9b8236684",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "36d9b6785266c145109b7642ca2e43b5be0be1ff"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "bc55963a21cf6fb21aa4625d1084f6a9b8236684",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "bc55963a21cf6fb21aa4625d1084f6a9b8236684",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "js/chat.js",
+      "owner_sha256": "ffd1363d76137b1bf6977951d4d809b7ee515e7263fbf4fdff80f2e18deb37b9",
+      "git_history": [
+        {
+          "blob": "b182607dfe32fc63bdd17feb056089be71f73dfa",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "36d9b6785266c145109b7642ca2e43b5be0be1ff"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "b182607dfe32fc63bdd17feb056089be71f73dfa",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "b182607dfe32fc63bdd17feb056089be71f73dfa",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "js/confessions.js",
+      "owner_sha256": "ffbcc3ae6f6860619478c75d3db24861a39dbb7871a301534e263a8ed6265684",
+      "git_history": [
+        {
+          "blob": "abfdba5f86065d7a915ce3ea4424aa93dad85bf9",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "36d9b6785266c145109b7642ca2e43b5be0be1ff"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "abfdba5f86065d7a915ce3ea4424aa93dad85bf9",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "2d7784f2f63ed462593610ec107e223552b3fa98",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "js/discover.js",
+      "owner_sha256": "4153234faa6c2e2be3ed5ad90898a304013061867e6d7e1899c51ea98a1631dc",
+      "git_history": [
+        {
+          "blob": "ce5918eb019ad4a19318d531dcb5bb2b05fa6c9b",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "ecf6217ceda74cc257d75483f253862b932dfe9d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "ce5918eb019ad4a19318d531dcb5bb2b05fa6c9b",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "0ae60a1c7aa12a3b83f664ada185763232768a55",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "login.php",
+      "owner_sha256": "c7033a94a88a4eb8e47296e90c1e857850fce1b3f4fe7805cb6e837cc6e6d7da",
+      "git_history": [
+        {
+          "blob": "d806a9ed4a93c1d86b2d9797fe6088abbd545856",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "d806a9ed4a93c1d86b2d9797fe6088abbd545856",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "8e8ec8f61b052778ecbfd6442e69b6f3efc7c365",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "logout.php",
+      "owner_sha256": "0352be047849cc8d2ff14648efa7a7b9b8ed4a02b98f63ccb57601d4374db69c",
+      "git_history": [
+        {
+          "blob": "8376dc7514dadfdc0fe7c430ef8e744838e7609d",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "8376dc7514dadfdc0fe7c430ef8e744838e7609d",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "8376dc7514dadfdc0fe7c430ef8e744838e7609d",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "matches.php",
+      "owner_sha256": "b7de8db48ef8458569deef8f1f827cc7e70368187904ef14288f40b5444c441b",
+      "git_history": [
+        {
+          "blob": "ee53b1c6c6e2c7bdcb3a27b0697a42f364149a43",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "ee53b1c6c6e2c7bdcb3a27b0697a42f364149a43",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "412172e0ddd9a8cff548014495e92081ec6c38a5",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "onboarding.php",
+      "owner_sha256": "9cb52781d39422030300412d68665174bb3617c649a6d9fad1a0b64644ec9b15",
+      "git_history": [
+        {
+          "blob": "60f45faffd09ce4591728d7766d07a6d98954b02",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "60f45faffd09ce4591728d7766d07a6d98954b02",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "458023e12a29f99ba09ef2e5f484ac30db7b2c3d",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "package.json",
+      "owner_sha256": "bc81853e536af44047a74d79d619d38b1507d4b60078e13bc00ad9c915303917",
+      "git_history": [
+        {
+          "blob": "1f748165063f2d0b6e9de2ee2c9d2b9bc83ac608",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "1f748165063f2d0b6e9de2ee2c9d2b9bc83ac608",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "1f748165063f2d0b6e9de2ee2c9d2b9bc83ac608",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "package-lock.json",
+      "owner_sha256": "05b50ae3600213ab99517aee3567db0c4d9d42fa6e4268dd7019b6a1174f09b4",
+      "git_history": [
+        {
+          "blob": "1dae049c976cd72e6b32afc6664aa5ebda0c0e95",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "1dae049c976cd72e6b32afc6664aa5ebda0c0e95",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "1dae049c976cd72e6b32afc6664aa5ebda0c0e95",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/age_verification.php",
+      "owner_sha256": "887f62dca474828bcb628a1554f87632a042fecf9862bac8c0b3dc0855577b81",
+      "git_history": [
+        {
+          "blob": "c76d1f1f291656a00ee15de642c70b8a44a6440c",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "c76d1f1f291656a00ee15de642c70b8a44a6440c",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "c76d1f1f291656a00ee15de642c70b8a44a6440c",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/anonymiser.php",
+      "owner_sha256": "0e29cb0071dc56b0e21d05e428e288621e23230f4ab441c5b703d362557e098b",
+      "git_history": [
+        {
+          "blob": "aaefdce47b940d11768048a4bd01fd082f6f6645",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "aaefdce47b940d11768048a4bd01fd082f6f6645",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "aaefdce47b940d11768048a4bd01fd082f6f6645",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/auth.php",
+      "owner_sha256": "5e0d9488dda4531cbb7e3f87b4741628f161945c543c3a79db67dcfc0dfe3b68",
+      "git_history": [
+        {
+          "blob": "cbcf270c806893c6e54acc4594ec41f33f35e455",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "cbcf270c806893c6e54acc4594ec41f33f35e455",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "1ec21833b5153358d8e8b8669dca036acb64ae4f",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/block_handler.php",
+      "owner_sha256": "6ba0d022c5d2236430fbdd0ad2646d8cc5e42ce901e50d48a7f670f12d6932c3",
+      "git_history": [
+        {
+          "blob": "b3e146cbd2a8a0092d10c19056284d2b9b0a6ef9",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "b3e146cbd2a8a0092d10c19056284d2b9b0a6ef9",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "384bd24435c26ea669de8f9b9f0b8252401a6540",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/consent_manager.php",
+      "owner_sha256": "bce0c18f13a9caa273c3cf98b2269cd39b9d537f490f12e190d1869790724895",
+      "git_history": [
+        {
+          "blob": "c472b036d0bf5e7fb99bf17db5b6b70ccafacef4",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "c472b036d0bf5e7fb99bf17db5b6b70ccafacef4",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "c472b036d0bf5e7fb99bf17db5b6b70ccafacef4",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/csrf.php",
+      "owner_sha256": "de3d0c7d230177053ad67176575033da1a459b1dd21afa40c004d6dbbd5e8fca",
+      "git_history": [
+        {
+          "blob": "b7c10ccb2c98f0b30fe14b5a4f6ca17fa6ec425b",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "b7c10ccb2c98f0b30fe14b5a4f6ca17fa6ec425b",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "b7c10ccb2c98f0b30fe14b5a4f6ca17fa6ec425b",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/db.php",
+      "owner_sha256": "ab7e8e9b410d83ce37e163bb884a0d64736bbc40b25ce1e9c96d2778f6e76d86",
+      "git_history": [
+        {
+          "blob": "03bb1a87465ca121d90513d13e63f56a7aa68e02",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "03bb1a87465ca121d90513d13e63f56a7aa68e02",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "03bb1a87465ca121d90513d13e63f56a7aa68e02",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/frontend.php",
+      "owner_sha256": "62c89f11ea1f529e1b5275493a67e9d5d0f580665295687964c88160ea43b478",
+      "git_history": [
+        {
+          "blob": "a3d2f24704dad56039e5597dffd26ced79993969",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "a3d2f24704dad56039e5597dffd26ced79993969",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "a3d2f24704dad56039e5597dffd26ced79993969",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/function.php",
+      "owner_sha256": "5d33e71271c295b61dac8b85eb721ae94573160a3a43dce5ee4cac53b3bc5f7c",
+      "git_history": [
+        {
+          "blob": "d4c9bbae0eb00dcb6a7b17be40630fb6aa1df34a",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "d4c9bbae0eb00dcb6a7b17be40630fb6aa1df34a",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "d4c9bbae0eb00dcb6a7b17be40630fb6aa1df34a",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/logger.php",
+      "owner_sha256": "5f67611c86feb5bd4f509952c70d40999eacf8f83ef3b1d136197d21acc0f76c",
+      "git_history": [
+        {
+          "blob": "ff9271edfa3fc47188cd4aa0a26f2049cdd095cb",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "ff9271edfa3fc47188cd4aa0a26f2049cdd095cb",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "ff9271edfa3fc47188cd4aa0a26f2049cdd095cb",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/mail_delivery.php",
+      "owner_sha256": "b6efcaa3ad47e8dfe071e1fa67e15c882bc9120c7afe2c99e8cb5d85357ba5bd",
+      "git_history": [
+        {
+          "blob": "d0fa299fb741aee4a369e360c1e846b339356b07",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "d0fa299fb741aee4a369e360c1e846b339356b07",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "bb89ec6fee319d2502759bd309b54bdae6f44300",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/matching/questionnaire.php",
+      "owner_sha256": "3d00b84048bc98fdc78ef48b84e85431164b21156fae6627ce95fd5efdd2cab5",
+      "git_history": [
+        {
+          "blob": "196daf73fff7ed666f36a6de2253a2c49e7a3d00",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "ecf6217ceda74cc257d75483f253862b932dfe9d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "196daf73fff7ed666f36a6de2253a2c49e7a3d00",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "196daf73fff7ed666f36a6de2253a2c49e7a3d00",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/matching/scoring.php",
+      "owner_sha256": "5eb1afa392ab6ba01a3cfca7d969554ce315a64fccdebacc192f0650752d0792",
+      "git_history": [
+        {
+          "blob": "71a2cf73b9cf88a83cf6bcbed43fca66b5482356",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "ecf6217ceda74cc257d75483f253862b932dfe9d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "71a2cf73b9cf88a83cf6bcbed43fca66b5482356",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "71a2cf73b9cf88a83cf6bcbed43fca66b5482356",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/matching/service.php",
+      "owner_sha256": "597656efd82436ccf0274d30d40c6944e666a3f0ff1d52f4d4c1be7389a3f26b",
+      "git_history": [
+        {
+          "blob": "302cc15e603ee41329fe1d3732af9cd280512008",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "302cc15e603ee41329fe1d3732af9cd280512008",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "2f1af12c673bc034c2ec1c829165e9ada18f12e4",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/moderation.php",
+      "owner_sha256": "db3c7803b709a78ec358cee3ef3bd3efe77cd3c59b8891375a0542dc401de0d2",
+      "git_history": [
+        {
+          "blob": "ece64d10e4e3bb56d7cc6ad31a7751473aa0c2b8",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "ece64d10e4e3bb56d7cc6ad31a7751473aa0c2b8",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "ece64d10e4e3bb56d7cc6ad31a7751473aa0c2b8",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/operational.php",
+      "owner_sha256": "8400317be82ee3840342db311bd4f6b609e58efb4b957960c23e4a12a871890b",
+      "git_history": [
+        {
+          "blob": "579eb5c4af2d5c6d57dc979bb3a94d14d86ef1f1",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "579eb5c4af2d5c6d57dc979bb3a94d14d86ef1f1",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "9e85dfb6a53b422ed31b94bd31e835520083974b",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/password_policy.php",
+      "owner_sha256": "b4337061225f9e2faa062746484abde037da868b1d614b1c19dfe8361a6529d1",
+      "git_history": [
+        {
+          "blob": "1cb7254775a272000f91657a2667cadfa9eee603",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "1cb7254775a272000f91657a2667cadfa9eee603",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "51f9ff60b387d678512801a5f17f553b25e76317",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/policy_safeguards.php",
+      "owner_sha256": "53f949650c0afbc9242a8ceae26344d0a0429e76ab4501b869103702405817e3",
+      "git_history": [
+        {
+          "blob": "e1af06c9590018a8655534c72331b8623fe85405",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "e1af06c9590018a8655534c72331b8623fe85405",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "697e7e7b95697a3501dec5cc2d8a20a98cd67687",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/rate_limit.php",
+      "owner_sha256": "edc1d76b7c3c78dcf7bda57085e1e928c82203d4586130928b2ad048ec1e7ac4",
+      "git_history": [
+        {
+          "blob": "5d7dc5e162a3cf8042b86ca6159a72fba054f522",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "5d7dc5e162a3cf8042b86ca6159a72fba054f522",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "5d7dc5e162a3cf8042b86ca6159a72fba054f522",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/report_handler.php",
+      "owner_sha256": "d9cae7bdc685b0f7951358900eb49d0f0b913305226a55b31dcc0fe2b8406a26",
+      "git_history": [
+        {
+          "blob": "d0c05f9c0b1f9b9852fc98bc85d2e02285e50718",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "d0c05f9c0b1f9b9852fc98bc85d2e02285e50718",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "7082e84f1f6766721e9ba660690b61c0d979e74e",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/sanitize.php",
+      "owner_sha256": "72cb0c76420261bfd1fc235fde55d513fa4af807d5113c07ffe810a1876b93b2",
+      "git_history": [
+        {
+          "blob": "75d78754fef2c2c6c1160f6cb042f2832c289187",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "75d78754fef2c2c6c1160f6cb042f2832c289187",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "75d78754fef2c2c6c1160f6cb042f2832c289187",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/security_headers.php",
+      "owner_sha256": "7f1295ff8eb85edd13b022f38b4d76ba6b224ffa7fe3ba9159417de2fd80149d",
+      "git_history": [
+        {
+          "blob": "0a3b030001169a410306796e69010444a779f825",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "0a3b030001169a410306796e69010444a779f825",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "0a3b030001169a410306796e69010444a779f825",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/session_manager.php",
+      "owner_sha256": "6ddfd357d60fbfda660cf4d3d44cee81b1a47e5f9d01608275d44536b9e3ef73",
+      "git_history": [
+        {
+          "blob": "bd902cc9401df42a6e4cd23aa207c060c2cefecf",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "bd902cc9401df42a6e4cd23aa207c060c2cefecf",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "85fef25e11edec1b37fa4b7c02ada67c6d1e017e",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/signup_verification.php",
+      "owner_sha256": "89d1f445aa436f33f210f47d84cb34c7a2cb0ce7e7d6f4622206b3daddaeb78c",
+      "git_history": [
+        {
+          "blob": "8e4536b32c9b359bef57dcaf8ad6d237c3641f19",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "8e4536b32c9b359bef57dcaf8ad6d237c3641f19",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "f01b59fd1ffc637b8d03caa76dafbccd37b5d341",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "php/upload_validator.php",
+      "owner_sha256": "5ca3738dc60edbb04871e9521443b2b17ef8f50bed395900c8667d81886fb861",
+      "git_history": [
+        {
+          "blob": "add3cdbd5119f495d13730080034abb27353c500",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "11445216efc2e43f74a0c5f82705fcf6fff69ea8"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "add3cdbd5119f495d13730080034abb27353c500",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "add3cdbd5119f495d13730080034abb27353c500",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "privacy_policy.php",
+      "owner_sha256": "e21597269d504bc3fafb8e0dd721f7da4e010141c3f5a938144855721b009a15",
+      "git_history": [
+        {
+          "blob": "7c097decef0e98e2bb7a765a753ab2f7204c9d28",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "7c097decef0e98e2bb7a765a753ab2f7204c9d28",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "7c097decef0e98e2bb7a765a753ab2f7204c9d28",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "profile.php",
+      "owner_sha256": "043f0ba93f97b0197a790cacffc82d225986a1b581717684c9225e4e9f56e063",
+      "git_history": [
+        {
+          "blob": "b982c4cabe0343e2ef2a1703a6779bbb13dbc961",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "b982c4cabe0343e2ef2a1703a6779bbb13dbc961",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "b982c4cabe0343e2ef2a1703a6779bbb13dbc961",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "public/register.php",
+      "owner_sha256": "841544c60dd272537d41c132a4f5d51eaf40c015fcbed5b17016a428b8186b06",
+      "git_history": [
+        {
+          "blob": "38912d805ecd37352eea89f72a002bc51c6b0e10",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "d7d54a87678ac22ef1541c4e42b80ea00d87865d"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "38912d805ecd37352eea89f72a002bc51c6b0e10",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "38912d805ecd37352eea89f72a002bc51c6b0e10",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "register.php",
+      "owner_sha256": "a3db1ab9b488b1f3e7ce16481b06171e99d509323c448e9df34a73766f0514d0",
+      "git_history": [
+        {
+          "blob": "6fec134f99239f37ee9041e80c02dbb208a2eade",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "bca0bcc9e4f16d5d19137646c2bfd853429f286e"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "6fec134f99239f37ee9041e80c02dbb208a2eade",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "6fec134f99239f37ee9041e80c02dbb208a2eade",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "terms_of_service.php",
+      "owner_sha256": "ae7246eeaa94a834dfc746eaf1513babdc0565d486767034aa112515789ed5cb",
+      "git_history": [
+        {
+          "blob": "9d2ad8c5d7732abbdfb2a231e7d2c95a3d100c19",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "6ed126d31ce6d2a5e046cf0ace98744345a8e934"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "9d2ad8c5d7732abbdfb2a231e7d2c95a3d100c19",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "9d2ad8c5d7732abbdfb2a231e7d2c95a3d100c19",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "status": "RAW_BASELINE_MATCH"
+    },
+    {
+      "path": "vendor/autoload.php",
+      "owner_sha256": "e4844e56f022f3fb8bd2da28c1e031d153de19d139052c36197d0efce18bc50b",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/autoload_classmap.php",
+      "owner_sha256": "375085d0d6690301081436cd75755cb2c882f8a7f6fc385c8814a11734fc413a",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/autoload_namespaces.php",
+      "owner_sha256": "ede505407590638a435137f4e060136f1008de79fc169b3de9793423b0cea38c",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/autoload_psr4.php",
+      "owner_sha256": "37fe79fff76d924ed6640c7d700bdd0f35cfc736587f0fc3d6ead4649ce2eeb3",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/autoload_real.php",
+      "owner_sha256": "921d0482c515045de1e4aba255f537e09a2ce8bd837f855d008f6bbe4f582c9e",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/autoload_static.php",
+      "owner_sha256": "f36e92905628929e4c200a34d3dda137336830db3f4affcf264d792cc9ce2fa9",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/ClassLoader.php",
+      "owner_sha256": "d4b2313e562edf942838ec316d983c1a3459ca67da3e5658e861200b0b3693c2",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/installed.json",
+      "owner_sha256": "1145b6806c8bd7ef252ea41acc2de61b0e571b87c5ffb99403cc51ab934519b0",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/installed.php",
+      "owner_sha256": "43bff47902412561900e0817be4b91641e1293acae1e42a771ab908a7e87e0a9",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": false,
+      "status": "DEPENDENCY_NOT_MATCHED_LOCALLY"
+    },
+    {
+      "path": "vendor/composer/InstalledVersions.php",
+      "owner_sha256": "1e4525198301d1ed1f87ac3df2a8555a6f139f8df30a703d0b775a61963c96e4",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/composer/platform_check.php",
+      "owner_sha256": "d9d67386b623922c4821f6a1a25980950a0d7815c0eb909759e79c4bab12474e",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/src/DSNConfigurator.php",
+      "owner_sha256": "429f5f0a962864ec7b67efd572c0f85cc0f33fd4585413d8dc80d41c8562399e",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/src/Exception.php",
+      "owner_sha256": "22ab858ae438d98f58f41f38ad2191d1b0d59570aebea0463a7948cfae1021b7",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/src/OAuth.php",
+      "owner_sha256": "44b2c9a3b6e538a65b90261251f197d700e2eb90d51d4944fb80577263210fb4",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/src/OAuthTokenProvider.php",
+      "owner_sha256": "f2318ea1b2841b2481b636e205c281a733f9de944a71ae403e0b59fa71219572",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/src/PHPMailer.php",
+      "owner_sha256": "45599a196ae7944ee2dcd4f3d3da0ac4243513d346b2d77bbd15dbd0c37f7064",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/src/POP3.php",
+      "owner_sha256": "f23c66c56efa2d5aee5ec828917b7fc071b600b94c3b59655aaad8d8554cd866",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "vendor/phpmailer/phpmailer/src/SMTP.php",
+      "owner_sha256": "522bcf0d07be7e7e00114711db5c9ce2b4d59ac041c5ec36eaadd979d5fa7046",
+      "git_history": [],
+      "baseline": null,
+      "candidate": null,
+      "local_vendor_present": true,
+      "local_raw_match": true,
+      "status": "LOCAL_DEPENDENCY_BYTE_MATCH"
+    },
+    {
+      "path": "verify_email.php",
+      "owner_sha256": "a85031e5a72e3a31ea87f464903d34cc7565fdd8e8c480180896da2c5c94bd77",
+      "git_history": [
+        {
+          "blob": "c5f95bd3a06cee00978ede1457f10cbe57b16183",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "baseline": {
+        "present": true,
+        "blob": "c5f95bd3a06cee00978ede1457f10cbe57b16183",
+        "raw_match": true,
+        "variant": "raw"
+      },
+      "candidate": {
+        "present": true,
+        "blob": "36bfdd7cd91785961616f64aa2021483e9c21344",
+        "raw_match": false,
+        "variant": null
+      },
+      "status": "RAW_BASELINE_MATCH"
+    }
+  ],
+  "missing": [
+    {
+      "path": "api/evidence_lifecycle.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "api/pairs.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/cleanup_mail.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/cleanup_session_copies.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/cleanup_verification.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/dispatch_synthetic_stage_mail.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/erase_signup_attempts.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/evidence_lifecycle_synthetic.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/legacy_history.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/managed_stage_driver.js",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/prepare_synthetic_stage.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/stage_control.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "bin/synthetic_legacy_import.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/005_protective_replay_event_precision.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/006_report_intake.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/007_pair_history.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/008_synthetic_legacy_import.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/009_pair_trigger_health.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/010_text_evidence_lifecycle.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/011_signup_lifecycle.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/012_signup_attempt_erasure.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/013_challenge_mail_retention.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/014_session_binding_fence.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/015_session_copy_consumer.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "database/migrations/016_password_reset.sql",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "forgot_password.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "js/password-reset-token.js",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/attempt_erasure_migration.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/evidence_lifecycle.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/evidence_recovery.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/http_test_barrier.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/legacy_history.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/mail_worker_config.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/managed_session.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/pair_history.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/pair_messages.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/pair_migration.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/password_reset.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/password_reset_mail_jobs.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/report_intake.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/report_migration.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/session_copy_cleanup.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/session_copy_migration.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/session_copy_store.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/signup_attempt_erasure.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/signup_lifecycle.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/signup_mail_jobs.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/staging_guard.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/staging_mail.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/synthetic_legacy_import.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/verification_retention.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "php/verification_retention_migration.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "reset_password.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": true,
+      "local_vendor_present": null
+    },
+    {
+      "path": "vendor/composer/autoload_files.php",
+      "present_in_baseline_git": false,
+      "present_in_candidate_git": false,
+      "local_vendor_present": false
+    }
+  ],
+  "installed_worker": [
+    {
+      "name": "run.sh",
+      "owner_installed_sha256": "8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015",
+      "git_history_matches": [
+        {
+          "blob": "91547e418eb894989e27108086550f19d64dc286",
+          "variant": "raw",
+          "commits_introducing_blob": [
+            "634fa92d6092918c5b3e091736ab28ab9b0b4b49"
+          ]
+        }
+      ],
+      "raw_baseline_match": true,
+      "raw_candidate_match": false
+    },
+    {
+      "name": "settings.job",
+      "owner_installed_sha256": "0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501",
+      "git_history_matches": [],
+      "raw_baseline_match": false,
+      "raw_candidate_match": false
+    }
+  ],
+  "baseline_lock_packages": [
+    {
+      "name": "phpmailer/phpmailer",
+      "version": "v7.1.1",
+      "source_reference": "1bc1716a507a65e039d4ac9d9adebbbd0d346e15"
+    }
+  ],
+  "deployment_identity_complete": false,
+  "unknown_coverage": [
+    "Capture 08 bounded names accepted; remaining reviewed hashes, hostingstart content classification and untraversed/extension/private coverage limits are explicit",
+    "dependency files not tracked in application Git; local matches are not deployment/build provenance",
+    "Generated installed.php reference difference is accounted for locally; new package/path content and full build/install provenance remain unverified",
+    "hash capture is not a globally atomic snapshot",
+    "no preserved actual application deployment archive or installation receipt"
+  ],
+  "archive_findings": {
+    "zip_sha256": "3ef3ed29d7224bd75baac2dff173c7a7807f61a68b56a72b3da4bc2cb7a28c41",
+    "run_match": true,
+    "settings_match": false,
+    "settings_raw_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+    "schedule_difference_established": false,
+    "exact_zip_deployment": "UNVERIFIED",
+    "application_archive": "NOT FOUND in inspected locations",
+    "settings_semantic_equivalence": true,
+    "settings_compact_serialization_matches_installed_digest": true,
+    "settings_semantics": {
+      "schedule": "0 * * * * *"
+    }
+  },
+  "production_source_sha": "UNESTABLISHED: individual file matches only",
+  "managed_staging": "18 NOT RUN / DEFERRED",
+  "sc26_production": "PARTIAL",
+  "pr_read_only_recheck": {
+    "number": 8,
+    "url": "https://github.com/Takudzwa00kyle/Bushisa/pull/8",
+    "draft": true,
+    "merged": false,
+    "state": "open",
+    "head_ref": "codex/direct-production-release-prep-20261020",
+    "head_sha": "888a2c273711c1ac5f3d1dc3d26d649f1e636235",
+    "test_merge_sha": "2bdd01a214d0665ddd446a823d4dda61988006ca",
+    "recorded_utc": "2026-10-21T08:24:13.167135+00:00",
+    "no_write": true
+  },
+  "worker_location_text": {
+    "standalone_json_valid": false,
+    "recorded_run_command": "run.sh",
+    "recorded_job_type": "triggered",
+    "recorded_scheduler": "0 * * * * *",
+    "hash_capture_utc": "2026-10-20T23:50:49Z",
+    "physical_directory": "/home/site/wwwroot/App_Data/jobs/triggered/bushisa-mail",
+    "capture_is_owner_provided": true
+  },
+  "installed_settings_semantics": {
+    "recorded_utc": "2026-10-21T12:02:24.885908+00:00",
+    "checkout": "6b2294c36a0d415d0d52ab10ff1c7881346e459c",
+    "capture_source": "owner-provided 07; no Azure collection repeated",
+    "source_file": "07-installed-settings-summary.txt",
+    "source_sha256": "8eaf1b74bccd942cce68072b757713fc5f2ba535eb5021b89cbd76a7d01708ab",
+    "source_bytes": 253,
+    "capture_utc": "2026-10-21T11:35:51Z",
+    "capture_harare": "2026-10-21T13:35:51+02:00",
+    "installed_sha256": "0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501",
+    "installed_semantics": {
+      "schedule": "0 * * * * *"
+    },
+    "reported_property_count": 1,
+    "reported_utf8_bom": false,
+    "reported_crlf_count": 0,
+    "reported_lf_count": 0,
+    "local_zip_sha256": "3ef3ed29d7224bd75baac2dff173c7a7807f61a68b56a72b3da4bc2cb7a28c41",
+    "local_zip_settings_sha256": "0a85fa0a78826caa80c04aad6eb0b47c8fef48c802626986948327bb9438c0f6",
+    "local_zip_settings_bytes": 34,
+    "local_zip_settings_semantics": {
+      "schedule": "0 * * * * *"
+    },
+    "semantic_equivalence": true,
+    "raw_zip_installed_equality": false,
+    "compact_json_bytes": 26,
+    "compact_json_sha256": "0ae4c9493350ff029b823ec7b457ad61be2b8f515ab2116d78d2b9cb294ef501",
+    "compact_json_matches_installed_digest": true,
+    "exact_zip_deployment_provenance": "UNVERIFIED",
+    "archive_modified": false,
+    "worker_executed": false
+  },
+  "capture_07_follow_up_checkout": "6b2294c36a0d415d0d52ab10ff1c7881346e459c",
+  "names_only_collection_preparation": {
+    "report": "code-names-local-preparation-2026-10-21.json",
+    "local_fixture_cases_pass": 10,
+    "profile": "Windows PHP 8.5.11 CLI",
+    "azure_execution": "NOT RUN",
+    "production_changes": false
+  },
+  "capture_08_inventory": {
+    "report": "deployed-code-inventory-reconciliation-2026-10-21.json",
+    "capture_utc": "2026-10-21T12:41:11Z",
+    "summary": {
+      "code_paths": 154,
+      "top_directories": 12,
+      "missing_directories": 0,
+      "known_capture05_hash_paths_seen": 93,
+      "additional_paths": 61,
+      "additional_git_tooling": 1,
+      "additional_dependency_paths": 59,
+      "additional_dependency_language_files": 57,
+      "unidentified_root_html": 1
+    },
+    "complete_deployment_identity": false
+  },
+  "installed_php_generated_candidate_comparison": {
+    "local_sha256": "28af8b356c620326b02f421fc159de740e2b6708a6c8ff5fcbbd44422a279617",
+    "owner_sha256": "43bff47902412561900e0817be4b91641e1293acae1e42a771ab908a7e87e0a9",
+    "enumerated_git_references": 84,
+    "matches": [
+      {
+        "root_reference": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+        "root_dev": true,
+        "newlines": "LF",
+        "final_newline": "preserved",
+        "candidate_sha256": "43bff47902412561900e0817be4b91641e1293acae1e42a771ab908a7e87e0a9"
+      }
+    ],
+    "no_execution": true,
+    "no_new_host_read": true,
+    "original_local_root_reference": "6ed126d31ce6d2a5e046cf0ace98744345a8e934",
+    "root_reference_occurrences_changed": 2,
+    "interpretation": "exact generated candidate digest match; 17 raw local matches plus one generated-root metadata match; not a whole app identity or new host read"
+  },
+  "consolidated_delta_preparation": {
+    "spec": "code-gap-collection-spec-2026-10-21.json",
+    "fixture_report": "code-gap-local-preparation-2026-10-21.json",
+    "hash_targets": 68,
+    "accepted_hash_paths_not_repeated": 93,
+    "azure_execution": "NOT RUN"
+  },
+  "capture08_pr_read_only_recheck": {
+    "recorded_utc": "2026-10-21T14:20:50.794970+00:00",
+    "draft": true,
+    "merged": false,
+    "state": "open",
+    "head_sha": "888a2c273711c1ac5f3d1dc3d26d649f1e636235",
+    "test_merge_sha": "2bdd01a214d0665ddd446a823d4dda61988006ca",
+    "url": "https://github.com/Takudzwa00kyle/Bushisa/pull/8",
+    "no_write": true
+  },
+  "capture09_follow_up": {
+    "owner_metadata_collection": "COMPLETED as owner observation 2026-10-21T14:28:23Z through 14:28:24Z; not independent agent execution or application acceptance",
+    "report": "code-gap-reconciliation-2026-10-21.json",
+    "review_packet": "../direct-release-handover-review-2026-10-21.md",
+    "new_functional_tests": "NOT RUN",
+    "previous_validation_attribution_preserved": true,
+    "no_further_broad_collection_requested": true
+  }
+}

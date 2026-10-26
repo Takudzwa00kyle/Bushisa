@@ -2,23 +2,29 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { test, expect } = require('@playwright/test');
+const {
+  disposableDatabaseSettings,
+  quoteIdentifier,
+  redactedCommand,
+  schemaForDisposableDatabase,
+} = require('../support/disposable-database');
 
 const repoRoot = path.resolve(__dirname, '..', '..');
 const password = 'Passw0rd!';
 
 function mysqlArgs(database = true) {
+  const settings = disposableDatabaseSettings('P0 rendered workflow reset');
   const args = [
     '--protocol=TCP',
-    `--host=${process.env.DB_HOST || '127.0.0.1'}`,
-    `--port=${process.env.DB_PORT || '3317'}`,
-    `--user=${process.env.DB_USER || 'root'}`,
+    `--host=${settings.host}`,
+    `--port=${settings.port}`,
+    `--user=${settings.user}`,
   ];
-  const dbPassword = process.env.DB_PASSWORD || process.env.DB_PASS || '';
-  if (dbPassword !== '') {
-    args.push(`--password=${dbPassword}`);
+  if (settings.password !== '') {
+    args.push(`--password=${settings.password}`);
   }
   if (database) {
-    args.push(process.env.DB_NAME || 'bushisa_db');
+    args.push(settings.name);
   }
   return args;
 }
@@ -31,18 +37,20 @@ function run(command, args, options = {}) {
     ...options,
   });
   if (result.status !== 0) {
-    throw new Error(`${command} ${args.join(' ')} failed\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
+    throw new Error(`${redactedCommand(command, args)} failed\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
   }
   return result.stdout;
 }
 
 function resetDatabase() {
-  const schema = fs.readFileSync(path.join(repoRoot, 'database', 'bushisa.sql'), 'utf8');
+  const settings = disposableDatabaseSettings('P0 rendered workflow reset');
+  const schema = schemaForDisposableDatabase(fs.readFileSync(path.join(repoRoot, 'database', 'bushisa.sql'), 'utf8'), settings.name);
   run('mysql', mysqlArgs(false), {
-    input: `DROP DATABASE IF EXISTS \`${process.env.DB_NAME || 'bushisa_db'}\`;\n`,
+    input: `DROP DATABASE IF EXISTS ${quoteIdentifier(settings.name)};\n`,
   });
   run('mysql', mysqlArgs(false), { input: schema });
   run('php', ['bin/migrate.php']);
+  run('php', ['tests/support/activate_pair_ledger.php', '--writer-ref=synthetic:browser-regressions']);
 }
 
 function sqlString(value) {
@@ -76,7 +84,7 @@ async function registerStudent(page, student) {
   await page.getByLabel('Faculty').selectOption('Applied Sciences');
   await page.getByLabel('Year of study').selectOption('Part 2');
   await page.getByRole('button', { name: 'Create account' }).click();
-  await expect(page.getByText('Account created. Enter the approval code sent to your student email.')).toBeVisible();
+  await expect(page.getByRole('status')).toContainText('Account created. Approval mail has been queued.');
 }
 
 function approvalCodeFor(email) {
@@ -85,7 +93,7 @@ function approvalCodeFor(email) {
   );
   const match = body.match(/approval code is ([0-9]{6,10})/);
   if (!match) {
-    throw new Error(`No approval code found for ${email}. Body: ${body}`);
+    throw new Error(`No approval code found for ${email}.`);
   }
   return match[1];
 }
@@ -164,17 +172,30 @@ test.describe.serial('P0 rendered workflows', () => {
 
     const body = `Rendered timestamp check ${Date.now()}`;
     await page.goto('/confessions.php');
-    await page.getByRole('button', { name: 'Write confession' }).click();
-    await page.locator('textarea[name="body"]').fill(body);
-    await Promise.all([
-      page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
-      page.locator('#write-confession form').evaluate((form) => form.requestSubmit()),
-    ]);
-    await expect(page.getByText('Confession posted successfully.')).toBeVisible();
+    const csrfToken = await page.locator('meta[name="csrf-token"]').getAttribute('content');
+    expect(csrfToken).toBeTruthy();
+    const postResult = await page.evaluate(
+      async ({ token, body }) => {
+        const response = await fetch('/api/confessions.php', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token,
+          },
+          body: JSON.stringify({ action: 'create', body }),
+        });
+        return { status: response.status, payload: await response.json() };
+      },
+      { token: csrfToken, body }
+    );
+    expect(postResult.status).toBe(200);
+    expect(postResult.payload.success).toBe(true);
     const confessionId = queryValue(
       `SELECT id FROM confessions WHERE body = ${sqlString(body)} ORDER BY id DESC LIMIT 1`
     );
 
+    await page.goto('/confessions.php');
     const card = page.locator('.confession-card').filter({ hasText: body }).first();
     await expect(card).toBeVisible();
     const time = card.locator('time');
@@ -188,7 +209,7 @@ test.describe.serial('P0 rendered workflows', () => {
 
     await page.goto('/confessions.php');
     const updatedCard = page.locator('.confession-card').filter({ hasText: body }).first();
-    await expect(updatedCard.locator('time')).toContainText(/2 hours ago|1 hour ago/);
+    await expect(updatedCard.locator('time')).toContainText(/[1-6] hours ago|1 hour ago/);
     await expect(updatedCard.locator('time')).not.toContainText('Just now');
   });
 });

@@ -1,0 +1,32 @@
+{
+    "format":  "bushisa.direct-release-metadata.v1",
+    "captured_utc":  "2026-10-20T11:43:37.0975344Z",
+    "timezone":  "Africa/Harare",
+    "read_only_production_metadata_authorized":  true,
+    "production_connection_attempted":  false,
+    "azure_cli_available":  false,
+    "azure_connector_available":  false,
+    "hosted_application_sha":  null,
+    "hosted_worker_sha":  null,
+    "production_schema":  null,
+    "production_grants":  null,
+    "production_mysql_patch":  null,
+    "source":  "Independent authenticated GitHub metadata; owner Azure observations remain separately attributed",
+    "github_pr":  {
+                      "number":  7,
+                      "merged":  false,
+                      "head":  "423ec6cca47a67a6e8969f9e73f317f06208ab86",
+                      "test_merge":  "1c1d2b997d49cb498beeadc98752838b5f4c836f",
+                      "draft":  true
+                  },
+    "remote_main":  "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+    "observations":  "azure-owner-observations-2026-10-20.json",
+    "capture_sql":  "deploy/release/read-only-metadata.sql",
+    "reason":  "No authenticated Azure CLI or connector is available; owner-run private metadata capture is prepared. No secrets or user records retrieved.",
+    "computer_use_recheck":  {
+                                 "error":  "failed to write kernel assets: The system cannot find the path specified. (os error 3)",
+                                 "result":  "failed before app/window inventory",
+                                 "azure_state_observed":  false,
+                                 "captured_utc":  "2026-10-20T11:55:32.8323721Z"
+                             }
+}

@@ -1,0 +1,1363 @@
+{
+    "format":  "bushisa.direct-release-change-inventory.v1",
+    "comparison_baseline":  "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+    "candidate":  "803a03a87d5dd73f1f130a5145c8672e447c911e",
+    "deployed_sha":  null,
+    "baseline_is_proven_deployed":  false,
+    "complete_for_this_comparison":  true,
+    "complete_hosted_to_candidate_delta_established":  false,
+    "scope":  "All paths in known remote-main to implementation-candidate Git comparison; not an inference of hosted identity. Evidence-only descendants require their own diff; application/worker/CI code equivalence is verified separately.",
+    "changed_paths":  225,
+    "files":  [
+                  {
+                      "old_git_blob":  "e4a3ab2a70d4593621ce7e5f65f48c31550632d6",
+                      "status":  "M",
+                      "path":  ".env.example",
+                      "candidate_git_blob":  "75c402ec4621bbfa4704006dc0280a22d848022c"
+                  },
+                  {
+                      "old_git_blob":  "9fea1047606f3f951146d89370c475746e8d08e3",
+                      "status":  "M",
+                      "path":  ".github/workflows/ci.yml",
+                      "candidate_git_blob":  "953cca1039df924bc31bb1fc9d03d586fe02c6cc"
+                  },
+                  {
+                      "old_git_blob":  "facc5941c9cd6bc66906c819c013c1798bdfa081",
+                      "status":  "M",
+                      "path":  "api/account.php",
+                      "candidate_git_blob":  "11a9fe6dc6fda513376318d08fc95fb5da636b7c"
+                  },
+                  {
+                      "old_git_blob":  "f8e56ec6bfb05fd40864b204aba0fefcecebba85",
+                      "status":  "M",
+                      "path":  "api/confessions.php",
+                      "candidate_git_blob":  "9d8af9e1a34360659dd86e8a40152d00d76dba98"
+                  },
+                  {
+                      "old_git_blob":  "cafb945ee2bb2afe0781bf5d4fb0a342f9f4bf83",
+                      "status":  "M",
+                      "path":  "api/discover.php",
+                      "candidate_git_blob":  "299a3905ee0c1a5c2ec2bab6626423e853f9a5c9"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "api/evidence_lifecycle.php",
+                      "candidate_git_blob":  "72f02cc74bbe7f872d146bb960ffc3c0198614e6"
+                  },
+                  {
+                      "old_git_blob":  "6a2d8857006cf83960f069c53c366deb73a4eed2",
+                      "status":  "M",
+                      "path":  "api/matches.php",
+                      "candidate_git_blob":  "91c7098eefb78bdaefeed071aba76f5e33994854"
+                  },
+                  {
+                      "old_git_blob":  "40754a567d6b308b0ecfd6015f10a31fc1ee60a0",
+                      "status":  "M",
+                      "path":  "api/message_requests.php",
+                      "candidate_git_blob":  "001588076a34a46d75703a9ebccfa6174fa6d8d0"
+                  },
+                  {
+                      "old_git_blob":  "3c3b8c027b60304eaa3b633d0d77944e240f0d1f",
+                      "status":  "M",
+                      "path":  "api/messages.php",
+                      "candidate_git_blob":  "219d0962a43dac6622526462d58fd239f23024b0"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "api/pairs.php",
+                      "candidate_git_blob":  "8989123725e320e752dc65793933cd6ea85b5f46"
+                  },
+                  {
+                      "old_git_blob":  "13d9bcd1bd40836ec1a976f34e70e699b3380b42",
+                      "status":  "M",
+                      "path":  "api/safety.php",
+                      "candidate_git_blob":  "434f10b683d6ee205beef84f1539f8db0e9dab62"
+                  },
+                  {
+                      "old_git_blob":  "6c0ea44469082b9a85574138d6241184a8f765b8",
+                      "status":  "M",
+                      "path":  "api/swipe.php",
+                      "candidate_git_blob":  "6db7c82d4138b6e8d265efeed838f5776fa77ab4"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/cleanup_mail.php",
+                      "candidate_git_blob":  "ba31844657a05a3702bac6bd792993f17466857f"
+                  },
+                  {
+                      "old_git_blob":  "a8b673819703e7e441873880619c30e0ad506de8",
+                      "status":  "M",
+                      "path":  "bin/cleanup_policy.php",
+                      "candidate_git_blob":  "126ef7165311b76ad0e195f5d4117bc70187ba14"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/cleanup_session_copies.php",
+                      "candidate_git_blob":  "da0ed9eada9be73dc473f1c96b4fa6ca72954637"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/cleanup_verification.php",
+                      "candidate_git_blob":  "e2f06acbcc2d4b36899bbf63913bfe1568df443a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/dispatch_synthetic_stage_mail.php",
+                      "candidate_git_blob":  "faa653a2638ad334cfe94cbe6214d12139070f6a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/erase_signup_attempts.php",
+                      "candidate_git_blob":  "0d6d6b6f95db5b6d9f9a69b336ce344ef0fa7302"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/evidence_lifecycle_synthetic.php",
+                      "candidate_git_blob":  "002aaddd50ef70397737d89901c9c7c9c00f51df"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/legacy_history.php",
+                      "candidate_git_blob":  "68832cc6f52f9713064c8d9673dd5e2783fb6913"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/managed_stage_driver.js",
+                      "candidate_git_blob":  "b0f2b89eb4584e73458d877cd95ecce123bd3b16"
+                  },
+                  {
+                      "old_git_blob":  "33c65e7ec24b3d63b886fc3aab895179de59815b",
+                      "status":  "M",
+                      "path":  "bin/migrate.php",
+                      "candidate_git_blob":  "12e825f30d27466b6d90f7eb51c8355e20a8a4de"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/prepare_synthetic_stage.php",
+                      "candidate_git_blob":  "8bf682110d706ae62a332b2e31fc0d9995921986"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/stage_control.php",
+                      "candidate_git_blob":  "e3ca269a68e8cdad5e0ba6e7c211dd13afcc6652"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "bin/synthetic_legacy_import.php",
+                      "candidate_git_blob":  "6e60f3b510e0856f2d96b0ad114c8a6378113289"
+                  },
+                  {
+                      "old_git_blob":  "608359cb64a980a3ec3c8a226f8f26dc964439f5",
+                      "status":  "M",
+                      "path":  "chat.php",
+                      "candidate_git_blob":  "60b066dc4d1b44dc703278417d19a670c7c935d7"
+                  },
+                  {
+                      "old_git_blob":  "d463df9852c490beb9beaa3556c3a7ef1b8600d8",
+                      "status":  "M",
+                      "path":  "config/db.php",
+                      "candidate_git_blob":  "15cef17e676cfb32302fce0bee62e5efe187907b"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "config/staging-manifest.example.json",
+                      "candidate_git_blob":  "35b5a2f7ea8ad3dff5d30b4facc9fc0094fbd9b5"
+                  },
+                  {
+                      "old_git_blob":  "4a917e26838bbe27d5548759bea9b577b43bbe33",
+                      "status":  "M",
+                      "path":  "database/migrations/002_policy_safeguards.sql",
+                      "candidate_git_blob":  "faef0f8963b7bf1bd79a28842efafbcd5fd3e3dc"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/005_protective_replay_event_precision.sql",
+                      "candidate_git_blob":  "068558c819c3288ac1facadcacfbee5a76089f18"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/006_report_intake.sql",
+                      "candidate_git_blob":  "be18f4ad87eb56c71329523dc938c382bd4d3798"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/007_pair_history.sql",
+                      "candidate_git_blob":  "5f6f68e1c7fb1d7918a9b173c95e67428b01e216"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/008_synthetic_legacy_import.sql",
+                      "candidate_git_blob":  "7831867f6176337ebf351a51e5f677c1ac9538c5"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/009_pair_trigger_health.sql",
+                      "candidate_git_blob":  "6a5ccff716574438e4eebf2585f149a9d4345482"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/010_text_evidence_lifecycle.sql",
+                      "candidate_git_blob":  "545cadfe6c5e95d7d107753053b2149c7195821b"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/011_signup_lifecycle.sql",
+                      "candidate_git_blob":  "2c5a6b4d4086f75e32cbf160538cf21f39beeb14"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/012_signup_attempt_erasure.sql",
+                      "candidate_git_blob":  "695ad6d8723d40b678c1ab2fe08217069fcf43d7"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/013_challenge_mail_retention.sql",
+                      "candidate_git_blob":  "e9043d3fc3817ec7ab617cf18d0922dc3d01a075"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/014_session_binding_fence.sql",
+                      "candidate_git_blob":  "02e80dcc0a9f7ead0a7aa40ccfb3cb264f2a6d75"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/015_session_copy_consumer.sql",
+                      "candidate_git_blob":  "e47a58a0f90a91b3293b3d4e275a0beeee7d1378"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "database/migrations/016_password_reset.sql",
+                      "candidate_git_blob":  "35b13169d2154afad3fb1b84d0a8f4bd63911cbb"
+                  },
+                  {
+                      "old_git_blob":  "67364b340bcf699fc59a40f3ebf328307a0f45db",
+                      "status":  "M",
+                      "path":  "database/seed.php",
+                      "candidate_git_blob":  "44df60ddc32a8dae15e7e0ae24dd39d1ff0e38c2"
+                  },
+                  {
+                      "old_git_blob":  "91547e418eb894989e27108086550f19d64dc286",
+                      "status":  "M",
+                      "path":  "deploy/mail-webjob/run.sh",
+                      "candidate_git_blob":  "1a1b4265e54e0fe14558bd1ad13406e34535ff96"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "deploy/release/read-only-metadata.sql",
+                      "candidate_git_blob":  "9a71d97d6533d65882dead29b7557bc68588023e"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/Bushisa-P0-P2-Continuation-Prompts-2026-10-11 (1).md",
+                      "candidate_git_blob":  "608b82509c00a03f8cd77d0b8dbdff50b9767cb6"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/Bushisa-P0-P2-Continuation-Prompts-2026-10-11.md",
+                      "candidate_git_blob":  "20630d76943a26334aacd84d81cc1ae1d475e9b6"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/Bushisa-Prompt-02-Agent-Handoff-2026-10-12 (1).md",
+                      "candidate_git_blob":  "d1ac2c1b99a17f50f89ccc810794e4b511aed058"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/Bushisa-Prompt-02-Completion-Prompt-2026-10-13.md",
+                      "candidate_git_blob":  "e16fcdd650c32a7004ea8dae12f6084fa431f3ba"
+                  },
+                  {
+                      "old_git_blob":  "749e95cb0eb23c82369363ea7e9050c5c5a8feff",
+                      "status":  "M",
+                      "path":  "docs/Bushisa_Operational_Feasibility_Report.md",
+                      "candidate_git_blob":  "d516a24a9ed5f93ec9baa879d06c6e36245f3440"
+                  },
+                  {
+                      "old_git_blob":  "25866c7bcf6b2bdb8939b734b642e6b376153bad",
+                      "status":  "M",
+                      "path":  "docs/Bushisa_P0_to_P2_Azure_Remediation_Playbook.md",
+                      "candidate_git_blob":  "3c31d7441b3d826fd1cb44afb25ede4803507ec0"
+                  },
+                  {
+                      "old_git_blob":  "0c562e21b7ebd9e965d4bf1f2c40e55f6073df33",
+                      "status":  "M",
+                      "path":  "docs/azure-smtp-deployment.md",
+                      "candidate_git_blob":  "c8be2f40d14e7c17aa6518bd82b676e9ccdb8441"
+                  },
+                  {
+                      "old_git_blob":  "f6b134c160242064857b8e7fdb1473e655d7d7a0",
+                      "status":  "M",
+                      "path":  "docs/data_retention_policy.md",
+                      "candidate_git_blob":  "ca131bb9dbcb570ed4cdb1c8d9be345996c6bfef"
+                  },
+                  {
+                      "old_git_blob":  "0221d1be55f4e1fab251954d8cd4aa79a0fa9abf",
+                      "status":  "M",
+                      "path":  "docs/remediation/Bushisa_D04_D05_Policy_Review_and_Revised_Proposal.md",
+                      "candidate_git_blob":  "bca63745a1a55722bc26d8b0852465138ad63c87"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/README.md",
+                      "candidate_git_blob":  "4fe07e14e17e1aea6d286ac0f24bbcfe21cc549b"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/account-session-copy-contract.md",
+                      "candidate_git_blob":  "4041d9ac861a0aef133e248d491ae3c785b70759"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/azure-compatibility-staging-plan-2026-10-19.md",
+                      "candidate_git_blob":  "e2de9dad8b58df8ad6de5369aa607ae318df9693"
+                  },
+                  {
+                      "old_git_blob":  "8cccad5e534ae8fafb6b909716324e14bb7ab03b",
+                      "status":  "M",
+                      "path":  "docs/remediation/backlog.md",
+                      "candidate_git_blob":  "05dca87166eb0cb4f3d1aba92e14421f25e13881"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/configuration-impact-checklist-2026-10-15.md",
+                      "candidate_git_blob":  "78202c8d8f6339f45d3d09eaeffb5141226c637a"
+                  },
+                  {
+                      "old_git_blob":  "149711a482749d30c8ffac0e76e8f5524c51a32d",
+                      "status":  "M",
+                      "path":  "docs/remediation/d04-d05-implementation-evidence.md",
+                      "candidate_git_blob":  "bc03bfc811659fde59007659c19637669438544c"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/data-inventory-retention-matrix.md",
+                      "candidate_git_blob":  "24e00247df76064c49f8ae1af8b8c3df41632b96"
+                  },
+                  {
+                      "old_git_blob":  "62faa9a32a4a5079989931478475c626e0491f2c",
+                      "status":  "M",
+                      "path":  "docs/remediation/decisions.md",
+                      "candidate_git_blob":  "983e26751300bc658d831c4297b632645e6bdb3e"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/direct-production-release-preparation-2026-10-20.md",
+                      "candidate_git_blob":  "717b4e04c06ecbaa88f1341e04af94b6182e27de"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/azure-compatibility-metadata-2026-10-19.json",
+                      "candidate_git_blob":  "e96a4cde82bcbd0324af86a1600ee4ed99e31f46"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/azure-owner-observations-2026-10-20.json",
+                      "candidate_git_blob":  "c9b70d6c5cc9d86e341286bbd9ab4e3dee4247bd"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/direct-release-local-2026-10-20.json",
+                      "candidate_git_blob":  "02aae7e31cbce3136c412b1a16abc623427bb017"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/direct-release-metadata-2026-10-20.json",
+                      "candidate_git_blob":  "158d42b22af4c7e8afc1620627810d5e92675bb6"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/direct-release-regressions-2026-10-20.json",
+                      "candidate_git_blob":  "c8244114daadbb8ba881ed3caee962df36a6f9dc"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/guarded-staging-hosted-ci-2026-10-20.json",
+                      "candidate_git_blob":  "bf31662b3ca2a950212859ebc6955a37622b0671"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/guarded-staging-local-2026-10-20.json",
+                      "candidate_git_blob":  "524be4626270ea17d45a68b76fedc0e3f6009455"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/guarded-staging-regressions-2026-10-20.json",
+                      "candidate_git_blob":  "5cc38e333c3ef6969e016b02915baee534d8123d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l01b-2026-10-16.json",
+                      "candidate_git_blob":  "2f3f11b666762b4c127af6cdff09099ed938ebf0"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l02a-2026-10-16.json",
+                      "candidate_git_blob":  "09ae12078f78c44a50d69574bd889f2d9208d431"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l02c-2026-10-16.json",
+                      "candidate_git_blob":  "9502303a57c6a54fa66976706708620c16ed70ce"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l02d-2026-10-17.json",
+                      "candidate_git_blob":  "e0991e7e79e32749dd40db5fcdda97f4acf7d51d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l02e-2026-10-17.json",
+                      "candidate_git_blob":  "5976d71129ff05a11df50862e719c5bb6ac3794d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l03a-2026-10-17.json",
+                      "candidate_git_blob":  "e05d9aa290c1152bacabd83aa70bfe93b9a28fe6"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l06-browser-local-2026-10-19.json",
+                      "candidate_git_blob":  "da206aeb9ff859422af832939eeef93f965eef56"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l06-hosted-ci-2026-10-19.json",
+                      "candidate_git_blob":  "82ba6e27821f1d07f65d06b6df93e03c5d50d151"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l06-password-reset-local-77510f9.json",
+                      "candidate_git_blob":  "b100f1b36075985d496c244899b68586057271e3"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l06-password-reset-local.json",
+                      "candidate_git_blob":  "2eb694d65abd01e41ac22d9bc7811d268f3d7997"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/l06-password-reset-validation-2026-10-19.md",
+                      "candidate_git_blob":  "46db1c148e10b89383c4517b8359830a64c0dcb8"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/q11-2026-10-18.json",
+                      "candidate_git_blob":  "e2a429e919dd929d0f91297caf8c5d331beb23f7"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/q11-attempt-erasure-2026-10-18.json",
+                      "candidate_git_blob":  "b3ac9aad25a7aee2d24bfb951e7dfc7f8ebcd236"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/q22-2026-10-18.json",
+                      "candidate_git_blob":  "16a0a23c8736e099b9145dc9c46c17d542657446"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/session-fence-linux-2026-10-18.json",
+                      "candidate_git_blob":  "20ac8bbda0e643acb5b768b1ecff5af29ceafd88"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/session-fence-native-2026-10-18.json",
+                      "candidate_git_blob":  "1fa3190db5054396424ca3dc49c2ea61bfbcce1a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/evidence/session-fence-regressions-2026-10-18.json",
+                      "candidate_git_blob":  "7ea4d5ac67cb2339a3f555d72d9c6a7975400b65"
+                  },
+                  {
+                      "old_git_blob":  "a5d876f7d4b710292c2bc1f48629a7c903fc4d52",
+                      "status":  "M",
+                      "path":  "docs/remediation/geographic-matching.md",
+                      "candidate_git_blob":  "6e99326bdf53c7c9b37059fd8f1349c9423e435f"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/guarded-staging-implementation-2026-10-20.md",
+                      "candidate_git_blob":  "7453a597aa528db6b4831d2d4e10556318ad9337"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l01a-report-route-target-contract.md",
+                      "candidate_git_blob":  "d6c5af0fd492e5e8aabd54fe920b6f0aa701d510"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l01b-implementation-evidence-2026-10-16.md",
+                      "candidate_git_blob":  "f10fe3af7083221a8fd083fb68ea4f7de364d085"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l02a-implementation-evidence-2026-10-16.md",
+                      "candidate_git_blob":  "dedf1b100ca75f8a5c2aca610f36ba7d5b898e98"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l02a-pair-history-contract.md",
+                      "candidate_git_blob":  "86583dc1d8b1d48559d6aba733669c25ed1b5292"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l02b-legacy-history-import-contract.md",
+                      "candidate_git_blob":  "687b257a65037c7249642694e2bf25aed8519c92"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l02c-offline-history-planner.md",
+                      "candidate_git_blob":  "03351e792a988ab921d9bc5cc7d6d4bf14ce7c8f"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l02d-synthetic-import-evidence-2026-10-17.md",
+                      "candidate_git_blob":  "5d86b82fb6308ac1650a737029c21ef99ef7183a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l02e-mixed-races-compatibility-evidence-2026-10-17.md",
+                      "candidate_git_blob":  "a1c6d5fb70ed4c441d92878994c2a2fdf89d493e"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l03-category-clock-writer-inventory.md",
+                      "candidate_git_blob":  "e32d5e588e29658c6a5b0001966cd757aa6d5847"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l03a-text-evidence-lifecycle-evidence-2026-10-17.md",
+                      "candidate_git_blob":  "ec0843472dcb570948afbdf0dce5353d5321cb80"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/l06-browser-hosted-ci-evidence-2026-10-19.md",
+                      "candidate_git_blob":  "cd09bfd8839713680c12e825e28aebfaff8f7710"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/owner-conflict-decisions-2026-10-16.md",
+                      "candidate_git_blob":  "9f84597cf31bfccfdfba8166b9850697a67a1ff8"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/owner-policy-reconciliation-2026-10-15.md",
+                      "candidate_git_blob":  "edf08da1468b4e579b5392087653ff56e7d1e5a5"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/p0-p2-status-2026-10-18.md",
+                      "candidate_git_blob":  "f1d86e60de09a194b2f576b2e57dd28f131038dc"
+                  },
+                  {
+                      "old_git_blob":  "6c3a5ade5a8c9c5804af65578837548faa28ec82",
+                      "status":  "M",
+                      "path":  "docs/remediation/policy-proposals-d04-d05.md",
+                      "candidate_git_blob":  "c70c1f9de448abf04ebfdee8fb178a51d7935748"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/prompt01-local-db-execution-2026-10-12.md",
+                      "candidate_git_blob":  "d7522a957ba6f8fe999b04041d8ae42d04d5c72a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/prompt02-route-session-evidence-2026-10-12.md",
+                      "candidate_git_blob":  "a242bc941c3b6e95e1fc2a1a3f62c5f7385afaca"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/prompt03-owner-decision-packet-2026-10-14.md",
+                      "candidate_git_blob":  "7f9a0aa3c052c7e4d1dd7a443ee6b234c3258cf8"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/q11-attempt-erasure-evidence-2026-10-18.md",
+                      "candidate_git_blob":  "41abf112c61be6cf9098dae82c8a79d886a8d4a0"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/q11-signup-expiry-evidence-2026-10-18.md",
+                      "candidate_git_blob":  "98ddd6e966f4bf4fa125705a339ca9ba0115b469"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/q22-terminal-mail-cleanup-evidence-2026-10-18.md",
+                      "candidate_git_blob":  "bb835a2ca24891d35d84c969f02a000a29526918"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/session-binding-write-fence-evidence-2026-10-18.md",
+                      "candidate_git_blob":  "cc872591a157ea3b5dce6abc19ce070576f47b30"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "docs/remediation/session-copy-consumer-evidence-2026-10-18.md",
+                      "candidate_git_blob":  "6143decdd3699fee676fcb2ad263b27e9f584c88"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "forgot_password.php",
+                      "candidate_git_blob":  "0d1c202b122dc484267794f12f7ef94d42cdb2e6"
+                  },
+                  {
+                      "old_git_blob":  "abfdba5f86065d7a915ce3ea4424aa93dad85bf9",
+                      "status":  "M",
+                      "path":  "js/confessions.js",
+                      "candidate_git_blob":  "2d7784f2f63ed462593610ec107e223552b3fa98"
+                  },
+                  {
+                      "old_git_blob":  "ce5918eb019ad4a19318d531dcb5bb2b05fa6c9b",
+                      "status":  "M",
+                      "path":  "js/discover.js",
+                      "candidate_git_blob":  "0ae60a1c7aa12a3b83f664ada185763232768a55"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "js/password-reset-token.js",
+                      "candidate_git_blob":  "ebff6187ff4db7bce428891bb6bd810f637852e9"
+                  },
+                  {
+                      "old_git_blob":  "d806a9ed4a93c1d86b2d9797fe6088abbd545856",
+                      "status":  "M",
+                      "path":  "login.php",
+                      "candidate_git_blob":  "8e8ec8f61b052778ecbfd6442e69b6f3efc7c365"
+                  },
+                  {
+                      "old_git_blob":  "ee53b1c6c6e2c7bdcb3a27b0697a42f364149a43",
+                      "status":  "M",
+                      "path":  "matches.php",
+                      "candidate_git_blob":  "412172e0ddd9a8cff548014495e92081ec6c38a5"
+                  },
+                  {
+                      "old_git_blob":  "60f45faffd09ce4591728d7766d07a6d98954b02",
+                      "status":  "M",
+                      "path":  "onboarding.php",
+                      "candidate_git_blob":  "458023e12a29f99ba09ef2e5f484ac30db7b2c3d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/attempt_erasure_migration.php",
+                      "candidate_git_blob":  "f2f1f1fad58396dcf4060bfefdf4b9a59947cb3a"
+                  },
+                  {
+                      "old_git_blob":  "cbcf270c806893c6e54acc4594ec41f33f35e455",
+                      "status":  "M",
+                      "path":  "php/auth.php",
+                      "candidate_git_blob":  "1ec21833b5153358d8e8b8669dca036acb64ae4f"
+                  },
+                  {
+                      "old_git_blob":  "b3e146cbd2a8a0092d10c19056284d2b9b0a6ef9",
+                      "status":  "M",
+                      "path":  "php/block_handler.php",
+                      "candidate_git_blob":  "384bd24435c26ea669de8f9b9f0b8252401a6540"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/evidence_lifecycle.php",
+                      "candidate_git_blob":  "0cd3449e3a410409baca372487c280f6e9ed3008"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/evidence_recovery.php",
+                      "candidate_git_blob":  "48826e1218f0b1c72d2c3a2655c9d21e563b99e8"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/http_test_barrier.php",
+                      "candidate_git_blob":  "274bb85f4970f2c965ef36eed5fc9cff61e7da9d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/legacy_history.php",
+                      "candidate_git_blob":  "66184b9c5a195afba6dacb117a6692b040987f0b"
+                  },
+                  {
+                      "old_git_blob":  "d0fa299fb741aee4a369e360c1e846b339356b07",
+                      "status":  "M",
+                      "path":  "php/mail_delivery.php",
+                      "candidate_git_blob":  "bb89ec6fee319d2502759bd309b54bdae6f44300"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/managed_session.php",
+                      "candidate_git_blob":  "40e348ea6af00e6ce89cb3ef9329222944734c00"
+                  },
+                  {
+                      "old_git_blob":  "302cc15e603ee41329fe1d3732af9cd280512008",
+                      "status":  "M",
+                      "path":  "php/matching/service.php",
+                      "candidate_git_blob":  "2f1af12c673bc034c2ec1c829165e9ada18f12e4"
+                  },
+                  {
+                      "old_git_blob":  "579eb5c4af2d5c6d57dc979bb3a94d14d86ef1f1",
+                      "status":  "M",
+                      "path":  "php/operational.php",
+                      "candidate_git_blob":  "9e85dfb6a53b422ed31b94bd31e835520083974b"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/pair_history.php",
+                      "candidate_git_blob":  "c74bd738237aab9a4ce8ed55a447f7f99395825e"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/pair_messages.php",
+                      "candidate_git_blob":  "c5419e2904a00386d80777c52df0830d77db3ed4"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/pair_migration.php",
+                      "candidate_git_blob":  "74633a0de2d8de91d8be4a06398e42e1a0468271"
+                  },
+                  {
+                      "old_git_blob":  "1cb7254775a272000f91657a2667cadfa9eee603",
+                      "status":  "M",
+                      "path":  "php/password_policy.php",
+                      "candidate_git_blob":  "51f9ff60b387d678512801a5f17f553b25e76317"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/password_reset.php",
+                      "candidate_git_blob":  "b9b303affe7dbe7f0762d2d02c6e7fc180b8b98d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/password_reset_mail_jobs.php",
+                      "candidate_git_blob":  "4d7c8c65ae36d20f4560014cae1e9ea637ef2d01"
+                  },
+                  {
+                      "old_git_blob":  "e1af06c9590018a8655534c72331b8623fe85405",
+                      "status":  "M",
+                      "path":  "php/policy_safeguards.php",
+                      "candidate_git_blob":  "697e7e7b95697a3501dec5cc2d8a20a98cd67687"
+                  },
+                  {
+                      "old_git_blob":  "d0c05f9c0b1f9b9852fc98bc85d2e02285e50718",
+                      "status":  "M",
+                      "path":  "php/report_handler.php",
+                      "candidate_git_blob":  "7082e84f1f6766721e9ba660690b61c0d979e74e"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/report_intake.php",
+                      "candidate_git_blob":  "b06e488e1d8a7299fa760c9ddef7d8d91d251bb7"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/report_migration.php",
+                      "candidate_git_blob":  "ff507828b40a7575eff2ae75d408aace9f5ace60"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/session_copy_cleanup.php",
+                      "candidate_git_blob":  "1cba5f5be14c3ab975bc44a1f86869673d7a56f8"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/session_copy_migration.php",
+                      "candidate_git_blob":  "852a945a6e3c453485fa1db4c71e6fca5a8fb71b"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/session_copy_store.php",
+                      "candidate_git_blob":  "d3f241752b263a61636d4caa161ff5154ccc0254"
+                  },
+                  {
+                      "old_git_blob":  "bd902cc9401df42a6e4cd23aa207c060c2cefecf",
+                      "status":  "M",
+                      "path":  "php/session_manager.php",
+                      "candidate_git_blob":  "85fef25e11edec1b37fa4b7c02ada67c6d1e017e"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/signup_attempt_erasure.php",
+                      "candidate_git_blob":  "c70800adae07d9fe10f3b50c6a179bc0593e8f75"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/signup_lifecycle.php",
+                      "candidate_git_blob":  "82b1f4a734d2822fd00f8fb1f2b1d1b9b8146c8f"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/signup_mail_jobs.php",
+                      "candidate_git_blob":  "da03fd7629cc6441a7f1c512fb33a2df1d75f4d5"
+                  },
+                  {
+                      "old_git_blob":  "8e4536b32c9b359bef57dcaf8ad6d237c3641f19",
+                      "status":  "M",
+                      "path":  "php/signup_verification.php",
+                      "candidate_git_blob":  "a9a709557dee3eeab8ef2c982922060f2094dc15"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/staging_guard.php",
+                      "candidate_git_blob":  "1b799378ffa958b4e429332a8ac24b2650117a4a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/staging_mail.php",
+                      "candidate_git_blob":  "91e172dd7b6af0e098b29720bd3defa32339fdbb"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/synthetic_legacy_import.php",
+                      "candidate_git_blob":  "751811f695f75128d9b047e648d75e2fa934d747"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/verification_retention.php",
+                      "candidate_git_blob":  "13577ad9a82489d53fd179b237cfab12f91504e3"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "php/verification_retention_migration.php",
+                      "candidate_git_blob":  "28939c440f5367490441b8dbbcf58fd1b4b4ebce"
+                  },
+                  {
+                      "old_git_blob":  "85a54fc33f30a0a189268d9113cb2d0b2685f6c2",
+                      "status":  "M",
+                      "path":  "playwright.config.js",
+                      "candidate_git_blob":  "97153b535ad18801f83a68d4c37882e92b9629ef"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "playwright.l06.config.js",
+                      "candidate_git_blob":  "271139215ea610d7ab62857b948eb34140b0ca08"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "reset_password.php",
+                      "candidate_git_blob":  "edcc62104b581b2ab47e6e8a69cc2bd6680f6a7a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/bootstrap_database.php",
+                      "candidate_git_blob":  "3206bf44fa39fd07f7262fbb4b865b888b4c358a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/browser/l06-password-reset.spec.js",
+                      "candidate_git_blob":  "7d41a4644d90db3f19606dbe41066c83644c990a"
+                  },
+                  {
+                      "old_git_blob":  "fd78e331830b35e23409729bc6fb3147eeb851fa",
+                      "status":  "M",
+                      "path":  "tests/browser/p0-rendered-flows.spec.js",
+                      "candidate_git_blob":  "862420c3c185f6f17e414ab65bab8424e8244bcd"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/browser/prompt02-chat-overlap.spec.js",
+                      "candidate_git_blob":  "961657822a5829ab9d8e3694fbdc84176ce4cdbe"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/browser/prompt02-chat-routes.spec.js",
+                      "candidate_git_blob":  "5ba87f2dd7ac10d43f47c2fe54e80f7869eb6a89"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/browser/prompt02-http-overlap.spec.js",
+                      "candidate_git_blob":  "68ec531502e5d7673c6de670507310923c48121f"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/browser/prompt02-session-routes.spec.js",
+                      "candidate_git_blob":  "10f7779334bf0ba6e268fbdef6ad418bc798a6ab"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/docker/staging.Dockerfile",
+                      "candidate_git_blob":  "0cee01d1aff5239bdc145cd03014b28b19d69104"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/fixtures/mail_configuration_ca.pem",
+                      "candidate_git_blob":  "ab4e076e61719fe8d219b5d6d64c0b0d88c98209"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_attempt_erasure.php",
+                      "candidate_git_blob":  "e5b3ae26fd92d6501b37e1638cefa89597796ae5"
+                  },
+                  {
+                      "old_git_blob":  "da64bea666adfa05d40e37ef2e2d1723cb164c41",
+                      "status":  "M",
+                      "path":  "tests/integration_core_p0_flows.php",
+                      "candidate_git_blob":  "2f2118a456700d35a1aeefc93fb365502dcd140a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_l01b_reports.php",
+                      "candidate_git_blob":  "66abd3e0bb90c036ec3103911f560966ddec2226"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_l02a_pairs.php",
+                      "candidate_git_blob":  "622c8c98173785713fc5a9d28fa7f156fb188e78"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_l02d_imports.php",
+                      "candidate_git_blob":  "dde85b73e899b331de353ee30f0864b987a0315d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_l02e_races.php",
+                      "candidate_git_blob":  "1c131185eb485092edaabc1376ad9676e87b76b4"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_l03a_lifecycle.php",
+                      "candidate_git_blob":  "df55a1cca601e67e5f9791032b74fb7f0219cd82"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_l06_password_reset.php",
+                      "candidate_git_blob":  "5eb678ffbed9a82686bdba58bd4fc15c967a70f9"
+                  },
+                  {
+                      "old_git_blob":  "f27296ffc2caac233ffba4d2bed19a360860f7f3",
+                      "status":  "M",
+                      "path":  "tests/integration_p0_flows.php",
+                      "candidate_git_blob":  "8d0d68aa83d6e7d302b89b11299b149ceeb9962d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_q11_signup_expiry.php",
+                      "candidate_git_blob":  "f4047ad651369a736372febd0ff0b7f797cfa3e5"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_release_upgrade.php",
+                      "candidate_git_blob":  "32c639d7267360664ab73e114333107865825509"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_session_copy_cleanup.php",
+                      "candidate_git_blob":  "828d733a15f1f48e3d0ec411ad51e16d225941e7"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_session_fence.php",
+                      "candidate_git_blob":  "9c247b5e0034668402e901d6210a03f433f9b8fd"
+                  },
+                  {
+                      "old_git_blob":  "d044b719c6051c965afb90a900c716684d9ceda2",
+                      "status":  "M",
+                      "path":  "tests/integration_smtp_outbox.php",
+                      "candidate_git_blob":  "1cb45b3efd34684e4acc74c643eb224e50b3a84a"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_staging.php",
+                      "candidate_git_blob":  "ed093f2a73a4af3b08dd219331c75dd6f607e116"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/integration_verification_retention.php",
+                      "candidate_git_blob":  "c96ff68395f5e9178a668321825db52968bbc6bd"
+                  },
+                  {
+                      "old_git_blob":  "275abfca61b9b8b329de2dc2a5f7d9931a7a3c5f",
+                      "status":  "M",
+                      "path":  "tests/overlap_db_p0_flows.php",
+                      "candidate_git_blob":  "b417f56dae189fe0f0e46136471c6b2ef11a8c3a"
+                  },
+                  {
+                      "old_git_blob":  "122f5850504c13ec8d81ba9c7b2c39b64b4b841c",
+                      "status":  "M",
+                      "path":  "tests/policy_safeguards_p0_flows.php",
+                      "candidate_git_blob":  "21245a34539eda2efbcb695a0d2b22fea95698a6"
+                  },
+                  {
+                      "old_git_blob":  "a6e798ef355ec5f18182e3edc79aac5e7f0a2176",
+                      "status":  "M",
+                      "path":  "tests/smtp_transport_test.py",
+                      "candidate_git_blob":  "2debbeaaba266560f4169c0d58db1f346ac1e202"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/activate_pair_ledger.php",
+                      "candidate_git_blob":  "6b43c23adf60c09641a564071ef6e662ee4bb51d"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/attempt_erasure_fixture.php",
+                      "candidate_git_blob":  "7f620b6d3b5ba275f68f7f1a370133d7ece6685e"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/attempt_erasure_worker.php",
+                      "candidate_git_blob":  "3011cd5fedee41168346791ea747590f8f3abd51"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/browser_overlap.js",
+                      "candidate_git_blob":  "f3b479badb44612f4478e9988a770a3ef716ced2"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/browser_pair_fixture.php",
+                      "candidate_git_blob":  "0d4ce878eaee00c9532168c8010eff43c4f81af9"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/disposable-database.js",
+                      "candidate_git_blob":  "d170e25acfeccac3d72fee0daede6edd59659a08"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/disposable_database.php",
+                      "candidate_git_blob":  "a1a84d99d0e22d32eb51e2571e2b2df79986d696"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/l02e.Dockerfile",
+                      "candidate_git_blob":  "1bfd2a5c076693255ffdac5afcfb71cf5d3b295b"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/l02e_fixture.php",
+                      "candidate_git_blob":  "a2cab1dbfde88d0790375467f329f6003991d6d8"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/l02e_import_control.php",
+                      "candidate_git_blob":  "74fa490840c471f135a4eb7479d7931d714028aa"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/l03a_fixture.php",
+                      "candidate_git_blob":  "44831d5a07cd5d1ae937fcd86136178c059d4e13"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/l03a_worker.php",
+                      "candidate_git_blob":  "ce9aaf358714ba558df2fc56b1f66b03545d984c"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/l06_browser_fixture.php",
+                      "candidate_git_blob":  "2b13ce6259fc47aa47ee3f46f2dd3944cfd2a3fd"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/l06_browser_reporter.js",
+                      "candidate_git_blob":  "68f53963a784bf5bbb5d2daba5c52cfe72294e31"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/l06_browser_server.js",
+                      "candidate_git_blob":  "1f51b37d8845c871254acb96b5880fd66db3afd4"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/legacy_history_fixture.php",
+                      "candidate_git_blob":  "85e2389c1ec87f2a85476362f371b118e87266fb"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/password_reset_consume_worker.php",
+                      "candidate_git_blob":  "b6bce981995b7be7b463f970383c4bbfe3d52e2e"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/q11_fixture.php",
+                      "candidate_git_blob":  "a2fd31e042d9f6aa67c237ce69f7ff095ad2dd9c"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/q11_worker.php",
+                      "candidate_git_blob":  "ed99fb2bc8a125ae540ae68cbde04c11b57188a9"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/session_copy_fixture.php",
+                      "candidate_git_blob":  "e461187c6ec698a761e0f0626265f8be0a33e6d9"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/session_copy_worker.php",
+                      "candidate_git_blob":  "cd9971054caff9ce484dc5eb7e10cb5277bd8184"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/session_fence_probe.php",
+                      "candidate_git_blob":  "ae8152c292cb982d37b3bac273b287738b1ab9b6"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/session_fence_worker.php",
+                      "candidate_git_blob":  "b377fc8ae811bb2e46ea43e66de93d08f914fae7"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/stage_consume_worker.php",
+                      "candidate_git_blob":  "442b6604c2e38c6683e17b4981ffdf30e65b5c2f"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/stage_fixture_contract.php",
+                      "candidate_git_blob":  "4208bbaeb83016ec19f6b45bde1a4874eecf226f"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/stage_tls_proxy.js",
+                      "candidate_git_blob":  "e5bcd184fcd14a320320fbbce83075cf51e0ac58"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/synthetic_import_fixture.php",
+                      "candidate_git_blob":  "0e6bbc9c7d7d3a14a06f8d8089f3303fdf6aa870"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/verification_retention_fixture.php",
+                      "candidate_git_blob":  "9511fa8d3e2724b7f8a1814cdcffadbb10713dd1"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/support/verification_retention_worker.php",
+                      "candidate_git_blob":  "1ebc616572b2eb6ed3226d5aacf04fdb9bf78945"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_disposable_database_guard.php",
+                      "candidate_git_blob":  "9f8095ae83b551c615eac742ea76a1eb005168a8"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_l02e_controls.php",
+                      "candidate_git_blob":  "515866698ee0eac71f260160ab736d9564ee3897"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_l03a_guards.php",
+                      "candidate_git_blob":  "658c9ba9c4c54c37be083d80ea7eada37e4844dc"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_legacy_history.php",
+                      "candidate_git_blob":  "008c057bb5e9b08f031ea2f57e3c21f92d4e2592"
+                  },
+                  {
+                      "old_git_blob":  "d40c72829c237eaa33459f5f9a38cdc1fda15ad3",
+                      "status":  "M",
+                      "path":  "tests/unit_mail_configuration.php",
+                      "candidate_git_blob":  "738632d486fb6b1cf312b2614c7a8db5ff487fbf"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_mail_worker_schedule.php",
+                      "candidate_git_blob":  "720ae3eebe4768c6e369ad6c8be24ed87e05e0eb"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_playwright_config_guard.js",
+                      "candidate_git_blob":  "cd94717e00829d8ab7106d0c630827b992d56177"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_session_fence_guard.php",
+                      "candidate_git_blob":  "a230689b4a7abc7239559811b1305bbf6131ed13"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_staging_guard.php",
+                      "candidate_git_blob":  "bdb85a2fbdfddbed8392aeaf8528e4c30c405623"
+                  },
+                  {
+                      "old_git_blob":  "0000000000000000000000000000000000000000",
+                      "status":  "A",
+                      "path":  "tests/unit_synthetic_import_guard.php",
+                      "candidate_git_blob":  "d7ff941b78097cc09b42fa5d416db452bf4abc41"
+                  },
+                  {
+                      "old_git_blob":  "2f72de051bdf3dfda3e3db746153c744617c131a",
+                      "status":  "M",
+                      "path":  "tests/workers/db_race_worker.php",
+                      "candidate_git_blob":  "7056f64fe04ade7fd7a8e5986d4bb4642d307712"
+                  },
+                  {
+                      "old_git_blob":  "c5f95bd3a06cee00978ede1457f10cbe57b16183",
+                      "status":  "M",
+                      "path":  "verify_email.php",
+                      "candidate_git_blob":  "36bfdd7cd91785961616f64aa2021483e9c21344"
+                  }
+              ]
+}

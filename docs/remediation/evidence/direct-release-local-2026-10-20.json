@@ -1,0 +1,101 @@
+{
+    "format": "bushisa.direct-release-rehearsal.v1",
+    "source_sha": "423ec6cca47a67a6e8969f9e73f317f06208ab86",
+    "checkout_sha": "423ec6cca47a67a6e8969f9e73f317f06208ab86",
+    "worktree_modified": true,
+    "captured_at": "2026-10-20T10:00:03+00:00",
+    "php": "8.5.11",
+    "mysql_profile": {
+        "mysql": "8.0.45",
+        "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+        "time_zone": "+00:00",
+        "isolation": "REPEATABLE-READ",
+        "charset": "utf8mb4",
+        "collation": "utf8mb4_0900_ai_ci",
+        "require_secure_transport": 0,
+        "log_bin": 1,
+        "log_bin_trust_function_creators": 0
+    },
+    "baseline_commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+    "baseline_is_observed_production": false,
+    "baseline_file_hashes": {
+        "database/bushisa.sql": "141b594e09a468b897b038a1e8770334254252ca3266835b071907500edd8729",
+        "bin/migrate.php": "979a69437a3952d93b4a5471a9f914315240533a41c15fe0eac19eefdc9fb21c",
+        "config/db.php": "546db8dec972481561550f9804cb073033c1912e1f8bd3fd4a29c7838d284250",
+        "config/database_settings.php": "5a23196a89c9500bc2d438a5efcc912e45cc8012eb8cf1c0fb351bef657398b0",
+        "php/operational.php": "8400317be82ee3840342db311bd4f6b609e58efb4b957960c23e4a12a871890b",
+        "database/migrations/001_operational_contract.sql": "08357ccaf971f50316ee0b07b602508fe40de130010abcb0d8e8eae119f5ab2a",
+        "database/migrations/002_policy_safeguards.sql": "0f2b6ccdd776eae5a8297e599596cc8829cc0a7c0a379344d8d018b8f93447f5",
+        "database/migrations/003_restore_replay_safeguards.sql": "bf4d2536cdeb66875cd1fb505a1453e1cf83c9a9e0d0d4867eff36c3fe977996",
+        "database/migrations/004_smtp_outbox.sql": "c2a0ee0410f695bf82e8ab2b53dfb80dd0efc5b22bfb18784103265f8180722b"
+    },
+    "cases": [
+        {
+            "case": "DR01",
+            "result": "PASS"
+        },
+        {
+            "case": "DR02",
+            "result": "PASS"
+        },
+        {
+            "case": "DR03",
+            "result": "PASS"
+        },
+        {
+            "case": "DR04",
+            "result": "PASS"
+        },
+        {
+            "case": "DR05",
+            "result": "PASS"
+        },
+        {
+            "case": "DR06",
+            "result": "PASS"
+        },
+        {
+            "case": "DR07",
+            "result": "PASS"
+        },
+        {
+            "case": "DR08",
+            "result": "PASS"
+        },
+        {
+            "case": "DR09",
+            "result": "PASS"
+        },
+        {
+            "case": "DR10",
+            "result": "PASS"
+        },
+        {
+            "case": "DR11",
+            "result": "PASS"
+        },
+        {
+            "case": "DR12",
+            "result": "PASS"
+        },
+        {
+            "case": "DR13",
+            "result": "PASS"
+        },
+        {
+            "case": "DR14",
+            "result": "PASS"
+        },
+        {
+            "case": "DR15",
+            "result": "PASS"
+        },
+        {
+            "case": "DR16",
+            "result": "PASS"
+        }
+    ],
+    "failure": null,
+    "engine_error": null,
+    "global_settings_restored": true
+}

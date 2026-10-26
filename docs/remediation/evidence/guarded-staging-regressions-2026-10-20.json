@@ -1,0 +1,2138 @@
+{
+    "format":  "bushisa.staging-regressions.v1",
+    "checkout_sha":  "7cc97bc97574c8e56965072d9347719edf11442b",
+    "worktree_state":  "modified implementation working tree; not a test of clean audit commit",
+    "captured_at_utc":  "2026-10-20T06:28:36Z",
+    "runs":  [
+                 {
+                     "variants":  null,
+                     "totals":  null,
+                     "environment":  {
+                                         "PHP":  "8.5.11",
+                                         "MySQL":  "8.0.45",
+                                         "OS":  "Linux"
+                                     },
+                     "started_at_utc":  null,
+                     "profile":  "linux",
+                     "observed_races":  1,
+                     "source_file":  ".tmp/stage-l06-http-linux.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  null,
+                     "suite":  "L06 HTTP",
+                     "cases":  [
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MIG-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-INTAKE-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-ORIGIN-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MAIL-00"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MAIL-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-PROOF-02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-00"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MAIL-02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-PROOF-03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-STATE-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-PROOF-04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MAIL-03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-RACE-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-CLEAN-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-CONFIG-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-PRIV-01"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  null,
+                     "totals":  null,
+                     "environment":  {
+                                         "os":  "linux",
+                                         "node":  "v20.20.2",
+                                         "playwright":  "1.64.0"
+                                     },
+                     "started_at_utc":  null,
+                     "profile":  "linux",
+                     "observed_races":  1,
+                     "source_file":  ".tmp/stage-l06-browser-linux.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  null,
+                     "suite":  "L06 browser",
+                     "cases":  [
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B01"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B02"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B03"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B04"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B05"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B06"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  null,
+                     "totals":  {
+                                    "assertions":  74,
+                                    "passed":  74
+                                },
+                     "environment":  {
+                                         "php":  "8.5.11",
+                                         "mysql":  "8.0.45",
+                                         "os":  "Linux"
+                                     },
+                     "started_at_utc":  "2026-10-20T06:02:29+00:00",
+                     "profile":  "linux",
+                     "observed_races":  7,
+                     "source_file":  ".tmp/q11-20261020-060229-fbab542b/evidence.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  "2026-10-20T06:03:26+00:00",
+                     "suite":  "Q11",
+                     "cases":  [
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS07"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS08"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS08"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS14"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS14"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS20"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS23"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  null,
+                     "totals":  {
+                                    "assertions":  75,
+                                    "passed":  75
+                                },
+                     "environment":  {
+                                         "php":  "8.5.11",
+                                         "mysql":  "8.0.45",
+                                         "os":  "Linux"
+                                     },
+                     "started_at_utc":  "2026-10-20T06:03:27+00:00",
+                     "profile":  "linux",
+                     "observed_races":  6,
+                     "source_file":  ".tmp/q22-20261020-060327-4018d469/evidence.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  "2026-10-20T06:04:35+00:00",
+                     "suite":  "Q22",
+                     "cases":  [
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM07"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM08"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM14"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM20"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM20"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM25"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM25"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM27"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM28"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM28"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM28"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM30"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM30"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM31"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM31"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM31"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM32"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM32"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM27"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  [
+                                      {
+                                          "case":  "QE21",
+                                          "variant":  "symlink",
+                                          "result":  "PASS"
+                                      },
+                                      {
+                                          "case":  "QE21",
+                                          "variant":  "hardlink",
+                                          "result":  "PASS"
+                                      }
+                                  ],
+                     "totals":  {
+                                    "assertions":  58,
+                                    "passed":  58
+                                },
+                     "environment":  {
+                                         "php":  "8.5.11",
+                                         "mysql":  "8.0.45",
+                                         "os":  "Linux"
+                                     },
+                     "started_at_utc":  "2026-10-20T06:04:37+00:00",
+                     "profile":  "linux",
+                     "observed_races":  3,
+                     "source_file":  ".tmp/qe-20261020-060437-7fc71d7a/evidence.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  "2026-10-20T06:06:51+00:00",
+                     "suite":  "attempt erasure",
+                     "cases":  [
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE07"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE07"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE08"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE14"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE20"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE25"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE27"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE27"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE28"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE06"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  null,
+                     "totals":  null,
+                     "environment":  {
+                                         "PHP":  "8.5.11",
+                                         "MySQL":  "8.0.45",
+                                         "OS":  "Windows"
+                                     },
+                     "started_at_utc":  null,
+                     "profile":  "windows",
+                     "observed_races":  1,
+                     "source_file":  ".tmp/stage-l06-http-windows.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  null,
+                     "suite":  "L06 HTTP",
+                     "cases":  [
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MIG-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-INTAKE-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-ORIGIN-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MAIL-00"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MAIL-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-PROOF-02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-00"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-HTTP-04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MAIL-02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-PROOF-03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-STATE-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-PROOF-04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-AUTH-04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-MAIL-03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-RACE-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-CLEAN-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-CONFIG-01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "L06-PRIV-01"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  null,
+                     "totals":  null,
+                     "environment":  {
+                                         "os":  "win32",
+                                         "node":  "v20.19.6",
+                                         "playwright":  "1.64.0"
+                                     },
+                     "started_at_utc":  null,
+                     "profile":  "windows",
+                     "observed_races":  1,
+                     "source_file":  ".tmp/stage-l06-browser-windows.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  null,
+                     "suite":  "L06 browser",
+                     "cases":  [
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B01"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B02"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B03"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B04"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B05"
+                                   },
+                                   {
+                                       "result":  "passed",
+                                       "case":  "L06-B06"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  null,
+                     "totals":  {
+                                    "assertions":  74,
+                                    "passed":  74
+                                },
+                     "environment":  {
+                                         "php":  "8.5.11",
+                                         "mysql":  "8.0.45",
+                                         "os":  "Windows"
+                                     },
+                     "started_at_utc":  "2026-10-20T06:19:45+00:00",
+                     "profile":  "windows",
+                     "observed_races":  7,
+                     "source_file":  ".tmp/q11-20261020-061945-a06b7bd5/evidence.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  "2026-10-20T06:21:53+00:00",
+                     "suite":  "Q11",
+                     "cases":  [
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS07"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS08"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS08"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS14"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS14"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS20"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QS23"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  null,
+                     "totals":  {
+                                    "assertions":  75,
+                                    "passed":  75
+                                },
+                     "environment":  {
+                                         "php":  "8.5.11",
+                                         "mysql":  "8.0.45",
+                                         "os":  "Windows"
+                                     },
+                     "started_at_utc":  "2026-10-20T06:21:53+00:00",
+                     "profile":  "windows",
+                     "observed_races":  6,
+                     "source_file":  ".tmp/q22-20261020-062153-6b8b428a/evidence.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  "2026-10-20T06:23:54+00:00",
+                     "suite":  "Q22",
+                     "cases":  [
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM07"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM08"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM14"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM20"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM20"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM25"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM25"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM27"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM28"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM28"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM28"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM29"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM30"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM30"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM31"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM31"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM31"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM32"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM32"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QM27"
+                                   }
+                               ]
+                 },
+                 {
+                     "variants":  [
+                                      {
+                                          "case":  "QE21",
+                                          "variant":  "symlink",
+                                          "result":  "NOT RUN",
+                                          "reason":  "fixture link creation unavailable"
+                                      },
+                                      {
+                                          "case":  "QE21",
+                                          "variant":  "hardlink",
+                                          "result":  "PASS"
+                                      }
+                                  ],
+                     "totals":  {
+                                    "assertions":  57,
+                                    "passed":  57
+                                },
+                     "environment":  {
+                                         "php":  "8.5.11",
+                                         "mysql":  "8.0.45",
+                                         "os":  "Windows"
+                                     },
+                     "started_at_utc":  "2026-10-20T06:23:55+00:00",
+                     "profile":  "windows",
+                     "observed_races":  3,
+                     "source_file":  ".tmp/qe-20261020-062355-63ac294b/evidence.json",
+                     "result":  "PASS",
+                     "finished_at_utc":  "2026-10-20T06:26:29+00:00",
+                     "suite":  "attempt erasure",
+                     "cases":  [
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE01"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE03"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE04"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE05"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE06"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE07"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE07"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE08"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE09"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE10"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE12"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE13"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE14"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE15"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE16"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE18"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE19"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE20"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE22"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE23"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE24"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE25"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE21"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE17"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE11"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE26"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE27"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE27"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE28"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE02"
+                                   },
+                                   {
+                                       "result":  "PASS",
+                                       "case":  "QE06"
+                                   }
+                               ]
+                 }
+             ],
+    "signup_mail_disposable_units":  "PASS on Linux and Windows PHP 8.5.11",
+    "initial_windows_q11_attempt":  {
+                                        "resolution":  "Only lifecycle suites rerun with required synthetic barrier; all applicable assertions passed",
+                                        "result":  "FAIL",
+                                        "passed_assertions_before_timeout":  51,
+                                        "cause":  "Runner disabled required synthetic HTTP barrier"
+                                    },
+    "managed_azure_cases":  "AZS01-AZS18 NOT RUN",
+    "SC26_production_topology":  "PARTIAL"
+}

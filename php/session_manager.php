@@ -2,6 +2,63 @@
 
 declare(strict_types=1);
 
+require_once __DIR__.'/staging_guard.php';
+if (\Bushisa\Staging\requested()) {
+    try {
+        $stageSession = \Bushisa\Staging\context('serve');
+        ini_set('display_errors','0');
+        ini_set('zend.exception_ignore_args','1');
+        if (session_status() !== PHP_SESSION_NONE || ini_get('session.save_handler')!=='files' || ini_set('session.save_path', $stageSession['_sessions']) === false) {
+            \Bushisa\Staging\deny('SESSION_CONFIGURATION');
+        }
+    } catch (Throwable) {
+        http_response_code(503);
+        exit('Synthetic stage configuration unavailable.');
+    }
+}
+
+require_once __DIR__.'/managed_session.php';
+
+function bushisa_managed_handler(): ?\Bushisa\ManagedSession\Handler
+{ return $GLOBALS['bushisa_managed_handler']??null; }
+
+/** Fail before buffered private output/redirect/cookie can acknowledge a failed write. */
+function bushisa_managed_response(string $body): string
+{
+    $h=bushisa_managed_handler();
+    if (session_status()===PHP_SESSION_ACTIVE) { @session_write_close(); }
+    if ($h && $h->failed) {
+        if (PHP_SAPI==='cli') { fwrite(STDERR,$h->error.PHP_EOL); }
+        header_remove('Location'); header_remove('Set-Cookie'); http_response_code(503);
+        header('Content-Type: application/json; charset=utf-8');
+        setcookie(session_name(),'', ['expires'=>1,'path'=>'/','httponly'=>true,'secure'=>bushisa_cookie_secure(),'samesite'=>'Strict']);
+        return '{"error":"Session service unavailable."}';
+    }
+    return $body;
+}
+
+function bushisa_managed_rotate(bool $clearIdentity=false): void
+{
+    $h=bushisa_managed_handler();
+    if (!$h || session_status()!==PHP_SESSION_ACTIVE) { throw new RuntimeException('SESSION_BINDING_REQUIRED'); }
+    $newId=session_create_id();
+    $payload=$h->rotate($newId,$clearIdentity);
+    session_abort(); session_id($newId);
+    if (!@session_start()) { throw new RuntimeException('SESSION_ROTATION_FAILED'); }
+    $_SESSION=$payload;
+}
+
+function bushisa_managed_login(array $authenticatedIdentity,string $passwordHash): bool
+{
+    try {
+        bushisa_managed_rotate(true);
+        $_SESSION=bushisa_managed_handler()->admit((int)$authenticatedIdentity['id'],$passwordHash,
+            $authenticatedIdentity['signup_attempt_key']??null,(string)$authenticatedIdentity['created_at']);
+        @session_write_close();
+        return !bushisa_managed_handler()->failed;
+    } catch (Throwable) { return false; }
+}
+
 const BUSHISA_SESSION_TIMEOUT = 1800;
 
 function bushisa_cookie_secure(): bool
@@ -43,6 +100,9 @@ function refresh_session_expiry(): void
         return;
     }
 
+    // This fixture integration adopts no new Q40 idle/absolute policy. Polling
+    // cannot refresh activity; existing native behavior is inventoried separately.
+    if (bushisa_managed_handler()) { return; }
     $_SESSION['last_activity'] = time();
 
     $params = session_get_cookie_params();
@@ -63,6 +123,33 @@ function refresh_session_expiry(): void
  */
 function start_secure_session(): void
 {
+    if (\Bushisa\ManagedSession\requested()) {
+        if (!bushisa_managed_handler()) {
+            try {
+                \Bushisa\ManagedSession\install();
+                ob_start('bushisa_managed_response');
+            } catch (Throwable) {
+                // Rejecting an auto-started/unmanaged handler must also discard
+                // its pending PHP write; exit alone would flush it at shutdown.
+                if (session_status()===PHP_SESSION_ACTIVE) { @session_abort(); $_SESSION=[]; }
+                http_response_code(503); exit('Session service unavailable.');
+            }
+        }
+        // Logout must be able to retire its own binding even when a successful
+        // transition has already made its old payload unreadable. No private read.
+        if (bushisa_current_script_basename()==='logout.php' && session_status()===PHP_SESSION_NONE) {
+            $incoming=$_COOKIE[session_name()]??null;
+            if (is_string($incoming) && preg_match('/\A[A-Za-z0-9,-]{16,128}\z/D',$incoming)) {
+                bushisa_managed_handler()->destroy($incoming);
+            }
+            setcookie(session_name(),'', ['expires'=>1,'path'=>'/','httponly'=>true,'secure'=>bushisa_cookie_secure(),'samesite'=>'Strict']);
+            return;
+        }
+        if (session_status()===PHP_SESSION_ACTIVE) {
+            if (!bushisa_managed_handler()->current()) { bushisa_auth_fail(503,'Session service unavailable.'); }
+            return;
+        }
+    }
     if (session_status() !== PHP_SESSION_NONE) {
         return;
     }
@@ -73,7 +160,11 @@ function start_secure_session(): void
     ini_set('session.cookie_samesite', 'Strict');
 
     session_set_cookie_params(bushisa_session_cookie_params());
-    session_start();
+    if (!@session_start()) {
+        http_response_code(503); exit('Session service unavailable.');
+    }
+
+    if (bushisa_managed_handler()) { return; }
 
     if (!isset($_SESSION['last_activity'])) {
         refresh_session_expiry();
@@ -96,6 +187,7 @@ function start_secure_session(): void
  */
 function regenerate_session(): void
 {
+    if (bushisa_managed_handler()) { bushisa_managed_rotate(); return; }
     if (session_status() === PHP_SESSION_ACTIVE) {
         session_regenerate_id(true);
         refresh_session_expiry();
@@ -166,6 +258,29 @@ function bushisa_current_account(PDO $pdo, int $userId): ?array
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     return is_array($row) ? $row : null;
+}
+
+/** Resume only the same, still-current authenticated session after a transition.
+ * A concurrent logout/revocation must not be overwritten by the response. */
+function bushisa_resume_transition_session(PDO $pdo, int $userId, int $oldVersion, int $newVersion): bool
+{
+    if ($h=bushisa_managed_handler()) {
+        if (!$h->resume($userId,$oldVersion,$newVersion)) { return false; }
+        start_secure_session();
+        @session_write_close();
+        if ($h->failed) { return false; }
+        start_secure_session(); return true;
+    }
+    start_secure_session();
+    $account = bushisa_current_account($pdo, $userId);
+    if ((int) ($_SESSION['user_id'] ?? 0) !== $userId
+        || (int) ($_SESSION['session_version'] ?? -1) !== $oldVersion
+        || $account === null || !bushisa_account_can_use_session($account)
+        || (int) $account['session_version'] !== $newVersion) {
+        return false;
+    }
+    $_SESSION['session_version'] = $newVersion;
+    return true;
 }
 
 /**
@@ -247,8 +362,21 @@ function require_login(): void
         bushisa_auth_fail(500, 'Authentication service unavailable.');
     }
 
+    if (($h=bushisa_managed_handler()) && !$h->current()) {
+        bushisa_auth_fail(401,'Your session is no longer valid.');
+    }
+
     $userId = (int) $_SESSION['user_id'];
     $account = bushisa_current_account($pdo, $userId);
+    if ($account !== null && in_array($account['account_status'] ?? '', ['pending_email', 'pending_onboarding'], true)) {
+        require_once __DIR__ . '/signup_lifecycle.php';
+        bushisa_signup_test_point($pdo, 'q11_mixed');
+        $expiry = bushisa_signup_check_account($pdo, $userId);
+        if ($expiry['state'] !== 'live') {
+            bushisa_auth_fail(401, bushisa_signup_expiry_message($expiry['state']));
+        }
+        $account = bushisa_current_account($pdo, $userId);
+    }
     if ($account === null || !bushisa_account_can_use_session($account)) {
         bushisa_auth_fail(401, 'Your session is no longer valid.');
     }
@@ -260,7 +388,9 @@ function require_login(): void
     }
 
     $_SESSION['role'] = isset($account['role']) && is_string($account['role']) && $account['role'] !== '' ? $account['role'] : 'user';
-    $_SESSION['email'] = isset($account['email']) && is_string($account['email']) ? $account['email'] : ($_SESSION['email'] ?? '');
+    if (!bushisa_managed_handler()) {
+        $_SESSION['email'] = isset($account['email']) && is_string($account['email']) ? $account['email'] : ($_SESSION['email'] ?? '');
+    }
 
     bushisa_gate_pending_account((string) ($account['account_status'] ?? 'active'));
     refresh_session_expiry();

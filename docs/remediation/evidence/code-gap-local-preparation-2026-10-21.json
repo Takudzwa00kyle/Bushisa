@@ -1,0 +1,111 @@
+{
+  "format": "bushisa.owner-code-gap-local-preparation.v1",
+  "recorded_utc": "2026-10-21T14:08:42.190143+00:00",
+  "checkout": "a3d2cf0055e6dc8efecf85413ed5ecd306cdb9d1",
+  "profile": "Windows PHP 8.5.11 cli",
+  "template_php_syntax": "PASS",
+  "rendered_bash_syntax": "PASS",
+  "powershell_renderer_without_clipboard_side_effect": "PASS",
+  "script_sha256": "e7892416686a89f26f7b1958f9bab8a9fd5ca88918ef56925a9e094686810f85",
+  "template_sha256": "d1e557200612e36a74e26bd39a574b672f73d5bfb335cba0e10e2ee610022676",
+  "spec_sha256": "6e04d17ec6fca1e7f1fb4b29d0da566249ee9527de40e27559e6a661752bfffa",
+  "cases": [
+    {
+      "case": "gap68.only_reviewed_new_hashes",
+      "result": "PASS",
+      "exit": 0
+    },
+    {
+      "case": "gap68.accepted_hashes_and_names_not_repeated",
+      "result": "PASS",
+      "exit": 0
+    },
+    {
+      "case": "gap68.new_extensions_and_boundaries_names_only",
+      "result": "PASS",
+      "exit": 0
+    },
+    {
+      "case": "gap68.private_exclusions_no_bodies",
+      "result": "PASS",
+      "exit": 0
+    },
+    {
+      "case": "gap68.unclassified_html_not_hashed",
+      "result": "PASS",
+      "exit": 0
+    },
+    {
+      "case": "gap68.deterministic_repeat",
+      "result": "PASS",
+      "exit": 0
+    },
+    {
+      "case": "gap68.synthetic_owner_classified_html_optional_hash",
+      "result": "PASS",
+      "exit": 0
+    },
+    {
+      "case": "gap68.invalid_spec_refused",
+      "result": "PASS",
+      "exit": 1
+    },
+    {
+      "case": "gap68.invalid_exclusion_pattern_fails_closed",
+      "result": "PASS",
+      "exit": 1
+    },
+    {
+      "case": "gap68.unreviewed_hash_target_refused",
+      "result": "PASS",
+      "exit": 1
+    },
+    {
+      "case": "gap68.repeated_hash_target_refused",
+      "result": "PASS",
+      "exit": 1
+    },
+    {
+      "case": "gap68.previously_seen_missing_stops",
+      "result": "PASS",
+      "exit": 1
+    },
+    {
+      "case": "gap68.auxiliary_missing_explicit",
+      "result": "PASS",
+      "exit": 0
+    },
+    {
+      "case": "gap68.oversize_refused",
+      "result": "PASS",
+      "exit": 1
+    },
+    {
+      "case": "gap68.real_target_symlink_refused",
+      "result": "PASS",
+      "exit": 1
+    },
+    {
+      "case": "gap68.depth_bound",
+      "result": "PASS",
+      "exit": 1
+    },
+    {
+      "case": "gap68.actual_5000_entry_bound",
+      "result": "PASS",
+      "exit": 1
+    }
+  ],
+  "pass": 17,
+  "not_run": 0,
+  "actual_hash_assertions": 68,
+  "azure_execution": "NOT RUN",
+  "linux_execution": "NOT RUN; Bash syntax only, fixture execution on Windows PHP",
+  "application_suites": "NOT RERUN",
+  "existing_acceptance_matrices": "UNCHANGED",
+  "fixture_source_changes": {
+    "normal_runs": "filesystem root literal only",
+    "negative_and_optional_cases": "explicit fixture specification inputs",
+    "invalid_pattern_case": "deliberate replacement of exclusion regex to test pre-hash fail-closed validation"
+  }
+}

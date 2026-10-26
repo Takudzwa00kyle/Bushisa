@@ -1,0 +1,66 @@
+{
+    "format":  "bushisa.direct-release-regressions.v1",
+    "base_checkout":  "423ec6cca47a67a6e8969f9e73f317f06208ab86",
+    "worktree_modified":  true,
+    "scope":  "Guarded local disposable synthetic fixtures and fake mail; not verification of clean 423ec6c or production",
+    "profile":  "Linux PHP 8.5.11 / MySQL 8.0.45",
+    "wrapper":  ".tmp/run-staging-regressions.ps1 -Profile linux",
+    "suite_exit":  0,
+    "unit_suites":  [
+                        "unit_signup_verification",
+                        "unit_mail_configuration",
+                        "unit_disposable_database_guard"
+                    ],
+    "l06_http_cases":  25,
+    "l06_browser_cases":  6,
+    "lifecycle":  [
+                      {
+                          "passed":  74,
+                          "suite":  "q11-20261020-113905-6801d66a",
+                          "command":  "php tests/integration_q11_signup_expiry.php",
+                          "php":  "8.5.11",
+                          "assertions":  74,
+                          "settings":  {
+                                           "server_uuid":  "998b5441-cb13-11f1-8145-32a74532d73c",
+                                           "time_zone":  "+00:00",
+                                           "isolation_level":  "REPEATABLE-READ",
+                                           "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+                                       },
+                          "mysql":  "8.0.45",
+                          "failure":  null
+                      },
+                      {
+                          "passed":  75,
+                          "suite":  "q22-20261020-114106-2a01deb5",
+                          "command":  "php tests/integration_verification_retention.php",
+                          "php":  "8.5.11",
+                          "assertions":  75,
+                          "settings":  {
+                                           "server_uuid":  "998b5441-cb13-11f1-8145-32a74532d73c",
+                                           "utc":  "+00:00",
+                                           "isolation_level":  "REPEATABLE-READ",
+                                           "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+                                       },
+                          "mysql":  "8.0.45",
+                          "failure":  null
+                      },
+                      {
+                          "passed":  58,
+                          "suite":  "qe-20261020-114310-a892fcc1",
+                          "command":  "php tests/integration_attempt_erasure.php",
+                          "php":  "8.5.11",
+                          "assertions":  58,
+                          "settings":  {
+                                           "server_uuid":  "998b5441-cb13-11f1-8145-32a74532d73c",
+                                           "utc":  "+00:00",
+                                           "isolation_level":  "REPEATABLE-READ",
+                                           "sql_mode":  "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+                                       },
+                          "mysql":  "8.0.45",
+                          "failure":  null
+                      }
+                  ],
+    "historical_matrices_changed":  false,
+    "managed_cases":  "AZS01-AZS18 NOT RUN",
+    "sc26_production":  "PARTIAL"
+}

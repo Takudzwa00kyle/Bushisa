@@ -1,0 +1,82 @@
+{
+  "format": "bushisa.owner-code-names-local-preparation.v1",
+  "recorded_utc": "2026-10-21T12:14:09.349940+00:00",
+  "checkout": "6b2294c36a0d415d0d52ab10ff1c7881346e459c",
+  "profile": "8.5.11 cli",
+  "syntax": "PASS",
+  "only_fixture_root_literal_changed_for_execution": true,
+  "reader_sha256": "8f60b3f9b8d797bbb693873e23b75e7d1680f8fe16252af1c14c3a605aa6a53e",
+  "reader_code_file_read_operations": false,
+  "cases": [
+    {
+      "case": "names.safe_and_extra_source_names",
+      "result": "PASS",
+      "exit": 0,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.no_content_or_private_names",
+      "result": "PASS",
+      "exit": 0,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.unknown_top_directory_not_traversed",
+      "result": "PASS",
+      "exit": 0,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.repeat_name_order_deterministic",
+      "result": "PASS",
+      "exit": 0,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.missing_directory_explicit",
+      "result": "PASS",
+      "exit": 0,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.wrong_root_fails_closed",
+      "result": "PASS",
+      "exit": 1,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.unsafe_filename_no_partial_capture",
+      "result": "PASS",
+      "exit": 1,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.depth_bound_no_partial_capture",
+      "result": "PASS",
+      "exit": 1,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.actual_5000_item_bound_no_partial_capture",
+      "result": "PASS",
+      "exit": 1,
+      "output_contains_bodies": false
+    },
+    {
+      "case": "names.real_symlink_refusal",
+      "result": "PASS",
+      "exit": 1,
+      "output_contains_bodies": false
+    }
+  ],
+  "pass": 10,
+  "not_run": 0,
+  "relative_links": 108,
+  "new_document_anchor_links": 5,
+  "unchanged_owner_source_hashes": 7,
+  "azure_execution": "NOT RUN",
+  "linux_profile": "NOT RUN; preparation executed only on Windows PHP; no Linux behavior claimed",
+  "existing_application_acceptance_results": "UNCHANGED; application suites not rerun",
+  "production_settings": "UNCHANGED",
+  "documentation_followup_checked_utc": "2026-10-21T12:21:16.836272+00:00"
+}

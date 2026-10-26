@@ -1,0 +1,296 @@
+{
+  "format": "bushisa.owner-production-observations.v1",
+  "source_docx_sha256": "90ca70375d3fb2a3844bb80064cd1f6620224411d36eb8b490e94937cbede233",
+  "source_docx_bytes": 22178,
+  "extraction": "Bounded word/document.xml ZIP/XML read; DTD disabled; no SQL from transcript executed",
+  "extracted_paragraphs": 632,
+  "independently_captured_by_agent": false,
+  "sql_capture_utc": "2026-10-20T15:28:56.241928Z",
+  "sql_capture_africa_harare": "2026-10-20 17:28:56.241928 +02:00",
+  "fingerprint_capture_utc": "2026-10-20T14:34:57Z",
+  "fingerprint_capture_africa_harare": "2026-10-20 16:34:57 +02:00",
+  "exact_schema_query_instants": "not separately recorded",
+  "settings": {
+    "captured_utc": "2026-10-20 15:28:56.241928",
+    "selected_schema": "bushi-database",
+    "mysql_version": "8.0.46-azure",
+    "session_time_zone": "+00:00",
+    "global_time_zone": "+00:00",
+    "sql_mode": "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO",
+    "isolation": "REPEATABLE-READ",
+    "character_set_server": "utf8mb4",
+    "collation_server": "utf8mb4_0900_ai_ci",
+    "require_secure_transport": "1",
+    "log_bin": "1",
+    "log_bin_trust_function_creators": "1"
+  },
+  "principal_label": "configured DB_USER account, exact identifier retained privately in owner document",
+  "grant_scope": "global administrative + WITH GRANT OPTION; also UPDATE/DELETE on performance_schema",
+  "grant_lines_redacted": [
+    "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, PROCESS, REFERENCES, INDEX, ALTER, SHOW DATABASES, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER, CREATE ROLE, DROP ROLE ON *.* TO `CONFIGURED_DB_USER`@`%` WITH GRANT OPTION",
+    "GRANT APPLICATION_PASSWORD_ADMIN,FLUSH_OPTIMIZER_COSTS,FLUSH_STATUS,FLUSH_TABLES,FLUSH_USER_RESOURCES,REPLICATION_APPLIER,ROLE_ADMIN,SESSION_VARIABLES_ADMIN,SET_USER_ID,SHOW_ROUTINE,XA_RECOVER_ADMIN ON *.* TO `CONFIGURED_DB_USER`@`%` WITH GRANT OPTION",
+    "GRANT UPDATE, DELETE ON `performance_schema`.* TO `CONFIGURED_DB_USER`@`%` WITH GRANT OPTION"
+  ],
+  "tls_session": [
+    {
+      "variable_name": "Ssl_cipher",
+      "value": "TLS_AES_256_GCM_SHA384"
+    },
+    {
+      "variable_name": "Ssl_version",
+      "value": "TLSv1.3"
+    }
+  ],
+  "client_certificate_verification": "owner confirms successful certificate-verifying MariaDB-client connection; not proof of PHP PDO verification",
+  "php_cli": "8.5.11",
+  "counts": {
+    "tables": 29,
+    "columns": 227,
+    "index_entries": 122,
+    "foreign_keys": 13,
+    "migration_markers": 4,
+    "triggers": 0,
+    "routines": 0
+  },
+  "schema_fixture": "tests/fixtures/owner-observed-schema-20261020.json",
+  "fingerprints": [
+    {
+      "path": "index.php",
+      "owner_sha256": "5693aea7007ffebe4d92e3e098dba68b905e55653b707998d3752c284b439530",
+      "history_versions_checked": 2,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "5693aea7007ffebe4d92e3e098dba68b905e55653b707998d3752c284b439530"
+        },
+        {
+          "commit": "4e76a7de361f32a17062ea8189e875844ee10660",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "5693aea7007ffebe4d92e3e098dba68b905e55653b707998d3752c284b439530"
+        },
+        {
+          "commit": "11445216efc2e43f74a0c5f82705fcf6fff69ea8",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "5693aea7007ffebe4d92e3e098dba68b905e55653b707998d3752c284b439530"
+        }
+      ],
+      "match_status": "MATCH"
+    },
+    {
+      "path": "config/db.php",
+      "owner_sha256": "546db8dec972481561550f9804cb073033c1912e1f8bd3fd4a29c7838d284250",
+      "history_versions_checked": 5,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "546db8dec972481561550f9804cb073033c1912e1f8bd3fd4a29c7838d284250"
+        },
+        {
+          "commit": "3e5988023b0a85d8de21a05fb49a9e15b32edfa3",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "546db8dec972481561550f9804cb073033c1912e1f8bd3fd4a29c7838d284250"
+        }
+      ],
+      "match_status": "MATCH"
+    },
+    {
+      "path": "php/operational.php",
+      "owner_sha256": "8400317be82ee3840342db311bd4f6b609e58efb4b957960c23e4a12a871890b",
+      "history_versions_checked": 7,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "8400317be82ee3840342db311bd4f6b609e58efb4b957960c23e4a12a871890b"
+        },
+        {
+          "commit": "634fa92d6092918c5b3e091736ab28ab9b0b4b49",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "8400317be82ee3840342db311bd4f6b609e58efb4b957960c23e4a12a871890b"
+        }
+      ],
+      "match_status": "MATCH"
+    },
+    {
+      "path": "php/signup_verification.php",
+      "owner_sha256": "89d1f445aa436f33f210f47d84cb34c7a2cb0ce7e7d6f4622206b3daddaeb78c",
+      "history_versions_checked": 6,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "89d1f445aa436f33f210f47d84cb34c7a2cb0ce7e7d6f4622206b3daddaeb78c"
+        },
+        {
+          "commit": "634fa92d6092918c5b3e091736ab28ab9b0b4b49",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "89d1f445aa436f33f210f47d84cb34c7a2cb0ce7e7d6f4622206b3daddaeb78c"
+        }
+      ],
+      "match_status": "MATCH"
+    },
+    {
+      "path": "php/mail_delivery.php",
+      "owner_sha256": "b6efcaa3ad47e8dfe071e1fa67e15c882bc9120c7afe2c99e8cb5d85357ba5bd",
+      "history_versions_checked": 3,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "b6efcaa3ad47e8dfe071e1fa67e15c882bc9120c7afe2c99e8cb5d85357ba5bd"
+        },
+        {
+          "commit": "634fa92d6092918c5b3e091736ab28ab9b0b4b49",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "b6efcaa3ad47e8dfe071e1fa67e15c882bc9120c7afe2c99e8cb5d85357ba5bd"
+        }
+      ],
+      "match_status": "MATCH"
+    },
+    {
+      "path": "bin/migrate.php",
+      "owner_sha256": "979a69437a3952d93b4a5471a9f914315240533a41c15fe0eac19eefdc9fb21c",
+      "history_versions_checked": 8,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "979a69437a3952d93b4a5471a9f914315240533a41c15fe0eac19eefdc9fb21c"
+        },
+        {
+          "commit": "634fa92d6092918c5b3e091736ab28ab9b0b4b49",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "979a69437a3952d93b4a5471a9f914315240533a41c15fe0eac19eefdc9fb21c"
+        }
+      ],
+      "match_status": "MATCH"
+    },
+    {
+      "path": "bin/cleanup_policy.php",
+      "owner_sha256": "a9a073e119f32a39943a705e787c399eefcab70f0a5decb55367d43658e25057",
+      "history_versions_checked": 7,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "a9a073e119f32a39943a705e787c399eefcab70f0a5decb55367d43658e25057"
+        },
+        {
+          "commit": "634fa92d6092918c5b3e091736ab28ab9b0b4b49",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "a9a073e119f32a39943a705e787c399eefcab70f0a5decb55367d43658e25057"
+        }
+      ],
+      "match_status": "MATCH"
+    },
+    {
+      "path": "bin/dispatch_mail.php",
+      "owner_sha256": "8e16065cc67455f05127782e5e1efbea94ebaa09d1a2853c4b9975b2bf62f0c6",
+      "history_versions_checked": 1,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "8e16065cc67455f05127782e5e1efbea94ebaa09d1a2853c4b9975b2bf62f0c6"
+        },
+        {
+          "commit": "4e76a7de361f32a17062ea8189e875844ee10660",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "8e16065cc67455f05127782e5e1efbea94ebaa09d1a2853c4b9975b2bf62f0c6"
+        },
+        {
+          "commit": "634fa92d6092918c5b3e091736ab28ab9b0b4b49",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "8e16065cc67455f05127782e5e1efbea94ebaa09d1a2853c4b9975b2bf62f0c6"
+        }
+      ],
+      "match_status": "MATCH"
+    },
+    {
+      "path": "deploy/mail-webjob/run.sh",
+      "owner_sha256": "8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015",
+      "history_versions_checked": 2,
+      "matches": [
+        {
+          "commit": "0bf311fb6d6a298712fd4cd16d0722305516edd4",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015"
+        },
+        {
+          "commit": "634fa92d6092918c5b3e091736ab28ab9b0b4b49",
+          "variants": [
+            "raw_git_bytes",
+            "lf_normalized"
+          ],
+          "raw_sha256": "8549c2b452b03a883dffbb0752ff33b35c6f86aa137f85255a8d42ce72fa6015"
+        }
+      ],
+      "match_status": "MATCH"
+    }
+  ],
+  "missing_paths": [
+    "signin.php"
+  ],
+  "duplicate_fingerprint_blocks": "identical repeated block, deduplicated; not independent captures",
+  "full_app_identity_established": false,
+  "separately_deployed_webjob_identity_established": false
+}
