@@ -208,8 +208,9 @@ try {
     rr_denied('RP-R07.no_other_schema',$rp,'CREATE TABLE '.$other.'.runtime_forbidden(id INT)');
     rr_denied('RP-R08.no_arbitrary_execute',$rp,'CALL role_private_canary()');
     rr_denied('RP-R09.immutable_generation',$rp,'UPDATE users SET signup_attempt_key=REPEAT("e",64) WHERE id='.$u['id'],[1644]);
-    // An explicit probe confirms the fixture is bounded, not all-D03 coverage.
-    rr_denied('RP-R10.ungranted_mail',$rp,'UPDATE mail_outbox SET body=NULL WHERE id='.$mail);
+    // Issuance/cancellation need outbox UPDATE; physical row deletion is not
+    // a runtime operation. Historical RP-R10 remains in its original evidence.
+    rr_denied('RP-R10.no_mail_row_delete',$rp,'DELETE FROM mail_outbox WHERE id='.$mail);
     rr_check('RP-L02.epoch','Migration does not activate real cutover or certify genesis',$root->query('SELECT activated_at FROM pair_ledger_epoch WHERE singleton=1')->fetchColumn()===null&&(int)$root->query('SELECT COUNT(*) FROM pair_account_genesis')->fetchColumn()===0);
 } catch (Throwable $e) {
     $failure=$e instanceof PDOException?'MYSQL_'.($e->errorInfo[1]??0):$e->getMessage();

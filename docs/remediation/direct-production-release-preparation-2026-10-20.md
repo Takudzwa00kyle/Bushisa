@@ -1,5 +1,16 @@
 # Controlled direct-production release preparation
 
+**26 October current checkpoint:** [restricted routes and local recovery](release-routes-recovery-evidence-2026-10-26.md)
+supplies additional local permission, worker-pairing and logical restore/replay
+evidence on existing equipment. DR-P01 remains PARTIAL for actual Azure service
+acceptance; DR-P02 actual previous artifact, DR-P03 witnessed production recovery
+and DR-P04 live smoke/delivery remain NOT RUN. The synthetic replay fixture is
+not a production recovery adapter. Existing-resource direct release is retained;
+no paid staging environment is required. Full D03/legacy cutover, approved
+maintenance/write fencing, compatible forward repair and external evidence
+still prevent go/no-go approval. Current candidate CI is linked in the follow-up;
+historical claims below keep their original commit/run attribution.
+
 **22 October local engineering follow-up:** [role/worker evidence](release-roles-worker-evidence-2026-10-22.md)
 records 58 strict-profile checks, 337 affected-regression assertions and focused
 worker/configuration checks. Worker-reachable reads and validation locks

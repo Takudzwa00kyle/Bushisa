@@ -12,7 +12,7 @@ function connect(?array $credentials=null): PDO
     $s=\bushisa_require_disposable_test_database('L03a synthetic fixture');
     \Bushisa\Evidence\synthetic_guard();
     $p=new PDO(sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',$s['host'],$s['port'],$s['name']),$credentials['user']??$s['user'],$credentials['password']??$s['password'],
-        [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,PDO::ATTR_STRINGIFY_FETCHES=>true]);
+        [PDO::ATTR_STRINGIFY_FETCHES=>true]+\bushisa_disposable_database_pdo_options($s));
     $p->exec("SET time_zone='+00:00'"); return $p;
 }
 function install(PDO $root): void
@@ -74,7 +74,9 @@ function worker_user(PDO $root,string $database): array
     $user='l03a_exec_'.bin2hex(random_bytes(4)); $password=bin2hex(random_bytes(24));
     $host=(string)$root->query("SELECT SUBSTRING_INDEX(USER(),'@',-1)")->fetchColumn();
     if (!preg_match('/\A[a-zA-Z0-9_.:-]{1,255}\z/D',$host)) { throw new \RuntimeException('Unsafe synthetic client host'); }
-    $account="'$user'@'$host'"; $db=\bushisa_quote_disposable_identifier($database); query($root,"CREATE USER $account IDENTIFIED BY ?",[$password]);
+    $account="'$user'@'$host'"; $db=\bushisa_quote_disposable_identifier($database);
+    // CREATE USER does not support a native prepared value placeholder.
+    $root->exec("CREATE USER $account IDENTIFIED BY ".$root->quote($password));
     $root->exec("GRANT SELECT ON $db.* TO $account");
     $tables=['evidence_case_clocks','evidence_lifecycle_items','evidence_lifecycle_holds','evidence_lifecycle_operations','evidence_lifecycle_events',
         'evidence_purge_obligations','evidence_lifecycle_alerts','evidence_recovery_outbox','evidence_recovery_state','evidence_recovery_overrides','evidence_cleanup_cursor'];

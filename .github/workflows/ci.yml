@@ -385,12 +385,36 @@ jobs:
         run: |
           export BUSHISA_ROLE_SERVER_UUID="$(php tests/support/release_role_identity.php)"
           php tests/integration_release_roles.php
+      - name: Restricted runtime HTTP routes and local synthetic logical recovery
+        env:
+          DB_NAME: bushisa_test_release_observed_roles_routes_ci
+          BUSHISA_RELEASE_ROLE_TEST: "true"
+        run: |
+          export BUSHISA_ROLE_SERVER_UUID="$(php tests/support/release_role_identity.php)"
+          php tests/integration_release_routes_recovery.php
+      - name: Affected text-evidence lifecycle and recovery-interface regressions
+        env:
+          DB_NAME: bushisa_test_l03a_release_ci
+          BUSHISA_L03A_SYNTHETIC: "true"
+          MAIL_PROVIDER: fake
+          MAIL_TRANSPORT: fake
+        run: php tests/integration_l03a_lifecycle.php
+      - name: Sanitized lifecycle regression results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-lifecycle-regression
+          path: .tmp/l03a-*/results.json
+          include-hidden-files: true
+          if-no-files-found: error
       - name: Sanitized role-check results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: release-role-results
-          path: test-results/release-roles.json
+          path: |
+            test-results/release-roles.json
+            test-results/release-routes-recovery.json
           if-no-files-found: error
       - name: Sanitized release rehearsal evidence
         if: always()

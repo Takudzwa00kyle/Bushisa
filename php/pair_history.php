@@ -97,7 +97,9 @@ function bushisa_pair_operation(PDO $pdo, int $actor, array $pair, array $input,
     }
     unset($input['csrf_token']); ksort($input);
     $hash=hash('sha256',json_encode($input,JSON_THROW_ON_ERROR)); $keyHash=hash('sha256',$key);
-    $stmt=$pdo->prepare('SELECT * FROM pair_policy_operations WHERE actor_id=? AND key_hash=? FOR UPDATE');
+    // Pair row + report-service mutex already serialize first delivery/retry.
+    // This receipt is immutable; a locking read must not require UPDATE grants.
+    $stmt=$pdo->prepare('SELECT * FROM pair_policy_operations WHERE actor_id=? AND key_hash=? LOCK IN SHARE MODE');
     $stmt->execute([$actor,$keyHash]); $old=$stmt->fetch(PDO::FETCH_ASSOC);
     if (is_array($old)) {
         if (!hash_equals($old['intent_hash'],$hash)) { throw new BushisaReportError(409,'Submission key conflict'); }

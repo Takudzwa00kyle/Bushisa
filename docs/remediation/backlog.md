@@ -1,5 +1,16 @@
 # Bushisa P0-P2 Remediation Backlog
 
+**26 October current follow-up:** [restricted routes, worker pairing and local recovery](release-routes-recovery-evidence-2026-10-26.md)
+adds actual restricted-runtime HTTP coverage and a same-equipment synthetic
+logical restore/replay rehearsal. Shared immutable-receipt reads avoid granting
+UPDATE merely to obtain a lock. Enumerated current D03 routes advance HR04;
+full D03, actual Azure grants/definers, legacy continuation/cutover, production
+replay/storage and witnessed recovery remain open. Old-worker/candidate
+incompatibility and unsafe old-code rollback remain explicit. Reviewer/operator
+names remain PENDING; reset stays off and managed staging stays deferred with
+all 18 cases NOT RUN. See that evidence for current exact-candidate CI; the
+22 October paragraph below is its historical checkpoint, not current CI status.
+
 **22 October local engineering follow-up:** [role/worker evidence](release-roles-worker-evidence-2026-10-22.md)
 records 58 strict-profile checks, 337 affected-regression assertions and focused
 worker/configuration checks. Worker-reachable reads and validation locks

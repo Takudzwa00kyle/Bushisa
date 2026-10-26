@@ -131,7 +131,9 @@ function audit(PDO $db,int $case,?int $actor,?string $item,string $action,string
 function register_case(PDO $db,int $case): bool
 {
     if (!\operational_table_exists($db,'evidence_case_clocks')) { return false; }
-    $r=query($db,'SELECT intake_contract_version,final_resolution_at FROM moderation_cases WHERE id=? FOR UPDATE',[$case])->fetch(PDO::FETCH_ASSOC);
+    // Registration reads the case; only qualified resolution paths may change
+    // it. Shared locking retains stability without case-mutation privileges.
+    $r=query($db,'SELECT intake_contract_version,final_resolution_at FROM moderation_cases WHERE id=? LOCK IN SHARE MODE',[$case])->fetch(PDO::FETCH_ASSOC);
     if (!$r || (int)$r['intake_contract_version']!==1) { return false; }
     $reason=$r['final_resolution_at']===null?'MISSING_EFFECTIVE_NOTICE':'UNTRUSTED_HISTORICAL_FINAL';
     query($db,'INSERT IGNORE INTO evidence_case_clocks (case_id,domain,state,unresolved_code,observed_at) VALUES (?,?,"missing_notice",?,?)',

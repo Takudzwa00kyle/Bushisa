@@ -489,7 +489,7 @@ function bushisa_report_incident(PDO $pdo, int $reporter, string $receipt): arra
 {
     $stmt = $pdo->prepare('SELECT i.*, c.final_resolution_at, c.report_resolution_class, c.status AS case_status
         FROM report_incidents i JOIN moderation_cases c ON c.id = i.case_id
-        WHERE i.reporter_id = ? AND i.receipt_id = ? FOR UPDATE');
+        WHERE i.reporter_id = ? AND i.receipt_id = ? LOCK IN SHARE MODE');
     $stmt->execute([$reporter, $receipt]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!is_array($row) || (($expiry = bushisa_report_case_expiry($row)) !== null && bushisa_report_now($pdo) >= $expiry)) {
@@ -530,7 +530,9 @@ function bushisa_report_should_activate(?string $lastEnd, string $received, stri
 
 function bushisa_report_activate(PDO $pdo, int $actor, int $submission, string $received): void
 {
-    $stmt = $pdo->prepare('SELECT expires_at FROM report_probation_periods WHERE actor_id = ? ORDER BY expires_at DESC LIMIT 1 FOR UPDATE');
+    // The actor row is already exclusively locked. Past periods are immutable;
+    // stabilize the read without granting permission to rewrite their clocks.
+    $stmt = $pdo->prepare('SELECT expires_at FROM report_probation_periods WHERE actor_id = ? ORDER BY expires_at DESC LIMIT 1 LOCK IN SHARE MODE');
     $stmt->execute([$actor]);
     $end = $stmt->fetchColumn();
     $now = bushisa_report_now($pdo);
@@ -601,7 +603,7 @@ function bushisa_report_intake(PDO $pdo, int $reporter, array $payload, ?int $se
         $canonical = bushisa_report_canonical($intent, $reporter, $ring);
         foreach ($ring['keys'] as $keyId => $secret) {
             $keyHash = bushisa_report_mac('operation-key', $intent['idempotency_key'], $secret);
-            $stmt = $pdo->prepare('SELECT * FROM report_operations WHERE reporter_id = ? AND key_hash = ? FOR UPDATE');
+            $stmt = $pdo->prepare('SELECT * FROM report_operations WHERE reporter_id = ? AND key_hash = ? LOCK IN SHARE MODE');
             $stmt->execute([$reporter, $keyHash]);
             $operation = $stmt->fetch(PDO::FETCH_ASSOC);
             if (is_array($operation)) {
@@ -628,7 +630,7 @@ function bushisa_report_intake(PDO $pdo, int $reporter, array $payload, ?int $se
             $target['type'] === 'match' ? $target['author'] : null,
             $target['type'] === 'user' ? $intent['idempotency_key'] : null,
         ], JSON_THROW_ON_ERROR));
-        $stmt = $pdo->prepare('SELECT receipt_id FROM report_incidents WHERE reporter_id = ? AND anchor_hash = ? FOR UPDATE');
+        $stmt = $pdo->prepare('SELECT receipt_id FROM report_incidents WHERE reporter_id = ? AND anchor_hash = ? LOCK IN SHARE MODE');
         $stmt->execute([$reporter, $anchor]);
         $known = $stmt->fetchColumn();
         $newReport = $known === false;
@@ -683,7 +685,7 @@ function bushisa_report_intake(PDO $pdo, int $reporter, array $payload, ?int $se
         $contextRefs = array_map(static fn(array $c): array => [$c['type'], $c['id'], $c['version'], $c['container']], array_values($contexts));
         $info = bushisa_report_mac('case-information', json_encode([$intent['reason'], $intent['explanation'],
             $contextRefs], JSON_THROW_ON_ERROR), $secret);
-        $stmt = $pdo->prepare('SELECT id FROM report_submissions WHERE incident_id = ? AND information_hash = ? FOR UPDATE');
+        $stmt = $pdo->prepare('SELECT id FROM report_submissions WHERE incident_id = ? AND information_hash = ? LOCK IN SHARE MODE');
         $stmt->execute([(int) $incident['id'], $info]);
         $submission = $stmt->fetchColumn();
         if ($submission === false) {
@@ -796,7 +798,7 @@ function bushisa_report_require_reviewer(PDO $pdo, int $reviewer, int $case, arr
         $stmt = $pdo->prepare('SELECT role FROM users WHERE id = ?');
         $stmt->execute([$reviewer]);
         $role = $stmt->fetchColumn();
-        $stmt = $pdo->prepare('SELECT 1 FROM moderation_case_assignments WHERE case_id = ? AND assigned_user_id = ? AND revoked_at IS NULL FOR UPDATE');
+        $stmt = $pdo->prepare('SELECT 1 FROM moderation_case_assignments WHERE case_id = ? AND assigned_user_id = ? AND revoked_at IS NULL LOCK IN SHARE MODE');
         $stmt->execute([$case, $reviewer]);
         if (!in_array($role, ['moderator', 'admin'], true) || !$stmt->fetchColumn()) {
             throw new BushisaReportError(403, 'Assigned reviewer required');
@@ -871,18 +873,18 @@ function bushisa_report_review_evidence(PDO $pdo, int $case, int $reviewer, arra
             return [];
         }
         $stmt = $pdo->prepare('SELECT 1 FROM users u JOIN moderation_case_assignments a ON a.assigned_user_id = u.id
-            WHERE u.id = ? AND u.role IN ("moderator", "admin") AND a.case_id = ? AND a.revoked_at IS NULL FOR UPDATE');
+            WHERE u.id = ? AND u.role IN ("moderator", "admin") AND a.case_id = ? AND a.revoked_at IS NULL LOCK IN SHARE MODE');
         $stmt->execute([$reviewer, $case]);
         if (!$stmt->fetchColumn()) { return []; }
         $stmt = $pdo->prepare('SELECT evidence_purge_due_at AS expires_at, final_resolution_at, report_resolution_class
-            FROM moderation_cases WHERE id = ? AND intake_contract_version = 1 FOR UPDATE');
+            FROM moderation_cases WHERE id = ? AND intake_contract_version = 1 LOCK IN SHARE MODE');
         $stmt->execute([$case]);
         $caseRow = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!is_array($caseRow)) { return []; }
         $expiry = bushisa_report_case_expiry($caseRow);
         if ($expiry !== null && bushisa_report_now($pdo) >= $expiry) { return []; }
         $stmt = $pdo->prepare('SELECT i.expires_at, c.final_resolution_at, c.report_resolution_class
-            FROM report_incidents i JOIN moderation_cases c ON c.id = i.case_id WHERE i.case_id = ? FOR UPDATE');
+            FROM report_incidents i JOIN moderation_cases c ON c.id = i.case_id WHERE i.case_id = ? LOCK IN SHARE MODE');
         $stmt->execute([$case]);
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
             $expiry = bushisa_report_case_expiry($row);

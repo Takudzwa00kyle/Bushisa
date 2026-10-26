@@ -1,5 +1,17 @@
 # Direct-release handover: worker, roles, cutover and recovery
 
+**26 October current handoff:** [route/worker/recovery evidence](release-routes-recovery-evidence-2026-10-26.md)
+records restricted-runtime real-route testing, the candidate LF wrapper with
+actual restricted-worker CLIs, and local synthetic restore/replay. It advances
+HR04 only for enumerated implemented routes and provides local recovery effects,
+not a production replay adapter or Azure recovery acceptance. No historical
+case result is rewritten. Actual grants/definers, full D03, legacy cutover,
+safe traffic fencing, compatible fallback and independently durable/witnessed
+recovery remain release gates. Stop/drain the installed old job before either
+package changes; old wrapper plus candidate still stops dispatch at guard 78.
+Appointments remain PENDING. PR 8 remains draft; current CI is attributed in
+the new evidence rather than inferred from the older paragraph below.
+
 **22 October local engineering follow-up:** [role/worker evidence](release-roles-worker-evidence-2026-10-22.md)
 records 58 strict-profile checks, 337 affected-regression assertions and focused
 worker/configuration checks. Worker-reachable reads and validation locks
